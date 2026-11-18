@@ -1,0 +1,63 @@
+{
+  "series_days": 365,
+  "backtest": {
+    "seasonal_naive": {
+      "mean_mae": 0.0104,
+      "mean_rmse": 0.0122,
+      "mean_mape": 1.17,
+      "worst_mae": 0.0144
+    },
+    "holt": {
+      "mean_mae": 0.0139,
+      "mean_rmse": 0.0166,
+      "mean_mape": 1.57,
+      "worst_mae": 0.0179
+    },
+    "trend_seasonal": {
+      "mean_mae": 0.0085,
+      "mean_rmse": 0.01,
+      "mean_mape": 0.96,
+      "worst_mae": 0.0114
+    }
+  },
+  "best_model": "trend_seasonal",
+  "computed": {
+    "mean_mae": 0.0085,
+    "mean_rmse": 0.01,
+    "mean_mape": 0.96
+  },
+  "grounding_good_note": {
+    "cited": 2,
+    "supported": 2,
+    "unsupported": [],
+    "grounding_rate": 1.0
+  },
+  "grounding_bad_note": {
+    "cited": 2,
+    "supported": 0,
+    "unsupported": [
+      0.001,
+      0.002
+    ],
+    "grounding_rate": 0.0
+  },
+  "completeness_good_note": 1.0,
+  "completeness_bad_note": 0.8,
+  "paired_baseline_vs_tuned": {
+    "n": 10,
+    "wins": 10,
+    "ties": 0,
+    "win_rate": 1.0,
+    "mean_diff": 0.09300000000000003,
+    "ci_95": [
+      0.08700000000000002,
+      0.09900000000000005
+    ],
+    "p_value": 0.001953125
+  },
+  "bonferroni_adjusted_p": [
+    0.0059,
+    0.12,
+    0.9
+  ]
+}

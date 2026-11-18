@@ -1,0 +1,14 @@
+Acceptance Intelligence — Forecast + LLM Evaluation Report
+Series: 365 synthetic daily acceptance rates (seed 7)
+
+Walk-forward backtest (6 folds, 7-day horizon):
+  seasonal_naive: mean MAE 0.0104, mean RMSE 0.0122, mean MAPE 1.17%
+  holt: mean MAE 0.0139, mean RMSE 0.0166, mean MAPE 1.57%
+  trend_seasonal: mean MAE 0.0085, mean RMSE 0.0100, mean MAPE 0.96%
+Best model by mean MAE: trend_seasonal
+
+Grounded note: grounding 1.00, completeness 1.00
+Ungrounded note: grounding 0.00, unsupported numbers [0.001, 0.002], completeness 0.80
+
+Paired tuned-vs-baseline: win rate 1.00, mean diff 0.093, 95% CI [0.087, 0.099], p 0.0020
+Bonferroni-adjusted p-values: [0.0059, 0.12, 0.9]

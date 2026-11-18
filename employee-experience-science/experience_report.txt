@@ -1,0 +1,30 @@
+EMPLOYEE EXPERIENCE SCIENCE REPORT
+Employees analysed: 1200
+Mean experience score (1-5): 3.49
+Mean wellbeing score (1-5): 3.80
+Attrition rate: 11.5%
+Overtime vs wellbeing correlation (Pearson r): -0.149
+
+CONFIRMED EXPERIENCE DEFECTS (Bonferroni alpha = 0.0100)
+Confirmed defects: 4 of 5 segments tested
+- Night shift vs Day shift: mean 3.093 vs 3.655 (diff -0.56, 95% CI [-0.63, -0.49], Cohen's d -0.89, p=0) — CONFIRMED. Attrition 16.8% vs 9.3% (chi2 p=0.00023).
+- Overtime >10h vs <=10h: mean 3.022 vs 3.563 (diff -0.54, 95% CI [-0.65, -0.43], Cohen's d -0.82, p=0) — CONFIRMED. Attrition 22.8% vs 9.7% (chi2 p=1.1e-06).
+- New manager (<1y) vs experienced: mean 3.146 vs 3.526 (diff -0.38, 95% CI [-0.51, -0.25], Cohen's d -0.56, p=9.7e-09) — CONFIRMED. Attrition 13.3% vs 11.3% (chi2 p=0.53).
+- 4+ schedule changes vs fewer: mean 3.262 vs 3.525 (diff -0.26, 95% CI [-0.37, -0.16], Cohen's d -0.39, p=2.1e-06) — CONFIRMED. Attrition 19.6% vs 10.3% (chi2 p=0.0006).
+- Tenure <1y vs >=1y: mean 3.519 vs 3.488 (diff +0.03, 95% CI [-0.11, +0.18], Cohen's d +0.05, p=0.68) — not confirmed. Attrition 10.4% vs 11.6% (chi2 p=0.75).
+
+FEEDBACK-THEME BENCHMARK (rule-based classifier vs true themes)
+Accuracy: 0.882  Macro F1: 0.931
+- workload: precision 1.000, recall 0.764, F1 0.866 (n=208)
+- schedule: precision 1.000, recall 0.781, F1 0.877 (n=178)
+- manager: precision 1.000, recall 0.727, F1 0.842 (n=198)
+- pay: precision 1.000, recall 1.000, F1 1.000 (n=235)
+- growth: precision 1.000, recall 1.000, F1 1.000 (n=177)
+- tools: precision 1.000, recall 1.000, F1 1.000 (n=204)
+
+WHAT THIS MEANS
+- Night shift vs Day shift: employees in this group score 0.56 points lower on experience and leave at 17% vs 9%; fix this first.
+- Overtime >10h vs <=10h: employees in this group score 0.54 points lower on experience and leave at 23% vs 10%; fix this first.
+- New manager (<1y) vs experienced: employees in this group score 0.38 points lower on experience and leave at 13% vs 11%; fix this first.
+- 4+ schedule changes vs fewer: employees in this group score 0.26 points lower on experience and leave at 20% vs 10%; fix this first.
+- The feedback classifier is a transparent baseline: a GenAI summariser must beat its macro F1 before it can be trusted on employee comments.

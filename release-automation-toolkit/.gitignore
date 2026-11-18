@@ -1,0 +1,5 @@
+__pycache__/
+.pytest_cache/
+release_history/
+release_reports/
+*.db

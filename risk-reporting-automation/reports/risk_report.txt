@@ -1,0 +1,47 @@
+RISK REPORTING — LIMITS & LIQUIDITY STRESS
+As of: 2026-11-18   (synthetic data — not real positions)
+============================================================
+
+LIMIT UTILISATION BY DESK AND RISK TYPE
+Desk                  Risk type             Exposure         Limit   Util %  Status
+Credit                Concentration       475,339.96 12,000,000.00     4.0%  OK
+Credit                DV01              1,540,534.62 14,400,000.00    10.7%  OK
+Credit                Liquidity Gap     1,174,911.49 24,000,000.00     4.9%  OK
+Credit                VaR                 195,253.15 18,000,000.00     1.1%  OK
+FX                    Concentration    12,819,153.78  8,000,000.00   160.2%  BREACH
+FX                    DV01                678,557.84  9,600,000.00     7.1%  OK
+FX                    Liquidity Gap       705,978.80 16,000,000.00     4.4%  OK
+FX                    VaR                 504,837.12 12,000,000.00     4.2%  OK
+Liquidity Management  Concentration       888,362.78 11,000,000.00     8.1%  OK
+Liquidity Management  DV01                487,049.04 13,200,000.00     3.7%  OK
+Liquidity Management  Liquidity Gap       515,928.72 22,000,000.00     2.4%  OK
+Liquidity Management  VaR                 571,740.38 16,500,000.00     3.5%  OK
+Rates                 Concentration       273,952.71 10,000,000.00     2.7%  OK
+Rates                 DV01                832,804.40 12,000,000.00     6.9%  OK
+Rates                 Liquidity Gap       433,766.40 20,000,000.00     2.2%  OK
+Rates                 VaR              19,496,374.10 15,000,000.00   130.0%  BREACH
+Secured Funding       Concentration     1,259,599.24  9,000,000.00    14.0%  OK
+Secured Funding       DV01              1,047,647.29 10,800,000.00     9.7%  OK
+Secured Funding       Liquidity Gap       436,450.61 18,000,000.00     2.4%  OK
+Secured Funding       VaR                 447,049.56 13,500,000.00     3.3%  OK
+
+Limits checked: 20  Breaches: 2  Warnings: 0
+
+LIQUIDITY STRESS — COVERAGE RATIO
+Scenario       Liquid assets   Stressed outflows   Coverage  Status
+Baseline               78.00               55.00       1.42  PASS
+Adverse                74.10               70.00       1.06  PASS
+Severe                 68.64               85.00       0.81  BREACH
+
+EXCEPTIONS
+Exception queue: 5 item(s)
+  [HIGH]  FX/Concentration: limit breach: utilisation 160.2% (exposure 12,819,153.78 vs limit 8,000,000.00)
+  [HIGH]  Liquidity Management/Liquidity Gap: liquidity stress breach in Severe scenario: coverage ratio 0.81 (liquid assets 68.64 vs stressed outflows 85.0)
+  [HIGH]  Rates/VaR: limit breach: utilisation 130.0% (exposure 19,496,374.10 vs limit 15,000,000.00)
+  [HIGH] TRD-9101 Rates/VaR: negative exposure -250000.0
+  [HIGH] TRD-9102 Unknown Desk/VaR: no limit defined for desk/risk type
+
+RECONCILIATION (Python aggregates vs SQL aggregates)
+PASS — no mismatches
+
+Sign-off: see signoff_checklist.csv — breaches and exceptions must be reviewed before this report is distributed.

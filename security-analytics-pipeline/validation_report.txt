@@ -1,0 +1,84 @@
+Security Analytics Pipeline — Validation Report
+=================================================
+
+Pipeline stages
+---------------
+Staged login events:  316
+Staged audit events:  153
+Staged findings:      60
+Identities:           40
+Assets:               30
+Normalized events:    460
+Normalized findings:  58
+Quarantined rows:     11
+Late-arriving events: 2 (normalized, flagged)
+
+Data-quality checks
+-------------------
+FAIL — login events complete: 2 of 316 rows missing a required field
+PASS — audit events complete: all 153 rows complete
+PASS — findings complete: all 60 rows complete
+FAIL — login event_id unique: 2 duplicate event_id value(s)
+FAIL — audit event_id unique: 1 duplicate event_id value(s)
+FAIL — login identity references resolve: 2 row(s) reference an unknown identity_id
+FAIL — audit identity references resolve: 1 row(s) reference an unknown identity_id
+FAIL — audit asset references resolve: 1 row(s) reference an unknown asset_id
+FAIL — finding asset references resolve: 1 row(s) reference an unknown asset_id
+FAIL — login events not late: 2 event(s) dated before the 2026-10-01 watermark
+PASS — audit events not late: no events before the watermark
+FAIL — finding dates valid (due_date >= discovered_date): 1 finding(s) with due_date before discovered_date
+FAIL — finding discovered_date not in the future: 1 finding(s) discovered after 2026-11-18
+Checks: 3 of 13 passed
+
+Control-effectiveness KPIs
+--------------------------
+MFA coverage (privileged): 75.0% (6/8)
+MFA coverage (all identities): 92.5%
+Successful logins with MFA: 95.2% (260/273)
+Stale privileged access: 25.0% (2/8 dormant > 90 days)
+Mean time to remediate findings: 6.3 days (20 remediated)
+Overdue findings: 6 of 58 (10.3%), 38 still open
+Findings by severity: {'critical': 5, 'high': 15, 'low': 14, 'medium': 24}
+Open findings by severity: {'critical': 5, 'high': 10, 'low': 10, 'medium': 13}
+
+Anomalies flagged
+-----------------
+Impossible-travel logins: 1
+  - id-003: New York (US) -> Tokyo (JP) in 30.0 min
+Dormant privileged accounts: 2
+  - id-001 (Ava Patel): last login 120 days ago
+  - id-021 (Iris Patel): last login 100 days ago
+Overdue findings: 6
+  - find-021 [low] on asset-003: Missing security header (due 2026-11-13)
+  - find-022 [high] on asset-024: Outdated TLS configuration (due 2026-11-13)
+  - find-023 [high] on asset-030: Outdated TLS configuration (due 2026-11-13)
+  - find-024 [critical] on asset-008: Unpatched remote-code-execution flaw (due 2026-11-13)
+  - find-025 [low] on asset-028: Verbose error messages (due 2026-11-13)
+  - find-026 [critical] on asset-030: Exposed admin console (due 2026-11-13)
+Brute-force bursts: 1
+  - id-007: 6 failed logins from 198.51.100.44 between 2026-11-12T14:00:00 and 2026-11-12T14:05:00
+
+Evidence collection per control
+-------------------------------
+Evidence completeness: 100.0% (5 of 5 controls have evidence)
+CTRL-01 [FAIL] Privileged access requires MFA
+    checked: 6 of 8 privileged identities have MFA enabled
+    value: 75.0% | threshold: 100% of privileged identities have MFA enabled
+CTRL-02 [FAIL] Dormant privileged access is reviewed
+    checked: 2 of 8 privileged identities dormant over 90 days
+    value: 2 | threshold: 0 privileged identities dormant over 90 days
+CTRL-03 [FAIL] Findings are remediated by their due date
+    checked: 6 of 38 open findings past due; mean time to remediate 6.3 days over 20 remediated findings
+    value: 6 | threshold: 0 open findings past due
+CTRL-04 [FAIL] Login anomalies are detected
+    checked: 1 impossible-travel login pair(s), 1 brute-force burst(s) detected in 273 successful logins
+    value: 2 | threshold: 0 undetected impossible-travel logins and brute-force bursts
+CTRL-05 [FAIL] Security telemetry is complete and referentially valid
+    checked: 11 of 529 staged rows quarantined; 3 of 13 data-quality checks passed
+    value: 11 | threshold: 0 quarantined rows out of staged rows
+
+Notes
+-----
+All data is synthetic and seeded; nothing here describes a real
+organization or a real security posture. The controls are
+illustrative examples, not an audit opinion.

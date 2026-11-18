@@ -1,0 +1,6 @@
+DAG RUN daily-2026-11-18: SUCCEEDED
+ingest_bronze: skipped (0 attempt(s), 0.00s) — already succeeded with same inputs
+validate_bronze: skipped (0 attempt(s), 0.00s) — already succeeded with same inputs
+build_silver: skipped (0 attempt(s), 0.00s) — already succeeded with same inputs
+build_gold: skipped (0 attempt(s), 0.00s) — already succeeded with same inputs
+reconcile_report: skipped (0 attempt(s), 0.00s) — already succeeded with same inputs

@@ -1,0 +1,48 @@
+# Cross-Asset Model Validation Suite -- scenario grids.
+#
+# Each asset class defines base model inputs plus a shock grid. The runner
+# expands the grid (Cartesian product within an asset class) and evaluates
+# every registered invariant at every grid point, so editing this file is
+# the only step needed to add stress coverage.
+
+tolerances:
+  parity: 1.0e-9      # max allowed error for parity / repricing identities
+  short_end: 1.0e-3   # max allowed |P(tau->0) - face| for the Vasicek check
+
+rates:
+  base:
+    maturities: [0.5, 1, 2, 3, 5, 7, 10]
+    zero_rates: [0.021, 0.023, 0.026, 0.028, 0.031, 0.033, 0.035]
+    # Annual-pay par yields used for the bootstrap / repricing invariant.
+    par_maturities: [1, 2, 3, 4, 5]
+    par_yields: [0.020, 0.022, 0.025, 0.027, 0.030]
+    vasicek:
+      a: 0.30        # mean-reversion speed
+      theta: 0.030   # long-run mean short rate
+      sigma: 0.010   # short-rate volatility
+      r0: 0.025      # initial short rate
+  shocks:
+    parallel_shift_bp: [-100, 0, 100, 200]
+
+fx:
+  base:
+    spot: 1.10            # USD per EUR
+    domestic_rate: 0.030  # USD, continuously compounded
+    foreign_rate: 0.015   # EUR, continuously compounded
+    vol: 0.10
+    tenor: 1.0
+    strikes: [0.95, 1.05, 1.10, 1.15, 1.25]
+  shocks:
+    spot_pct: [-10, 0, 10]
+    vol_points: [-0.03, 0.0, 0.05]
+
+equity:
+  base:
+    spot: 100.0
+    rate: 0.04
+    vol: 0.20
+    tenor: 1.0
+    strikes: [80, 90, 100, 110, 120]
+  shocks:
+    spot_pct: [-20, 0, 20]
+    vol_points: [-0.05, 0.0, 0.10]

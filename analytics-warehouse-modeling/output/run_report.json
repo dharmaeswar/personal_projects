@@ -1,0 +1,110 @@
+{
+  "batch_id": "batch-2026-11-13",
+  "run_date": "2026-11-13",
+  "sla_days": 2,
+  "sla_status": "PASS",
+  "reference_data": {
+    "accounts_loaded": 4,
+    "regions_loaded": 3
+  },
+  "load": {
+    "batch_id": "batch-2026-11-13",
+    "events_received": 27,
+    "events_valid": 25,
+    "facts_inserted": 24,
+    "skipped_duplicates": 0,
+    "quarantined": 3,
+    "max_usage_date": "2026-11-12"
+  },
+  "rows_loaded": 24,
+  "rows_quarantined": 3,
+  "quarantined": [
+    {
+      "record": {
+        "event_id": "EVT-BAD1",
+        "account_id": "ACCT-1001",
+        "service_code": "COMPUTE",
+        "region_code": "us-east-1",
+        "usage_date": "2026-11-12",
+        "usage_qty": 5,
+        "cost_usd": -12.5,
+        "unit": "vCPU-hours"
+      },
+      "reasons": [
+        "field cost_usd: negative value -12.5"
+      ],
+      "feed": "service_usage_events"
+    },
+    {
+      "record": {
+        "event_id": "EVT-BAD2",
+        "account_id": "ACCT-1001",
+        "service_code": "COMPUTE",
+        "region_code": "us-east-1",
+        "usage_date": "2026-11-12",
+        "usage_qty": 5,
+        "unit": "vCPU-hours"
+      },
+      "reasons": [
+        "missing required field: cost_usd"
+      ],
+      "feed": "service_usage_events"
+    },
+    {
+      "record": {
+        "event_id": "EVT-BAD3",
+        "account_id": "ACCT-9999",
+        "service_code": "COMPUTE",
+        "service_name": "Compute Service",
+        "tier": "standard",
+        "pricing_model": "on-demand",
+        "region_code": "us-east-1",
+        "usage_date": "2026-11-12",
+        "usage_qty": 5,
+        "cost_usd": 2.1,
+        "unit": "vCPU-hours"
+      },
+      "reasons": [
+        "unknown account_id ACCT-9999"
+      ],
+      "feed": "service_usage_events"
+    }
+  ],
+  "checks": [
+    {
+      "name": "referential_integrity_fact_to_dims",
+      "passed": true,
+      "details": "0 fact row(s) with a missing dimension"
+    },
+    {
+      "name": "no_null_or_negative_usage",
+      "passed": true,
+      "details": "0 fact row(s) null or negative"
+    },
+    {
+      "name": "no_duplicate_events",
+      "passed": true,
+      "details": "0 duplicated event_id(s)"
+    },
+    {
+      "name": "scd2_single_current_no_overlap",
+      "passed": true,
+      "details": "0 service(s) with >1 current row; 0 overlapping version pair(s)"
+    },
+    {
+      "name": "freshness_sla",
+      "passed": true,
+      "details": "newest usage date 2026-11-12; run date 2026-11-13; lag 1 day(s); SLA 2 day(s)",
+      "lag_days": 1,
+      "sla_days": 2,
+      "newest_usage_date": "2026-11-12"
+    }
+  ],
+  "all_checks_passed": true,
+  "analytics_row_counts": {
+    "service_adoption_trend": 8,
+    "revenue_driver_by_service_region": 11,
+    "cost_per_account": 4,
+    "daily_cost_trend": 12
+  }
+}

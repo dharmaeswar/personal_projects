@@ -1,0 +1,278 @@
+{
+  "service_adoption_trend": [
+    {
+      "year": 2026,
+      "month": 10,
+      "service_code": "DATABASE",
+      "service_name": "Managed Database",
+      "active_days": 3,
+      "total_usage": 177.0,
+      "total_cost_usd": 150.45,
+      "distinct_accounts": 2
+    },
+    {
+      "year": 2026,
+      "month": 10,
+      "service_code": "COMPUTE",
+      "service_name": "Compute Service",
+      "active_days": 3,
+      "total_usage": 156.0,
+      "total_cost_usd": 65.52,
+      "distinct_accounts": 2
+    },
+    {
+      "year": 2026,
+      "month": 10,
+      "service_code": "STORAGE",
+      "service_name": "Object Storage",
+      "active_days": 4,
+      "total_usage": 222.0,
+      "total_cost_usd": 51.06,
+      "distinct_accounts": 2
+    },
+    {
+      "year": 2026,
+      "month": 10,
+      "service_code": "STREAMING",
+      "service_name": "Event Streaming",
+      "active_days": 2,
+      "total_usage": 111.0,
+      "total_cost_usd": 5.550000000000001,
+      "distinct_accounts": 2
+    },
+    {
+      "year": 2026,
+      "month": 11,
+      "service_code": "DATABASE",
+      "service_name": "Managed Database",
+      "active_days": 3,
+      "total_usage": 159.0,
+      "total_cost_usd": 135.15,
+      "distinct_accounts": 2
+    },
+    {
+      "year": 2026,
+      "month": 11,
+      "service_code": "COMPUTE",
+      "service_name": "Compute Service",
+      "active_days": 3,
+      "total_usage": 138.0,
+      "total_cost_usd": 57.96,
+      "distinct_accounts": 2
+    },
+    {
+      "year": 2026,
+      "month": 11,
+      "service_code": "STORAGE",
+      "service_name": "Object Storage",
+      "active_days": 4,
+      "total_usage": 198.0,
+      "total_cost_usd": 45.54,
+      "distinct_accounts": 2
+    },
+    {
+      "year": 2026,
+      "month": 11,
+      "service_code": "STREAMING",
+      "service_name": "Event Streaming",
+      "active_days": 2,
+      "total_usage": 99.0,
+      "total_cost_usd": 4.949999999999999,
+      "distinct_accounts": 2
+    }
+  ],
+  "revenue_driver_by_service_region": [
+    {
+      "service_code": "DATABASE",
+      "region_code": "us-east-1",
+      "region_name": "US East (N. Virginia)",
+      "total_cost_usd": 154.7,
+      "total_usage": 182.0,
+      "pct_of_total_cost": 29.97
+    },
+    {
+      "service_code": "DATABASE",
+      "region_code": "eu-west-1",
+      "region_name": "EU (Ireland)",
+      "total_cost_usd": 71.4,
+      "total_usage": 84.0,
+      "pct_of_total_cost": 13.83
+    },
+    {
+      "service_code": "DATABASE",
+      "region_code": "us-west-2",
+      "region_name": "US West (Oregon)",
+      "total_cost_usd": 59.5,
+      "total_usage": 70.0,
+      "pct_of_total_cost": 11.53
+    },
+    {
+      "service_code": "COMPUTE",
+      "region_code": "us-east-1",
+      "region_name": "US East (N. Virginia)",
+      "total_cost_usd": 58.8,
+      "total_usage": 140.0,
+      "pct_of_total_cost": 11.39
+    },
+    {
+      "service_code": "COMPUTE",
+      "region_code": "eu-west-1",
+      "region_name": "EU (Ireland)",
+      "total_cost_usd": 52.92,
+      "total_usage": 126.0,
+      "pct_of_total_cost": 10.25
+    },
+    {
+      "service_code": "STORAGE",
+      "region_code": "eu-west-1",
+      "region_name": "EU (Ireland)",
+      "total_cost_usd": 48.3,
+      "total_usage": 210.0,
+      "pct_of_total_cost": 9.36
+    },
+    {
+      "service_code": "STORAGE",
+      "region_code": "us-west-2",
+      "region_name": "US West (Oregon)",
+      "total_cost_usd": 35.42,
+      "total_usage": 154.0,
+      "pct_of_total_cost": 6.86
+    },
+    {
+      "service_code": "STORAGE",
+      "region_code": "us-east-1",
+      "region_name": "US East (N. Virginia)",
+      "total_cost_usd": 12.879999999999999,
+      "total_usage": 56.0,
+      "pct_of_total_cost": 2.5
+    },
+    {
+      "service_code": "COMPUTE",
+      "region_code": "us-west-2",
+      "region_name": "US West (Oregon)",
+      "total_cost_usd": 11.76,
+      "total_usage": 28.0,
+      "pct_of_total_cost": 2.28
+    },
+    {
+      "service_code": "STREAMING",
+      "region_code": "us-west-2",
+      "region_name": "US West (Oregon)",
+      "total_cost_usd": 5.6,
+      "total_usage": 112.0,
+      "pct_of_total_cost": 1.08
+    },
+    {
+      "service_code": "STREAMING",
+      "region_code": "us-east-1",
+      "region_name": "US East (N. Virginia)",
+      "total_cost_usd": 4.9,
+      "total_usage": 98.0,
+      "pct_of_total_cost": 0.95
+    }
+  ],
+  "cost_per_account": [
+    {
+      "account_id": "ACCT-1001",
+      "account_name": "Checkout Platform",
+      "account_type": "production",
+      "owner_team": "payments",
+      "usage_days": 6,
+      "total_cost_usd": 267.12,
+      "avg_daily_cost_usd": 44.52,
+      "max_daily_cost_usd": 79.9
+    },
+    {
+      "account_id": "ACCT-1002",
+      "account_name": "Search Ranking",
+      "account_type": "production",
+      "owner_team": "search",
+      "usage_days": 6,
+      "total_cost_usd": 141.96,
+      "avg_daily_cost_usd": 23.66,
+      "max_daily_cost_usd": 38.25
+    },
+    {
+      "account_id": "ACCT-1004",
+      "account_name": "ML Training",
+      "account_type": "development",
+      "owner_team": "ml-platform",
+      "usage_days": 6,
+      "total_cost_usd": 57.12,
+      "avg_daily_cost_usd": 9.52,
+      "max_daily_cost_usd": 20.01
+    },
+    {
+      "account_id": "ACCT-1003",
+      "account_name": "Data Sandbox",
+      "account_type": "sandbox",
+      "owner_team": "analytics",
+      "usage_days": 6,
+      "total_cost_usd": 49.98,
+      "avg_daily_cost_usd": 8.33,
+      "max_daily_cost_usd": 18.4
+    }
+  ],
+  "daily_cost_trend": [
+    {
+      "date_value": "2026-10-05",
+      "total_cost_usd": 12.66,
+      "total_usage": 41.0
+    },
+    {
+      "date_value": "2026-10-06",
+      "total_cost_usd": 39.43,
+      "total_usage": 69.0
+    },
+    {
+      "date_value": "2026-10-07",
+      "total_cost_usd": 40.85,
+      "total_usage": 97.0
+    },
+    {
+      "date_value": "2026-10-12",
+      "total_cost_usd": 30.669999999999998,
+      "total_usage": 125.0
+    },
+    {
+      "date_value": "2026-10-13",
+      "total_cost_usd": 49.06,
+      "total_usage": 153.0
+    },
+    {
+      "date_value": "2026-10-14",
+      "total_cost_usd": 99.91000000000001,
+      "total_usage": 181.0
+    },
+    {
+      "date_value": "2026-11-03",
+      "total_cost_usd": 8.76,
+      "total_usage": 29.0
+    },
+    {
+      "date_value": "2026-11-04",
+      "total_cost_usd": 32.95,
+      "total_usage": 57.0
+    },
+    {
+      "date_value": "2026-11-05",
+      "total_cost_usd": 35.449999999999996,
+      "total_usage": 85.0
+    },
+    {
+      "date_value": "2026-11-10",
+      "total_cost_usd": 27.849999999999998,
+      "total_usage": 113.0
+    },
+    {
+      "date_value": "2026-11-11",
+      "total_cost_usd": 45.16,
+      "total_usage": 141.0
+    },
+    {
+      "date_value": "2026-11-12",
+      "total_cost_usd": 93.42999999999999,
+      "total_usage": 169.0
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+RAG DATA PATTERNS EVALUATOR — REPORT
+Corpus: 10 documents, 6 queries, top-3 retrieval
+
+fixed: chunks=20 mean_precision@3=0.528 mean_recall@3=1.0
+  q1: retrieved=etl-pipelines,data-quality,data-modeling precision=0.667 recall=1.0
+  q2: retrieved=kafka-streaming,chunking-strategies,data-modeling precision=0.333 recall=1.0
+  q3: retrieved=model-validation,embeddings-genai,data-modeling precision=0.333 recall=1.0
+  q4: retrieved=chunking-strategies,embeddings-genai precision=1.0 recall=1.0
+  q5: retrieved=airflow-scheduling,kafka-streaming,etl-pipelines precision=0.333 recall=1.0
+  q6: retrieved=sql-tuning,cloud-storage precision=0.5 recall=1.0
+sentence: chunks=15 mean_precision@3=0.5 mean_recall@3=1.0
+  q1: retrieved=etl-pipelines,data-modeling,data-quality precision=0.667 recall=1.0
+  q2: retrieved=kafka-streaming,sql-tuning,chunking-strategies precision=0.333 recall=1.0
+  q3: retrieved=model-validation,embeddings-genai,data-modeling precision=0.333 recall=1.0
+  q4: retrieved=chunking-strategies,embeddings-genai precision=1.0 recall=1.0
+  q5: retrieved=airflow-scheduling,kafka-streaming,etl-pipelines precision=0.333 recall=1.0
+  q6: retrieved=sql-tuning,cloud-storage,data-quality precision=0.333 recall=1.0
+sliding: chunks=20 mean_precision@3=0.583 mean_recall@3=1.0
+  q1: retrieved=etl-pipelines,data-quality precision=1.0 recall=1.0
+  q2: retrieved=kafka-streaming,sql-tuning,chunking-strategies precision=0.333 recall=1.0
+  q3: retrieved=model-validation,embeddings-genai,data-modeling precision=0.333 recall=1.0
+  q4: retrieved=chunking-strategies,embeddings-genai precision=1.0 recall=1.0
+  q5: retrieved=airflow-scheduling,kafka-streaming,etl-pipelines precision=0.333 recall=1.0
+  q6: retrieved=sql-tuning,airflow-scheduling precision=0.5 recall=1.0
+
+Best mean recall@3: sliding

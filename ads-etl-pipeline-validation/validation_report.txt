@@ -1,0 +1,38 @@
+Advertising ETL Pipeline — Validation Report
+================================================
+
+Bronze events: 254 rows
+Silver events: 240 rows
+Quarantined rows: 14 rows
+Late-arriving rows in silver: 2 rows
+Gold daily campaign groups: 193
+Silver total spend: $47,910.22
+Gold total spend:   $47,910.22
+
+Bronze checks (3 of 10 passed, 7 FAILED):
+  [FAIL] completeness: campaign_id: 3 nulls
+  [FAIL] uniqueness:event_id: 3 duplicated event_id values (3 extra rows)
+  [PASS] range:impressions: all values of impressions in range
+  [PASS] range:clicks: all values of clicks in range
+  [FAIL] range:spend_usd: 2 rows outside range for spend_usd
+  [FAIL] clicks_within_impressions: 2 rows where clicks > impressions
+  [FAIL] range:event_ts: 1 rows outside range for event_ts
+  [FAIL] fk:ad_id->ad_id: 2 rows with ad_id not in ad_id
+  [PASS] fk:campaign_id->campaign_id: all campaign_id values found in campaign_id
+  [FAIL] spend_arithmetic: 3 rows where spend_usd != clicks * cpc_usd
+
+Reconciliation: [PASS] reconciliation: gold matches silver on all 193 daily campaign groups
+
+Pipeline health:
+  streaming ingest: 254 in, 254 out, 0.000s (1,319,762 rows/s)
+  bronze load: 254 in, 254 out, 0.168s (1,515 rows/s)
+  bronze checks: 254 in, 254 out, 0.001s (431,097 rows/s)
+  silver build: 254 in, 240 out, 0.019s (13,648 rows/s)
+  gold build: 240 in, 193 out, 0.019s (12,535 rows/s)
+  failure rate: 5.51% (14 of 254 bronze rows quarantined)
+  late-arrival rate: 0.83% (2 of 240 silver rows late)
+  gold groups: 193
+  total pipeline time: 0.206s
+
+Lineage: every silver row maps to its bronze event_id, and every gold group lists the silver event_ids that fed it (see lineage.json).
+All data is synthetic and seeded; no real advertiser data is used.

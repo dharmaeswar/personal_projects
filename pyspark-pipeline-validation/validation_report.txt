@@ -1,0 +1,41 @@
+PySpark Pipeline Validation — run report
+Raw rows: 240
+Duplicates removed (window dedup): 4
+Quarantined rows: 14
+Cleansed rows: 222
+Gold aggregate rows: 48
+Curated partitions (by event_date): 48
+Total cleansed revenue: $23,413.34
+Reconciliation gold vs cleansed: PASS
+
+Violations quarantined:
+  amount_mismatch: 1
+  date_out_of_range: 2
+  negative_amount: 3
+  null_user_id: 5
+  unknown_product: 3
+
+Quality checks:
+  [PASS] schema_enforced: no violations
+  [PASS] completeness_user_id: nulls=0
+  [PASS] uniqueness_event_id: duplicates=0
+  [PASS] amount_non_negative: negative=0
+  [PASS] amount_arithmetic: amount == quantity * unit_price within 0.01
+  [PASS] referential_product: unknown products=0
+  [PASS] reconciliation_gold_vs_cleansed: gold_rows=48, max_revenue_diff=0.0
+
+Quarantined event_ids:
+  EVT-BAD-A1: amount_mismatch
+  EVT-BAD-D2: date_out_of_range
+  EVT-BAD-D1: date_out_of_range
+  EVT-BAD-P3: unknown_product
+  EVT-BAD-P2: unknown_product
+  EVT-BAD-P1: unknown_product
+  EVT-BAD-N3: negative_amount+amount_mismatch
+  EVT-BAD-N2: negative_amount+amount_mismatch
+  EVT-BAD-N1: negative_amount+amount_mismatch
+  EVT-BAD-U5: null_user_id
+  EVT-BAD-U4: null_user_id
+  EVT-BAD-U3: null_user_id
+  EVT-BAD-U2: null_user_id
+  EVT-BAD-U1: null_user_id

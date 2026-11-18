@@ -1,0 +1,138 @@
+{
+  "overall": {
+    "trips": 1200,
+    "miles": 18088.2,
+    "interventions_per_1k_miles": 6.8,
+    "by_type_per_1k_miles": {
+      "safety_critical": 0.442,
+      "unnecessary_stop": 3.096,
+      "stuck_scenario": 1.106,
+      "manoeuvre_execution": 2.156
+    },
+    "mission_completion_rate": 0.9717,
+    "mean_recovery_min": 14.29,
+    "remote_assistance_rate": 0.06,
+    "mean_pickup_delay_min": 3.0,
+    "availability_proxy": 0.9008,
+    "interventions_per_1k_miles_ci95": [
+      5.651,
+      8.113
+    ]
+  },
+  "by_release": {
+    "2026.09": {
+      "trips": 409,
+      "miles": 6335.2,
+      "interventions_per_1k_miles": 8.682,
+      "by_type_per_1k_miles": {
+        "safety_critical": 0.474,
+        "unnecessary_stop": 4.735,
+        "stuck_scenario": 1.263,
+        "manoeuvre_execution": 2.21
+      },
+      "mission_completion_rate": 0.9682,
+      "mean_recovery_min": 15.2,
+      "remote_assistance_rate": 0.0489,
+      "mean_pickup_delay_min": 2.98,
+      "availability_proxy": 0.8729
+    },
+    "2026.10": {
+      "trips": 395,
+      "miles": 5784.6,
+      "interventions_per_1k_miles": 6.396,
+      "by_type_per_1k_miles": {
+        "safety_critical": 0.173,
+        "unnecessary_stop": 2.42,
+        "stuck_scenario": 1.21,
+        "manoeuvre_execution": 2.593
+      },
+      "mission_completion_rate": 0.9722,
+      "mean_recovery_min": 13.45,
+      "remote_assistance_rate": 0.0582,
+      "mean_pickup_delay_min": 2.92,
+      "availability_proxy": 0.9063
+    },
+    "2026.11": {
+      "trips": 396,
+      "miles": 5968.4,
+      "interventions_per_1k_miles": 5.194,
+      "by_type_per_1k_miles": {
+        "safety_critical": 0.67,
+        "unnecessary_stop": 2.011,
+        "stuck_scenario": 0.838,
+        "manoeuvre_execution": 1.675
+      },
+      "mission_completion_rate": 0.9747,
+      "mean_recovery_min": 13.74,
+      "remote_assistance_rate": 0.0732,
+      "mean_pickup_delay_min": 3.1,
+      "availability_proxy": 0.9242
+    }
+  },
+  "by_road": {
+    "highway": {
+      "trips": 423,
+      "miles": 6430.6,
+      "interventions_per_1k_miles": 4.354,
+      "by_type_per_1k_miles": {
+        "safety_critical": 0.0,
+        "unnecessary_stop": 3.11,
+        "stuck_scenario": 0.933,
+        "manoeuvre_execution": 0.311
+      },
+      "mission_completion_rate": 0.9716,
+      "mean_recovery_min": 14.15,
+      "remote_assistance_rate": 0.0615,
+      "mean_pickup_delay_min": 3.02,
+      "availability_proxy": 0.9362
+    },
+    "suburban": {
+      "trips": 389,
+      "miles": 5538.8,
+      "interventions_per_1k_miles": 7.041,
+      "by_type_per_1k_miles": {
+        "safety_critical": 0.181,
+        "unnecessary_stop": 2.889,
+        "stuck_scenario": 0.903,
+        "manoeuvre_execution": 3.069
+      },
+      "mission_completion_rate": 0.9794,
+      "mean_recovery_min": 14.55,
+      "remote_assistance_rate": 0.054,
+      "mean_pickup_delay_min": 2.95,
+      "availability_proxy": 0.9023
+    },
+    "urban": {
+      "trips": 388,
+      "miles": 6118.8,
+      "interventions_per_1k_miles": 9.152,
+      "by_type_per_1k_miles": {
+        "safety_critical": 1.144,
+        "unnecessary_stop": 3.269,
+        "stuck_scenario": 1.471,
+        "manoeuvre_execution": 3.269
+      },
+      "mission_completion_rate": 0.9639,
+      "mean_recovery_min": 14.18,
+      "remote_assistance_rate": 0.0644,
+      "mean_pickup_delay_min": 3.03,
+      "availability_proxy": 0.8608
+    }
+  },
+  "release_comparisons": {
+    "2026.09_vs_2026.10": {
+      "p_value": 0.1746,
+      "rate_ratio": 0.737,
+      "rate1_per_1k": 8.682,
+      "rate2_per_1k": 6.396,
+      "significant_95": false
+    },
+    "2026.10_vs_2026.11": {
+      "p_value": 0.399,
+      "rate_ratio": 0.812,
+      "rate1_per_1k": 6.396,
+      "rate2_per_1k": 5.194,
+      "significant_95": false
+    }
+  }
+}

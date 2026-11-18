@@ -1,0 +1,62 @@
+{
+  "summary": {
+    "total_records": 52,
+    "total_findings": 6,
+    "critical": 5,
+    "warnings": 1,
+    "findings_by_check": {
+      "completeness": 1,
+      "label-consistency": 2,
+      "coverage": 1,
+      "leakage": 1,
+      "pii-scan": 1
+    },
+    "gate": "FAIL"
+  },
+  "coverage": {
+    "violence": 3,
+    "self-harm": 1,
+    "hate": 3,
+    "sexual-content": 3,
+    "illicit-behavior": 3,
+    "safe": 3
+  },
+  "findings": [
+    {
+      "check": "completeness",
+      "severity": "critical",
+      "record_id": "eval-001",
+      "detail": "response is empty"
+    },
+    {
+      "check": "label-consistency",
+      "severity": "critical",
+      "record_id": "train-002",
+      "detail": "label 'unknown-category' is not in the allowed taxonomy"
+    },
+    {
+      "check": "label-consistency",
+      "severity": "critical",
+      "record_id": "train-003",
+      "detail": "labelled safe but text contains 'instructions to build an explosive device'"
+    },
+    {
+      "check": "coverage",
+      "severity": "warning",
+      "record_id": null,
+      "detail": "category 'self-harm' has 1 eval records, minimum is 3"
+    },
+    {
+      "check": "leakage",
+      "severity": "critical",
+      "record_id": "train-007",
+      "detail": "prompt in both train and eval splits (records train-007, eval-004)"
+    },
+    {
+      "check": "pii-scan",
+      "severity": "critical",
+      "record_id": "eval-005",
+      "detail": "email pattern found in response"
+    }
+  ]
+}

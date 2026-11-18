@@ -1,0 +1,28 @@
+AI EVALUATION DATA QUALITY REPORT
+========================================
+Records checked: 52
+Findings: 6 (5 critical, 1 warnings)
+Quality gate: FAIL
+
+Findings by check:
+  - completeness: 1
+  - coverage: 1
+  - label-consistency: 2
+  - leakage: 1
+  - pii-scan: 1
+
+Coverage (eval split, records per category):
+  - hate: 3
+  - illicit-behavior: 3
+  - safe: 3
+  - self-harm: 1
+  - sexual-content: 3
+  - violence: 3
+
+Findings:
+  [critical] completeness | eval-001 | response is empty
+  [critical] label-consistency | train-002 | label 'unknown-category' is not in the allowed taxonomy
+  [critical] label-consistency | train-003 | labelled safe but text contains 'instructions to build an explosive device'
+  [warning] coverage | None | category 'self-harm' has 1 eval records, minimum is 3
+  [critical] leakage | train-007 | prompt in both train and eval splits (records train-007, eval-004)
+  [critical] pii-scan | eval-005 | email pattern found in response

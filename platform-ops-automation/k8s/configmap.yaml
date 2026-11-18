@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: platform-ops-config
+  labels:
+    app: platform-ops
+data:
+  LATENCY_MS: "0"
+  ERROR_RATE: "0"

@@ -1,0 +1,30 @@
+// Jenkins pipeline for the Platform Ops Automation demo project.
+// No real deploy target: the pipeline tests, builds, and validates manifests.
+pipeline {
+    agent any
+
+    stages {
+        stage('Test') {
+            steps {
+                sh 'pip install -r requirements.txt'
+                sh 'python -m pytest -q'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'docker build -f docker/Dockerfile -t platform-ops:latest .'
+            }
+        }
+        stage('Validate Manifests') {
+            steps {
+                sh 'python -c "import glob, yaml; [yaml.safe_load(open(p)) for p in glob.glob(\'k8s/*.yaml\')]"'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+    }
+}

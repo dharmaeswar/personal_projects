@@ -1,0 +1,22 @@
+LAKEHOUSE DATA QUALITY — VALIDATION REPORT
+Bronze orders: 200 rows
+Silver orders: 187 rows
+Quarantined rows: 13 rows
+Gold daily groups: 185
+
+BRONZE CHECKS
+[FAIL] completeness: customer_id: 4 nulls
+[FAIL] uniqueness:order_id: 3 duplicated order_id values (3 extra rows)
+[FAIL] range:quantity: 2 rows outside range for quantity
+[PASS] range:unit_price: all values of unit_price in range
+[FAIL] range:order_date: 1 rows outside range for order_date
+[PASS] fk:customer_id->customer_id: all customer_id values found in customer_id
+[FAIL] fk:product_id->product_id: 2 rows with product_id not in product_id
+[FAIL] totals: 1 rows where total_amount != quantity * unit_price
+
+RECONCILIATION
+[PASS] reconciliation: gold matches silver on all 185 daily groups
+
+SUMMARY
+6 of 8 bronze checks FAILED; 13 bad rows quarantined, none dropped silently.
+Reconciliation: gold matches silver.

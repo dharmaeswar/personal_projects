@@ -1,0 +1,43 @@
+Deployment Guardrails -- Fleet Rollout Report
+==================================================
+
+Services tracked: 4
+Deployable: 3  Blocked: 1
+Average safety score: 81.2/100
+
+billing-worker v1.9.2 -- BLOCKED (safety 30/100)
+  Guardrails: 0/6 passed
+    VIOLATION: No readiness or liveness health check declared.
+    VIOLATION: Resource limits invalid: CPU limit 8.0 cores exceeds the platform cap of 4.0 cores; memory limit 16384 MB exceeds the platform cap of 8192 MB.
+    VIOLATION: Rollback plan is manual only; automated rollback must be enabled.
+    VIOLATION: First canary stage is 25% of traffic; it must start at 5% or less.
+    VIOLATION: No backup on-call owner named; a deploy needs a second person who can take over.
+    VIOLATION: Deploy scheduled at saturday 23:00 UTC, inside a change-freeze window (weekends, or 22:00-06:00 UTC).
+  SLO: 99.310% observed vs 99.500% target  [BREACHED]
+  Error budget: 0% remaining; open incidents: 2
+
+search-api v3.1.0 -- DEPLOYABLE (safety 95/100)
+  Guardrails: 6/6 passed
+  SLO: 99.820% observed vs 99.900% target  [BREACHED]
+  Error budget: 18% remaining; open incidents: 1
+
+checkout-api v2.4.0 -- DEPLOYABLE (safety 100/100)
+  Guardrails: 6/6 passed
+  SLO: 99.950% observed vs 99.900% target
+  Error budget: 62% remaining; open incidents: 0
+
+payments-api v4.2.1 -- DEPLOYABLE (safety 100/100)
+  Guardrails: 6/6 passed
+  SLO: 99.910% observed vs 99.900% target
+  Error budget: 45% remaining; open incidents: 0
+
+Riskiest service: billing-worker (safety 30/100)
+
+Keep-the-lights-on checklist -- billing-worker:
+  - Confirm billing-worker v1.9.2 is serving traffic (availability 99.310%, SLO target 99.500%).
+  - SLO BREACHED: availability 99.310% is below the 99.500% target -- open an incident and freeze deploys for this service.
+  - Error budget: 0% remaining (100% used).
+  - Error budget EXHAUSTED: no new deploys until the budget recovers; reliability work takes priority over features.
+  - 2 open incident(s) -- check the incident channel before changing anything.
+  - Last policy decision: REJECTED -- No readiness or liveness health check declared.; Resource limits invalid: CPU limit 8.0 cores exceeds the platform cap of 4.0 cores; memory limit 16384 MB exceeds the platform cap of 8192 MB.; Rollback plan is manual only; automated rollback must be enabled.; First canary stage is 25% of traffic; it must start at 5% or less.; No backup on-call owner named; a deploy needs a second person who can take over.; Deploy scheduled at saturday 23:00 UTC, inside a change-freeze window (weekends, or 22:00-06:00 UTC).
+  - Confirm the rollback path before any change: previous version named, steps listed, automated rollback enabled.

@@ -1,0 +1,15 @@
+account,account_name,debit,credit,net
+1000,Cash and Equivalents,12451.11,3109.61,9341.50
+1100,Accounts Receivable,43958.64,12451.11,31507.53
+1200,Inventory,0.00,16992.95,-16992.95
+1500,Prepaid Expenses,3109.61,1512.98,1596.63
+2000,Accounts Payable,0.00,378845.74,-378845.74
+2100,Accrued Expenses,2178.78,0.00,2178.78
+4000,Product Revenue,0.00,41795.85,-41795.85
+4100,Service Revenue,0.00,2162.79,-2162.79
+5000,Cost of Goods Sold,16992.95,0.00,16992.95
+6000,Salaries and Benefits,311162.44,2178.78,308983.66
+6100,Marketing Expense,10938.04,0.00,10938.04
+6200,General and Administrative,56745.26,0.00,56745.26
+7000,Depreciation Expense,1512.98,0.00,1512.98
+TOTAL,,459049.81,459049.81,0.00

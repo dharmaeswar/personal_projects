@@ -1,0 +1,32 @@
+{
+  "flagged_lines": 8,
+  "flags": {
+    "E-0033": [
+      "amount outlier in account 6000: $250,000.00 vs median $8,008.90 (modified z=80.2)",
+      "round-dollar amount $250,000.00"
+    ],
+    "E-0034": [
+      "amount outlier in account 2000: $250,000.00 vs median $7,879.00 (modified z=85.3)",
+      "round-dollar amount $250,000.00"
+    ],
+    "E-0035": [
+      "round-dollar amount $50,000.00"
+    ],
+    "E-0036": [
+      "amount outlier in account 2000: $50,000.00 vs median $7,879.00 (modified z=14.8)",
+      "round-dollar amount $50,000.00"
+    ],
+    "E-0037": [
+      "weekend posting on 2026-10-17"
+    ],
+    "E-0038": [
+      "weekend posting on 2026-10-17"
+    ],
+    "E-0039": [
+      "posted into closed period 2026-08"
+    ],
+    "E-0040": [
+      "posted into closed period 2026-08"
+    ]
+  }
+}

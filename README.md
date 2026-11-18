@@ -9,3 +9,4 @@ Portfolio projects in quantitative model validation, derivatives pricing checks,
 | [monte-carlo-xva-benchmark](monte-carlo-xva-benchmark/) | Monte Carlo exposure simulation across asset classes producing EE/PFE profiles and CVA/FVA/KVA ladders, benchmarked against closed-form values within a tolerance band. |
 | [model-validation-toolkit](model-validation-toolkit/) | Small Python toolkit for model validation work: outcomes analysis, sensitivity testing, and population drift checks. |
 | [pytest-api-automation-framework](pytest-api-automation-framework/) | Pytest-based API test automation framework with a sample REST API and an end-to-end test suite. |
+| [ccar-stress-loss-validation](ccar-stress-loss-validation/) | CCAR/DFAST-style stress-loss model validation: champion logistic-regression forecaster vs linear challenger and historical-average benchmark, with back-testing, calibration and drift checks. |

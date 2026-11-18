@@ -1,0 +1,97 @@
+FRAUD-DETECTION MODEL VALIDATION REPORT
+Independent Model Validation — Model Validation Report (MVR) style
+========================================================================
+
+All data in this validation is synthetic and seeded. No real bank,
+cardholder, or transaction data is used, and nothing here is a claim
+about any real institution.
+
+1. Scope
+------------------------------------------------------------------------
+Validate a card-transaction fraud-scoring model used to flag
+transactions for review. Champion: logistic regression on scaled
+features. Challenger: gradient boosting. Benchmark: base-rate
+(overall fraud rate) predictor. Assessment covers outcomes
+analysis, calibration, ongoing monitoring, and fairness slices.
+
+2. Data
+------------------------------------------------------------------------
+Synthetic transactions: 20,000 total (16,000 train / 4,000 test).
+Overall fraud rate: 1.70%. Features: amount, hour,
+merchant category, device age, 1h/24h transaction velocity,
+account age, cross-border flag, card-present flag. Segment:
+region (North / South / East / West). RNG seed fixed at 42,
+so the dataset is fully reproducible.
+
+3. Outcomes Analysis
+------------------------------------------------------------------------
+Model         ROC-AUC      KS  Precision  Recall     F1
+-------------------------------------------------------
+champion       0.7103  0.3498     0.0979  0.1795 0.1267
+challenger     0.7380  0.3971     0.1111  0.2179 0.1472
+benchmark      0.5000  0.0000     0.0000  0.0000 0.0000
+
+Champion threshold (F1-tuned): 0.05.
+Champion confusion matrix at threshold: TP=14, FP=129, TN=3793, FN=64.
+Top decile (riskiest 10% by score) captures 28.2% of all fraud; top three deciles capture 57.7%.
+Champion ROC-AUC (0.7103) exceeds the benchmark (0.5000) by 0.2103; the challenger scores 0.7380.
+
+4. Calibration
+------------------------------------------------------------------------
+Decile  1: mean predicted 0.0042 vs observed 0.0100 (n=400)
+Decile  2: mean predicted 0.0056 vs observed 0.0025 (n=400)
+Decile  3: mean predicted 0.0070 vs observed 0.0100 (n=400)
+Decile  4: mean predicted 0.0083 vs observed 0.0025 (n=400)
+Decile  5: mean predicted 0.0098 vs observed 0.0150 (n=400)
+Decile  6: mean predicted 0.0120 vs observed 0.0125 (n=400)
+Decile  7: mean predicted 0.0149 vs observed 0.0300 (n=400)
+Decile  8: mean predicted 0.0193 vs observed 0.0225 (n=400)
+Decile  9: mean predicted 0.0262 vs observed 0.0350 (n=400)
+Decile 10: mean predicted 0.0589 vs observed 0.0550 (n=400)
+Calibration is monotone: observed fraud rises with predicted decile. Top-decile predicted scores remain below observed rates, so the champion under-predicts at the extreme tail and should be recalibrated before use at high-score cut-offs.
+
+5. Monitoring
+------------------------------------------------------------------------
+Population Stability Index (PSI) and mean drift, train vs test:
+  amount               PSI 0.0020  mean drift -0.7640
+  hour                 PSI 0.0016  mean drift -0.0247
+  merchant_category    PSI 0.0020  mean drift +0.0429
+  device_age_days      PSI 0.0062  mean drift -1.6351
+  velocity_1h          PSI 0.0001  mean drift -0.0136
+  velocity_24h         PSI 0.0036  mean drift -0.0998
+  account_age_days     PSI 0.0069  mean drift -0.9651
+  cross_border         PSI 0.0000  mean drift +0.0033
+  card_present         PSI 0.0000  mean drift -0.0039
+All PSI values are below 0.1: the population is stable between
+train and test. Ongoing monitoring should re-check PSI monthly
+and alert above 0.1, investigate above 0.25.
+
+6. Fairness
+------------------------------------------------------------------------
+  East   n=1,005  fraud rate 1.39%  flag rate 3.48%  capture 1.28%  recall 7.14%
+  North  n=  999  fraud rate 2.30%  flag rate 4.40%  capture 7.69%  recall 26.09%
+  South  n=  991  fraud rate 2.02%  flag rate 3.33%  capture 3.85%  recall 15.00%
+  West   n=1,005  fraud rate 2.09%  flag rate 3.08%  capture 5.13%  recall 19.05%
+Maximum flag-rate gap between regions: 1.32%. Flag rates differ modestly across regions; the gap is driven mainly by genuine differences in fraud rate, but the owner should track it and confirm no region is systematically over-flagged.
+
+7. Limitations
+------------------------------------------------------------------------
+- Synthetic data: relationships are designed, not observed; real
+  fraud patterns, seasonality, and adversarial adaptation are absent.
+- No out-of-time test: train/test is a random split, so performance
+  may overstate results on future transaction vintages.
+- No cost model: the F1-tuned threshold ignores the asymmetric cost
+  of a missed fraud vs a false alert.
+- Fairness slices cover region only; other protected or sensitive
+  attributes are not present in the synthetic data.
+
+8. Required Actions
+------------------------------------------------------------------------
+1. Recalibrate the champion at the high-score tail before production use.
+2. Re-validate on an out-of-time sample before the next model review.
+3. Set the operating threshold from a cost analysis, not F1 alone,
+   and document the chosen trade-off.
+4. Put PSI and flag-rate-by-region monitoring on a monthly schedule,
+   with alerts at PSI > 0.1 and a flag-rate gap review above 5pp.
+5. Re-run the challenger comparison when at least one more month of
+   production data is available.

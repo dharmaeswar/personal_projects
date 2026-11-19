@@ -43,6 +43,8 @@ experience.
 - `ops/dr_check.py` — validates a disaster-recovery / failover readiness
   checklist (runbook review freshness, last failover test, backup
   verification freshness, on-call roster) and reports overall readiness.
+- `ops/nosql_health.py` — checks a synthetic multi-node NoSQL cluster (nodes up, replication lag, p99 read latency, throughput headroom) and reports overall health. Demo data only; no production NoSQL experience is claimed.
+- `ops/host_bottleneck.py` — diagnoses a synthetic Linux host from CPU, IO wait, memory, load and disk-latency signals, answering "is it CPU? IO?" with a verdict and a next check. Demo data only.
 - `ops/load_test.py` — stdlib-only load test (urllib + threads) that
   reports totals, error rate, and p50/p95 latency. Exits non-zero with
   a clear message if the service is not running.

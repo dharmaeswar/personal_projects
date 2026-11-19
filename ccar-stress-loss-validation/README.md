@@ -14,6 +14,10 @@ data is used, and nothing here is a claim about any real institution.
   loss-rate forecast via loss severity.
 - **Challenger model**: linear regression directly on the observed loss rate.
 - **Benchmark model**: historical average loss rate (no features).
+- **Agency prepayment model validation** (new, Nov 2026): CPR/PSA prepayment
+  speeds for a synthetic agency mortgage pool, rate-incentive sensitivity
+  scenarios (+/-200bps), seasoning and burnout behaviour, monotonicity
+  checks, and calibration by rate-incentive bucket.
 - **Outcomes analysis**: bias, MAE, RMSE, hit rate within a tolerance band,
   and calibration by predicted decile.
 - **Scenario analysis**: baseline vs severely adverse CCAR-style macro paths
@@ -39,6 +43,8 @@ PYTHONPATH=. python -m pytest -q
 ## Layout
 
 - `ccar_validation/data.py` — seeded synthetic loan-portfolio generator
+- `ccar_validation/prepayment.py` — agency prepayment model: CPR/PSA speeds,
+  rate-incentive sensitivity, seasoning/burnout, calibration by incentive
 - `ccar_validation/models.py` — champion / challenger / benchmark models
 - `ccar_validation/backtest.py` — outcomes analysis metrics
 - `ccar_validation/scenarios.py` — CCAR-style scenario paths and forecasts

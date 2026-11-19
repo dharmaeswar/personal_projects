@@ -15,6 +15,7 @@ from ccar_validation.backtest import backtest_all, calibration_by_decile
 from ccar_validation.data import MACRO_COLUMNS, generate_portfolio, train_test_split
 from ccar_validation.models import fit_all
 from ccar_validation.monitoring import drift_report
+from ccar_validation.prepayment import build_prepayment_section, generate_prepayment_pool
 from ccar_validation.report import build_report, write_report
 from ccar_validation.scenarios import compare_scenarios
 
@@ -43,6 +44,10 @@ def run_validation(output: str = "validation_report.txt") -> str:
 
     # 6. Report.
     report = build_report(backtest, calibration, scenario_comparison, drift, len(train), len(test))
+
+    # 7. Agency prepayment model validation (new module, Nov 2026).
+    prepay_pool = generate_prepayment_pool()
+    report = report.rstrip("\n") + "\n" + build_prepayment_section(prepay_pool) + "\n" + "=" * 70 + "\n"
     write_report(report, output)
     return report
 

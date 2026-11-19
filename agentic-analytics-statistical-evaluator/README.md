@@ -32,8 +32,18 @@ statistical validation gate between an agent's claims and the report.
 ```bash
 pip install -r requirements.txt
 python run_evaluation.py     # prints the report, writes evaluation_report.txt
-python -m pytest -q          # 19 tests
+python -m pytest -q          # 34 tests
 ```
+
+## Product experimentation (new, Nov 2026)
+
+A product-experimentation layer on the same seeded dataset: power-based
+A/B test design (sample size per arm, days to run), metric guardrails that
+fail a rollout on a significant regression, O'Brien-Fleming sequential
+monitoring so interim peeking stays safe, and a SHIP / DO NOT SHIP readout.
+On the demo data the primary effect (+10.84, 95% CI (8.0, 13.68), power
+1.0) ships with the guardrail passing; the design needs 98 users per arm
+for a minimum detectable effect of 5.0.
 
 ## What the demo data shows (240 synthetic rows, seed fixed)
 
@@ -52,6 +62,8 @@ p-value on the subgroup alone cannot support that claim.
 
 - `agentic_stats/stats.py` — t-test, chi-square, bootstrap CI, Cohen's d,
   Bonferroni, power, interaction test (pure stdlib)
+- `agentic_stats/experiments.py` — A/B test design, guardrails, O'Brien-Fleming
+  sequential monitoring, experiment readout (pure stdlib)
 - `agentic_stats/data.py` — deterministic synthetic two-arm dataset
 - `agentic_stats/agents.py` — Planner, Analyst and Validator agents
 - `agentic_stats/pipeline.py` — runs plan → analyse → validate → report

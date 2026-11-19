@@ -18,3 +18,8 @@ C4 [FAIL] Treatment helps high-baseline participants even more.
     interaction effect = -3.28, interaction p = 0.1286
     reason: no interaction: subgroup effect matches the overall effect
 
+PRODUCT EXPERIMENTATION (A/B TEST READOUT)
+   Primary outcome: mean difference +10.84, p = 0, 95% CI (8.0, 13.68), Cohen's d = 0.962.
+   Power: 1.0 at n = 120 per arm; design needs 98 per arm for MDE 5.0 (adequately powered).
+   Verdict: SHIP (significant; guardrail PASS, mean diff -0.01).
+   O'Brien-Fleming boundaries for 4 equally spaced looks: 3.92, 2.77, 2.26, 1.96 (early looks need stronger evidence, so peeking stays safe).

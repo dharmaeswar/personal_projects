@@ -1,0 +1,137 @@
+{
+ "pipeline": "cold-chain-telemetry-integration",
+ "started": "2026-11-19T20:34:32.358540+00:00",
+ "finished": "2026-11-19T20:34:32.426741+00:00",
+ "duration_seconds": 0.07,
+ "counts": {
+  "shipments": 240,
+  "telemetry_raw": 1200,
+  "telemetry_normalised": 1178,
+  "telemetry_quarantined_at_normalise": 22,
+  "telemetry_loaded": 1126,
+  "milestones": 960,
+  "milestones_loaded": 960,
+  "late_readings": 1110
+ },
+ "quarantined": 51,
+ "checked": 2138,
+ "quarantine_rate": 0.0239,
+ "excursion_alerts": 43,
+ "alerts": [
+  {
+   "reading_id": "R00003",
+   "shipment_id": "ORD-10000",
+   "product": "Vaccines",
+   "temperature_c": -1.7,
+   "allowed_c": [
+    2.0,
+    8.0
+   ],
+   "recorded_at": "2026-11-10T17:12:00"
+  },
+  {
+   "reading_id": "R00030",
+   "shipment_id": "ORD-10005",
+   "product": "Fresh produce",
+   "temperature_c": 7.6,
+   "allowed_c": [
+    0.0,
+    4.0
+   ],
+   "recorded_at": "2026-11-15T07:03:00"
+  },
+  {
+   "reading_id": "R00069",
+   "shipment_id": "ORD-10013",
+   "product": "Fresh produce",
+   "temperature_c": 6.7,
+   "allowed_c": [
+    0.0,
+    4.0
+   ],
+   "recorded_at": "2026-11-14T05:47:00"
+  },
+  {
+   "reading_id": "R00098",
+   "shipment_id": "ORD-10019",
+   "product": "Biologics",
+   "temperature_c": -1.1,
+   "allowed_c": [
+    2.0,
+    8.0
+   ],
+   "recorded_at": "2026-11-11T14:26:00"
+  },
+  {
+   "reading_id": "R00118",
+   "shipment_id": "ORD-10023",
+   "product": "Biologics",
+   "temperature_c": 9.0,
+   "allowed_c": [
+    2.0,
+    8.0
+   ],
+   "recorded_at": "2026-11-15T05:03:00"
+  },
+  {
+   "reading_id": "R00277",
+   "shipment_id": "ORD-10055",
+   "product": "Biologics",
+   "temperature_c": 9.1,
+   "allowed_c": [
+    2.0,
+    8.0
+   ],
+   "recorded_at": "2026-11-11T17:45:00"
+  },
+  {
+   "reading_id": "R00299",
+   "shipment_id": "ORD-10059",
+   "product": "Biologics",
+   "temperature_c": 0.5,
+   "allowed_c": [
+    2.0,
+    8.0
+   ],
+   "recorded_at": "2026-11-15T11:23:00"
+  },
+  {
+   "reading_id": "R00328",
+   "shipment_id": "ORD-10065",
+   "product": "Fresh produce",
+   "temperature_c": 5.0,
+   "allowed_c": [
+    0.0,
+    4.0
+   ],
+   "recorded_at": "2026-11-12T03:49:00"
+  },
+  {
+   "reading_id": "R00332",
+   "shipment_id": "ORD-10066",
+   "product": "Frozen meals",
+   "temperature_c": -27.8,
+   "allowed_c": [
+    -25.0,
+    -18.0
+   ],
+   "recorded_at": "2026-11-13T21:42:00"
+  },
+  {
+   "reading_id": "R00353",
+   "shipment_id": "ORD-10070",
+   "product": "Frozen meals",
+   "temperature_c": -15.1,
+   "allowed_c": [
+    -25.0,
+    -18.0
+   ],
+   "recorded_at": "2026-11-17T01:08:00"
+  }
+ ],
+ "warehouse": {
+  "shipments": 240,
+  "readings": 1126,
+  "milestones": 960
+ }
+}

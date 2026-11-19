@@ -35,6 +35,14 @@ experience.
 - `ops/log_analysis.py` — parses synthetic access logs, computes the
   per-minute 5xx rate, flags minutes above a threshold, and provides
   p50/p95 latency helpers.
+- `ops/reliability_dashboard.py` — aggregates synthetic per-request health
+  signals into an operational health summary (availability, error rate,
+  p95 latency, error-budget burn, per-service breakdown) and evaluates
+  alert rules. The alert-rule shape mirrors Azure Monitor-style alert
+  rules as a study; no production Azure use is claimed.
+- `ops/dr_check.py` — validates a disaster-recovery / failover readiness
+  checklist (runbook review freshness, last failover test, backup
+  verification freshness, on-call roster) and reports overall readiness.
 - `ops/load_test.py` — stdlib-only load test (urllib + threads) that
   reports totals, error rate, and p50/p95 latency. Exits non-zero with
   a clear message if the service is not running.

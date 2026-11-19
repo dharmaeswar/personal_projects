@@ -21,6 +21,10 @@ institution.
   per feature between train and test.
 - **Fairness**: flag rate and fraud capture by region, with the maximum
   flag-rate gap across regions.
+- **Safeguards analytics** (new, Nov 2026): precision/recall at operating
+  thresholds for a harm-detection model, false-positive review burden in
+  human-review hours, score drift monitoring, and a decision audit trail
+  with overturn rates.
 
 ## How to run
 
@@ -44,6 +48,8 @@ PYTHONPATH=. python -m pytest -q
 - `fraud_validation/metrics.py` — ROC-AUC, KS, confusion matrix, deciles, calibration
 - `fraud_validation/monitoring.py` — PSI and mean drift
 - `fraud_validation/fairness.py` — slice metrics by region
+- `fraud_validation/safeguards.py` — harm-detection analytics: precision/recall
+  at thresholds, false-positive review burden, drift monitoring, audit trail
 - `fraud_validation/report.py` — plain-text validation report writer
 - `run_validation.py` — CLI entry point
 - `tests/` — pytest test suite

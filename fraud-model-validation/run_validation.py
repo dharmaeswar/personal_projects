@@ -15,6 +15,7 @@ from fraud_validation.metrics import evaluate_model, tune_threshold
 from fraud_validation.models import fit_all, predict_all
 from fraud_validation.monitoring import drift_report
 from fraud_validation.report import build_report, write_report
+from fraud_validation.safeguards import build_safeguards_section, generate_harm_events
 
 
 def run_validation(output: str = "validation_report.txt") -> str:
@@ -46,6 +47,10 @@ def run_validation(output: str = "validation_report.txt") -> str:
         results, drift, slices, gap,
         len(train), len(test), float(data["is_fraud"].mean()),
     )
+
+    # 7. Safeguards analytics (new module, Nov 2026).
+    harm_events = generate_harm_events()
+    report = report.rstrip("\n") + "\n" + build_safeguards_section(harm_events) + "\n" + "=" * 70 + "\n"
     write_report(report, output)
     return report
 

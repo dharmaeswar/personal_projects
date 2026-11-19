@@ -95,3 +95,15 @@ Maximum flag-rate gap between regions: 1.32%. Flag rates differ modestly across 
    with alerts at PSI > 0.1 and a flag-rate gap review above 5pp.
 5. Re-run the challenger comparison when at least one more month of
    production data is available.
+
+7. SAFEGUARDS ANALYTICS (HARM-DETECTION MODEL)
+   Events: 5000 synthetic harm-detection events; harmful share: 0.0652.
+   Precision / recall by operating threshold:
+   threshold=0.3  flagged= 1843  precision=0.177  recall=1.000  f1=0.301
+   threshold=0.5  flagged=  560  precision=0.546  recall=0.939  f1=0.691
+   threshold=0.7  flagged=  248  precision=0.915  recall=0.696  f1=0.791
+   threshold=0.9  flagged=   41  precision=1.000  recall=0.126  f1=0.223
+   False-positive review at threshold 0.5: 254 FPs (45.4% of the review queue), 67.6 review hours, 30.03 hours spent on FPs.
+   Score drift (weeks 1-4 vs 5-8): PSI=0.0081  mean_drift=-0.0021  (stable).
+   Decision audit trail: 560 flagged, 177 overturned overall (3.5%); flag overturn rate 15.9%.
+======================================================================

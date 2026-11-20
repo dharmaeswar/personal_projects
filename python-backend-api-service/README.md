@@ -110,6 +110,47 @@ Insurance engineering points that match the role:
 - **Thread-safe stores** — policies, claims, events and quotes are held
   behind locks, like the loan store.
 
+It also has a Retail Orders & Inventory module
+(`payments_api/retail.py`), added for the Home Depot — Software
+Engineer 2 application: a product catalog and customer orders that
+reserve stock, in the shape of a small retail microservice (catalog,
+inventory and orders as separate resources behind one API).
+
+- `POST /v1/products` — create a product from a unique SKU, name, unit
+  price (integer cents) and opening stock. A duplicate SKU is rejected.
+  Publishes a `product.created` event.
+- `GET /v1/products/{id}` — product summary with on-hand stock.
+- `POST /v1/products/{id}/restock` — `{"quantity": n}` adds stock.
+- `POST /v1/orders` — place an order of `{sku, quantity}` lines for a
+  customer. Stock is reserved **atomically**: if any line is short or a
+  SKU is unknown, the whole order is rejected and no stock changes.
+  Totals are subtotal + 8% sales tax (integer cents, rounded half-up).
+  Publishes `order.placed`, plus `inventory.low` for each product the
+  reservation pushed to or below the low-stock threshold (5).
+- `GET /v1/orders/{id}` — order summary with line prices snapshotted at
+  placement time, subtotal, tax and total.
+- `POST /v1/orders/{id}/fulfill` — a placed order becomes `fulfilled`;
+  publishes `order.fulfilled`.
+- `POST /v1/orders/{id}/cancel` — a placed order becomes `cancelled`
+  and its stock goes back on the shelf; publishes `order.cancelled`.
+  Terminal orders reject further transitions.
+- `GET /v1/inventory/low-stock` — products at or below the threshold.
+
+Retail engineering points that match the role:
+
+- **Microservice resources** — catalog, inventory and orders are
+  separate REST resources with their own validation, like the services
+  a retail platform splits by domain.
+- **Atomic stock reservation** — check-and-decrement for every line
+  happens under one lock, so two lines can never oversell the last unit
+  and a failed order leaves inventory untouched.
+- **Correct money math** — prices, subtotals, tax and totals are
+  integer cents; tax rounds half-up to the cent, never floats.
+- **Event publishing** — order and inventory events reuse the same
+  Kafka-style `EventPublisher` as the insurance module.
+- **Thread-safe store** — products and orders sit behind one lock, like
+  the loan and policy stores.
+
 ## What runs where / what is simulated
 
 - **Real:** the HTTP API, the amortization math, validation, idempotency,
@@ -197,6 +238,29 @@ returns the same premium with `"cached": true`; a $2,000 claim settles
 with payout $1,500 ($2,000 − $500 deductible) and a `claim.settled`
 event appears on `GET /v1/events?topic=claim.settled`.
 
+## Verified results — Retail Orders & Inventory extension (Nov 20, 2026)
+
+```
+84 passed in 2.94s
+```
+
+- 16 new retail tests: tax rounding (half-up), product and order
+  validation, duplicate SKU rejection, order totals with stock
+  reservation, insufficient stock rejected with inventory untouched
+  (atomicity across lines), unknown SKU, low-stock reporting at the
+  threshold, cancel returning stock, terminal-state transitions
+  rejected, restock validation, and a live-server HTTP flow (create
+  product, place order, stock drop, `order.placed` + `inventory.low`
+  events, low-stock listing, fulfill, cancel-after-fulfill rejected,
+  400s and 404s).
+- The 68 earlier tests still pass unchanged.
+
+Worked example, verified by a live run: `POST /v1/products` for a
+cordless drill (SKU-100, $129.99, stock 10) returns `prd_000001`; an
+order for 2 returns `ord_000001` with subtotal $259.98, tax $20.80 and
+total $280.78, the product's stock drops to 8, and an `order.placed`
+event appears on `GET /v1/events?topic=order.placed`.
+
 ## Layout
 
 ```
@@ -206,12 +270,14 @@ payments_api/
   idempotency.py  idempotency store, retry w/ backoff, simulated ledger
   comms.py        templates, providers, preferences, delivery, digesting
   insurance.py    policies, premium math, claims, events, quote cache
+  retail.py       products, inventory, orders, tax math
 run_service.py    entry point
 tests/
   test_service.py unit tests
   test_api.py     integration tests against a live server
   test_comms.py   comms unit + integration tests
   test_insurance.py insurance unit + integration tests
+  test_retail.py  retail unit + integration tests
 ```
 
 ## Tests

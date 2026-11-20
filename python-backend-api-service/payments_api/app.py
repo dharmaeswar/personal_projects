@@ -18,6 +18,14 @@ Endpoints:
   GET  /v1/policies/{id}/claims -> claims filed on a policy
   POST /v1/claims/{id}/settle   -> approve or deny a claim
   GET  /v1/events               -> published domain events (optional ?topic=)
+  POST /v1/products             -> create a retail product (unique sku)
+  GET  /v1/products/{id}        -> product summary with on-hand stock
+  POST /v1/products/{id}/restock -> add stock to a product
+  GET  /v1/inventory/low-stock  -> products at or below the low-stock threshold
+  POST /v1/orders               -> place an order (reserves stock atomically)
+  GET  /v1/orders/{id}          -> order summary with totals
+  POST /v1/orders/{id}/fulfill  -> mark a placed order fulfilled
+  POST /v1/orders/{id}/cancel   -> cancel a placed order (stock returned)
 
 Checkout writes through to the (simulated) ledger with retry + backoff.
 Structured JSON logs go to stdout: one line per request with method, path,
@@ -51,6 +59,7 @@ from .insurance import (
     validate_policy,
 )
 from .models import Loan, ValidationError, build_schedule, validate_checkout
+from .retail import RetailStore, validate_order, validate_product
 
 logger = logging.getLogger("payments_api")
 logging.basicConfig(
@@ -99,6 +108,7 @@ def make_handler(
     policy_store: PolicyStore,
     events: EventPublisher,
     quotes: QuoteCache,
+    retail_store: RetailStore,
 ):
     class Handler(BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
@@ -237,6 +247,31 @@ def make_handler(
                     )
                     self._log(200, started)
                 return
+            if len(parts) == 3 and parts[0] == "v1" and parts[1] == "products":
+                product = retail_store.get_product(parts[2])
+                if product is None:
+                    self._send(404, {"error": "product not found"})
+                    self._log(404, started)
+                else:
+                    self._send(200, product.to_dict())
+                    self._log(200, started)
+                return
+            if path == "/v1/inventory/low-stock":
+                self._send(
+                    200,
+                    {"products": [p.to_dict() for p in retail_store.low_stock()]},
+                )
+                self._log(200, started)
+                return
+            if len(parts) == 3 and parts[0] == "v1" and parts[1] == "orders":
+                order = retail_store.get_order(parts[2])
+                if order is None:
+                    self._send(404, {"error": "order not found"})
+                    self._log(404, started)
+                else:
+                    self._send(200, order.to_dict())
+                    self._log(200, started)
+                return
             self._send(404, {"error": "not found"})
             self._log(404, started)
 
@@ -357,6 +392,69 @@ def make_handler(
                     self._send(201, claim.to_dict())
                     self._log(201, started)
                     return
+                if path == "/v1/products":
+                    cleaned = validate_product(self._read_json())
+                    product = retail_store.create_product(cleaned)
+                    events.publish(
+                        "product.created",
+                        product.id,
+                        {"product_id": product.id, "sku": product.sku},
+                    )
+                    self._send(201, product.to_dict())
+                    self._log(201, started)
+                    return
+                if len(parts) == 4 and parts[0] == "v1" and parts[1] == "products" and parts[3] == "restock":
+                    product = retail_store.get_product(parts[2])
+                    if product is None:
+                        self._send(404, {"error": "product not found"})
+                        self._log(404, started)
+                        return
+                    body = self._read_json()
+                    updated = retail_store.restock(product, body.get("quantity"))
+                    self._send(200, updated.to_dict())
+                    self._log(200, started)
+                    return
+                if path == "/v1/orders":
+                    cleaned = validate_order(self._read_json())
+                    order, low = retail_store.place_order(cleaned)
+                    events.publish(
+                        "order.placed",
+                        order.id,
+                        {
+                            "order_id": order.id,
+                            "customer_id": order.customer_id,
+                            "total_cents": order.total_cents,
+                        },
+                    )
+                    for product in low:
+                        events.publish(
+                            "inventory.low",
+                            product.id,
+                            {"product_id": product.id, "sku": product.sku, "stock": product.stock},
+                        )
+                    self._send(201, order.to_dict())
+                    self._log(201, started)
+                    return
+                if len(parts) == 4 and parts[0] == "v1" and parts[1] == "orders" and parts[3] in ("fulfill", "cancel"):
+                    order = retail_store.get_order(parts[2])
+                    if order is None:
+                        self._send(404, {"error": "order not found"})
+                        self._log(404, started)
+                        return
+                    if parts[3] == "fulfill":
+                        updated = retail_store.fulfill_order(order)
+                        topic = "order.fulfilled"
+                    else:
+                        updated = retail_store.cancel_order(order)
+                        topic = "order.cancelled"
+                    events.publish(
+                        topic,
+                        updated.id,
+                        {"order_id": updated.id, "status": updated.status},
+                    )
+                    self._send(200, updated.to_dict())
+                    self._log(200, started)
+                    return
                 if len(parts) == 4 and parts[0] == "v1" and parts[1] == "claims" and parts[3] == "settle":
                     claim = policy_store.get_claim(parts[2])
                     if claim is None:
@@ -414,7 +512,10 @@ def create_server(
     policy_store = PolicyStore()
     events = EventPublisher()
     quotes = QuoteCache()
-    handler = make_handler(store, idempotency, ledger, comms, policy_store, events, quotes)
+    retail_store = RetailStore()
+    handler = make_handler(
+        store, idempotency, ledger, comms, policy_store, events, quotes, retail_store
+    )
     server = ThreadingHTTPServer(("127.0.0.1", port), handler)
     server.loan_store = store  # type: ignore[attr-defined]
     server.idempotency_store = idempotency  # type: ignore[attr-defined]
@@ -423,6 +524,7 @@ def create_server(
     server.policy_store = policy_store  # type: ignore[attr-defined]
     server.events = events  # type: ignore[attr-defined]
     server.quotes = quotes  # type: ignore[attr-defined]
+    server.retail_store = retail_store  # type: ignore[attr-defined]
     return server
 
 

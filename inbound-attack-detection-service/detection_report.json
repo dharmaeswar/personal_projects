@@ -1,0 +1,5306 @@
+{
+  "dataset": {
+    "n_messages": 150,
+    "seed": 42,
+    "counts": {
+      "legitimate": 60,
+      "phishing": 40,
+      "bec": 25,
+      "bulk": 25
+    }
+  },
+  "threshold_calibration": {
+    "threshold": 0.35,
+    "train_f1": 1.0
+  },
+  "threshold": 0.35,
+  "overall": {
+    "threshold": 0.35,
+    "confusion_matrix": {
+      "tp": 65,
+      "fp": 0,
+      "tn": 85,
+      "fn": 0
+    },
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0,
+    "accuracy": 1.0,
+    "n": 150,
+    "n_positive": 65
+  },
+  "by_segment": {
+    "bec": {
+      "threshold": 0.35,
+      "confusion_matrix": {
+        "tp": 25,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 0.5,
+      "accuracy": 1.0,
+      "n": 25,
+      "n_positive": 25
+    },
+    "bulk": {
+      "threshold": 0.35,
+      "confusion_matrix": {
+        "tp": 0,
+        "fp": 0,
+        "tn": 25,
+        "fn": 0
+      },
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc_auc": 0.5,
+      "accuracy": 1.0,
+      "n": 25,
+      "n_positive": 0
+    },
+    "legitimate": {
+      "threshold": 0.35,
+      "confusion_matrix": {
+        "tp": 0,
+        "fp": 0,
+        "tn": 60,
+        "fn": 0
+      },
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc_auc": 0.5,
+      "accuracy": 1.0,
+      "n": 60,
+      "n_positive": 0
+    },
+    "phishing": {
+      "threshold": 0.35,
+      "confusion_matrix": {
+        "tp": 40,
+        "fp": 0,
+        "tn": 0,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 0.5,
+      "accuracy": 1.0,
+      "n": 40,
+      "n_positive": 40
+    }
+  },
+  "threshold_sweep": [
+    {
+      "threshold": 0.05,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 85,
+        "tn": 0,
+        "fn": 0
+      },
+      "precision": 0.4333,
+      "recall": 1.0,
+      "f1": 0.6047,
+      "roc_auc": 1.0,
+      "accuracy": 0.4333,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.1,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 85,
+        "tn": 0,
+        "fn": 0
+      },
+      "precision": 0.4333,
+      "recall": 1.0,
+      "f1": 0.6047,
+      "roc_auc": 1.0,
+      "accuracy": 0.4333,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.15,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 37,
+        "tn": 48,
+        "fn": 0
+      },
+      "precision": 0.6373,
+      "recall": 1.0,
+      "f1": 0.7784,
+      "roc_auc": 1.0,
+      "accuracy": 0.7533,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.2,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 37,
+        "tn": 48,
+        "fn": 0
+      },
+      "precision": 0.6373,
+      "recall": 1.0,
+      "f1": 0.7784,
+      "roc_auc": 1.0,
+      "accuracy": 0.7533,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.25,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 25,
+        "tn": 60,
+        "fn": 0
+      },
+      "precision": 0.7222,
+      "recall": 1.0,
+      "f1": 0.8387,
+      "roc_auc": 1.0,
+      "accuracy": 0.8333,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.3,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 18,
+        "tn": 67,
+        "fn": 0
+      },
+      "precision": 0.7831,
+      "recall": 1.0,
+      "f1": 0.8784,
+      "roc_auc": 1.0,
+      "accuracy": 0.88,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.35,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.4,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.45,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.5,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.55,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.6,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.65,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.7,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.75,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.8,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.85,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.9,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    },
+    {
+      "threshold": 0.95,
+      "confusion_matrix": {
+        "tp": 65,
+        "fp": 0,
+        "tn": 85,
+        "fn": 0
+      },
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "roc_auc": 1.0,
+      "accuracy": 1.0,
+      "n": 150,
+      "n_positive": 65
+    }
+  ],
+  "triage_counts": {
+    "quarantine": 65,
+    "escalate": 0,
+    "allow": 0
+  },
+  "messages": [
+    {
+      "id": "legit-21",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bec-21",
+      "segment": "bec",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-payments.com",
+      "subject": "Re: payment \u2014 please process today",
+      "score": 0.989,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.989; top signals: display_name_spoof, auth_failures, sender_domain_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.989. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-5",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-21",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "50% off \u2014 this weekend only",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-59",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-36",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "billing@acme-secure-login.xyz",
+      "subject": "Payment overdue \u2014 click here to resolve",
+      "score": 0.998,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.998; top signals: auth_failures, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "billing@acme-secure-login.xyz / acme-secure-login.xyz is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.998. Sender billing@acme-secure-login.xyz matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bec-8",
+      "segment": "bec",
+      "label": 1,
+      "sender": "michael ortiz@acme-corp-finance.net",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.9759,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 0.4
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.976; top signals: display_name_spoof, auth_failures, sender_domain_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.976. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-46",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-28",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.998,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "risky_attachment_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.998; top signals: auth_failures, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.998. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 1,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bec-23",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.9994,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: display_name_spoof, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-10",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "updates@conference.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.2891,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bec-1",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Confidential \u2014 urgent wire transfer",
+      "score": 0.9994,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: display_name_spoof, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-24",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-20",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "Your conference schedule is ready",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "phish-24",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "support@acmec0rp.com",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 1.0,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: auth_failures, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "support@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender support@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": true,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-9",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "Your password expires today \u2014 action required",
+      "score": 0.9997,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-23",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "support@acmec0rp.com",
+      "subject": "Payment overdue \u2014 click here to resolve",
+      "score": 0.9998,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: auth_failures, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "support@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender support@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": true,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-36",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Re: vendor contract renewal",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-23",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.2891,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-1",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-35",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-2",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-18",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "Your conference schedule is ready",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bec-0",
+      "segment": "bec",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-payments.com",
+      "subject": "Confidential \u2014 urgent wire transfer",
+      "score": 0.9985,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bec-14",
+      "segment": "bec",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-payments.com",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.9644,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.964; top signals: display_name_spoof, urgency_keyword_count, sender_domain_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.964. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 0,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-38",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "Invoice attached \u2014 wire transfer needed ASAP",
+      "score": 0.9998,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bec-15",
+      "segment": "bec",
+      "label": 1,
+      "sender": "michael ortiz@acme-corp-finance.net",
+      "subject": "Confidential \u2014 urgent wire transfer",
+      "score": 0.9985,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-47",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Updated onboarding checklist",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-8",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "news@techweekly.example",
+      "subject": "50% off \u2014 this weekend only",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "phish-25",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "Your password expires today \u2014 action required",
+      "score": 0.9859,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.986; top signals: auth_failures, urgency_keyword_count, suspicious_tld_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.986. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "bec-11",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Re: payment \u2014 please process today",
+      "score": 0.9997,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, lookalike_domain, auth_failures"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-7",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "support@acmec0rp.com",
+      "subject": "Invoice attached \u2014 wire transfer needed ASAP",
+      "score": 0.9963,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.996; top signals: lookalike_domain, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "support@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.996. Sender support@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": true,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bec-18",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Confidential \u2014 urgent wire transfer",
+      "score": 0.9996,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-33",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "billing@acme-secure-login.xyz",
+      "subject": "Invoice attached \u2014 wire transfer needed ASAP",
+      "score": 0.9677,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.968; top signals: urgency_keyword_count, reply_to_mismatch, auth_failures"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "billing@acme-secure-login.xyz / acme-secure-login.xyz is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.968. Sender billing@acme-secure-login.xyz matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-17",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "updates@conference.example",
+      "subject": "Your conference schedule is ready",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bec-6",
+      "segment": "bec",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-payments.com",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.9926,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 0.4
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.993; top signals: display_name_spoof, auth_failures, sender_domain_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.993. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-35",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "Invoice attached \u2014 wire transfer needed ASAP",
+      "score": 0.9942,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.994; top signals: auth_failures, urgency_keyword_count, ip_host_url_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.994. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-4",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "50% off \u2014 this weekend only",
+      "score": 0.2891,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "phish-29",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9983,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.998; top signals: auth_failures, urgency_keyword_count, ip_host_url_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.998. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-31",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9707,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.971; top signals: auth_failures, urgency_keyword_count, sender_domain_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.971. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-17",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "phish-39",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "Invoice attached \u2014 wire transfer needed ASAP",
+      "score": 0.9996,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "legit-41",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-26",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "Payment overdue \u2014 click here to resolve",
+      "score": 0.9998,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "legit-34",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-22",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "Your password expires today \u2014 action required",
+      "score": 0.9957,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.996; top signals: auth_failures, urgency_keyword_count, suspicious_tld_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.996. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "phish-21",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "Payment overdue \u2014 click here to resolve",
+      "score": 0.9968,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.997; top signals: auth_failures, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.997. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "bec-19",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Re: payment \u2014 please process today",
+      "score": 0.9991,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: display_name_spoof, lookalike_domain, auth_failures"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-42",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-5",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "Payment overdue \u2014 click here to resolve",
+      "score": 0.9992,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        },
+        {
+          "feature": "risky_attachment_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: auth_failures, urgency_keyword_count, ip_host_url_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 1,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-40",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-8",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "support@acmec0rp.com",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9975,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.998; top signals: lookalike_domain, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "support@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.998. Sender support@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": true,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-50",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-16",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Re: vendor contract renewal",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bec-17",
+      "segment": "bec",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-payments.com",
+      "subject": "Re: payment \u2014 please process today",
+      "score": 0.9967,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.997; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.997. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bec-24",
+      "segment": "bec",
+      "label": 1,
+      "sender": "michael ortiz@acme-corp-finance.net",
+      "subject": "Confidential \u2014 urgent wire transfer",
+      "score": 0.995,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.995; top signals: display_name_spoof, urgency_keyword_count, auth_failures"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.995. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-4",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "billing@acme-secure-login.xyz",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9996,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "risky_attachment_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: auth_failures, reply_to_mismatch, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "billing@acme-secure-login.xyz / acme-secure-login.xyz is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender billing@acme-secure-login.xyz matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 1,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "phish-3",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "support@acmec0rp.com",
+      "subject": "Your password expires today \u2014 action required",
+      "score": 0.9999,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "risky_attachment_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: auth_failures, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "support@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender support@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": true,
+          "auth_failures": 3,
+          "risky_attachment_count": 1,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "legit-55",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-44",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bec-13",
+      "segment": "bec",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-payments.com",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.9759,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.976; top signals: display_name_spoof, urgency_keyword_count, sender_domain_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.976. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 0,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-16",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "updates@conference.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-18",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Updated onboarding checklist",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-29",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-4",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-37",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "phish-0",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "support@acmec0rp.com",
+      "subject": "Invoice attached \u2014 wire transfer needed ASAP",
+      "score": 0.9989,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: auth_failures, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "support@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender support@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": true,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-30",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "Your password expires today \u2014 action required",
+      "score": 1.0,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 1,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-52",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-0",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bec-9",
+      "segment": "bec",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-payments.com",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.989,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.989; top signals: display_name_spoof, urgency_keyword_count, auth_failures"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.989. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bec-12",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Re: payment \u2014 please process today",
+      "score": 0.9997,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, lookalike_domain, auth_failures"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-13",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "updates@conference.example",
+      "subject": "50% off \u2014 this weekend only",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-22",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-30",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-20",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bec-2",
+      "segment": "bec",
+      "label": 1,
+      "sender": "michael ortiz@acme-corp-finance.net",
+      "subject": "Re: payment \u2014 please process today",
+      "score": 0.9644,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.964; top signals: display_name_spoof, auth_failures, sender_domain_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.964. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-33",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-27",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-5",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "Your conference schedule is ready",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-12",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Re: vendor contract renewal",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-18",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "support@acmec0rp.com",
+      "subject": "Your password expires today \u2014 action required",
+      "score": 0.9994,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: lookalike_domain, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "support@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender support@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": true,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-7",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "phish-34",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9983,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.998; top signals: auth_failures, urgency_keyword_count, ip_host_url_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.998. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bec-4",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Confidential \u2014 urgent wire transfer",
+      "score": 0.9999,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, lookalike_domain, auth_failures"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-39",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-54",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Updated onboarding checklist",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-19",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "Your conference schedule is ready",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bec-16",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Confidential \u2014 urgent wire transfer",
+      "score": 0.9999,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: auth_failures, display_name_spoof, lookalike_domain"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-6",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-57",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-48",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Re: vendor contract renewal",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "phish-6",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9933,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.993; top signals: auth_failures, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.993. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-28",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-19",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9998,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, auth_failures, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "phish-16",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "billing@acme-secure-login.xyz",
+      "subject": "Your password expires today \u2014 action required",
+      "score": 0.9933,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.993; top signals: auth_failures, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "billing@acme-secure-login.xyz / acme-secure-login.xyz is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.993. Sender billing@acme-secure-login.xyz matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-15",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-53",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Updated onboarding checklist",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-37",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "Your password expires today \u2014 action required",
+      "score": 0.999,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: auth_failures, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "phish-11",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "Payment overdue \u2014 click here to resolve",
+      "score": 1.0,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: auth_failures, display_name_spoof, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-15",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Updated onboarding checklist",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-31",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Re: vendor contract renewal",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-10",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-38",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Updated onboarding checklist",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-3",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.2891,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bec-3",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.9991,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: display_name_spoof, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bec-7",
+      "segment": "bec",
+      "label": 1,
+      "sender": "michael ortiz@acme-corp-finance.net",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.9926,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 0.4
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.993; top signals: display_name_spoof, auth_failures, sender_domain_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.993. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-19",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bec-22",
+      "segment": "bec",
+      "label": 1,
+      "sender": "priya nair@acmec0rp.com",
+      "subject": "Re: payment \u2014 please process today",
+      "score": 0.9991,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: display_name_spoof, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "priya nair@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender priya nair@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": true,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-27",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9998,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, auth_failures, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "phish-20",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "support@acmec0rp.com",
+      "subject": "Your password expires today \u2014 action required",
+      "score": 1.0,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "lookalike_domain",
+          "contribution": 2.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: auth_failures, lookalike_domain, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "support@acmec0rp.com / acmec0rp.com is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender support@acmec0rp.com matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": true,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "phish-13",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "billing@acme-secure-login.xyz",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9986,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: auth_failures, reply_to_mismatch, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "billing@acme-secure-login.xyz / acme-secure-login.xyz is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender billing@acme-secure-login.xyz matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "legit-9",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Updated onboarding checklist",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-2",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9999,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "ip_host_url_count",
+          "contribution": 1.5
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-51",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-8",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Updated onboarding checklist",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bec-5",
+      "segment": "bec",
+      "label": 1,
+      "sender": "michael ortiz@acme-corp-finance.net",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.999,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: auth_failures, display_name_spoof, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-14",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-1",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "updates@conference.example",
+      "subject": "Your conference schedule is ready",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bec-10",
+      "segment": "bec",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-payments.com",
+      "subject": "Quick favor \u2014 gift cards needed",
+      "score": 0.989,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.989; top signals: display_name_spoof, urgency_keyword_count, auth_failures"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.989. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-2",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "50% off \u2014 this weekend only",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bulk-7",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-6",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-23",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Re: vendor contract renewal",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-43",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-56",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-1",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "billing@acme-secure-login.xyz",
+      "subject": "Invoice attached \u2014 wire transfer needed ASAP",
+      "score": 0.9998,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "risky_attachment_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: auth_failures, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "billing@acme-secure-login.xyz / acme-secure-login.xyz is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. Sender billing@acme-secure-login.xyz matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 1,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "bec-20",
+      "segment": "bec",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-payments.com",
+      "subject": "Re: payment \u2014 please process today",
+      "score": 0.989,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.989; top signals: display_name_spoof, urgency_keyword_count, auth_failures"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.989. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 1,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-22",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "news@techweekly.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.2891,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bulk-14",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.2891,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-26",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-0",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "news@techweekly.example",
+      "subject": "Your conference schedule is ready",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bulk-12",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "Your conference schedule is ready",
+      "score": 0.2891,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "phish-14",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9997,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-13",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-11",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "carol.wu@acme-partners.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.2315,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "bulk-24",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "news@techweekly.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-32",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Re: vendor contract renewal",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "bulk-11",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "news@techweekly.example",
+      "subject": "This week's top stories in tech",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "legit-3",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Q3 roadmap review \u2014 notes attached",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-17",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "security@invoice-pay.top",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9994,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "risky_attachment_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: auth_failures, urgency_keyword_count, reply_to_mismatch"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "security@invoice-pay.top / invoice-pay.top is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender security@invoice-pay.top matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 1,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-45",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Slides for tomorrow's all-hands",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-32",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "Invoice attached \u2014 wire transfer needed ASAP",
+      "score": 0.9995,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "legit-58",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "dave.m@acmecorp.com",
+      "subject": "Updated onboarding checklist",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-15",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "billing@acme-secure-login.xyz",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9986,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.2
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine_and_block_sender",
+        "confidence": 0.98,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 0.999; top signals: auth_failures, reply_to_mismatch, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "billing@acme-secure-login.xyz / acme-secure-login.xyz is blocklisted"
+          }
+        ],
+        "rationale": "Classifier risk score is 0.999. Sender billing@acme-secure-login.xyz matches the blocklist.",
+        "key_features": {
+          "display_name_spoof": false,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    },
+    {
+      "id": "legit-49",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "alice.johnson@acmecorp.com",
+      "subject": "Team lunch next Thursday",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "legit-25",
+      "segment": "legitimate",
+      "label": 0,
+      "sender": "bob.lee@acmecorp.com",
+      "subject": "Re: vendor contract renewal",
+      "score": 0.1192,
+      "predicted": 0,
+      "top_signals": [],
+      "triage": null
+    },
+    {
+      "id": "phish-12",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "URGENT: Verify your account immediately",
+      "score": 0.9997,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "auth_failures",
+          "contribution": 2.4
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 2.0
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: display_name_spoof, auth_failures, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 2,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 0
+        }
+      }
+    },
+    {
+      "id": "bulk-9",
+      "segment": "bulk",
+      "label": 0,
+      "sender": "deals@shopdaily.example",
+      "subject": "50% off \u2014 this weekend only",
+      "score": 0.3208,
+      "predicted": 0,
+      "top_signals": [
+        {
+          "feature": "sender_domain_mismatch",
+          "contribution": 0.8
+        },
+        {
+          "feature": "unknown_sender",
+          "contribution": 0.3
+        },
+        {
+          "feature": "url_count",
+          "contribution": 0.15
+        }
+      ],
+      "triage": null
+    },
+    {
+      "id": "phish-10",
+      "segment": "phishing",
+      "label": 1,
+      "sender": "sarah chen@acmecorp-support.xyz",
+      "subject": "Payment overdue \u2014 click here to resolve",
+      "score": 1.0,
+      "predicted": 1,
+      "top_signals": [
+        {
+          "feature": "auth_failures",
+          "contribution": 3.6
+        },
+        {
+          "feature": "display_name_spoof",
+          "contribution": 3.0
+        },
+        {
+          "feature": "urgency_keyword_count",
+          "contribution": 1.6
+        },
+        {
+          "feature": "reply_to_mismatch",
+          "contribution": 1.5
+        },
+        {
+          "feature": "suspicious_tld_count",
+          "contribution": 1.0
+        }
+      ],
+      "triage": {
+        "verdict": "quarantine",
+        "action": "quarantine",
+        "confidence": 0.9,
+        "steps": [
+          {
+            "step": "gather_signals",
+            "detail": "risk score 1.000; top signals: auth_failures, display_name_spoof, urgency_keyword_count"
+          },
+          {
+            "step": "check_blocklist",
+            "detail": "no blocklist match"
+          },
+          {
+            "step": "apply_policy",
+            "detail": "high risk or hard attack signal"
+          }
+        ],
+        "rationale": "Classifier risk score is 1.000. High risk score or a hard attack signal (spoof / lookalike / risky attachment / full auth failure).",
+        "key_features": {
+          "display_name_spoof": true,
+          "lookalike_domain": false,
+          "auth_failures": 3,
+          "risky_attachment_count": 0,
+          "suspicious_tld_count": 1
+        }
+      }
+    }
+  ]
+}

@@ -35,7 +35,13 @@ when they agree.
      the mid-horizon bucket.
    Each check reports its relative error against the tolerance band
    (default **1.2%**, `--tolerance`) with pass/fail.
-6. **Parallel execution** — asset classes are simulated concurrently with
+6. **Stochastic projection & capital market assumptions** (`xva_benchmark/cma.py`)
+   — building-block expected returns; Bayesian posterior expected returns
+   from a prior view plus history; Ledoit-Wolf-style correlation shrinkage;
+   private-market NAV paths with scheduled capital calls and distributions;
+   and VaR / CVaR tail risk on terminal outcomes. See the "Stochastic
+   projection" section below.
+7. **Parallel execution** — asset classes are simulated concurrently with
    `concurrent.futures.ProcessPoolExecutor` (joblib is an interchangeable
    alternative for the same fan-out pattern). Per-asset RNG streams are
    spawned from the master seed, so serial and parallel runs are identical.
@@ -58,6 +64,33 @@ Useful flags: `--serial` (disable parallelism), `--tolerance 0.012`,
 `--hazard-rate 0.02`, `--funding-spread 0.015`, `--horizon 5`,
 `--outdir output`.
 
+## Stochastic projection and capital market assumptions
+
+```python
+import numpy as np
+from xva_benchmark.cma import (
+    building_block_expected_return, cma_from_history,
+    project_cash_flows, tail_risk,
+)
+from xva_benchmark.simulation import time_grid
+
+# Building-block expected return: cash + inflation + real growth + premium.
+building_block_expected_return(0.02, 0.025, 0.015, 0.04)  # 0.10
+
+# Bayesian CMAs: prior view + 120 months of history, shrunk correlations.
+rng = np.random.default_rng(0)
+history = rng.normal(loc=[0.006, 0.004], scale=[0.04, 0.03], size=(120, 2))
+cma = cma_from_history(history, prior_means=[0.004, 0.003],
+                       prior_vols=[0.01, 0.01])
+
+# Private-market NAV projection: $100m NAV, $20m call at year 3, $30m
+# distribution at year 5; tail risk on terminal NAV.
+proj = project_cash_flows(100.0, 0.08, 0.15, time_grid(5.0, 10),
+                          n_paths=5000, seed=7,
+                          capital_calls={6: 20.0}, distributions={10: 30.0})
+risk = tail_risk(proj["nav"][:, -1], confidence=0.95)
+```
+
 ## Project layout
 
 ```
@@ -69,8 +102,11 @@ xva_benchmark/
     exposure.py     EE / EPE / PFE profiles
     xva.py          CVA / FVA / KVA and the cumulative ladder
     benchmark.py    independent closed-form benchmark checks
+    cma.py          building-block / Bayesian CMAs, private-market NAV
+                    projection with calls and distributions, VaR / CVaR
     runner.py       parallel orchestration, reporting, CLI
-tests/              pytest suite (pricing, simulation, exposure, XVA, benchmarks)
+tests/              pytest suite (pricing, simulation, exposure, XVA,
+                    benchmarks, CMAs and stochastic projection)
 METHODS.md          methodology, assumptions and limitations (SR 11-7 style)
 ```
 

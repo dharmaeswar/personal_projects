@@ -47,6 +47,14 @@ seeded random generator so every run is reproducible.
   it is not reinforcement learning, bandit optimisation, or any other
   adaptive policy. All member data is synthetic, seeded, and
   reproducible; no real member or Humana data is used.
+- **Experiment tracking & evaluation harness** (`ml_platform/evaluation.py`):
+  logs every training run (hyperparameters, metrics, model version,
+  dataset fingerprint) to a JSONL experiment log and picks the best run
+  by any metric; evaluates a candidate model version against production
+  on the same held-out set and applies a promotion gate (primary-metric
+  improvement plus metric floors); and evaluates a keyword ranker for
+  the search / knowledge-discovery use case with precision@k and mean
+  reciprocal rank over a synthetic docs-and-queries corpus.
 
 ## Layout
 
@@ -63,6 +71,7 @@ ml-training-serving-platform/
     serving.py              # prediction service, canary, drift, rollback
     backfill.py             # offline batch re-scoring
     decisioning.py          # next-best-action decisioning + outcome tracking
+    evaluation.py           # experiment log, promotion gate, retrieval eval (P@k / MRR)
   tests/
     test_data.py
     test_training.py
@@ -70,6 +79,7 @@ ml-training-serving-platform/
     test_serving.py
     test_backfill.py
     test_decisioning.py
+    test_evaluation.py
 ```
 
 ## Run it

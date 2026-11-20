@@ -16,6 +16,12 @@ from ml_platform.decisioning import (
     outcome_report,
     read_decisions,
 )
+from ml_platform.evaluation import (
+    evaluate_retrieval,
+    generate_search_corpus,
+    log_experiment,
+    promotion_gate,
+)
 from ml_platform.registry import Registry
 from ml_platform.serving import ServingService
 from ml_platform.training import evaluate, train, train_pipeline
@@ -29,6 +35,9 @@ def main():
     v1 = registry.register("credit-decision", model_v1, metrics_v1)
     registry.promote(v1)
     print(f"registered + promoted {v1}: {metrics_v1}")
+    log_experiment(os.path.join(BASE, "experiments.jsonl"), "baseline",
+                   {"epochs": 300, "lr": 0.1, "seed": 42}, metrics_v1,
+                   model_version=v1, dataset="synthetic-credit-2500")
 
     model_v2, metrics_v2, _ = train_pipeline(n_train=2000, n_test=500, seed=123)
     v2 = registry.register("credit-decision", model_v2, metrics_v2)
@@ -53,6 +62,20 @@ def main():
 
     registry.promote(v2)
     print(f"promoted {v2} to production after backfill comparison")
+
+    # Evaluation: log the candidate run, gate it against production on the
+    # same held-out set, and score the keyword ranker on a synthetic
+    # search corpus (precision@k / MRR).
+    log_experiment(os.path.join(BASE, "experiments.jsonl"), "candidate-seed-123",
+                   {"epochs": 300, "lr": 0.1, "seed": 123}, metrics_v2,
+                   model_version=v2, dataset="synthetic-credit-2500")
+    eval_rows = generate_applications(500, seed=777)[-500:]
+    gate = promotion_gate(model_v2, model_v1, eval_rows, primary="auc",
+                          min_improvement=0.0, floors={"accuracy": 0.70})
+    print("promotion gate:", {k: gate[k] for k in ("promote", "primary_delta", "reasons")})
+    docs, queries = generate_search_corpus(seed=11)
+    print("retrieval eval:", evaluate_retrieval(docs, queries, k=3))
+
     rolled = service.rollback()
     print(f"rollback restored production to {rolled} (expected {v1})")
 

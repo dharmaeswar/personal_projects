@@ -116,9 +116,9 @@ Adversarial pattern checks (fraud-rate shift, baseline vs recent):
 
 Model quality vs latency (measured single-transaction scoring):
   Model         ROC-AUC  Capture  Mean ms  p99 ms
-  benchmark      0.5000   0.0000    0.012   0.052
-  challenger     0.7380   0.2179    2.018   3.006
-  champion       0.7103   0.1795    2.888  37.017
+  benchmark      0.5000   0.0000    0.012   0.029
+  champion       0.7103   0.1795    1.641   2.090
+  challenger     0.7380   0.2179    2.337  16.627
 
 Model-regression monitoring (recent vs baseline period): PASS.
   roc_auc    0.6889 -> 0.7326 (+0.0437, tolerance 0.02) PASS
@@ -136,4 +136,25 @@ Model-regression monitoring (recent vs baseline period): PASS.
    False-positive review at threshold 0.5: 254 FPs (45.4% of the review queue), 67.6 review hours, 30.03 hours spent on FPs.
    Score drift (weeks 1-4 vs 5-8): PSI=0.0081  mean_drift=-0.0021  (stable).
    Decision audit trail: 560 flagged, 177 overturned overall (3.5%); flag overturn rate 15.9%.
+======================================================================
+10. CREDIT RISK ANALYTICS (Prosper-style personal-loan decisions)
+======================================================================
+Bureau score Gini vs 12-month bad label: 0.3589
+
+Score-band performance (bad rate falls as bureau score rises):
+  300-579: n=  564  share=4.7%  bad_rate=30.7%
+  580-619: n= 1267  share=10.6%  bad_rate=22.0%
+  620-659: n= 2352  share=19.6%  bad_rate=14.9%
+  660-699: n= 2934  share=24.4%  bad_rate=10.5%
+  700-739: n= 2636  share=22.0%  bad_rate=6.9%
+  740-850: n= 2247  share=18.7%  bad_rate=4.5%
+
+Decision cutoffs (approve at or above the score):
+  cutoff 620.0: approval=84.7%  approved bad rate=9.2%  bad capture=32.5%
+  cutoff 640.0: approval=75.9%  approved bad rate=8.4%  bad capture=45.2%
+  cutoff 660.0: approval=65.1%  approved bad rate=7.5%  bad capture=57.6%
+  cutoff 680.0: approval=53.5%  approved bad rate=6.7%  bad capture=69.1%
+
+Vintage bad rates range 9.9% (month 2) to 13.0% (month 11); spread 3.1%.
+Roll rate: 7.3% of loans hit 30 DPD; 21.5% of those roll to 90 DPD (90 DPD base rate 1.7%).
 ======================================================================

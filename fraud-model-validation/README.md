@@ -32,6 +32,11 @@ institution.
   checks (fraud-share shifts by segment, baseline vs recent), measured
   model-quality vs scoring-latency trade-off, and model-regression
   monitoring with per-metric tolerances.
+- **Credit-risk analytics** (new, Nov 2026): seeded synthetic personal-loan
+  applications with bureau scores, utilisation, inquiries and delinquencies;
+  score-band bad rates and the bureau-score Gini; decision-cutoff analysis
+  (approval rate, approved bad rate, bad capture at cutoffs 620–680);
+  vintage bad rates by booking month; and 30-to-90 DPD roll rates.
 
 ## How to run
 
@@ -60,6 +65,9 @@ PYTHONPATH=. python -m pytest -q
 - `fraud_validation/transaction_risk.py` — transaction-risk scoring:
   engineered features, delayed-label evaluation, adversarial pattern
   checks, quality-vs-latency trade-off, model-regression monitoring
+- `fraud_validation/credit_risk.py` — credit-risk analytics: bureau
+  features, score-band performance and Gini, decision cutoffs, vintage
+  analysis, 30-to-90 DPD roll rates
 - `fraud_validation/report.py` — plain-text validation report writer
 - `run_validation.py` — CLI entry point
 - `tests/` — pytest test suite

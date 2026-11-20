@@ -2,4 +2,4 @@
 
 from __future__ import annotations
 
-__all__ = ["data", "models", "metrics", "monitoring", "fairness", "report", "transaction_risk"]
+__all__ = ["data", "models", "metrics", "monitoring", "fairness", "report", "transaction_risk", "credit_risk"]

@@ -22,6 +22,17 @@ from fraud_validation.metrics import evaluate_model, tune_threshold
 from fraud_validation.models import fit_all, predict_all
 from fraud_validation.monitoring import drift_report
 from fraud_validation.report import build_report, write_report
+from fraud_validation.credit_risk import (
+    CREDIT_FEATURES,
+    build_credit_features,
+    build_credit_risk_section,
+    decision_cutoff_analysis,
+    generate_credit_applications,
+    gini_coefficient,
+    roll_rate,
+    score_band_performance,
+    vintage_analysis,
+)
 from fraud_validation.safeguards import build_safeguards_section, generate_harm_events
 from fraud_validation.transaction_risk import (
     N_EVENT_DAYS,
@@ -103,8 +114,27 @@ def run_validation(output: str = "validation_report.txt") -> str:
         delayed, shifts, tradeoff, regression, n_features=len(RISK_FEATURES)
     )
 
+    # 9. Credit-risk analytics (new module, Nov 2026).
+    credit_apps = build_credit_features(generate_credit_applications())
+    credit_gini = gini_coefficient(
+        credit_apps["is_bad"].to_numpy(),
+        credit_apps["bureau_score"].to_numpy(dtype=float),
+    )
+    credit_bands = score_band_performance(credit_apps)
+    credit_cutoffs = decision_cutoff_analysis(credit_apps)
+    credit_vintages = vintage_analysis(credit_apps)
+    credit_rolls = roll_rate(credit_apps)
+    credit_section = build_credit_risk_section(
+        credit_bands,
+        credit_gini,
+        credit_cutoffs,
+        credit_vintages,
+        credit_rolls,
+    )
+
     report = (
         report.rstrip("\n") + "\n" + risk_section + safeguards_section
+        + credit_section
         + "\n" + "=" * 70 + "\n"
     )
     write_report(report, output)

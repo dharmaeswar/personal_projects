@@ -9,13 +9,30 @@ from __future__ import annotations
 
 import argparse
 
-from fraud_validation.data import FEATURES, generate_transactions, train_test_split
+import numpy as np
+
+from fraud_validation.data import (
+    FEATURES,
+    MERCHANT_CATEGORIES,
+    generate_transactions,
+    train_test_split,
+)
 from fraud_validation.fairness import max_flag_rate_gap, slice_metrics
 from fraud_validation.metrics import evaluate_model, tune_threshold
 from fraud_validation.models import fit_all, predict_all
 from fraud_validation.monitoring import drift_report
 from fraud_validation.report import build_report, write_report
 from fraud_validation.safeguards import build_safeguards_section, generate_harm_events
+from fraud_validation.transaction_risk import (
+    N_EVENT_DAYS,
+    RISK_FEATURES,
+    add_event_days,
+    build_transaction_risk_section,
+    delayed_label_evaluation,
+    latency_quality_tradeoff,
+    pattern_shift_report,
+    regression_check,
+)
 
 
 def run_validation(output: str = "validation_report.txt") -> str:
@@ -50,7 +67,46 @@ def run_validation(output: str = "validation_report.txt") -> str:
 
     # 7. Safeguards analytics (new module, Nov 2026).
     harm_events = generate_harm_events()
-    report = report.rstrip("\n") + "\n" + build_safeguards_section(harm_events) + "\n" + "=" * 70 + "\n"
+    safeguards_section = build_safeguards_section(harm_events)
+
+    # 8. Transaction-risk scoring (new module, Nov 2026).
+    dated_test = add_event_days(test)
+    latest_day = int(dated_test["event_day"].max())
+    delayed = delayed_label_evaluation(
+        y_true, scores["champion"],
+        dated_test["event_day"].to_numpy(), latest_day=latest_day,
+    )
+    dated_test = dated_test.assign(
+        period=np.where(
+            dated_test["event_day"] < N_EVENT_DAYS // 2, "baseline", "recent"
+        ),
+        merchant_category=dated_test["merchant_category"].map(
+            lambda code: MERCHANT_CATEGORIES[int(code)]
+        ),
+    )
+    shifts = pattern_shift_report(dated_test, y_true, scores["champion"], threshold=threshold)
+    tradeoff = latency_quality_tradeoff(models, test, y_true, threshold=threshold)
+    base_mask = (dated_test["period"] == "baseline").to_numpy()
+    recent_mask = ~base_mask
+    metric_keys = ("roc_auc", "precision", "recall", "f1")
+    base_eval = evaluate_model(
+        y_true[base_mask], scores["champion"][base_mask], threshold=threshold
+    )
+    recent_eval = evaluate_model(
+        y_true[recent_mask], scores["champion"][recent_mask], threshold=threshold
+    )
+    regression = regression_check(
+        {k: base_eval[k] for k in metric_keys},
+        {k: recent_eval[k] for k in metric_keys},
+    )
+    risk_section = build_transaction_risk_section(
+        delayed, shifts, tradeoff, regression, n_features=len(RISK_FEATURES)
+    )
+
+    report = (
+        report.rstrip("\n") + "\n" + risk_section + safeguards_section
+        + "\n" + "=" * 70 + "\n"
+    )
     write_report(report, output)
     return report
 

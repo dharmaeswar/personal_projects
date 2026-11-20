@@ -25,6 +25,13 @@ institution.
   thresholds for a harm-detection model, false-positive review burden in
   human-review hours, score drift monitoring, and a decision audit trail
   with overturn rates.
+- **Transaction-risk scoring** (new, Nov 2026): engineered transaction
+  features (velocity ratio, night/new-device flags, cross-border x
+  card-not-present interaction, amount z-score), delayed-label evaluation
+  (fraud labels mature only after chargebacks arrive), adversarial pattern
+  checks (fraud-share shifts by segment, baseline vs recent), measured
+  model-quality vs scoring-latency trade-off, and model-regression
+  monitoring with per-metric tolerances.
 
 ## How to run
 
@@ -50,6 +57,9 @@ PYTHONPATH=. python -m pytest -q
 - `fraud_validation/fairness.py` — slice metrics by region
 - `fraud_validation/safeguards.py` — harm-detection analytics: precision/recall
   at thresholds, false-positive review burden, drift monitoring, audit trail
+- `fraud_validation/transaction_risk.py` — transaction-risk scoring:
+  engineered features, delayed-label evaluation, adversarial pattern
+  checks, quality-vs-latency trade-off, model-regression monitoring
 - `fraud_validation/report.py` — plain-text validation report writer
 - `run_validation.py` — CLI entry point
 - `tests/` — pytest test suite

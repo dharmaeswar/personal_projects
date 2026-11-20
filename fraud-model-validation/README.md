@@ -37,6 +37,12 @@ institution.
   score-band bad rates and the bureau-score Gini; decision-cutoff analysis
   (approval rate, approved bad rate, bad capture at cutoffs 620–680);
   vintage bad rates by booking month; and 30-to-90 DPD roll rates.
+- **Model approval workflow** (new, Nov 2026): a model-inventory record and
+  an approval gate over the validation evidence — ROC-AUC, KS, outcomes
+  sample size, calibration gap, worst feature PSI, and fairness flag-rate
+  gap are checked against documented thresholds and resolve to APPROVED,
+  APPROVED_WITH_CONDITIONS (soft breaches become follow-up conditions), or
+  NOT_APPROVED (hard breaches block), with a validator sign-off trail.
 
 ## How to run
 
@@ -68,6 +74,9 @@ PYTHONPATH=. python -m pytest -q
 - `fraud_validation/credit_risk.py` — credit-risk analytics: bureau
   features, score-band performance and Gini, decision cutoffs, vintage
   analysis, 30-to-90 DPD roll rates
+- `fraud_validation/approval.py` — model approval workflow: inventory
+  record, evidence gates with documented thresholds, approval decision,
+  sign-off trail
 - `fraud_validation/report.py` — plain-text validation report writer
 - `run_validation.py` — CLI entry point
 - `tests/` — pytest test suite

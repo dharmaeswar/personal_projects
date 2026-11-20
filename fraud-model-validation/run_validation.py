@@ -33,6 +33,13 @@ from fraud_validation.credit_risk import (
     score_band_performance,
     vintage_analysis,
 )
+from fraud_validation.approval import (
+    ModelRecord,
+    build_approval_section,
+    evaluate_approval,
+    evidence_from_results,
+    sign_off,
+)
 from fraud_validation.safeguards import build_safeguards_section, generate_harm_events
 from fraud_validation.transaction_risk import (
     N_EVENT_DAYS,
@@ -132,9 +139,25 @@ def run_validation(output: str = "validation_report.txt") -> str:
         credit_rolls,
     )
 
+    # 10. Model approval workflow (new module, Nov 2026): gate the champion's
+    # validation evidence through the approval process and sign it off.
+    record = ModelRecord(
+        model_id="FRD-001",
+        name="Card Fraud Scoring (champion)",
+        owner="Fraud Analytics",
+        model_tier=1,
+        purpose="Flag card transactions for review",
+    )
+    evidence = evidence_from_results(results, drift, gap, len(test))
+    approval = evaluate_approval(evidence)
+    trail_entry = sign_off(
+        record, approval, validator="Model Validation", sign_date="2026-11-20"
+    )
+    approval_section = build_approval_section(record, approval, trail_entry)
+
     report = (
         report.rstrip("\n") + "\n" + risk_section + safeguards_section
-        + credit_section
+        + credit_section + approval_section
         + "\n" + "=" * 70 + "\n"
     )
     write_report(report, output)

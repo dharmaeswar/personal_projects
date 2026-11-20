@@ -81,3 +81,40 @@ tests/                  pytest suite
 Python, SQL-style data modeling, ETL/ELT (batch and incremental),
 schema mapping, data-quality checks, pipeline monitoring and alerting,
 replay/backfill, JSON/CSV ingestion, deterministic testing with pytest.
+
+## Operational AI — customer-defined detections and agentic workflows
+
+`cold_chain/operational_ai.py` builds on the normalised telemetry above,
+for the Operational AI use case: turning sensor streams into tools that
+help operators understand everyday work.
+
+- **Customer-defined detection rules** — a customer writes their own
+  rules (field, operator, threshold, severity, recommended action), for
+  example "temperature above 8 C means a door left open". The engine
+  runs every rule over every reading and raises one detection per hit.
+- **Detection-quality scoring** — detections are scored against
+  human-labelled events (precision, recall, F1 by reading id), so
+  detection quality and customer impact guide the next rule revision.
+- **Agentic workflow** — a detection proposes its rule's recommended
+  action; the outcome (what was done, whether it resolved) is recorded,
+  and the resolution rate is the feedback loop. The agent never changes
+  a detection on its own.
+- **Latency and compute-cost tracking** — every detection carries its
+  evaluation latency and cost, so reliability, response time and cost
+  stay visible as usage grows.
+
+## Operational AI demo (seed 7, deterministic)
+
+```
+python3 -m cold_chain.operational_ai
+```
+
+| Measure | Value |
+|---|---|
+| Readings | 48 |
+| Detections | 15 |
+| Precision / Recall / F1 | 0.8 / 1.0 / 0.8889 |
+| True positives / false positives / false negatives | 12 / 3 / 0 |
+| Workflow resolution rate | 0.4 |
+| Total latency / avg latency | 22.5 ms / 1.5 ms |
+| Total compute cost | $0.0302 |

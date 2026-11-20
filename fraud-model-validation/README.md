@@ -43,6 +43,12 @@ institution.
   gap are checked against documented thresholds and resolve to APPROVED,
   APPROVED_WITH_CONDITIONS (soft breaches become follow-up conditions), or
   NOT_APPROVED (hard breaches block), with a validator sign-off trail.
+- **Financial-flow reconciliation** (new, Nov 2026): a seeded ledger of
+  5,000 postings reconciled against downstream flow records — match by
+  transaction id, flag amount mismatches, missing and orphan records, and
+  duplicate postings; per-product capital-flow totals (card purchases,
+  refunds, payouts, fees) and aging of unresolved breaks; 75 breaks
+  (1.50% of ledger), under the 2% control threshold.
 
 ## How to run
 

@@ -41,6 +41,13 @@ from fraud_validation.approval import (
     sign_off,
 )
 from fraud_validation.safeguards import build_safeguards_section, generate_harm_events
+from fraud_validation.reconciliation import (
+    break_aging,
+    build_reconciliation_section,
+    capital_flow_summary,
+    generate_ledger,
+    reconcile,
+)
 from fraud_validation.transaction_risk import (
     N_EVENT_DAYS,
     RISK_FEATURES,
@@ -155,9 +162,20 @@ def run_validation(output: str = "validation_report.txt") -> str:
     )
     approval_section = build_approval_section(record, approval, trail_entry)
 
+    # 11. Financial-flow reconciliation (new module, Nov 2026): reconcile
+    # the synthetic ledger against downstream flow records, summarise
+    # capital flows by product, and age the unresolved breaks.
+    recon_ledger, recon_flows = generate_ledger()
+    recon_summary, recon_breaks = reconcile(recon_ledger, recon_flows)
+    recon_section = build_reconciliation_section(
+        recon_summary,
+        capital_flow_summary(recon_ledger, recon_flows),
+        break_aging(recon_breaks),
+    )
+
     report = (
         report.rstrip("\n") + "\n" + risk_section + safeguards_section
-        + credit_section + approval_section
+        + credit_section + approval_section + recon_section
         + "\n" + "=" * 70 + "\n"
     )
     write_report(report, output)

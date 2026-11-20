@@ -12,9 +12,9 @@ incident history is described.
 ## Skills used
 
 Only skills Dharma has verified: Python, Docker, Kubernetes, Jenkins /
-GitLab CI, Linux, AWS concepts, SQL. This project does **not** claim
-Terraform, Ansible, Cloudflare, or Prometheus/Grafana production
-experience.
+GitLab CI, Linux, AWS concepts, SQL, Terraform (used in his roles and
+hackathons, confirmed Nov 18, 2026), EKS, Vault. This project does **not**
+claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
 
 ## What is inside
 
@@ -44,6 +44,7 @@ experience.
   checklist (runbook review freshness, last failover test, backup
   verification freshness, on-call roster) and reports overall readiness.
 - `ops/nosql_health.py` — checks a synthetic multi-node NoSQL cluster (nodes up, replication lag, p99 read latency, throughput headroom) and reports overall health. Demo data only; no production NoSQL experience is claimed.
+- `ops/multicloud_iac.py` — validates a Terraform-style multi-cloud plan summary (resource tags, no open ingress, secrets via Vault, two-cloud redundancy), audits secret rotation freshness (90-day limit), and estimates cross-cloud transfer cost to pick the cheapest resilient path. Demo data only; no real cloud account is touched.
 - `ops/host_bottleneck.py` — diagnoses a synthetic Linux host from CPU, IO wait, memory, load and disk-latency signals, answering "is it CPU? IO?" with a verdict and a next check. Demo data only.
 - `ops/load_test.py` — stdlib-only load test (urllib + threads) that
   reports totals, error rate, and p50/p95 latency. Exits non-zero with

@@ -32,6 +32,21 @@ seeded random generator so every run is reproducible.
   historical applications with a given model version and writes the
   predictions to a CSV, so a new version can be compared with the old one
   before it is promoted.
+- **Next-best-action decisioning** (`ml_platform/decisioning.py`): scores
+  a small set of candidate actions (care-gap reminder, preventive
+  screening nudge, wellness program invite, benefits explanation) for a
+  member using the production model, applies simple eligibility and
+  business rules (suppress an action already completed, suppress a
+  screening nudge when the member was recently screened, cap contacts
+  per member per week), picks the best eligible action, and logs each
+  decision (timestamp, member, chosen action, scores, model version,
+  rules applied) to a JSONL file. An outcome report joins logged
+  decisions with supplied outcomes and compares the model-chosen
+  decisions against a rule-only baseline (fixed priority order, no
+  model scores). This is model-score + business-rule decisioning only —
+  it is not reinforcement learning, bandit optimisation, or any other
+  adaptive policy. All member data is synthetic, seeded, and
+  reproducible; no real member or Humana data is used.
 
 ## Layout
 
@@ -47,18 +62,20 @@ ml-training-serving-platform/
     registry.py             # versioned model registry (JSON-backed)
     serving.py              # prediction service, canary, drift, rollback
     backfill.py             # offline batch re-scoring
+    decisioning.py          # next-best-action decisioning + outcome tracking
   tests/
     test_data.py
     test_training.py
     test_registry.py
     test_serving.py
     test_backfill.py
+    test_decisioning.py
 ```
 
 ## Run it
 
 ```bash
-python3 run_demo.py            # full end-to-end demo
+python3 run_demo.py            # full end-to-end demo (incl. decisioning)
 python3 -m pytest -q           # test suite
 ```
 

@@ -12,6 +12,15 @@ BASE = f"http://127.0.0.1:{PORT}"
 
 @pytest.fixture(scope="session", autouse=True)
 def api_server():
+    # If a server is already listening (e.g. run_gate.py booted one
+    # before invoking pytest), reuse it instead of binding the port twice.
+    try:
+        with urllib.request.urlopen(f"{BASE}/health", timeout=1) as resp:
+            if resp.status == 200:
+                yield BASE
+                return
+    except Exception:
+        pass
     thread = threading.Thread(target=run, kwargs={"port": PORT}, daemon=True)
     thread.start()
     for _ in range(50):

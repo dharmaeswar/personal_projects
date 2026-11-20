@@ -6,6 +6,18 @@ Endpoints:
   GET  /v1/loans/{id}           -> loan summary
   GET  /v1/loans/{id}/schedule  -> amortization schedule
   POST /v1/loans/{id}/payments  -> apply a payment
+  POST /v1/comms/messages       -> send a templated message (Idempotency-Key header)
+  GET  /v1/comms/messages/{id}  -> message delivery record
+  GET  /v1/comms/delivery       -> delivery monitoring summary
+  GET/POST /v1/comms/preferences/{user_id} -> channel preferences + digest opt-in
+  POST /v1/comms/digest         -> group messages into one digest
+  POST /v1/policies             -> create an insurance policy
+  GET  /v1/policies/{id}        -> policy summary
+  GET  /v1/policies/{id}/quote  -> cached premium quote
+  POST /v1/policies/{id}/claims -> file a claim on a policy
+  GET  /v1/policies/{id}/claims -> claims filed on a policy
+  POST /v1/claims/{id}/settle   -> approve or deny a claim
+  GET  /v1/events               -> published domain events (optional ?topic=)
 
 Checkout writes through to the (simulated) ledger with retry + backoff.
 Structured JSON logs go to stdout: one line per request with method, path,
@@ -20,9 +32,24 @@ import logging
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlparse
+from urllib.parse import parse_qs, urlparse
 
+from .comms import (
+    CHANNELS,
+    CommsService,
+    SimulatedProvider,
+    TemplateError,
+    UserPreferences,
+    build_digest,
+)
 from .idempotency import IdempotencyStore, SimulatedLedger, retry_with_backoff
+from .insurance import (
+    EventPublisher,
+    PolicyStore,
+    QuoteCache,
+    compute_premium_cents,
+    validate_policy,
+)
 from .models import Loan, ValidationError, build_schedule, validate_checkout
 
 logger = logging.getLogger("payments_api")
@@ -64,7 +91,15 @@ class LoanStore:
             return len(self._loans)
 
 
-def make_handler(store: LoanStore, idempotency: IdempotencyStore, ledger: SimulatedLedger):
+def make_handler(
+    store: LoanStore,
+    idempotency: IdempotencyStore,
+    ledger: SimulatedLedger,
+    comms: CommsService,
+    policy_store: PolicyStore,
+    events: EventPublisher,
+    quotes: QuoteCache,
+):
     class Handler(BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
 
@@ -108,6 +143,31 @@ def make_handler(store: LoanStore, idempotency: IdempotencyStore, ledger: Simula
                 self._log(200, started)
                 return
             parts = [p for p in path.split("/") if p]
+            if len(parts) == 3 and parts[0] == "v1" and parts[1] == "comms" and parts[2] == "delivery":
+                self._send(200, comms.delivery_summary())
+                self._log(200, started)
+                return
+            if len(parts) == 4 and parts[0] == "v1" and parts[1] == "comms" and parts[2] == "messages":
+                record = comms.get(parts[3])
+                if record is None:
+                    self._send(404, {"error": "message not found"})
+                    self._log(404, started)
+                else:
+                    self._send(200, record)
+                    self._log(200, started)
+                return
+            if len(parts) == 4 and parts[0] == "v1" and parts[1] == "comms" and parts[2] == "preferences":
+                user_id = parts[3]
+                self._send(
+                    200,
+                    {
+                        "user_id": user_id,
+                        "channels": comms.preferences.channels_for(user_id),
+                        "digest": comms.preferences.digest_enabled(user_id),
+                    },
+                )
+                self._log(200, started)
+                return
             if len(parts) == 3 and parts[0] == "v1" and parts[1] == "loans":
                 loan = store.get(parts[2])
                 if loan is None:
@@ -126,6 +186,57 @@ def make_handler(store: LoanStore, idempotency: IdempotencyStore, ledger: Simula
                     self._send(200, {"loan_id": loan.id, "schedule": loan.schedule})
                     self._log(200, started)
                 return
+            if path == "/v1/events":
+                topic = parse_qs(urlparse(self.path).query).get("topic", [None])[0]
+                self._send(200, {"events": events.events(topic)})
+                self._log(200, started)
+                return
+            if len(parts) == 3 and parts[0] == "v1" and parts[1] == "policies":
+                policy = policy_store.get_policy(parts[2])
+                if policy is None:
+                    self._send(404, {"error": "policy not found"})
+                    self._log(404, started)
+                else:
+                    self._send(200, policy.to_dict())
+                    self._log(200, started)
+                return
+            if len(parts) == 4 and parts[0] == "v1" and parts[1] == "policies" and parts[3] == "quote":
+                policy = policy_store.get_policy(parts[2])
+                if policy is None:
+                    self._send(404, {"error": "policy not found"})
+                    self._log(404, started)
+                    return
+                key = _quote_key(policy.to_dict())
+                cached = quotes.get(key)
+                if cached is None:
+                    cached = policy.premium_cents
+                    quotes.put(key, cached)
+                    served_from_cache = False
+                else:
+                    served_from_cache = True
+                self._send(
+                    200,
+                    {
+                        "policy_id": policy.id,
+                        "premium_cents": cached,
+                        "cached": served_from_cache,
+                    },
+                )
+                self._log(200, started)
+                return
+            if len(parts) == 4 and parts[0] == "v1" and parts[1] == "policies" and parts[3] == "claims":
+                policy = policy_store.get_policy(parts[2])
+                if policy is None:
+                    self._send(404, {"error": "policy not found"})
+                    self._log(404, started)
+                else:
+                    claims = policy_store.claims_for_policy(policy.id)
+                    self._send(
+                        200,
+                        {"policy_id": policy.id, "claims": [c.to_dict() for c in claims]},
+                    )
+                    self._log(200, started)
+                return
             self._send(404, {"error": "not found"})
             self._log(404, started)
 
@@ -133,6 +244,52 @@ def make_handler(store: LoanStore, idempotency: IdempotencyStore, ledger: Simula
             started = time.time()
             path = urlparse(self.path).path
             try:
+                if path == "/v1/comms/messages":
+                    body = self._read_json()
+                    key = self.headers.get("Idempotency-Key") or body.get("idempotency_key")
+                    record = comms.send(
+                        template_name=body.get("template", ""),
+                        user_id=body.get("user_id", ""),
+                        recipient=body.get("recipient", ""),
+                        variables=body.get("variables") or {},
+                        channels=body.get("channels"),
+                        idempotency_key=key,
+                    )
+                    self._send(201, record)
+                    self._log(201, started)
+                    return
+                parts = [p for p in path.split("/") if p]
+                if len(parts) == 4 and parts[0] == "v1" and parts[1] == "comms" and parts[2] == "preferences":
+                    body = self._read_json()
+                    channels = body.get("channels")
+                    if channels is not None:
+                        comms.preferences.set_channels(parts[3], channels)
+                    if "digest" in body:
+                        comms.preferences.set_digest(parts[3], body["digest"])
+                    self._send(
+                        200,
+                        {
+                            "user_id": parts[3],
+                            "channels": comms.preferences.channels_for(parts[3]),
+                            "digest": comms.preferences.digest_enabled(parts[3]),
+                        },
+                    )
+                    self._log(200, started)
+                    return
+                if path == "/v1/comms/digest":
+                    body = self._read_json()
+                    rendered = [
+                        {"subject": m.get("subject", ""), "body": m.get("body", "")}
+                        for m in body.get("messages") or []
+                    ]
+                    digest = build_digest(
+                        body.get("user_id", ""),
+                        body.get("channel", "email"),
+                        rendered,
+                    )
+                    self._send(200, digest)
+                    self._log(200, started)
+                    return
                 if path == "/v1/checkout":
                     key = self.headers.get("Idempotency-Key")
                     if key:
@@ -162,9 +319,68 @@ def make_handler(store: LoanStore, idempotency: IdempotencyStore, ledger: Simula
                     self._send(200, updated)
                     self._log(200, started)
                     return
+                if path == "/v1/policies":
+                    cleaned = validate_policy(self._read_json())
+                    key = _quote_key(cleaned)
+                    cached = quotes.get(key)
+                    if cached is None:
+                        cached = compute_premium_cents(cleaned)
+                        quotes.put(key, cached)
+                    policy = policy_store.create_policy(cleaned)
+                    events.publish(
+                        "policy.created",
+                        policy.id,
+                        {"policy_id": policy.id, "premium_cents": policy.premium_cents},
+                    )
+                    self._send(201, policy.to_dict())
+                    self._log(201, started)
+                    return
+                if len(parts) == 4 and parts[0] == "v1" and parts[1] == "policies" and parts[3] == "claims":
+                    policy = policy_store.get_policy(parts[2])
+                    if policy is None:
+                        self._send(404, {"error": "policy not found"})
+                        self._log(404, started)
+                        return
+                    body = self._read_json()
+                    claim = policy_store.file_claim(
+                        policy, body.get("amount_cents"), body.get("description", "")
+                    )
+                    events.publish(
+                        "claim.filed",
+                        claim.id,
+                        {
+                            "claim_id": claim.id,
+                            "policy_id": policy.id,
+                            "amount_cents": claim.amount_cents,
+                        },
+                    )
+                    self._send(201, claim.to_dict())
+                    self._log(201, started)
+                    return
+                if len(parts) == 4 and parts[0] == "v1" and parts[1] == "claims" and parts[3] == "settle":
+                    claim = policy_store.get_claim(parts[2])
+                    if claim is None:
+                        self._send(404, {"error": "claim not found"})
+                        self._log(404, started)
+                        return
+                    body = self._read_json()
+                    settled = policy_store.settle_claim(claim, body.get("decision", ""))
+                    if settled.status == "settled":
+                        events.publish(
+                            "claim.settled",
+                            settled.id,
+                            {
+                                "claim_id": settled.id,
+                                "policy_id": settled.policy_id,
+                                "payout_cents": settled.payout_cents,
+                            },
+                        )
+                    self._send(200, settled.to_dict())
+                    self._log(200, started)
+                    return
                 self._send(404, {"error": "not found"})
                 self._log(404, started)
-            except ValidationError as exc:
+            except (ValidationError, TemplateError) as exc:
                 self._send(400, {"error": str(exc)})
                 self._log(400, started)
 
@@ -174,15 +390,39 @@ def make_handler(store: LoanStore, idempotency: IdempotencyStore, ledger: Simula
     return Handler
 
 
-def create_server(port: int = 0, ledger_fail_times: int = 0) -> ThreadingHTTPServer:
+def _quote_key(fields: dict) -> str:
+    """Deterministic cache key for a premium quote from policy fields."""
+    return "|".join(
+        str(fields[k])
+        for k in (
+            "policy_type",
+            "coverage_limit_cents",
+            "deductible_cents",
+            "term_months",
+            "state",
+        )
+    )
+
+
+def create_server(
+    port: int = 0, ledger_fail_times: int = 0, provider_fail_times: int = 0
+) -> ThreadingHTTPServer:
     store = LoanStore()
     idempotency = IdempotencyStore()
     ledger = SimulatedLedger(fail_times=ledger_fail_times)
-    handler = make_handler(store, idempotency, ledger)
+    comms = CommsService(SimulatedProvider(fail_times=provider_fail_times))
+    policy_store = PolicyStore()
+    events = EventPublisher()
+    quotes = QuoteCache()
+    handler = make_handler(store, idempotency, ledger, comms, policy_store, events, quotes)
     server = ThreadingHTTPServer(("127.0.0.1", port), handler)
     server.loan_store = store  # type: ignore[attr-defined]
     server.idempotency_store = idempotency  # type: ignore[attr-defined]
     server.ledger = ledger  # type: ignore[attr-defined]
+    server.comms_service = comms  # type: ignore[attr-defined]
+    server.policy_store = policy_store  # type: ignore[attr-defined]
+    server.events = events  # type: ignore[attr-defined]
+    server.quotes = quotes  # type: ignore[attr-defined]
     return server
 
 

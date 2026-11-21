@@ -14,8 +14,9 @@ This project fixes that with an analytics-engineering pipeline:
 - **ELT with partitioning** — raw events are staged, deduplicated on `event_id`, and fanned out into per-day partition tables (`events_YYYYMMDD`) with per-partition indexes, so a one-day query reads one small table.
 - **Window-function metrics** — sessionization with `LAG()` and a 30-minute gap, 7-day retention cohorts, and an ordered view → save → click funnel, all in plain SQL.
 - **Metric definitions as code** — `configs/metrics.yaml` is the single source of truth; dashboards and ad-hoc queries read the same definition.
-- **DAG orchestration** — tasks with dependencies (`validate_and_load → build_staging → build_sessions → compute_metrics → quality_checks → publish_catalog`), topological ordering, one retry per failed task, downstream tasks skipped on failure, every attempt recorded in `run_state`.
+- **DAG orchestration** — tasks with dependencies (`validate_and_load → build_staging → build_sessions → compute_metrics → experiment_checks → quality_checks → publish_catalog`), topological ordering, one retry per failed task, downstream tasks skipped on failure, every attempt recorded in `run_state`.
 - **Data quality + discoverability** — completeness, uniqueness, timestamp and freshness checks written to `quality_results`; the publish step regenerates `CATALOG.md` from the warehouse that actually ran.
+- **Experimentation guardrails** — deterministic hash assignment to the `save_button_variant` test, a chi-square sample-ratio-mismatch check against the intended 50/50 split, a pre-period balance check on the save rate (the arms must match before the test starts), and a post-period lift readout with a two-proportion z-test and 95% confidence interval. A failed guardrail stops the DAG before publish, so no readout ships on a broken experiment.
 
 ## Layout
 
@@ -26,6 +27,7 @@ product_analytics/
   ingest.py         contract-checked load, dedupe, staging
   transforms.py     sessions / retention / funnel (window functions)
   metrics.py        metric definitions as code + compute
+  experiments.py    A/B assignment, SRM, balance and lift guardrails
   orchestration.py  DAG runner: order, retry, run state
   quality.py        data-quality checks
   catalog.py        generated dataset catalog
@@ -34,7 +36,7 @@ product_analytics/
 run_pipeline.py     end-to-end run: seed -> DAG -> report
 configs/            instrumentation.yaml, metrics.yaml
 tests/              pytest suite (contracts, ingest, transforms,
-                    metrics, orchestration, quality/catalog/optimize)
+                    metrics, experiments, orchestration, quality/catalog/optimize)
 ```
 
 ## Run it

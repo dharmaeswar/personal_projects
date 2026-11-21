@@ -4,7 +4,7 @@ Usage: python run_pipeline.py [--db PATH] [--events N]
 
 Steps (each a DAG task with dependencies):
   validate_and_load -> build_staging -> build_sessions -> compute_metrics
-  -> quality_checks -> publish_catalog
+  -> experiment_checks -> quality_checks -> publish_catalog
 """
 from __future__ import annotations
 
@@ -14,10 +14,11 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from product_analytics import catalog, db, ingest, metrics, quality, seed, transforms
+from product_analytics import catalog, db, experiments, ingest, metrics, quality, seed, transforms
 from product_analytics.orchestration import Task, run_dag
 
 LATEST_DATE = "2026-11-14"
+EXPERIMENT_START = "2026-11-08"
 
 
 def build_tasks(events: list[dict]) -> list[Task]:
@@ -32,6 +33,11 @@ def build_tasks(events: list[dict]) -> list[Task]:
 
     def compute_metrics(conn):
         return metrics.compute_all(conn, LATEST_DATE)
+
+    def experiment_checks(conn):
+        return experiments.run_experiment_checks(
+            conn, experiments.DEFAULT_EXPERIMENT, EXPERIMENT_START, LATEST_DATE
+        )
 
     def checks(conn):
         results = quality.run_checks(conn, LATEST_DATE)
@@ -49,7 +55,8 @@ def build_tasks(events: list[dict]) -> list[Task]:
         Task("build_staging", stage, ("validate_and_load",)),
         Task("build_sessions", sessions, ("build_staging",)),
         Task("compute_metrics", compute_metrics, ("build_sessions",)),
-        Task("quality_checks", checks, ("compute_metrics",)),
+        Task("experiment_checks", experiment_checks, ("compute_metrics",)),
+        Task("quality_checks", checks, ("experiment_checks",)),
         Task("publish_catalog", publish, ("quality_checks",)),
     ]
 
@@ -71,6 +78,11 @@ def main() -> int:
     print(f"DAU {LATEST_DATE}: {dau}")
     print(f"Funnel {LATEST_DATE}: viewed={funnel['viewers']} saved={funnel['savers']} "
           f"clicked={funnel['clickers']}")
+    print("Experiment guardrails:")
+    for row in conn.execute(
+        "SELECT check_name, status, detail FROM experiment_results ORDER BY check_name"
+    ):
+        print(f"  {row[0]}: {row[1]} — {row[2]}")
     print("Catalog written to CATALOG.md")
     return 0 if all(s == "success" for s in results.values()) else 1
 

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Freight Ops — Shipment Board</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2em auto; padding: 0 1em; }
+  h1 { font-size: 1.4em; }
+  table { border-collapse: collapse; width: 100%; margin-top: 1em; }
+  th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; font-size: 0.9em; }
+  th { background: #eee; }
+  tr { cursor: pointer; }
+  form label { display: block; margin: 0.4em 0; font-size: 0.9em; }
+  input { padding: 4px; }
+  #detail { white-space: pre-wrap; background: #f7f7f7; padding: 1em; margin-top: 1em; font-size: 0.9em; }
+  #error { color: #a00; }
+</style>
+</head>
+<body>
+<h1>Freight Ops — Shipment Board</h1>
+<p>Demo board. Data is synthetic and lives only in this service's memory.</p>
+
+<label>Filter by status:
+  <select id="filter">
+    <option value="">All</option>
+    <option value="booked">Booked</option>
+    <option value="in_transit">In transit</option>
+    <option value="delayed">Delayed</option>
+    <option value="delivered">Delivered</option>
+  </select>
+</label>
+<button id="refresh">Refresh</button>
+<span id="error"></span>
+
+<table id="board">
+  <thead><tr><th>Reference</th><th>Route</th><th>Cars</th><th>Status</th><th>Miles left</th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<h2>Add a shipment</h2>
+<form id="create">
+  <label>Reference <input name="reference" required minlength="3" maxlength="24" placeholder="BNSF-1001"></label>
+  <label>Origin <input name="origin" required placeholder="Fort Worth, TX"></label>
+  <label>Destination <input name="destination" required placeholder="Chicago, IL"></label>
+  <label>Cars <input name="cars" type="number" min="1" max="200" value="40" required></label>
+  <label>Weight (tons) <input name="weight_tons" type="number" min="1" max="20000" value="3200" required></label>
+  <label>Distance (miles) <input name="distance_miles" type="number" min="1" max="10000" value="925" required></label>
+  <button type="submit">Create shipment</button>
+</form>
+
+<div id="detail">Click a shipment row to see its events and ETA.</div>
+
+<script>
+async function loadBoard() {
+  const status = document.getElementById('filter').value;
+  const url = status ? '/v1/shipments?status=' + status : '/v1/shipments';
+  const res = await fetch(url);
+  const data = await res.json();
+  const tbody = document.querySelector('#board tbody');
+  tbody.innerHTML = '';
+  data.shipments.forEach(s => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td></td><td></td><td></td><td></td><td></td>';
+    tr.children[0].textContent = s.reference;
+    tr.children[1].textContent = s.origin + ' -> ' + s.destination;
+    tr.children[2].textContent = s.cars;
+    tr.children[3].textContent = s.status;
+    tr.children[4].textContent = s.distance_remaining_miles;
+    tr.addEventListener('click', () => showDetail(s.id));
+    tbody.appendChild(tr);
+  });
+}
+
+async function showDetail(id) {
+  const [ship, eta] = await Promise.all([
+    fetch('/v1/shipments/' + id).then(r => r.json()),
+    fetch('/v1/shipments/' + id + '/eta').then(r => r.json())
+  ]);
+  const events = ship.events.map(e => e.recorded_at + '  ' + e.type + ' @ ' + e.location + (e.note ? ' — ' + e.note : '')).join('\n');
+  document.getElementById('detail').textContent =
+    ship.reference + ' — ' + ship.origin + ' -> ' + ship.destination + '\n' +
+    'Status: ' + ship.status + ' | Cars: ' + ship.cars + ' | Weight: ' + ship.weight_tons + ' tons\n' +
+    'ETA: ' + eta.eta_hours + ' hours (planning speed ' + eta.planning_speed_mph + ' mph' +
+    (eta.delay_buffer_applied ? ', delay buffer applied' : '') + ')\n\nEvents:\n' + (events || '(none yet)');
+}
+
+document.getElementById('refresh').addEventListener('click', loadBoard);
+document.getElementById('filter').addEventListener('change', loadBoard);
+document.getElementById('create').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const form = ev.target;
+  const body = {
+    reference: form.reference.value,
+    origin: form.origin.value,
+    destination: form.destination.value,
+    cars: Number(form.cars.value),
+    weight_tons: Number(form.weight_tons.value),
+    distance_miles: Number(form.distance_miles.value)
+  };
+  const res = await fetch('/v1/shipments', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json();
+    document.getElementById('error').textContent = err.error || 'Create failed';
+    return;
+  }
+  document.getElementById('error').textContent = '';
+  form.reset();
+  loadBoard();
+});
+loadBoard();
+</script>
+</body>
+</html>

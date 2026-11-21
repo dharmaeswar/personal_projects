@@ -22,13 +22,17 @@ uses these models day to day:
   solver.
 - **Risk analytics** (`analytics.py`) — effective duration/convexity from
   curve bumps and named rate-scenario prices.
+- **Prepayment model validation** (`prepay_validation.py`) — independent
+  challenge of the agency prepayment model: turnover/refi decomposition,
+  seasoning ramp, burnout decay, incentive-response monotonicity, and a
+  forecast-vs-actual backtest with bias/MAE/RMSE and a tolerance check.
 
 ## Run
 
 ```bash
 pip install -r requirements.txt
 python run_valuation.py   # fits a sample curve and values a $250mm pool
-pytest                    # 21 tests
+pytest                    # 34 tests
 ```
 
 ## Design notes

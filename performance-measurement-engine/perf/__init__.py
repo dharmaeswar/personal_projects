@@ -16,4 +16,6 @@ __all__ = [
     "chain_roll_forward", "benchmark_relative", "proxy_fill",
     "excess_series", "FeeTerms", "gross_to_net", "classify_flow",
     "check_value_neutrality", "adversarial_timing_cases",
+    "asset_weighted_return", "equal_weighted_return",
+    "composite_dispersion", "composite_summary",
 ]

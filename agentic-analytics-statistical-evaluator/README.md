@@ -32,7 +32,7 @@ statistical validation gate between an agent's claims and the report.
 ```bash
 pip install -r requirements.txt
 python run_evaluation.py     # prints the report, writes evaluation_report.txt
-python -m pytest -q          # 34 tests
+python -m pytest -q          # 53 tests (34 pipeline + 19 evals)
 ```
 
 ## Product experimentation (new, Nov 2026)
@@ -44,6 +44,39 @@ monitoring so interim peeking stays safe, and a SHIP / DO NOT SHIP readout.
 On the demo data the primary effect (+10.84, 95% CI (8.0, 13.68), power
 1.0) ships with the guardrail passing; the design needs 98 users per arm
 for a minimum detectable effect of 5.0.
+
+## Agentic evals layer (new, Nov 2026 — Iterable Nova fit)
+
+The same project now also evaluates *agent behaviour*, not just
+analytics claims: `agentic_stats/evals.py` is an LLM-judge harness for
+multi-turn agent trajectories, the way an agentic product has to be
+evaluated before it ships.
+
+- **Rubric judge** (`judge_trajectory`): scores a trajectory on
+  grounding (answer claims backed by tool results), tool use (valid
+  tools, required args, a result for every call), coherence (numbers
+  in the answer match the evidence) and reasoning (reasoning steps
+  cite the evidence). Hallucinated numbers and invalid tool calls are
+  hard fails, whatever the mean score says.
+- **Synthetic data pipeline** (`generate_synthetic_cases`): seeded
+  benchmark of clean trajectories plus known-bad mutations —
+  hallucinated claim, unknown tool, missing tool result, unsupported
+  answer — each with an expected verdict.
+- **Regression detection** (`detect_regression`): Welch t-test plus
+  bootstrap 95% CI on the score difference, so a drop is only called
+  a regression when it is real, not noise.
+- **Failure diagnosis** (`diagnose_failures`): maps each failure to
+  the fix it needs — prompt, tool, context, rubric, or harness.
+
+```bash
+python run_evals.py        # prints the report, writes evals_report.txt
+python -m pytest -q        # 53 tests (34 original + 19 evals)
+```
+
+On the demo benchmark (10 seeded cases: 2 good, 8 mutated) the judge
+agrees with the expected verdict on 10/10 cases, pass rate 20%, mean
+overall score 0.836; the regression check against a second seeded run
+finds no regression (mean diff +0.000, Welch p=1.0).
 
 ## What the demo data shows (240 synthetic rows, seed fixed)
 

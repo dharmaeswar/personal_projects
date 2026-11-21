@@ -1,0 +1,33 @@
+AGENTIC EVALS REPORT
+Cases judged: 10
+Pass rate: 20% (2/10)
+Judge accuracy vs expected verdicts: 100%
+Mean overall score: 0.836
+Criterion means: grounding 0.733, tool_use 0.800, coherence 0.810, reasoning 1.000
+
+Per-case results:
+  EVAL-03 [bad-tool] expected FAIL, judged FAIL (overall 0.88) OK
+  EVAL-07 [hallucinated-claim] expected FAIL, judged FAIL (overall 0.95) OK
+  EVAL-01 [good] expected PASS, judged PASS (overall 1.00) OK
+  EVAL-02 [hallucinated-claim] expected FAIL, judged FAIL (overall 0.95) OK
+  EVAL-06 [good] expected PASS, judged PASS (overall 1.00) OK
+  EVAL-05 [unsupported-answer] expected FAIL, judged FAIL (overall 0.75) OK
+  EVAL-04 [missing-result] expected FAIL, judged FAIL (overall 0.60) OK
+  EVAL-10 [unsupported-answer] expected FAIL, judged FAIL (overall 0.75) OK
+  EVAL-09 [missing-result] expected FAIL, judged FAIL (overall 0.60) OK
+  EVAL-08 [bad-tool] expected FAIL, judged FAIL (overall 0.88) OK
+
+Regression check vs baseline run:
+  current mean 0.836, baseline mean 0.836, diff +0.000
+  Welch p=1.0, 95% CI (-0.1358, 0.1304)
+  No regression: change is within noise.
+
+Failure diagnoses (failure -> fix):
+  EVAL-03 [bad-tool] -> tool: Fix the tool schema or the agent's tool calls.
+  EVAL-07 [hallucinated-claim] -> context: Fix retrieval/context: the answer used numbers not in evidence.
+  EVAL-02 [hallucinated-claim] -> context: Fix retrieval/context: the answer used numbers not in evidence.
+  EVAL-05 [unsupported-answer] -> prompt: Tighten the prompt: answer only from tool results.
+  EVAL-04 [missing-result] -> context: Fix retrieval/context: the answer used numbers not in evidence.
+  EVAL-10 [unsupported-answer] -> prompt: Tighten the prompt: answer only from tool results.
+  EVAL-09 [missing-result] -> context: Fix retrieval/context: the answer used numbers not in evidence.
+  EVAL-08 [bad-tool] -> tool: Fix the tool schema or the agent's tool calls.

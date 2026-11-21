@@ -23,11 +23,37 @@ scoring of candidate designs against requirements.
 - **Metrics** (`eng_sim_evaluator/metrics.py`): MAE, RMSE, max absolute error,
   within-tolerance share.
 
+## Agent layer (MCP tools, CI guardrails, provenance)
+
+Added for a Developer Platform Engineer (agentic) role: the layer that lets
+AI coding agents drive the simulators end to end, with evidence.
+
+- **MCP-style tool server** (`eng_sim_evaluator/mcp_server.py`) — JSON-RPC 2.0
+  over stdio, stdlib only: `tools/list` advertises the tools, `tools/call`
+  runs one. `run_simulation` runs the analytic simulator for a case and
+  returns structured outputs; `compare_golden` compares candidate outputs
+  with the frozen golden reference; `land_change` runs the CI guardrails on
+  an agent-proposed model change. Every tool returns a provenance record and
+  reports errors an agent can act on. Run it with
+  `python -m eng_sim_evaluator.mcp_server`, or call `dispatch(request)` in
+  process. Demo: `python run_agent_layer.py`.
+- **Golden references** (`eng_sim_evaluator/golden.py`) — frozen simulator
+  outputs per case (`golden-v1`), with per-field tolerance comparison that
+  names every field out of tolerance.
+- **CI guardrails** (`eng_sim_evaluator/guardrails.py`) — a change lands only
+  when static analysis (known fields, positive numbers), the golden-reference
+  comparison, and a matching provenance record all pass; a blocked change
+  lists every failed guardrail.
+- **Provenance** (`eng_sim_evaluator/provenance.py`) — every result carries
+  the tool, agent id, SHA-256 of the inputs and result, and the golden
+  version, so a reviewer can reproduce any result from its record alone.
+
 ## Run
 
 ```bash
 pip install -r requirements.txt
 python run_evaluation.py
+python run_agent_layer.py
 python -m pytest -q
 ```
 

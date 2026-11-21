@@ -1,0 +1,30 @@
+CATALOG QUALITY REPORT
+========================================
+Products checked: 18
+Findings: 9 (7 critical, 2 warnings)
+Quality gate: FAIL
+
+Findings by check:
+  - attribute-consistency: 5
+  - catalog-completeness: 3
+  - duplicate-listing: 1
+
+Findings:
+  [critical] catalog-completeness | CAT-001 | missing brand
+  [critical] catalog-completeness | CAT-007 | category 'apparel' requires attribute 'size'
+  [critical] catalog-completeness | CAT-010 | category 'electronics' requires attribute 'model'
+  [critical] attribute-consistency | CAT-002 | price is 0.0, must be positive
+  [critical] attribute-consistency | CAT-005 | title names 'Nike' but brand field is 'Adidas'
+  [warning] attribute-consistency | CAT-006 | price 1299.99 is over 5x the apparel median of 99.99
+  [warning] attribute-consistency | CAT-008 | currency EUR is not the marketplace currency USD
+  [critical] attribute-consistency | CAT-009 | price 'call for price' cannot be parsed
+  [critical] duplicate-listing | CAT-003 | same product as CAT-004 (brand 'nike', title 'nike air zoom running shoes')
+
+Self-learning loop:
+  - brand-alias: weight 0.833, auto-correct True
+  - price-outlier-flag: weight 0.429, auto-correct False
+  - unit-standardize: weight 0.857, auto-correct True
+  - records flagged by customer signals: CAT-005, CAT-007
+  - corrections applied: 8, blocked: 2
+
+Evaluation guardrail: PASS (precision 0.900, recall 0.900, 9 of 10 corrections correct)

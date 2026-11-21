@@ -1,0 +1,107 @@
+{
+  "summary": {
+    "total_products": 18,
+    "total_findings": 9,
+    "critical": 7,
+    "warnings": 2,
+    "findings_by_check": {
+      "catalog-completeness": 3,
+      "attribute-consistency": 5,
+      "duplicate-listing": 1
+    },
+    "gate": "FAIL"
+  },
+  "findings": [
+    {
+      "check": "catalog-completeness",
+      "severity": "critical",
+      "record_id": "CAT-001",
+      "detail": "missing brand"
+    },
+    {
+      "check": "catalog-completeness",
+      "severity": "critical",
+      "record_id": "CAT-007",
+      "detail": "category 'apparel' requires attribute 'size'"
+    },
+    {
+      "check": "catalog-completeness",
+      "severity": "critical",
+      "record_id": "CAT-010",
+      "detail": "category 'electronics' requires attribute 'model'"
+    },
+    {
+      "check": "attribute-consistency",
+      "severity": "critical",
+      "record_id": "CAT-002",
+      "detail": "price is 0.0, must be positive"
+    },
+    {
+      "check": "attribute-consistency",
+      "severity": "critical",
+      "record_id": "CAT-005",
+      "detail": "title names 'Nike' but brand field is 'Adidas'"
+    },
+    {
+      "check": "attribute-consistency",
+      "severity": "warning",
+      "record_id": "CAT-006",
+      "detail": "price 1299.99 is over 5x the apparel median of 99.99"
+    },
+    {
+      "check": "attribute-consistency",
+      "severity": "warning",
+      "record_id": "CAT-008",
+      "detail": "currency EUR is not the marketplace currency USD"
+    },
+    {
+      "check": "attribute-consistency",
+      "severity": "critical",
+      "record_id": "CAT-009",
+      "detail": "price 'call for price' cannot be parsed"
+    },
+    {
+      "check": "duplicate-listing",
+      "severity": "critical",
+      "record_id": "CAT-003",
+      "detail": "same product as CAT-004 (brand 'nike', title 'nike air zoom running shoes')"
+    }
+  ],
+  "self_learning": {
+    "rule_weights": {
+      "brand-alias": 0.833,
+      "price-outlier-flag": 0.429,
+      "unit-standardize": 0.857
+    },
+    "auto_correct_allowed": {
+      "brand-alias": true,
+      "price-outlier-flag": false,
+      "unit-standardize": true
+    },
+    "flagged_records": [
+      "CAT-005",
+      "CAT-007"
+    ],
+    "corrections_applied": 8,
+    "corrections_blocked": 2,
+    "blocked": [
+      {
+        "record_id": "CAT-006",
+        "field": "price",
+        "rule_id": "price-outlier-flag"
+      },
+      {
+        "record_id": "CAT-008",
+        "field": "currency",
+        "rule_id": "price-outlier-flag"
+      }
+    ]
+  },
+  "evaluation_guardrail": {
+    "proposed": 10,
+    "correct": 9,
+    "precision": 0.9,
+    "recall": 0.9,
+    "gate": "PASS"
+  }
+}

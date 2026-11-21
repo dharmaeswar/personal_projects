@@ -1,0 +1,11 @@
+# Instrumentation contract — the event schema producers must follow.
+# A contract break quarantines the event with the reason; it never
+# silently enters an analytics table.
+event_types: [page_view, pin_save, pin_click, search, signup]
+required_fields: [event_id, user_id, event_type, event_ts]
+required_payload:
+  page_view: [page]
+  pin_save: [pin_id, board_id]
+  pin_click: [pin_id]
+  search: [query]
+  signup: [channel]

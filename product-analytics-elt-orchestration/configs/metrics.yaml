@@ -1,0 +1,13 @@
+# Metric definitions as code — the single source of truth for every metric.
+# Dashboards, ad-hoc queries and this pipeline all read the same definition.
+metrics:
+  dau:
+    definition: "Distinct users with at least one event on the day."
+  sessions_per_user:
+    definition: "Sessions started on the day divided by distinct users that day."
+  avg_session_seconds:
+    definition: "Mean session duration in seconds for sessions starting that day."
+  retention_7d:
+    definition: "Share of a cohort's users active again exactly 7 days after first use."
+  funnel_view_save_click:
+    definition: "Users who viewed, then saved, then clicked, in order, on the day."

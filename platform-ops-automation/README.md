@@ -48,6 +48,10 @@ claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
 - `ops/gitops_drift.py` — GitOps drift detection: compares the desired
   state declared in the `k8s/` manifests with a live-state snapshot and
   reports drift in image tags, replica counts, environment variables and
+- `ops/incident_response.py` — incident response for enterprise platform
+  support: weekly on-call rotation, incident lifecycle (detected →
+  triaged → mitigating → resolved → closed), SLA timers by severity,
+  runbook steps per incident type, and ServiceNow-style ticket sync.
   resource limits, plus missing/extra resources. A rollout gate blocks a
   deploy while drift is unresolved or error-budget burn is over its limit.
   Also includes W3C `traceparent` parse/format helpers (the propagation

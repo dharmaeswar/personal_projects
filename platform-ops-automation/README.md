@@ -45,6 +45,15 @@ claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
   verification freshness, on-call roster) and reports overall readiness.
 - `ops/nosql_health.py` — checks a synthetic multi-node NoSQL cluster (nodes up, replication lag, p99 read latency, throughput headroom) and reports overall health. Demo data only; no production NoSQL experience is claimed.
 - `ops/multicloud_iac.py` — validates a Terraform-style multi-cloud plan summary (resource tags, no open ingress, secrets via Vault, two-cloud redundancy), audits secret rotation freshness (90-day limit), and estimates cross-cloud transfer cost to pick the cheapest resilient path. Demo data only; no real cloud account is touched.
+- `ops/gitops_drift.py` — GitOps drift detection: compares the desired
+  state declared in the `k8s/` manifests with a live-state snapshot and
+  reports drift in image tags, replica counts, environment variables and
+  resource limits, plus missing/extra resources. A rollout gate blocks a
+  deploy while drift is unresolved or error-budget burn is over its limit.
+  Also includes W3C `traceparent` parse/format helpers (the propagation
+  format OpenTelemetry uses) for passing trace context between services.
+  All live state is synthetic input; no real cluster is contacted and no
+  production GitOps or observability deployment is claimed.
 - `ops/host_bottleneck.py` — diagnoses a synthetic Linux host from CPU, IO wait, memory, load and disk-latency signals, answering "is it CPU? IO?" with a verdict and a next check. Demo data only.
 - `ops/load_test.py` — stdlib-only load test (urllib + threads) that
   reports totals, error rate, and p50/p95 latency. Exits non-zero with

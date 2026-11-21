@@ -88,12 +88,58 @@ tests plus 14 new tests for DAG ordering, retries, resume, failure
 skips, snapshot chains, time travel and schema evolution
 (`tests/test_orchestration_snapshots.py`).
 
+## Added Nov 21, 2026 — home-health episode data quality
+
+Added for a Data Engineer II (Home Health) role, where the work is
+ETL/ELT of episode and visit records into governed tables. One new
+module, `lakehouse/home_health.py`, run with
+`python run_home_health.py` — same pandas + Parquet approach as the
+rest of the project, no Spark cluster involved.
+
+- **Synthetic episodes and visits** — 40 home-health episodes
+  (de-identified patient key, start/end dates, discharge status,
+  diagnosis group) and ~200 visits (visit id, episode id, visit
+  date, visit type, duration in minutes, clinician id), all seeded
+  and reproducible. No real patient data anywhere.
+- **Home-health quality rules** — completeness, uniqueness, duration
+  ranges (0–480 minutes), referential integrity (every visit's
+  episode must exist), plus a visit-window rule: every visit must
+  fall inside its episode's start/end window. Episodes ending before
+  they start are caught by a separate date-order check, so each bad
+  row is owned by exactly one check.
+- **Quarantine, not silent drops** — bad visits go to a quarantine
+  table with the failing check named per row; the gold episode
+  summary (visit count, total and average minutes per episode) is
+  built only from clean silver visits and reconciles back to silver.
+
+The fixture plants 9 bad rows on purpose (2 duplicate visit ids,
+2 null episode ids, 1 visit outside its episode window, 1 negative
+duration, 1 unknown episode id, 1 duration over the 480-minute cap,
+1 episode ending before it starts).
+
+## Results of the home-health run (real run, Nov 21, 2026)
+
+```
+Episodes: 40; visits (bronze): 202
+Episode checks: 2/3 passed (1 fails as designed — the bad episode)
+Visit checks: 0/5 passed (5 fail as designed — the 8 planted bad visits)
+Silver visits: 194; quarantined: 8; gold episode summary rows: 40
+Total silver minutes: 13341; gold total minutes: 13341
+Reconciliation: PASS
+```
+
+Tests: **45 passed** (`python -m pytest -q`) — 33 earlier tests plus
+12 new tests for episode/visit generation, every violation type,
+quarantine counts, gold reconciliation and determinism
+(`tests/test_home_health.py`).
+
 ## How to run
 
 ```bash
 pip install -r requirements.txt
 python run_pipeline.py
 python run_orchestrated.py [--run-id daily]
+python run_home_health.py
 python -m pytest -q
 ```
 
@@ -102,3 +148,5 @@ human-readable `validation_report.txt` in the project root.
 `run_orchestrated.py` runs the same pipeline as a DAG, snapshots silver
 and gold under `lakehouse_tables/snapshots/`, and writes
 `orchestration_report.txt`.
+`run_home_health.py` runs the episode/visit pipeline and writes
+`home_health_report.txt`.

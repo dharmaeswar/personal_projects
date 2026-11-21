@@ -1,0 +1,19 @@
+HOME-HEALTH EPISODE PIPELINE REPORT
+Episodes: 40; visits (bronze): 202
+
+Episode checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:episode_id: all 40 values of episode_id unique
+  [FAIL] episode_dates: 1 episodes end before they start
+
+Visit checks:
+  [FAIL] completeness: episode_id: 2 nulls
+  [FAIL] uniqueness:visit_id: 2 duplicated visit_id values (2 extra rows)
+  [FAIL] range:duration_minutes: 2 rows outside range for duration_minutes
+  [FAIL] fk:episode_id->episode_id: 1 rows with episode_id not in episode_id
+  [FAIL] visit_window: 1 visits outside their episode window
+
+Silver visits: 194; quarantined: 8
+Gold episode summary rows: 40
+Total silver minutes: 13341; gold total minutes: 13341
+Reconciliation: PASS

@@ -26,6 +26,13 @@ Endpoints:
   GET  /v1/orders/{id}          -> order summary with totals
   POST /v1/orders/{id}/fulfill  -> mark a placed order fulfilled
   POST /v1/orders/{id}/cancel   -> cancel a placed order (stock returned)
+  POST /v1/enterprise/instances -> register a self-hosted instance
+  GET  /v1/enterprise/instances/{id} -> instance summary
+  POST /v1/enterprise/instances/{id}/checks -> record a per-service health check
+  GET  /v1/enterprise/instances/{id}/health -> aggregate instance health
+  POST /v1/enterprise/instances/{id}/upgrades -> plan a rolling upgrade
+  GET  /v1/enterprise/instances/{id}/diagnostics -> troubleshooting bundle
+  GET  /v1/enterprise/alerts   -> active alerts across instances
 
 Checkout writes through to the (simulated) ledger with retry + backoff.
 Structured JSON logs go to stdout: one line per request with method, path,
@@ -49,6 +56,12 @@ from .comms import (
     TemplateError,
     UserPreferences,
     build_digest,
+)
+from .enterprise import (
+    EnterpriseStore,
+    validate_check,
+    validate_instance,
+    validate_upgrade,
 )
 from .idempotency import IdempotencyStore, SimulatedLedger, retry_with_backoff
 from .insurance import (
@@ -109,6 +122,7 @@ def make_handler(
     events: EventPublisher,
     quotes: QuoteCache,
     retail_store: RetailStore,
+    enterprise_store: EnterpriseStore,
 ):
     class Handler(BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
@@ -270,6 +284,61 @@ def make_handler(
                     self._log(404, started)
                 else:
                     self._send(200, order.to_dict())
+                    self._log(200, started)
+                return
+            if path == "/v1/enterprise/alerts":
+                self._send(
+                    200, {"alerts": enterprise_store.active_alerts()}
+                )
+                self._log(200, started)
+                return
+            if len(parts) == 4 and parts[0] == "v1" and parts[1] == "enterprise" and parts[2] == "instances":
+                instance = enterprise_store.get_instance(parts[3])
+                if instance is None:
+                    self._send(404, {"error": "instance not found"})
+                    self._log(404, started)
+                else:
+                    self._send(200, instance.to_dict())
+                    self._log(200, started)
+                return
+            if (
+                len(parts) == 5
+                and parts[0] == "v1"
+                and parts[1] == "enterprise"
+                and parts[2] == "instances"
+                and parts[4] == "health"
+            ):
+                instance = enterprise_store.get_instance(parts[3])
+                if instance is None:
+                    self._send(404, {"error": "instance not found"})
+                    self._log(404, started)
+                else:
+                    self._send(
+                        200,
+                        {
+                            "instance_id": instance.id,
+                            "health": instance.aggregate_health(),
+                            "services": {
+                                s: instance.latest_status(s)
+                                for s in ("web", "git", "redis", "mysql", "queue", "search")
+                            },
+                        },
+                    )
+                    self._log(200, started)
+                return
+            if (
+                len(parts) == 5
+                and parts[0] == "v1"
+                and parts[1] == "enterprise"
+                and parts[2] == "instances"
+                and parts[4] == "diagnostics"
+            ):
+                instance = enterprise_store.get_instance(parts[3])
+                if instance is None:
+                    self._send(404, {"error": "instance not found"})
+                    self._log(404, started)
+                else:
+                    self._send(200, instance.diagnostics())
                     self._log(200, started)
                 return
             self._send(404, {"error": "not found"})
@@ -476,6 +545,46 @@ def make_handler(
                     self._send(200, settled.to_dict())
                     self._log(200, started)
                     return
+                if path == "/v1/enterprise/instances":
+                    cleaned = validate_instance(self._read_json())
+                    instance = enterprise_store.create_instance(cleaned)
+                    self._send(201, instance.to_dict())
+                    self._log(201, started)
+                    return
+                if (
+                    len(parts) == 5
+                    and parts[0] == "v1"
+                    and parts[1] == "enterprise"
+                    and parts[2] == "instances"
+                    and parts[4] == "checks"
+                ):
+                    instance = enterprise_store.get_instance(parts[3])
+                    if instance is None:
+                        self._send(404, {"error": "instance not found"})
+                        self._log(404, started)
+                        return
+                    cleaned = validate_check(self._read_json())
+                    recorded = instance.record_check(cleaned)
+                    self._send(201, recorded)
+                    self._log(201, started)
+                    return
+                if (
+                    len(parts) == 5
+                    and parts[0] == "v1"
+                    and parts[1] == "enterprise"
+                    and parts[2] == "instances"
+                    and parts[4] == "upgrades"
+                ):
+                    instance = enterprise_store.get_instance(parts[3])
+                    if instance is None:
+                        self._send(404, {"error": "instance not found"})
+                        self._log(404, started)
+                        return
+                    cleaned = validate_upgrade(self._read_json(), instance.version)
+                    plan = instance.plan_upgrade(cleaned)
+                    self._send(201, plan)
+                    self._log(201, started)
+                    return
                 self._send(404, {"error": "not found"})
                 self._log(404, started)
             except (ValidationError, TemplateError) as exc:
@@ -513,8 +622,10 @@ def create_server(
     events = EventPublisher()
     quotes = QuoteCache()
     retail_store = RetailStore()
+    enterprise_store = EnterpriseStore()
     handler = make_handler(
-        store, idempotency, ledger, comms, policy_store, events, quotes, retail_store
+        store, idempotency, ledger, comms, policy_store, events, quotes, retail_store,
+        enterprise_store,
     )
     server = ThreadingHTTPServer(("127.0.0.1", port), handler)
     server.loan_store = store  # type: ignore[attr-defined]
@@ -525,6 +636,7 @@ def create_server(
     server.events = events  # type: ignore[attr-defined]
     server.quotes = quotes  # type: ignore[attr-defined]
     server.retail_store = retail_store  # type: ignore[attr-defined]
+    server.enterprise_store = enterprise_store  # type: ignore[attr-defined]
     return server
 
 

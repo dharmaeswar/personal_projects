@@ -261,6 +261,75 @@ order for 2 returns `ord_000001` with subtotal $259.98, tax $20.80 and
 total $280.78, the product's stock drops to 8, and an `order.placed`
 event appears on `GET /v1/events?topic=order.placed`.
 
+It also has a Self-Hosted Enterprise Server Operations module
+(`payments_api/enterprise.py`), added for the GitHub — Software
+Engineer II, Enterprise Server application. It models the operations
+side of a self-hosted enterprise developer platform: the same software
+as the hosted service, deployed on a customer's own on-premises data
+center or cloud, where engineers plan, monitor and troubleshoot the
+deployment remotely.
+
+- `POST /v1/enterprise/instances` — register a self-hosted instance
+  (name, environment `on-premises` or `cloud`, version, node count).
+- `GET /v1/enterprise/instances/{id}` — instance summary with aggregate health.
+- `POST /v1/enterprise/instances/{id}/checks` — record a per-service
+  health check for `web`, `git`, `redis`, `mysql`, `queue` (resque) or
+  `search`, with status `ok` / `degraded` / `down` and latency.
+- `GET /v1/enterprise/instances/{id}/health` — aggregate health
+  (`healthy`, `degraded`, `down`, `unknown`) plus the latest status of
+  every service.
+- `POST /v1/enterprise/instances/{id}/upgrades` — plan a rolling
+  upgrade to a newer version: requires a backup first, splits the
+  nodes into batches, and puts a health gate between batches.
+- `GET /v1/enterprise/instances/{id}/diagnostics` — a troubleshooting
+  bundle: instance summary, per-service status, active alerts and
+  upgrade plans.
+- `GET /v1/enterprise/alerts` — active alerts across all instances.
+
+Enterprise engineering points that match the role:
+
+- **Health aggregation** — one down service makes the instance down;
+  a degraded service makes it degraded; no checks yet means unknown.
+- **Alerting on failure streaks** — two consecutive failed checks on
+  one service raise an alert; a passing check resolves it, so a single
+  transient blip pages nobody.
+- **Safe rolling upgrades** — the target version must be newer, a
+  backup is required before planning, and batches only proceed past a
+  health gate, so a bad upgrade stops before it takes the whole
+  instance down.
+- **Diagnostics for remote troubleshooting** — one bundle carries the
+  instance state, latest service statuses, active alerts and upgrade
+  plans, the way an on-call engineer triages a customer site.
+- **Validation** — instance, check and upgrade payloads are validated
+  (environment, semver versions, node count 1–64, known services);
+  bad input returns 400, unknown instances return 404.
+
+All state is in-memory and simulated: no real cluster, container
+orchestrator or customer site is contacted, and no production GitHub
+Enterprise Server deployment is claimed.
+
+## Verified results — Self-Hosted Enterprise Server Operations extension (Nov 21, 2026)
+
+```
+102 passed in 3.46s
+```
+
+- 18 new enterprise tests: instance/check/upgrade validation, health
+  aggregation (unknown, healthy, degraded, down), alert on two
+  consecutive failures and resolution on a passing check, single
+  failure raising no alert, upgrade batching covering all nodes and an
+  explicit batch size, and a live-server HTTP flow (register instance,
+  record checks, alert raised, health read, upgrade planned, diagnostics
+  bundle, 400 on an older target version, 404 on an unknown instance).
+- The 84 earlier tests still pass unchanged.
+
+Worked example, verified by a live run: `POST /v1/enterprise/instances`
+for `acme-ghes` (on-premises, version 3.14.2, 6 nodes) returns
+`inst_000001`; two failed `redis` checks raise alert `alrt_000001`;
+`POST /v1/enterprise/instances/inst_000001/upgrades` to 3.15.0 plans
+3 batches of 2 nodes each with a health gate; the diagnostics bundle
+reports health `down` with 1 active alert and 1 upgrade plan.
+
 ## Layout
 
 ```
@@ -271,6 +340,7 @@ payments_api/
   comms.py        templates, providers, preferences, delivery, digesting
   insurance.py    policies, premium math, claims, events, quote cache
   retail.py       products, inventory, orders, tax math
+  enterprise.py   self-hosted instances, health checks, alerts, upgrades
 run_service.py    entry point
 tests/
   test_service.py unit tests
@@ -278,6 +348,7 @@ tests/
   test_comms.py   comms unit + integration tests
   test_insurance.py insurance unit + integration tests
   test_retail.py  retail unit + integration tests
+  test_enterprise.py enterprise unit + integration tests
 ```
 
 ## Tests

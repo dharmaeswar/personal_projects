@@ -32,6 +32,12 @@ institution.
 - **Replay and backfill** — loads are idempotent on reading/milestone id,
   so re-running a date window never double-counts; `replay_window`
   filters raw feeds to one ship-date window.
+- **Partner onboarding** (`cold_chain/onboarding.py`) — before a partner
+  goes live, their spec is validated against the shared models (every
+  required field mapped, temperature unit known) and their sample data is
+  dry-run through the normalizer without loading anything. The launch
+  readiness report says go or no-go with the exact reasons, so a bad spec
+  never reaches production.
 
 ## Demo run (seed 42, deterministic)
 
@@ -57,10 +63,11 @@ python3 run_pipeline.py
 python3 -m pytest tests/ -q
 ```
 
-18 tests, all passing. They cover field mapping, Fahrenheit conversion,
+41 tests, all passing. They cover field mapping, Fahrenheit conversion,
 timestamp parsing, excursion/duplicate/unknown-shipment quarantine,
 idempotent warehouse loads, late-data alerts, replay-window filtering,
-deterministic feeds, and the end-to-end run.
+deterministic feeds, the end-to-end run, and partner onboarding (spec
+validation, sample dry runs, launch readiness).
 
 ## Layout
 
@@ -71,6 +78,7 @@ cold_chain/
   normalize.py   config-driven mapping into the shared models
   quality.py     validation checks, quarantine, excursion alerts
   monitor.py     run summaries, late-data alerts, warehouse, replay
+  onboarding.py  partner spec validation, sample dry run, launch readiness
 configs/partners.json   partner field maps and units
 run_pipeline.py         end-to-end run
 tests/                  pytest suite

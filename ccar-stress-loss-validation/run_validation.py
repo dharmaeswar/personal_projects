@@ -12,6 +12,7 @@ import argparse
 import numpy as np
 
 from ccar_validation.backtest import backtest_all, calibration_by_decile
+from ccar_validation.counterparty import build_counterparty_section, generate_counterparty_book
 from ccar_validation.data import MACRO_COLUMNS, generate_portfolio, train_test_split
 from ccar_validation.models import fit_all
 from ccar_validation.monitoring import drift_report
@@ -48,6 +49,10 @@ def run_validation(output: str = "validation_report.txt") -> str:
     # 7. Agency prepayment model validation (new module, Nov 2026).
     prepay_pool = generate_prepayment_pool()
     report = report.rstrip("\n") + "\n" + build_prepayment_section(prepay_pool) + "\n" + "=" * 70 + "\n"
+
+    # 8. Counterparty credit-risk exposure validation (new module, Nov 2026).
+    counterparties, trades = generate_counterparty_book()
+    report = report.rstrip("\n") + "\n" + build_counterparty_section(counterparties, trades) + "\n" + "=" * 70 + "\n"
     write_report(report, output)
     return report
 

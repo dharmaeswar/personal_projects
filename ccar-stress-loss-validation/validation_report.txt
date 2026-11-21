@@ -70,3 +70,18 @@ CCAR STRESS-LOSS MODEL VALIDATION REPORT
                (0.9, 1.8]  n=  601  actual=0.1536  predicted=0.1794  gap=+0.0258
               (1.8, 6.81]  n=  597  actual=0.1827  predicted=0.2056  gap=+0.0229
 ======================================================================
+
+8. COUNTERPARTY CREDIT-RISK EXPOSURE VALIDATION
+   Book: 25 counterparties, 200 synthetic interest-rate swaps; Monte Carlo MtM simulation, 2000 paths x 4 quarters.
+   Baseline total EAD: $279,635,232; stressed EAD (+200bp parallel rate shock): $1,111,959,316; uplift: $+832,324,084 (+297.6%).
+   Total expected loss (EAD x PD x LGD): $698,257; peak PFE95 across the book: $108,845,543.
+   Netting benefit: gross $199,971,117 vs netted $62,524,782 (68.7% reduction).
+   Backtest (forecast EE vs fresh-seed realised): bias=$+411  MAE=$556,549; PFE95 breach rate: 0.044 (target ~0.05); n=50000.
+   EAD by rating (baseline):
+      A  n= 5  EAD=$    42,514,596  expected_loss=$      14,253
+     AA  n= 3  EAD=$    41,482,619  expected_loss=$       6,487
+    AAA  n= 1  EAD=$    17,967,504  expected_loss=$         970
+      B  n= 3  EAD=$    19,177,315  expected_loss=$     355,998
+     BB  n= 4  EAD=$    48,440,976  expected_loss=$     206,630
+    BBB  n= 9  EAD=$   110,052,222  expected_loss=$     113,919
+======================================================================

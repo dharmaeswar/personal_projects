@@ -19,6 +19,7 @@ from .metering import Meter, UsageRecord, build_invoice
 from .observability import Metrics
 from .ratelimit import RateLimiter
 from .router import ModelRegistry, Router
+from .serving import ModelRegistry as ServingRegistry, ModelVersion, Scorer
 
 
 def estimate_tokens(text):
@@ -30,13 +31,15 @@ class Gateway:
     """Wires auth, rate limiting, routing, metering, and metrics together."""
 
     def __init__(self, key_store=None, registry=None, limiter=None,
-                 meter=None, metrics=None):
+                 meter=None, metrics=None, serving_registry=None):
         self.keys = key_store or KeyStore()
         self.registry = registry or ModelRegistry()
         self.router = Router(self.registry)
         self.limiter = limiter or RateLimiter()
         self.meter = meter or Meter()
         self.metrics = metrics or Metrics()
+        self.serving_registry = serving_registry or ServingRegistry()
+        self.scorer = Scorer(self.serving_registry)
 
     def invoke(self, raw_key, model, prompt, max_tokens=128, now=None):
         """Handle one completion request. Returns (status_code, payload dict)."""
@@ -85,6 +88,43 @@ class Gateway:
         usage = self.meter.aggregate(api_key.key_id, day=day)
         return 200, build_invoice(api_key.key_id, usage)
 
+    # ---- Predictive-model serving -------------------------------------
+    def register_model(self, raw_key, spec, now=None):
+        """Register a predictive model version (scope: models:invoke)."""
+        api_key, reason = self.keys.verify(raw_key, "models:invoke", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        try:
+            version = ModelVersion(spec["name"], spec["version"],
+                                   spec.get("framework", "python"),
+                                   spec.get("features", []),
+                                   spec.get("target", "prediction"),
+                                   spec.get("artifact", "demo://%s"),
+                                   spec.get("description", ""))
+            self.serving_registry.register(version)
+        except (KeyError, ValueError) as exc:
+            return 400, {"error": "invalid_model_spec", "details": str(exc)}
+        return 201, version.to_dict()
+
+    def list_models(self, raw_key, now=None):
+        api_key, reason = self.keys.verify(raw_key, "models:invoke", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        return 200, {"models": self.serving_registry.models()}
+
+    def predict(self, raw_key, model, features, version=None, now=None):
+        """Score one predictive-model request (scope: models:invoke)."""
+        api_key, reason = self.keys.verify(raw_key, "models:invoke", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        return self.scorer.score(model, features, version=version)
+
+    def serving_metrics(self, raw_key, now=None):
+        api_key, reason = self.keys.verify(raw_key, "usage:read", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        return 200, {"serving": self.scorer.metrics.summary_all()}
+
 
 def make_handler(gateway):
     class Handler(BaseHTTPRequestHandler):
@@ -124,10 +164,38 @@ def make_handler(gateway):
             if path == "/v1/billing":
                 status, payload = self.server.gateway.billing_for(self._bearer_key())
                 return self._send_json(status, payload)
+            if path == "/v1/serving/models":
+                status, payload = self.server.gateway.list_models(self._bearer_key())
+                return self._send_json(status, payload)
+            if path == "/v1/serving/metrics":
+                status, payload = self.server.gateway.serving_metrics(self._bearer_key())
+                return self._send_json(status, payload)
             return self._send_json(404, {"error": "not_found"})
+
+        def _read_json_body(self):
+            try:
+                length = int(self.headers.get("Content-Length") or 0)
+                return json.loads(self.rfile.read(length) or b"{}"), None
+            except (ValueError, OSError):
+                return None, self._send_json(400, {"error": "invalid_json"})
 
         def do_POST(self):
             parts = urlparse(self.path).path.strip("/").split("/")
+            if parts == ["v1", "serving", "models"]:
+                body, err = self._read_json_body()
+                if err is not None:
+                    return err
+                status, payload = self.server.gateway.register_model(
+                    self._bearer_key(), body)
+                return self._send_json(status, payload)
+            if len(parts) == 5 and parts[:3] == ["v1", "serving", "models"] and parts[4] == "predict":
+                body, err = self._read_json_body()
+                if err is not None:
+                    return err
+                status, payload = self.server.gateway.predict(
+                    self._bearer_key(), parts[3],
+                    body.get("features", {}), body.get("version"))
+                return self._send_json(status, payload)
             if len(parts) != 4 or parts[0] != "v1" or parts[1] != "models" or parts[3] != "completions":
                 return self._send_json(404, {"error": "not_found"})
             model = parts[2]

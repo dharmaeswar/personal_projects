@@ -30,9 +30,21 @@ platform, real customers, or real billing data.
 - **Observability** (`gateway/observability.py`) — per-model latency
   histograms, error counts, p50/p95, and SLO checks (p95 latency and
   error-rate budgets) with alert rules that fire before customers notice.
+- **Predictive-model serving** (`gateway/serving.py`) — a model
+  registry for versioned predictive models with explicit input schemas
+  (feature names, types, required flags, numeric ranges). Scoring
+  validates every request against the schema (422 with details on bad
+  input), serves a pinned version or the latest, and records per-model
+  latency and error metrics with SLO checks. The demo scorer is a
+  deterministic weighted sum through a sigmoid; a real deployment
+  would load the model artifact (pickle, ONNX, or H2O MOJO) and call
+  its predict method in the same place.
 - **API** (`gateway/api.py`) — a small stdlib-only HTTP service:
   `POST /v1/models/{model}/completions`, `GET /v1/usage`,
-  `GET /v1/billing`, `GET /health`, `GET /metrics` (Prometheus text).
+  `GET /v1/billing`, `GET /health`, `GET /metrics` (Prometheus text),
+  plus the serving endpoints `POST /v1/serving/models` (register),
+  `GET /v1/serving/models` (list), `POST /v1/serving/models/{model}/predict`,
+  `GET /v1/serving/metrics` (per-model latency/error stats).
 
 ## Run it
 
@@ -51,7 +63,29 @@ curl -X POST -H "Authorization: Bearer sk-demo-pro-1" \
   http://127.0.0.1:8000/v1/models/llama-4-scout/completions
 curl -H "Authorization: Bearer sk-demo-pro-1" http://127.0.0.1:8000/v1/usage
 curl -H "Authorization: Bearer sk-demo-pro-1" http://127.0.0.1:8000/v1/billing
+
+# Predictive-model serving (seeded demo model: churn-risk v1.2.0)
+curl -H "Authorization: Bearer sk-demo-pro-1" http://127.0.0.1:8000/v1/serving/models
+curl -X POST -H "Authorization: Bearer sk-demo-pro-1" \
+  -H "Content-Type: application/json" \
+  -d '{"features": {"tenure_months": 24, "monthly_spend": 450, "support_tickets": 1, "is_enterprise": false}}' \
+  http://127.0.0.1:8000/v1/serving/models/churn-risk/predict
+curl -H "Authorization: Bearer sk-demo-pro-1" http://127.0.0.1:8000/v1/serving/metrics
+
+## Docker & Kubernetes
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t model-api-gateway .
+docker run -p 8000:8000 model-api-gateway
+kubectl apply -f k8s/   # 2-replica Deployment + ClusterIP Service, probes on /health
 ```
+
+## CI
+
+`.github/workflows/ci.yml` runs the pytest suite on every push/PR touching
+this subfolder, then builds and pushes a multi-arch (amd64 + arm64) image to
+ghcr.io. GitHub Actions only runs workflows from the repository root, so to
+enable it copy that file to `<repo-root>/.github/workflows/model-api-gateway-ci.yml`.
 
 ## Tests
 
@@ -61,6 +95,9 @@ python -m pytest tests/ -q
 
 Tests cover key verification, scopes, expiry and revocation; token-bucket
 refill and exhaustion; router selection, failover and saturation; metering
-aggregation and billing math; p50/p95 and SLO alerts; and the API
+aggregation and billing math; p50/p95 and SLO alerts; the API
 endpoints (including unauthenticated, over-limit, and unknown-model
-rejections).
+rejections); and predictive-model serving — registry versioning and
+duplicate rejection, schema validation (missing, mistyped, out-of-range,
+and unknown features), deterministic scoring, pinned-version serving,
+and per-model latency/error metrics with SLO evaluation.

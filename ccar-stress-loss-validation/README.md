@@ -25,6 +25,11 @@ data is used, and nothing here is a claim about any real institution.
   LGD), netting benefit (gross vs netted exposure), stressed EAD under a
   +200bp parallel rate shock, and a backtest of forecast EE against
   fresh-seed realised exposures with a PFE95 breach-rate check.
+- **Macro-forecasting model validation** (new, Nov 2026): unemployment
+  sensitivity (losses must rise with unemployment), forecast accuracy by
+  expansion/recession regime, coefficient stability across origination
+  vintages, and scenario reasonableness (severely adverse beats baseline
+  every quarter).
 - **Outcomes analysis**: bias, MAE, RMSE, hit rate within a tolerance band,
   and calibration by predicted decile.
 - **Scenario analysis**: baseline vs severely adverse CCAR-style macro paths
@@ -50,6 +55,8 @@ PYTHONPATH=. python -m pytest -q
 ## Layout
 
 - `ccar_validation/data.py` — seeded synthetic loan-portfolio generator
+- `ccar_validation/macro.py` — macro-forecasting validation: unemployment
+  sensitivity, regime accuracy, coefficient stability, scenario reasonableness
 - `ccar_validation/prepayment.py` — agency prepayment model: CPR/PSA speeds,
   rate-incentive sensitivity, seasoning/burnout, calibration by incentive
 - `ccar_validation/counterparty.py` — counterparty exposure validation:

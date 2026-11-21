@@ -85,3 +85,15 @@ CCAR STRESS-LOSS MODEL VALIDATION REPORT
      BB  n= 4  EAD=$    48,440,976  expected_loss=$     206,630
     BBB  n= 9  EAD=$   110,052,222  expected_loss=$     113,919
 ======================================================================
+MACRO-FORECASTING MODEL VALIDATION
+----------------------------------------------------------------------
+Validates the champion loss forecaster against the macro cycle:
+unemployment sensitivity, accuracy by expansion/recession regime,
+coefficient stability across origination vintages, and scenario
+reasonableness (severely adverse must exceed baseline every quarter).
+
+[PASS] unemployment_sensitivity: forecast loss rate by unemployment: 3% -> 0.0646, 5% -> 0.1023, 7% -> 0.1530, 9% -> 0.2130, 11% -> 0.2746
+[PASS] regime_accuracy: MAE expansion=0.1471 (n=1134) vs recession=0.2012 (n=116)
+[PASS] coefficient_stability: unemployment coefficient by vintage: 2015-2019=+0.0425, 2018-2021=+0.0429, 2021-2024=+0.0346
+[PASS] scenario_reasonableness: min quarterly stress uplift 0.1203; peak uplift 0.3296 in quarter 3
+======================================================================

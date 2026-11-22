@@ -2,8 +2,9 @@
 
 A portfolio project for a Senior DevOps Engineer role: a containerized
 Python web service plus the ops automation around it — Docker, Kubernetes
-manifests, CI pipelines, log analysis, load testing, and an incident
-runbook.
+manifests, CI pipelines, log analysis, load testing, an incident
+runbook, and AWS platform configuration checks (EKS, Kafka, RDS Aurora,
+Cloud Foundation guardrails, storage and backup).
 
 **Demo project. Synthetic traffic only. Not a real production platform.**
 Nothing here is a claim about a real production system, and no real
@@ -59,6 +60,17 @@ claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
   All live state is synthetic input; no real cluster is contacted and no
   production GitOps or observability deployment is claimed.
 - `ops/host_bottleneck.py` — diagnoses a synthetic Linux host from CPU, IO wait, memory, load and disk-latency signals, answering "is it CPU? IO?" with a verdict and a next check. Demo data only.
+- `ops/aws_platform_check.py` — validates a synthetic AWS platform
+  config: EKS cluster (version, multi-AZ node groups, control-plane
+  logging, secrets encryption, endpoint restriction), Kafka/MSK
+  (broker count, replication factor, min.insync.replicas, storage
+  encryption, TLS, pinned version), RDS Aurora (engine, backup
+  retention, multi-AZ instances, storage encryption, deletion
+  protection), Cloud Foundation guardrails (required tags, no public
+  0.0.0.0/0 ingress, SSO/federation, CloudTrail) and storage/backup
+  (backup plan, retention, vault encryption, recent successful backup,
+  cold-storage lifecycle). Demo data only; no real AWS account or
+  resource is contacted and no production AWS experience is claimed.
 - `ops/load_test.py` — stdlib-only load test (urllib + threads) that
   reports totals, error rate, and p50/p95 latency. Exits non-zero with
   a clear message if the service is not running.

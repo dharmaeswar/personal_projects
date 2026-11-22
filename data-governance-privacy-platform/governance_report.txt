@@ -1,0 +1,72 @@
+DATA GOVERNANCE & PRIVACY PLATFORM — GOVERNANCE REPORT
+All data in this report is synthetic and seeded for demonstration.
+
+Datasets registered: 4
+Columns classified: 29
+Classification by level: confidential=9, internal=16, restricted=4
+
+CLASSIFICATIONS
+  loan_applications:
+    subject_id: internal (default:internal)
+    application_id: internal (default:internal)
+    full_name: confidential (name:person-name)
+    ssn: restricted (name:ssn)
+    income: confidential (name:financial)
+    credit_score: confidential (name:financial)
+    loan_amount: internal (default:internal)
+    street_address: confidential (name:address)
+  members:
+    subject_id: internal (default:internal)
+    member_id: internal (default:internal)
+    full_name: confidential (name:person-name)
+    email: confidential (name:email)
+    phone: confidential (name:phone)
+    date_of_birth: confidential (name:dob)
+    ssn: restricted (name:ssn)
+    account_number: restricted (name:account-number)
+    state: internal (default:internal)
+    signup_channel: internal (default:internal)
+  support_tickets:
+    subject_id: internal (default:internal)
+    ticket_id: internal (default:internal)
+    email: confidential (name:email)
+    issue_category: internal (default:internal)
+    message: internal (default:internal)
+  transactions:
+    subject_id: internal (default:internal)
+    transaction_id: internal (default:internal)
+    account_number: restricted (name:account-number)
+    amount: internal (default:internal)
+    merchant: internal (default:internal)
+    transaction_date: internal (default:internal)
+
+ACCESS REQUESTS
+  total=8 allowed=4 denied=4
+  [ALLOW] analyst / reporting / members / member_id,full_name — allowed
+  [DENY] analyst / reporting / members / ssn — role 'analyst' may not read restricted column 'ssn'
+  [ALLOW] [masked] auditor / audit / transactions / amount,merchant — allowed with masking (auditor reads are masked only)
+  [DENY] data-engineer / model-training / loan_applications / credit_score — dataset 'loan_applications' is under legal hold: model training is blocked
+  [ALLOW] admin / operations / members / ssn — allowed
+  [DENY] data-engineer / support / transactions / account_number — purpose 'support' may not read restricted column 'account_number'
+  [ALLOW] analyst / model-training / transactions / amount — allowed
+  [DENY] intern / reporting / members / member_id — unknown role 'intern'
+
+MASKING SAMPLE (one members row, as each role sees it)
+  analyst: subject_id=SUBJ-1001, member_id=M-1001, full_name=*******vera, email=*******************.com, phone=***********0132, date_of_birth=******4-12, ssn=1362e2fed495b66cb410eb381dbffbbe06f3ecb553016cb5d92cd743a0342b80, account_number=aa847bf14ba854b415656542f3471277c58b09cc32137c1d02372ce9492b1ebc, state=CA, signup_channel=mobile
+  admin: subject_id=SUBJ-1001, member_id=M-1001, full_name=Alex Rivera, email=alex.rivera@example.com, phone=+1-415-555-0132, date_of_birth=1990-04-12, ssn=123-45-6789, account_number=1000000001234567, state=CA, signup_channel=mobile
+
+RETENTION
+  actions: delete-candidate=1, held=1, retain=2
+  loan_applications: held — legal hold blocks deletion (age 900d, retention 1095d)
+  members: retain — age 400d within retention 730d
+  support_tickets: retain — age 100d within retention 365d
+  transactions: delete-candidate — age 800d exceeds retention 730d
+
+ERASURE (CCPA/GDPR)
+  subject: SUBJ-1007
+  records erased: 4
+  held datasets: ['loan_applications']
+  loan_applications: held — 1 record(s) kept: dataset under legal hold
+  members: erased — deleted 1 record(s) for subject SUBJ-1007
+  support_tickets: erased — deleted 1 record(s) for subject SUBJ-1007
+  transactions: erased — deleted 2 record(s) for subject SUBJ-1007

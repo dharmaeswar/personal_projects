@@ -1,0 +1,332 @@
+{
+  "access_requests": {
+    "allowed": 4,
+    "decisions": [
+      {
+        "allowed": true,
+        "columns": [
+          "member_id",
+          "full_name"
+        ],
+        "dataset": "members",
+        "masked": false,
+        "purpose": "reporting",
+        "reason": "allowed",
+        "role": "analyst"
+      },
+      {
+        "allowed": false,
+        "columns": [
+          "ssn"
+        ],
+        "dataset": "members",
+        "masked": false,
+        "purpose": "reporting",
+        "reason": "role 'analyst' may not read restricted column 'ssn'",
+        "role": "analyst"
+      },
+      {
+        "allowed": true,
+        "columns": [
+          "amount",
+          "merchant"
+        ],
+        "dataset": "transactions",
+        "masked": true,
+        "purpose": "audit",
+        "reason": "allowed with masking (auditor reads are masked only)",
+        "role": "auditor"
+      },
+      {
+        "allowed": false,
+        "columns": [
+          "credit_score"
+        ],
+        "dataset": "loan_applications",
+        "masked": false,
+        "purpose": "model-training",
+        "reason": "dataset 'loan_applications' is under legal hold: model training is blocked",
+        "role": "data-engineer"
+      },
+      {
+        "allowed": true,
+        "columns": [
+          "ssn"
+        ],
+        "dataset": "members",
+        "masked": false,
+        "purpose": "operations",
+        "reason": "allowed",
+        "role": "admin"
+      },
+      {
+        "allowed": false,
+        "columns": [
+          "account_number"
+        ],
+        "dataset": "transactions",
+        "masked": false,
+        "purpose": "support",
+        "reason": "purpose 'support' may not read restricted column 'account_number'",
+        "role": "data-engineer"
+      },
+      {
+        "allowed": true,
+        "columns": [
+          "amount"
+        ],
+        "dataset": "transactions",
+        "masked": false,
+        "purpose": "model-training",
+        "reason": "allowed",
+        "role": "analyst"
+      },
+      {
+        "allowed": false,
+        "columns": [
+          "member_id"
+        ],
+        "dataset": "members",
+        "masked": false,
+        "purpose": "reporting",
+        "reason": "unknown role 'intern'",
+        "role": "intern"
+      }
+    ],
+    "denied": 4,
+    "total": 8
+  },
+  "classification_by_level": {
+    "confidential": 9,
+    "internal": 16,
+    "restricted": 4
+  },
+  "classifications": {
+    "loan_applications": {
+      "application_id": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "credit_score": {
+        "rule": "name:financial",
+        "sensitivity": "confidential"
+      },
+      "full_name": {
+        "rule": "name:person-name",
+        "sensitivity": "confidential"
+      },
+      "income": {
+        "rule": "name:financial",
+        "sensitivity": "confidential"
+      },
+      "loan_amount": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "ssn": {
+        "rule": "name:ssn",
+        "sensitivity": "restricted"
+      },
+      "street_address": {
+        "rule": "name:address",
+        "sensitivity": "confidential"
+      },
+      "subject_id": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      }
+    },
+    "members": {
+      "account_number": {
+        "rule": "name:account-number",
+        "sensitivity": "restricted"
+      },
+      "date_of_birth": {
+        "rule": "name:dob",
+        "sensitivity": "confidential"
+      },
+      "email": {
+        "rule": "name:email",
+        "sensitivity": "confidential"
+      },
+      "full_name": {
+        "rule": "name:person-name",
+        "sensitivity": "confidential"
+      },
+      "member_id": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "phone": {
+        "rule": "name:phone",
+        "sensitivity": "confidential"
+      },
+      "signup_channel": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "ssn": {
+        "rule": "name:ssn",
+        "sensitivity": "restricted"
+      },
+      "state": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "subject_id": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      }
+    },
+    "support_tickets": {
+      "email": {
+        "rule": "name:email",
+        "sensitivity": "confidential"
+      },
+      "issue_category": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "message": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "subject_id": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "ticket_id": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      }
+    },
+    "transactions": {
+      "account_number": {
+        "rule": "name:account-number",
+        "sensitivity": "restricted"
+      },
+      "amount": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "merchant": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "subject_id": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "transaction_date": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      },
+      "transaction_id": {
+        "rule": "default:internal",
+        "sensitivity": "internal"
+      }
+    }
+  },
+  "columns_classified": 29,
+  "datasets": 4,
+  "erasure": {
+    "entries": [
+      {
+        "dataset": "loan_applications",
+        "detail": "1 record(s) kept: dataset under legal hold",
+        "outcome": "held",
+        "records_removed": 0
+      },
+      {
+        "dataset": "members",
+        "detail": "deleted 1 record(s) for subject SUBJ-1007",
+        "outcome": "erased",
+        "records_removed": 1
+      },
+      {
+        "dataset": "support_tickets",
+        "detail": "deleted 1 record(s) for subject SUBJ-1007",
+        "outcome": "erased",
+        "records_removed": 1
+      },
+      {
+        "dataset": "transactions",
+        "detail": "deleted 2 record(s) for subject SUBJ-1007",
+        "outcome": "erased",
+        "records_removed": 2
+      }
+    ],
+    "erased_total": 4,
+    "held_datasets": [
+      "loan_applications"
+    ],
+    "subject_id": "SUBJ-1007"
+  },
+  "masking_sample_member_row": {
+    "admin": {
+      "account_number": "1000000001234567",
+      "date_of_birth": "1990-04-12",
+      "email": "alex.rivera@example.com",
+      "full_name": "Alex Rivera",
+      "member_id": "M-1001",
+      "phone": "+1-415-555-0132",
+      "signup_channel": "mobile",
+      "ssn": "123-45-6789",
+      "state": "CA",
+      "subject_id": "SUBJ-1001"
+    },
+    "analyst": {
+      "account_number": "aa847bf14ba854b415656542f3471277c58b09cc32137c1d02372ce9492b1ebc",
+      "date_of_birth": "******4-12",
+      "email": "*******************.com",
+      "full_name": "*******vera",
+      "member_id": "M-1001",
+      "phone": "***********0132",
+      "signup_channel": "mobile",
+      "ssn": "1362e2fed495b66cb410eb381dbffbbe06f3ecb553016cb5d92cd743a0342b80",
+      "state": "CA",
+      "subject_id": "SUBJ-1001"
+    }
+  },
+  "retention": {
+    "actions": {
+      "delete-candidate": 1,
+      "held": 1,
+      "retain": 2
+    },
+    "per_dataset": [
+      {
+        "action": "held",
+        "age_days": 900,
+        "dataset": "loan_applications",
+        "legal_hold": true,
+        "reason": "legal hold blocks deletion (age 900d, retention 1095d)",
+        "retention_days": 1095
+      },
+      {
+        "action": "retain",
+        "age_days": 400,
+        "dataset": "members",
+        "legal_hold": false,
+        "reason": "age 400d within retention 730d",
+        "retention_days": 730
+      },
+      {
+        "action": "retain",
+        "age_days": 100,
+        "dataset": "support_tickets",
+        "legal_hold": false,
+        "reason": "age 100d within retention 365d",
+        "retention_days": 365
+      },
+      {
+        "action": "delete-candidate",
+        "age_days": 800,
+        "dataset": "transactions",
+        "legal_hold": false,
+        "reason": "age 800d exceeds retention 730d",
+        "retention_days": 730
+      }
+    ]
+  }
+}

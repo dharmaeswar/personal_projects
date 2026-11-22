@@ -1,0 +1,331 @@
+{
+  "cases": 12,
+  "hallucination": {
+    "cases": 12,
+    "flagged": 0,
+    "rate": 0.0
+  },
+  "groundedness_per_case": [
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    },
+    {
+      "cited": 6,
+      "grounded": 6,
+      "hallucinated": [],
+      "score": 1.0,
+      "hallucination": false
+    }
+  ],
+  "benchmark": {
+    "models": {
+      "candidate-genai-v1": {
+        "model": "candidate-genai-v1",
+        "cases": 12,
+        "correct": 12,
+        "accuracy": 1.0,
+        "confusion": {
+          "approve": {
+            "approve": 5
+          },
+          "decline": {
+            "decline": 4
+          },
+          "review": {
+            "review": 3
+          }
+        }
+      },
+      "challenger-rule-v1": {
+        "model": "challenger-rule-v1",
+        "cases": 12,
+        "correct": 12,
+        "accuracy": 1.0,
+        "confusion": {
+          "approve": {
+            "approve": 5
+          },
+          "decline": {
+            "decline": 4
+          },
+          "review": {
+            "review": 3
+          }
+        }
+      },
+      "benchmark-base-rate-v1": {
+        "model": "benchmark-base-rate-v1",
+        "cases": 12,
+        "correct": 5,
+        "accuracy": 0.4167,
+        "confusion": {
+          "approve": {
+            "approve": 5
+          },
+          "decline": {
+            "approve": 4
+          },
+          "review": {
+            "approve": 3
+          }
+        }
+      }
+    },
+    "champion_minus_challenger": 0.0,
+    "champion_beats_benchmark": true
+  },
+  "reliability": {
+    "cases": 12,
+    "mean_decision_agreement": 0.9167,
+    "mean_text_stability": 0.9573,
+    "unstable_cases": 5,
+    "per_case": [
+      {
+        "case_id": "C001",
+        "decision_agreement": 1.0,
+        "text_stability": 0.9783
+      },
+      {
+        "case_id": "C002",
+        "decision_agreement": 0.8,
+        "text_stability": 0.9366
+      },
+      {
+        "case_id": "C003",
+        "decision_agreement": 1.0,
+        "text_stability": 0.9783
+      },
+      {
+        "case_id": "C004",
+        "decision_agreement": 1.0,
+        "text_stability": 0.9783
+      },
+      {
+        "case_id": "C005",
+        "decision_agreement": 1.0,
+        "text_stability": 0.9565
+      },
+      {
+        "case_id": "C006",
+        "decision_agreement": 0.8,
+        "text_stability": 0.9366
+      },
+      {
+        "case_id": "C007",
+        "decision_agreement": 0.8,
+        "text_stability": 0.9366
+      },
+      {
+        "case_id": "C008",
+        "decision_agreement": 1.0,
+        "text_stability": 0.9783
+      },
+      {
+        "case_id": "C009",
+        "decision_agreement": 0.8,
+        "text_stability": 0.9366
+      },
+      {
+        "case_id": "C010",
+        "decision_agreement": 1.0,
+        "text_stability": 0.9565
+      },
+      {
+        "case_id": "C011",
+        "decision_agreement": 1.0,
+        "text_stability": 0.9783
+      },
+      {
+        "case_id": "C012",
+        "decision_agreement": 0.8,
+        "text_stability": 0.9366
+      }
+    ]
+  },
+  "sensitivity": {
+    "cases": 24,
+    "flips": 0,
+    "flip_rate": 0.0,
+    "per_variant": {
+      "reordered": {
+        "cases": 12,
+        "flips": 0,
+        "flip_rate": 0.0
+      },
+      "paraphrased": {
+        "cases": 12,
+        "flips": 0,
+        "flip_rate": 0.0
+      }
+    }
+  },
+  "drift": {
+    "psi": 8.3712,
+    "note": "reference vs +25pp utilization stress mix"
+  },
+  "explainability": {
+    "mean_coverage": 1.0,
+    "drivers": [
+      "utilization",
+      "months_delinquent"
+    ]
+  },
+  "report": {
+    "framework": "SR 26-2 / OCC Bulletin 2026-13 style independent validation",
+    "model": {
+      "candidate-genai-v1": {
+        "model": "candidate-genai-v1",
+        "cases": 12,
+        "correct": 12,
+        "accuracy": 1.0,
+        "confusion": {
+          "approve": {
+            "approve": 5
+          },
+          "decline": {
+            "decline": 4
+          },
+          "review": {
+            "review": 3
+          }
+        }
+      },
+      "challenger-rule-v1": {
+        "model": "challenger-rule-v1",
+        "cases": 12,
+        "correct": 12,
+        "accuracy": 1.0,
+        "confusion": {
+          "approve": {
+            "approve": 5
+          },
+          "decline": {
+            "decline": 4
+          },
+          "review": {
+            "review": 3
+          }
+        }
+      },
+      "benchmark-base-rate-v1": {
+        "model": "benchmark-base-rate-v1",
+        "cases": 12,
+        "correct": 5,
+        "accuracy": 0.4167,
+        "confusion": {
+          "approve": {
+            "approve": 5
+          },
+          "decline": {
+            "approve": 4
+          },
+          "review": {
+            "approve": 3
+          }
+        }
+      }
+    },
+    "gates": {
+      "hallucination_rate": true,
+      "decision_agreement": false,
+      "sensitivity": true,
+      "drift": false,
+      "explainability": true,
+      "benchmark": true
+    },
+    "findings": [
+      {
+        "id": "F-02",
+        "severity": "High",
+        "title": "Unstable decisions across repeat runs",
+        "detail": "Mean decision agreement 0.9167 across repeat runs; 5 case(s) flip decision with no input change. Repeat-run variance must be bounded for a production decision aid."
+      },
+      {
+        "id": "F-04",
+        "severity": "Medium",
+        "title": "Score distribution drift vs reference",
+        "detail": "PSI 8.3712 exceeds the 0.1 monitoring threshold; investigate the shifted input mix before the next review cycle."
+      }
+    ],
+    "limitations": [
+      "Synthetic seeded cases only; no real cardholder data was used.",
+      "Candidate is a deterministic rule-based stand-in, not a live LLM; a model-backed generator plugs into the same interface.",
+      "Human oversight is assumed for every 'review' decision; autonomy limits and escalation controls are out of scope for this run."
+    ],
+    "verdict": "FAIL"
+  }
+}

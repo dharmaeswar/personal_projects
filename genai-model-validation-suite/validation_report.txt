@@ -1,0 +1,12 @@
+GenAI Model Validation Report
+Cases validated: 12
+Hallucination rate: 0.0 (0 of 12 cases)
+Champion accuracy: 1.0 vs challenger 1.0 vs benchmark 0.4167
+Mean decision agreement: 0.9167
+Sensitivity flip rate: 0.0
+Drift PSI: 8.3712
+Explainability coverage: 1.0
+Findings: 2
+Verdict: FAIL
+  F-02 [High] Unstable decisions across repeat runs
+  F-04 [Medium] Score distribution drift vs reference

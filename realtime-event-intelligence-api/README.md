@@ -28,6 +28,17 @@ describes a real platform or a real threat posture.
 - **Auth** (`event_intel/auth.py`) — bearer tokens with scopes
   (`events:write`, `alerts:read`) and expiry, the way an OAuth2/OIDC
   access token works: expired tokens and wrong scopes are rejected.
+- **Windowing** (`event_intel/windowing.py`) — Flink-style tumbling
+  windows over event time, with a watermark that closes windows and
+  an allowed-lateness bound: events arriving after their window
+  closed are counted as late and dropped, never silently merged.
+- **Checkpointing** (`event_intel/checkpoint.py`) — signal schema
+  validation, a dead-letter queue for malformed records, exactly-once
+  handling that skips redelivered records, and offset snapshots so a
+  restarted consumer resumes where it stopped instead of replaying
+  the whole topic. The pipeline (`event_intel/pipeline.py`) now
+  validates every record, routes bad ones to the DLQ, and buckets
+  scored events into tumbling windows.
 - **API** (`event_intel/api.py`) — a small HTTP service (stdlib only):
   `POST /v1/events` ingests one signal, `GET /v1/alerts` lists alerts,
   `GET /v1/alerts/{id}` fetches one, `GET /health` is the liveness check.
@@ -56,6 +67,6 @@ curl -X POST -H "Authorization: Bearer <token>" -H "Content-Type: application/js
 python -m pytest tests/ -q
 ```
 
-28 tests cover the stream offsets, the scoring bands and decay, dedupe
+54 tests cover the stream offsets, the scoring bands and decay, dedupe
 counts, the SQL store, token expiry and scopes, and the API endpoints
 (including unauthenticated and wrong-scope rejections).

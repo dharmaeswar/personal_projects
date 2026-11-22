@@ -1,0 +1,6 @@
+Sales Compensation Calculation Engine — demo run
+Reps: 3 | Deals: 5 | Results: 5
+Plan versions: 2 | Total net commission: $84100.00
+Payments: 3 | Total payable (after 10% holdback): $75690.00
+Audit events: 15 | Audit chain valid: True
+Reconciliation findings: 0

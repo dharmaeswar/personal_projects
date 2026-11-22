@@ -47,6 +47,14 @@ seeded random generator so every run is reproducible.
   it is not reinforcement learning, bandit optimisation, or any other
   adaptive policy. All member data is synthetic, seeded, and
   reproducible; no real member or Humana data is used.
+- **Distributed training** (`ml_platform/distributed_training.py`):
+  a simulated GPU-cluster training stack — first-fit job scheduler
+  with per-tenant GPU quotas (multi-tenant isolation), checkpoint save
+  / load with fault recovery (a failed job resumes from its last
+  checkpoint), throughput and cost profiling from a parallelism plan,
+  LoRA fine-tuning configs (power-of-two rank validation), and
+  model/data-parallel planning. All numbers come from the simulated
+  hardware model in the module; no real cluster or GPUs are used.
 - **Experiment tracking & evaluation harness** (`ml_platform/evaluation.py`):
   logs every training run (hyperparameters, metrics, model version,
   dataset fingerprint) to a JSONL experiment log and picks the best run
@@ -55,6 +63,22 @@ seeded random generator so every run is reproducible.
   improvement plus metric floors); and evaluates a keyword ranker for
   the search / knowledge-discovery use case with precision@k and mean
   reciprocal rank over a synthetic docs-and-queries corpus.
+- **Evaluation pipeline** (`ml_platform/eval_pipeline.py`): queues and
+  runs evaluation jobs for a model version against a named dataset,
+  fingerprints each dataset (content hash) so runs are comparable only on
+  the same data, and writes a reproducibility manifest for every run
+  (dataset fingerprint + config hash + code version + seed) so a run can
+  be re-created exactly. Per-run metrics aggregate accuracy, precision,
+  recall, and AUC plus per-row latency percentiles, and a promotion gate
+  reuses the evaluation harness to compare a candidate against
+  production — refusing to promote when the two runs used different
+  datasets.
+- **Performance monitoring** (`ml_platform/monitoring.py`): records
+  per-request latency and error observations per model version, computes
+  rolling p50/p95/p99 latency and error-rate windows over a bounded
+  recent window, and checks SLOs (p95 latency threshold, max error rate)
+  — every breach is recorded as an alert with the observed value, so an
+  operator or an automated rollback can act on it.
 
 ## Layout
 
@@ -72,6 +96,8 @@ ml-training-serving-platform/
     backfill.py             # offline batch re-scoring
     decisioning.py          # next-best-action decisioning + outcome tracking
     evaluation.py           # experiment log, promotion gate, retrieval eval (P@k / MRR)
+    eval_pipeline.py        # evaluation job queue, dataset fingerprints, reproducibility manifests
+    monitoring.py           # per-version latency/error tracking, rolling percentiles, SLO alerts
   tests/
     test_data.py
     test_training.py
@@ -80,6 +106,8 @@ ml-training-serving-platform/
     test_backfill.py
     test_decisioning.py
     test_evaluation.py
+    test_eval_pipeline.py
+    test_monitoring.py
 ```
 
 ## Run it

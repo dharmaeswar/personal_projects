@@ -1,0 +1,159 @@
+{
+  "bond": "5% 20y callable muni, callable at par in 10y, price 104.50",
+  "ytm_pct": 4.652,
+  "ytw_pct": 4.438,
+  "ytw_source": "call@10.0y",
+  "oas_bp": 42.7,
+  "modified_duration": 12.85,
+  "convexity": 218.8,
+  "dv01_per_100_par": 0.1382,
+  "key_rate_durations": {
+    "2": 0.08,
+    "5": 0.37,
+    "10": 2.11,
+    "20": 9.09,
+    "30": 0.0
+  },
+  "spread_scenarios_pnl": {
+    "-100": 15.057,
+    "-50": 7.205,
+    "50": -6.618,
+    "100": -12.7,
+    "200": -23.447
+  },
+  "relative_value_r2": 0.948,
+  "screen": [
+    {
+      "id": "MUNI-01",
+      "maturity_years": 5,
+      "coupon": 0.03,
+      "rating": "AAA",
+      "callable": false,
+      "spread_bp": 28,
+      "predicted_spread_bp": 24.55,
+      "residual_bp": 3.45,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-02",
+      "maturity_years": 10,
+      "coupon": 0.04,
+      "rating": "AA",
+      "callable": true,
+      "spread_bp": 52,
+      "predicted_spread_bp": 53.85,
+      "residual_bp": -1.85,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-03",
+      "maturity_years": 20,
+      "coupon": 0.05,
+      "rating": "AA",
+      "callable": true,
+      "spread_bp": 71,
+      "predicted_spread_bp": 68.54,
+      "residual_bp": 2.46,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-04",
+      "maturity_years": 30,
+      "coupon": 0.045,
+      "rating": "A",
+      "callable": true,
+      "spread_bp": 88,
+      "predicted_spread_bp": 97.26,
+      "residual_bp": -9.26,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-05",
+      "maturity_years": 7,
+      "coupon": 0.035,
+      "rating": "AAA",
+      "callable": false,
+      "spread_bp": 31,
+      "predicted_spread_bp": 28.11,
+      "residual_bp": 2.89,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-06",
+      "maturity_years": 12,
+      "coupon": 0.05,
+      "rating": "A",
+      "callable": true,
+      "spread_bp": 64,
+      "predicted_spread_bp": 75.55,
+      "residual_bp": -11.55,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-07",
+      "maturity_years": 15,
+      "coupon": 0.04,
+      "rating": "AA",
+      "callable": false,
+      "spread_bp": 49,
+      "predicted_spread_bp": 56.36,
+      "residual_bp": -7.36,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-08",
+      "maturity_years": 25,
+      "coupon": 0.05,
+      "rating": "BBB",
+      "callable": true,
+      "spread_bp": 118,
+      "predicted_spread_bp": 109.09,
+      "residual_bp": 8.91,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-09",
+      "maturity_years": 3,
+      "coupon": 0.025,
+      "rating": "AAA",
+      "callable": false,
+      "spread_bp": 22,
+      "predicted_spread_bp": 20.99,
+      "residual_bp": 1.01,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-10",
+      "maturity_years": 20,
+      "coupon": 0.05,
+      "rating": "A",
+      "callable": true,
+      "spread_bp": 96,
+      "predicted_spread_bp": 85.66,
+      "residual_bp": 10.34,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-11",
+      "maturity_years": 10,
+      "coupon": 0.045,
+      "rating": "AA",
+      "callable": true,
+      "spread_bp": 55,
+      "predicted_spread_bp": 54.88,
+      "residual_bp": 0.12,
+      "flag": "FAIR"
+    },
+    {
+      "id": "MUNI-12",
+      "maturity_years": 30,
+      "coupon": 0.05,
+      "rating": "AA",
+      "callable": true,
+      "spread_bp": 82,
+      "predicted_spread_bp": 81.18,
+      "residual_bp": 0.82,
+      "flag": "FAIR"
+    }
+  ]
+}

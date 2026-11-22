@@ -1,0 +1,15 @@
+Municipal Bond Pricing & Risk — demo report
+YTM 4.652%  YTW 4.438% (call@10.0y)  OAS 42.7bp
+Duration 12.85  Convexity 218.8  DV01 $0.1382
+MUNI-01 FAIR residual +3.5bp
+MUNI-02 FAIR residual -1.9bp
+MUNI-03 FAIR residual +2.5bp
+MUNI-04 FAIR residual -9.3bp
+MUNI-05 FAIR residual +2.9bp
+MUNI-06 FAIR residual -11.6bp
+MUNI-07 FAIR residual -7.4bp
+MUNI-08 FAIR residual +8.9bp
+MUNI-09 FAIR residual +1.0bp
+MUNI-10 FAIR residual +10.3bp
+MUNI-11 FAIR residual +0.1bp
+MUNI-12 FAIR residual +0.8bp

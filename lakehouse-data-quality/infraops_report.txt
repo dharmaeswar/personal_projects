@@ -1,0 +1,54 @@
+INFRAOPS ANALYTICS REPORT
+
+stream events arrived: 125
+stream events accepted: 120
+stream late dropped: 2
+stream duplicates dropped: 3
+stream checkpoint offset: 124
+
+batch incident rows: 24
+batch incidents loaded: 24
+batch duplicates dropped: 0
+
+telemetry checks:
+  [FAIL] completeness: dc_id: 1 nulls
+  [FAIL] uniqueness:reading_id: 2 duplicated reading_id values (2 extra rows)
+  [FAIL] fk:equip_id->equip_id: 1 rows with equip_id not in equip_id
+  [PASS] fk:dc_id->dc_id: all dc_id values found in dc_id
+  [FAIL] metric_ranges: 2 telemetry values outside range
+  [PASS] telemetry_dc_matches_equipment: all telemetry rows match their equipment data center
+incident checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:incident_id: all 24 values of incident_id unique
+  [PASS] fk:dc_id->dc_id: all dc_id values found in dc_id
+  [FAIL] incident_after_open: 1 incidents resolved before opening
+equipment checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:equip_id: all 60 values of equip_id unique
+  [PASS] fk:dc_id->dc_id: all dc_id values found in dc_id
+  [FAIL] decommission_after_install: 1 equipment decommissioned before installation
+capacity checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] fk:dc_id->dc_id: all dc_id values found in dc_id
+  [PASS] range:utilized_mw: all values of utilized_mw in range
+
+silver telemetry: 236; quarantined: 6
+silver incidents: 23; quarantined: 1
+silver equipment: 59; quarantined: 1
+silver capacity: 240; quarantined: 0
+
+unified infra model rows: 8
+analytics view rows (regions): 4
+operational view rows (data centers): 8
+reconciliation: [PASS] infraops_reconciliation: views reconcile: 8 data centers, 236 vendable telemetry rows
+  ap-south: data centers 2, avg temp 27.2 C, peak utilization 93.4%, incidents 9, avg capacity use 78.8%
+  eu-west: data centers 2, avg temp 24.6 C, peak utilization 73.3%, incidents 5, avg capacity use 72.2%
+  us-east: data centers 2, avg temp 26.0 C, peak utilization 89.7%, incidents 7, avg capacity use 70.4%
+  us-west: data centers 2, avg temp 24.0 C, peak utilization 92.2%, incidents 2, avg capacity use 61.4%
+
+query tuning demo:
+  rows scanned: 50032; data centers: 8
+  per-data-center scan loop: 7.1 ms
+  single group-by: 1.0 ms
+  speedup: 7.5x; results match: True
+

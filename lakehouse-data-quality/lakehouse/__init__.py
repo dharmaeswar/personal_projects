@@ -20,6 +20,12 @@ from .workforce import (
     generate_workforce_events,
     run_workforce_stream,
 )
+from .infraops import (
+    build_unified_model as build_infraops_model,
+    generate_infraops,
+    generate_infraops_events,
+    run_infraops_stream,
+)
 
 __all__ = [
     "CheckResult",
@@ -27,6 +33,7 @@ __all__ = [
     "StreamCheckpoint",
     "TableSchema",
     "build_gold",
+    "build_infraops_model",
     "build_silver",
     "build_unified_model",
     "build_workforce_model",
@@ -34,11 +41,14 @@ __all__ = [
     "evaluate_genai_assist",
     "generate_bronze",
     "generate_event_stream",
+    "generate_infraops",
+    "generate_infraops_events",
     "generate_talent",
     "generate_talent_events",
     "generate_workforce",
     "generate_workforce_events",
     "run_all_checks",
+    "run_infraops_stream",
     "run_observability",
     "run_stream",
     "run_talent_stream",

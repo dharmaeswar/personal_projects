@@ -271,3 +271,50 @@ Tests: **81 passed** (`python -m pytest -q`) — 70 earlier tests plus
 counts and reasons, the unified model, view reconciliation, streaming
 exactly-once, batch dedup, the GenAI-assist evaluation, tuning
 results and determinism (`tests/test_workforce.py`).
+
+## Added Nov 23, 2026 — central InfraOps analytics
+
+One module added for an Amazon Data Engineer (Central InfraOps
+Analytics Team) role, where the work is the data foundation behind
+AWS's global data-center operations: ETL pipelines that ingest
+infrastructure signals into the warehouse and lake, data models that
+drive physical design, quality measures and monitoring that keep the
+data trusted. New module `lakehouse/infraops.py`, run with
+`python run_infraops.py` — same pandas + Parquet approach as the rest
+of the project, no Spark cluster, Kinesis stream, or Redshift
+warehouse is involved, and the code says so where it matters.
+
+- **Streaming ingest** — 120 synthetic telemetry change events
+  (power, temperature, humidity, utilization readings) processed
+  exactly once by reusing the shared streamer: 3 duplicate deliveries
+  and 2 late events dropped at the watermark, checkpoint offset 124.
+- **Batch ingest** — a nightly incident batch of 24 rows,
+  deduplicated on `incident_id` (24 loaded, 0 duplicates dropped).
+- **Unified infra model** — one row per data center (8): telemetry
+  aggregates (average temperature, maximum utilization, total power),
+  incident counts and latest capacity utilization. Built only from
+  silver rows; 236 vendable telemetry rows.
+- **Vended views** — an analytics view (4 regions: data centers,
+  average temperature, peak utilization, incidents, average capacity
+  use) and an operational view (one row per data center) for
+  dashboards and APIs. Both reconcile back to the unified model and
+  silver telemetry.
+- **Quality checks** — completeness, uniqueness, value ranges,
+  referential integrity, plus three infra rules: no incident may
+  resolve before it opened, no equipment may be decommissioned
+  before it was installed, and every telemetry row must name the
+  data center its equipment belongs to. The fixture plants 8 bad
+  rows (2 duplicate reading ids, 1 null data center, 1 unknown
+  equipment, 1 temperature of 52 C, 1 utilization of 112%, 1
+  incident resolved before opening, 1 equipment decommissioned
+  before installation); 6 telemetry rows, 1 incident and 1
+  equipment item are quarantined with reasons.
+- **Query tuning** — a per-data-center full-table scan loop versus a
+  single group-by over 50,032 rows: 7.1 ms vs 1.0 ms, a 7.5x
+  speedup, with identical per-data-center averages.
+
+Tests: **91 passed** (`python -m pytest -q`) — 81 earlier tests plus
+10 new tests for domain shapes, every violation type, quarantine
+counts and reasons, the unified model, view reconciliation, streaming
+exactly-once, batch dedup, tuning results and determinism
+(`tests/test_infraops.py`).

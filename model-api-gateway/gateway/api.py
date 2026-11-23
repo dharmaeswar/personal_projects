@@ -15,6 +15,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlparse
 
 from .auth import KeyStore
+from .marketplace import MarketplaceStore, run_agent_eval, run_serving_eval
 from .metering import Meter, UsageRecord, build_invoice
 from .observability import Metrics
 from .ratelimit import RateLimiter
@@ -31,7 +32,8 @@ class Gateway:
     """Wires auth, rate limiting, routing, metering, and metrics together."""
 
     def __init__(self, key_store=None, registry=None, limiter=None,
-                 meter=None, metrics=None, serving_registry=None):
+                 meter=None, metrics=None, serving_registry=None,
+                 marketplace=None):
         self.keys = key_store or KeyStore()
         self.registry = registry or ModelRegistry()
         self.router = Router(self.registry)
@@ -40,6 +42,7 @@ class Gateway:
         self.metrics = metrics or Metrics()
         self.serving_registry = serving_registry or ServingRegistry()
         self.scorer = Scorer(self.serving_registry)
+        self.marketplace = marketplace or MarketplaceStore()
 
     def invoke(self, raw_key, model, prompt, max_tokens=128, now=None):
         """Handle one completion request. Returns (status_code, payload dict)."""
@@ -125,6 +128,89 @@ class Gateway:
             return 401, {"error": reason}
         return 200, {"serving": self.scorer.metrics.summary_all()}
 
+    # ---- Marketplace partner intelligence ------------------------------
+    def register_dataset(self, raw_key, spec, now=None):
+        api_key, reason = self.keys.verify(raw_key, "models:invoke", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        try:
+            dataset = self.marketplace.register_dataset(
+                spec["dataset_id"], spec["name"], spec.get("owner_partner", ""),
+                spec.get("columns", []))
+        except (KeyError, ValueError) as exc:
+            return 400, {"error": "invalid_dataset_spec", "details": str(exc)}
+        return 201, dataset.to_dict()
+
+    def ingest_dataset(self, raw_key, dataset_id, rows, now=None):
+        api_key, reason = self.keys.verify(raw_key, "models:invoke", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        try:
+            return 200, self.marketplace.ingest(dataset_id, rows)
+        except ValueError as exc:
+            return 404, {"error": "unknown_dataset", "details": str(exc)}
+
+    def define_metric(self, raw_key, spec, now=None):
+        api_key, reason = self.keys.verify(raw_key, "models:invoke", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        try:
+            metric = self.marketplace.define_metric(
+                spec["name"], spec["dataset_id"], spec["column"],
+                spec["aggregation"], spec.get("description", ""))
+        except (KeyError, ValueError) as exc:
+            return 400, {"error": "invalid_metric_spec", "details": str(exc)}
+        return 201, metric.to_dict()
+
+    def query_metric(self, raw_key, name, filters=None, now=None):
+        api_key, reason = self.keys.verify(raw_key, "usage:read", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        try:
+            return 200, self.marketplace.query_metric(name, filters)
+        except ValueError as exc:
+            return 404, {"error": "unknown_metric", "details": str(exc)}
+
+    def run_serving_eval(self, raw_key, spec, now=None):
+        api_key, reason = self.keys.verify(raw_key, "models:invoke", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        try:
+            return 200, run_serving_eval(
+                self.marketplace, self.scorer, spec["model"],
+                spec.get("cases", []), spec.get("min_pass_rate", 0.8))
+        except KeyError as exc:
+            return 400, {"error": "invalid_eval_spec", "details": str(exc)}
+
+    def get_serving_eval(self, raw_key, run_id, now=None):
+        api_key, reason = self.keys.verify(raw_key, "usage:read", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        run = self.marketplace.serving_eval_runs.get(run_id)
+        if run is None:
+            return 404, {"error": "unknown_eval_run", "run_id": run_id}
+        return 200, run.to_dict()
+
+    def run_agent_eval(self, raw_key, spec, now=None):
+        api_key, reason = self.keys.verify(raw_key, "models:invoke", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        try:
+            return 200, run_agent_eval(
+                self.marketplace, spec.get("agent", "demo-agent"),
+                spec.get("cases", []), spec.get("min_pass_rate", 0.8))
+        except KeyError as exc:
+            return 400, {"error": "invalid_eval_spec", "details": str(exc)}
+
+    def get_agent_eval(self, raw_key, run_id, now=None):
+        api_key, reason = self.keys.verify(raw_key, "usage:read", now=now)
+        if api_key is None:
+            return 401, {"error": reason}
+        run = self.marketplace.agent_eval_runs.get(run_id)
+        if run is None:
+            return 404, {"error": "unknown_eval_run", "run_id": run_id}
+        return 200, run.to_dict()
+
 
 def make_handler(gateway):
     class Handler(BaseHTTPRequestHandler):
@@ -170,6 +256,14 @@ def make_handler(gateway):
             if path == "/v1/serving/metrics":
                 status, payload = self.server.gateway.serving_metrics(self._bearer_key())
                 return self._send_json(status, payload)
+            if len(path.strip("/").split("/")) == 5 and path.startswith("/v1/marketplace/evals/serving/"):
+                run_id = path.strip("/").split("/")[4]
+                status, payload = self.server.gateway.get_serving_eval(self._bearer_key(), run_id)
+                return self._send_json(status, payload)
+            if len(path.strip("/").split("/")) == 5 and path.startswith("/v1/marketplace/evals/agents/"):
+                run_id = path.strip("/").split("/")[4]
+                status, payload = self.server.gateway.get_agent_eval(self._bearer_key(), run_id)
+                return self._send_json(status, payload)
             return self._send_json(404, {"error": "not_found"})
 
         def _read_json_body(self):
@@ -181,6 +275,49 @@ def make_handler(gateway):
 
         def do_POST(self):
             parts = urlparse(self.path).path.strip("/").split("/")
+            if parts == ["v1", "marketplace", "datasets"]:
+                body, err = self._read_json_body()
+                if err is not None:
+                    return err
+                status, payload = self.server.gateway.register_dataset(
+                    self._bearer_key(), body)
+                return self._send_json(status, payload)
+            if len(parts) == 5 and parts[:3] == ["v1", "marketplace", "datasets"] and parts[4] == "ingest":
+                body, err = self._read_json_body()
+                if err is not None:
+                    return err
+                status, payload = self.server.gateway.ingest_dataset(
+                    self._bearer_key(), parts[3], body.get("rows", []))
+                return self._send_json(status, payload)
+            if parts == ["v1", "marketplace", "semantic", "metrics"]:
+                body, err = self._read_json_body()
+                if err is not None:
+                    return err
+                status, payload = self.server.gateway.define_metric(
+                    self._bearer_key(), body)
+                return self._send_json(status, payload)
+            if parts == ["v1", "marketplace", "semantic", "query"]:
+                body, err = self._read_json_body()
+                if err is not None:
+                    return err
+                status, payload = self.server.gateway.query_metric(
+                    self._bearer_key(), body.get("metric", ""),
+                    body.get("filters"))
+                return self._send_json(status, payload)
+            if parts == ["v1", "marketplace", "evals", "serving"]:
+                body, err = self._read_json_body()
+                if err is not None:
+                    return err
+                status, payload = self.server.gateway.run_serving_eval(
+                    self._bearer_key(), body)
+                return self._send_json(status, payload)
+            if parts == ["v1", "marketplace", "evals", "agents"]:
+                body, err = self._read_json_body()
+                if err is not None:
+                    return err
+                status, payload = self.server.gateway.run_agent_eval(
+                    self._bearer_key(), body)
+                return self._send_json(status, payload)
             if parts == ["v1", "serving", "models"]:
                 body, err = self._read_json_body()
                 if err is not None:

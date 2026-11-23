@@ -39,12 +39,85 @@ platform, real customers, or real billing data.
   deterministic weighted sum through a sigmoid; a real deployment
   would load the model artifact (pickle, ONNX, or H2O MOJO) and call
   its predict method in the same place.
+- **Marketplace partner intelligence** (`gateway/marketplace.py`) —
+  partner data ingestion into a governed semantic layer, a
+  model-serving evaluation foundation, and an agent-evaluation
+  foundation, exposed as self-serve intelligence-delivery API
+  endpoints (see the section below). All stores are in-memory
+  stand-ins: datasets, metrics, eval runs, and traces live in
+  process memory only, and all partner data is synthetic.
 - **API** (`gateway/api.py`) — a small stdlib-only HTTP service:
   `POST /v1/models/{model}/completions`, `GET /v1/usage`,
   `GET /v1/billing`, `GET /health`, `GET /metrics` (Prometheus text),
   plus the serving endpoints `POST /v1/serving/models` (register),
   `GET /v1/serving/models` (list), `POST /v1/serving/models/{model}/predict`,
-  `GET /v1/serving/metrics` (per-model latency/error stats).
+  `GET /v1/serving/metrics` (per-model latency/error stats),
+  plus the marketplace endpoints `POST /v1/marketplace/datasets`,
+  `POST /v1/marketplace/datasets/{id}/ingest`,
+  `POST /v1/marketplace/semantic/metrics`,
+  `POST /v1/marketplace/semantic/query`,
+  `POST /v1/marketplace/evals/serving`,
+  `GET /v1/marketplace/evals/serving/{run_id}`,
+  `POST /v1/marketplace/evals/agents`,
+  `GET /v1/marketplace/evals/agents/{run_id}`.
+
+## Marketplace partner intelligence
+
+Built for an AWS Marketplace & Partner Services (AMPS) Data &
+Analytics Engineering application: the gateway extended with the
+data and evaluation foundations agents depend on.
+
+- **Partner data ingestion** — register a partner dataset with a
+  typed column schema, then ingest rows. Every row is validated
+  against the schema (missing, mistyped, out-of-range, or unknown
+  columns); bad rows are rejected with per-row errors and good rows
+  still land, so one bad record never blocks a whole batch.
+- **Governed semantic layer** — define a metric once (dataset +
+  column + aggregation: sum, avg, count, min, max) and query it by
+  name with filters. Every answer carries lineage (dataset, column,
+  aggregation, filters) so agents and teams share one trustworthy
+  definition instead of writing their own SQL.
+- **Model-serving evaluation foundation** — run a served model
+  against eval cases (features + the prediction range it must land
+  in). Each case records the serving version and prediction; the run
+  reports a pass rate and a pass/fail gate against a minimum pass
+  rate. Validation failures and unknown models fail their case.
+- **Agent-evaluation foundation** — run an agent against eval cases
+  (prompt + text the answer must contain). Each case records the
+  agent's trace (retrieve → reason → respond) so failures can be
+  debugged step by step, and the run reports a pass rate and gate.
+  The built-in agent is a deterministic stand-in that answers only
+  from a small governed-knowledge table; a real agent would retrieve
+  from the semantic layer and call tools, and would be evaluated the
+  same way.
+
+Example (seeded key `sk-demo-pro-1`):
+
+```bash
+curl -X POST -H "Authorization: Bearer sk-demo-pro-1" \
+  -H "Content-Type: application/json" \
+  -d '{"dataset_id": "partner-sales", "name": "Partner Sales", "owner_partner": "demo-partner",
+       "columns": [{"name": "partner", "type": "string"}, {"name": "region", "type": "string"},
+                   {"name": "revenue", "type": "number"}, {"name": "active", "type": "boolean"}]}' \
+  http://127.0.0.1:8000/v1/marketplace/datasets
+curl -X POST -H "Authorization: Bearer sk-demo-pro-1" \
+  -H "Content-Type: application/json" \
+  -d '{"rows": [{"partner": "acme", "region": "us", "revenue": 100, "active": true}]}' \
+  http://127.0.0.1:8000/v1/marketplace/datasets/partner-sales/ingest
+curl -X POST -H "Authorization: Bearer sk-demo-pro-1" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "total_revenue", "dataset_id": "partner-sales", "column": "revenue", "aggregation": "sum"}' \
+  http://127.0.0.1:8000/v1/marketplace/semantic/metrics
+curl -X POST -H "Authorization: Bearer sk-demo-pro-1" \
+  -H "Content-Type: application/json" \
+  -d '{"metric": "total_revenue", "filters": {"region": "us"}}' \
+  http://127.0.0.1:8000/v1/marketplace/semantic/query
+curl -X POST -H "Authorization: Bearer sk-demo-pro-1" \
+  -H "Content-Type: application/json" \
+  -d '{"agent": "marketplace-intelligence-agent",
+       "cases": [{"prompt": "How did partner revenue trend?", "expected_contains": "revenue grew"}]}' \
+  http://127.0.0.1:8000/v1/marketplace/evals/agents
+```
 
 ## Run it
 
@@ -100,4 +173,9 @@ endpoints (including unauthenticated, over-limit, and unknown-model
 rejections); and predictive-model serving — registry versioning and
 duplicate rejection, schema validation (missing, mistyped, out-of-range,
 and unknown features), deterministic scoring, pinned-version serving,
-and per-model latency/error metrics with SLO evaluation.
+and per-model latency/error metrics with SLO evaluation — and
+marketplace partner intelligence: schema-validated ingestion with
+per-row rejection, governed metric definition and filtered queries
+with lineage, serving-eval gates (pass, fail, and validation-failure
+cases), agent-eval gates with traces, auth checks, and an HTTP
+end-to-end round trip.

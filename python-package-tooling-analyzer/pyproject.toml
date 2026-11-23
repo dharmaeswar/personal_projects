@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-package-tooling-analyzer"
+version = "1.0.0"
+description = "Developer tool that analyzes Python packages: import graphs, dependency cycles, API surface, build checks"
+requires-python = ">=3.9"
+
+[project.scripts]
+pkgtool = "pkgtool.cli:main"
+
+[tool.setuptools]
+packages = ["pkgtool"]

@@ -361,3 +361,48 @@ Tests: **106 passed** (`python -m pytest -q`) — 91 earlier tests plus
 from state, quarantine counts and reasons, staged load, SCD Type 2
 close/reopen, fact MERGE idempotency, reconciliation, determinism and
 consumer-state round-tripping (`tests/test_warehouse.py`).
+
+## Added Nov 23, 2026 — battery cell-cycling telemetry module
+
+Added for an Amazon Senior Data Engineer, Data Platform, Battery Energy
+Storage Systems role (Job 10611379), where the work is sensor, test-lab,
+fleet and model-training data architecture, high-volume time-series
+pipelines, and data quality, lineage and governance. One new module,
+running locally with pandas + Parquet — no Spark cluster, sensor feed or
+battery lab is involved, and the code says so where it matters.
+
+- **Telemetry ingest** (`lakehouse/battery.py`, run with
+  `python run_battery.py`) — seeded synthetic cell-cycling samples
+  (6 batteries x 4 cells, one sample every 10 minutes for 48 hours) land
+  in bronze as Parquet, with a data contract (schema) for battery, cell,
+  lab, timestamp, cycle, voltage, current, temperature and state of charge.
+- **Time-series quality checks** — null readings, duplicate
+  (cell, timestamp) samples, readings outside lithium-ion limits
+  (voltage 2.5-4.2 V, temperature -20-60 C, state of charge 0-100%),
+  out-of-order timestamps per cell, and sample gaps where the feed
+  dropped samples (each gap reported with its count of missing samples).
+- **Silver + quarantine** — rows failing any check go to quarantine with
+  a reason; nothing is dropped silently. Silver is deduplicated, typed
+  to the telemetry schema, and schema-checked (0 violations).
+- **Gold + lineage** — daily per-battery summaries (sample count, cycles
+  observed, mean voltage, max temperature, min state of charge),
+  reconciled back to silver sample counts; every table write appends a
+  Delta-style log entry (version, operation, rows added/removed).
+
+## Results of the battery run (real run, Nov 23, 2026)
+
+```
+Bronze telemetry: 6911 samples (6908 generated + 3 redelivered duplicates)
+Silver telemetry: 6898 samples
+Quarantined: 13 (3 duplicates, 4 null temperatures, 2 voltages, 2 temperatures, 1 state of charge, 1 late sample)
+Gold daily groups: 12 (6 batteries x 2 days)
+Bronze checks: 7 of 8 FAILED as planted (current in range); gaps: 2 gaps, 4 samples missing
+Reconciliation: gold sample counts sum to all 6898 silver rows
+Schema: 0 silver violations, 0 gold violations
+```
+
+Tests: **119 passed** (`python -m pytest -q`) — 106 earlier tests plus
+13 new tests for telemetry generation, determinism, planted violation
+counts, dedup before ordering, silver/quarantine counts and reasons,
+gold groups, reconciliation, table + Delta-log writes and repeatability
+(`tests/test_battery.py`).

@@ -1,5 +1,13 @@
 """Lakehouse data-quality toolkit: medallion pipeline + validation checks."""
 
+from .battery import (
+    build_battery_gold,
+    build_battery_silver,
+    check_battery_reconciliation,
+    generate_telemetry,
+    run_battery_checks,
+    run_battery_telemetry,
+)
 from .checks import CheckResult, run_all_checks
 from .data import generate_bronze
 from .observability import MonitorResult, run_observability
@@ -45,11 +53,14 @@ __all__ = [
     "MonitorResult",
     "StreamCheckpoint",
     "TableSchema",
+    "build_battery_gold",
+    "build_battery_silver",
     "build_gold",
     "build_infraops_model",
     "build_silver",
     "build_unified_model",
     "build_workforce_model",
+    "check_battery_reconciliation",
     "consume_events",
     "enforce_schema",
     "evaluate_genai_assist",
@@ -59,6 +70,7 @@ __all__ = [
     "generate_infraops_events",
     "generate_talent",
     "generate_talent_events",
+    "generate_telemetry",
     "generate_warehouse_events",
     "generate_workforce",
     "generate_workforce_events",
@@ -67,6 +79,8 @@ __all__ = [
     "load_product_dim",
     "reconcile_warehouse",
     "run_all_checks",
+    "run_battery_checks",
+    "run_battery_telemetry",
     "run_infraops_stream",
     "run_observability",
     "run_stream",

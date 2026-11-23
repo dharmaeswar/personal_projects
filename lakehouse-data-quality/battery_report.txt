@@ -1,0 +1,27 @@
+Battery telemetry (cell-cycling time-series -> medallion lakehouse)
+Bronze telemetry: 6911 samples
+Silver telemetry: 6898 samples
+Quarantined rows: 13
+Gold daily groups: 12
+
+BRONZE CHECKS
+[FAIL] telemetry completeness: temperature_c: 4 nulls
+[FAIL] telemetry uniqueness: 3 duplicate (cell_id, timestamp) samples
+[FAIL] telemetry range:voltage_v: 2 rows with voltage_v outside [2.5, 4.2] V
+[PASS] telemetry range:current_a: all current_a values within [-50.0, 50.0] A
+[FAIL] telemetry range:temperature_c: 2 rows with temperature_c outside [-20.0, 60.0] C
+[FAIL] telemetry range:state_of_charge: 1 rows with state_of_charge outside [0.0, 100.0] %
+[FAIL] telemetry monotonic timestamps: 1 samples out of time order
+[FAIL] telemetry sample gaps: 2 gaps, 4 samples missing from the feed
+
+RECONCILIATION
+[PASS] battery reconciliation: gold sample counts sum to all 6898 silver rows
+
+SCHEMA
+Silver schema violations: 0
+Gold schema violations: 0
+
+SUMMARY
+7 of 8 bronze checks FAILED; 13 bad rows quarantined, none dropped silently.
+Reconciliation: gold matches silver.
+Delta log versions: bronze v1, silver v1, quarantine v1, gold v1

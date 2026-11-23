@@ -1,0 +1,13 @@
+STREAMING INGEST REPORT
+
+arrived: 125 events
+accepted: 120 events
+late dropped: 2 events
+duplicates dropped: 3 events
+
+batch 0: arrived 40, accepted 40, late 0, duplicates 0, watermark 2026-11-17T11:41:00+00:00
+batch 1: arrived 40, accepted 40, late 0, duplicates 0, watermark 2026-11-17T15:46:00+00:00
+batch 2: arrived 40, accepted 40, late 0, duplicates 0, watermark 2026-11-17T18:48:00+00:00
+batch 3: arrived 5, accepted 0, late 2, duplicates 3, watermark 2026-11-17T18:48:00+00:00
+
+checkpoint offset: 124

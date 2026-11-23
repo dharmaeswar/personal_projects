@@ -150,3 +150,30 @@ and gold under `lakehouse_tables/snapshots/`, and writes
 `orchestration_report.txt`.
 `run_home_health.py` runs the episode/visit pipeline and writes
 `home_health_report.txt`.
+`run_streaming.py` runs the micro-batch streaming ingest and the
+observability monitors, writing `streaming_report.txt` and
+`observability_report.txt`.
+
+## Added Nov 23, 2026 — streaming ingest and data observability
+
+Two modules added for a Capital One Data Engineer 5 role (Python +
+Spark, Databricks/Snowflake, lakehouse, streaming, observability):
+
+- **Streaming ingest** (`lakehouse/streaming.py`) — micro-batch
+  processing in the spirit of Spark Structured Streaming: an
+  append-only event stream, watermark handling for late data, and
+  exactly-once delivery via dedup on `event_id` against a checkpoint.
+  The demo stream plants 3 duplicate deliveries and 2 late events;
+  the run accepts 120 events, drops 2 late and 3 duplicates, and
+  re-processing a batch is a no-op. Run it with `run_streaming.py`.
+- **Data observability** (`lakehouse/observability.py`) — freshness,
+  volume-anomaly, and schema-drift monitors in the spirit of Monte
+  Carlo: freshness alerts when the newest data passes its SLA,
+  volume alerts on a z-score against prior daily totals, schema drift
+  alerts on missing columns and warns on extra columns. Monitors
+  never raise on bad data; an alert is a result, not an error.
+  The same run writes `observability_report.txt`.
+
+Tests: **60 passed** (`python -m pytest -q`) — 45 earlier tests plus
+7 streaming tests (`tests/test_streaming.py`) and 8 observability
+tests (`tests/test_observability.py`).

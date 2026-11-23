@@ -1,0 +1,7 @@
+DATA OBSERVABILITY REPORT
+
+[OK] freshness: newest data is 6.3 minutes old (SLA 60 minutes)
+[OK] volume: count 120 is +0.39 std from baseline mean 119.5
+[OK] schema_drift: schema matches (11 columns)
+
+healthy: True (alerts: 0, warnings: 0)

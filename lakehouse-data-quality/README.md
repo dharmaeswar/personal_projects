@@ -140,6 +140,7 @@ pip install -r requirements.txt
 python run_pipeline.py
 python run_orchestrated.py [--run-id daily]
 python run_home_health.py
+python run_talent.py
 python -m pytest -q
 ```
 
@@ -177,3 +178,44 @@ Spark, Databricks/Snowflake, lakehouse, streaming, observability):
 Tests: **60 passed** (`python -m pytest -q`) — 45 earlier tests plus
 7 streaming tests (`tests/test_streaming.py`) and 8 observability
 tests (`tests/test_observability.py`).
+
+## Added Nov 23, 2026 — talent data foundations
+
+One module added for an Amazon Data Engineer (Talent Solutions, ITDS
+Data Foundations) role, where the work is streaming and batch ingestion
+that unifies talent service domains into a cross-cutting talent data
+model vended for analytics and operational use. New module
+`lakehouse/talent.py`, run with `python run_talent.py` — same pandas +
+Parquet approach as the rest of the project, no Spark cluster, Kinesis
+stream, or Redshift warehouse is involved, and the code says so where
+it matters.
+
+- **Streaming ingest** — 120 synthetic talent change events
+  (employee / role / skill / learning updates) processed exactly once
+  by reusing the shared streamer: 3 duplicate deliveries and 2 late
+  events dropped at the watermark, checkpoint offset 124.
+- **Batch ingest** — a nightly learning-records batch of 182 rows,
+  deduplicated on `record_id` (180 loaded, 2 duplicates dropped).
+- **Unified talent model** — one row per clean employee (59): current
+  role and department, skill list, learning count, last learning date,
+  average score. Built only from silver rows; 2 silver learning rows
+  belonging to the quarantined employee are held back, not vended.
+- **Vended views** — an analytics view (5 departments: headcount,
+  average skills, average learning, learning coverage) and an
+  operational view (one row per employee) for downstream integrations.
+  Both reconcile back to the unified model and silver learning.
+- **Quality checks** — completeness, uniqueness, score ranges,
+  referential integrity, plus a talent rule: no learning record may
+  predate the employee's hire date. The fixture plants 8 bad rows
+  (2 duplicate record ids, 2 null employee ids, 1 unknown employee,
+  1 learning before hire, 1 unknown skill, 1 unknown role);
+  7 learning rows and 1 employee are quarantined with reasons.
+- **Query tuning** — a per-employee full-table scan loop versus a
+  single group-by over 50,050 rows: 152.4 ms vs 3.7 ms, a 41.0x
+  speedup, with identical per-employee averages.
+
+Tests: **70 passed** (`python -m pytest -q`) — 60 earlier tests plus
+10 new tests for domain shapes, every violation type, quarantine
+counts, the unified model, view reconciliation, streaming
+exactly-once, batch dedup, tuning results and determinism
+(`tests/test_talent.py`).

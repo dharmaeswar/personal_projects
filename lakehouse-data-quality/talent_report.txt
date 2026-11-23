@@ -1,0 +1,44 @@
+TALENT DATA FOUNDATIONS REPORT
+
+stream events arrived: 125
+stream events accepted: 120
+stream late dropped: 2
+stream duplicates dropped: 3
+stream checkpoint offset: 124
+
+batch learning rows: 182
+batch learning loaded: 180
+batch duplicates dropped: 2
+
+employee checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:employee_id: all 60 values of employee_id unique
+  [FAIL] fk:role_id->role_id: 1 rows with role_id not in role_id
+learning checks:
+  [FAIL] completeness: employee_id: 2 nulls
+  [FAIL] uniqueness:record_id: 2 duplicated record_id values (2 extra rows)
+  [PASS] range:score: all values of score in range
+  [FAIL] fk:employee_id->employee_id: 1 rows with employee_id not in employee_id
+  [FAIL] fk:skill_id->skill_id: 1 rows with skill_id not in skill_id
+  [FAIL] learning_after_hire: 1 learning records completed before hire
+
+silver employees: 59; quarantined: 1
+silver learning: 175; quarantined: 7
+silver learning held back (quarantined employee): 2
+
+unified talent model rows: 59
+analytics view rows (departments): 5
+operational view rows (employees): 59
+reconciliation: [PASS] talent_reconciliation: views reconcile: 59 employees, 173 vendable learning records
+  Data: headcount 6, avg skills 3.67, avg learning 1.83, coverage 1.0
+  Engineering: headcount 12, avg skills 3.33, avg learning 3.25, coverage 1.0
+  Finance: headcount 19, avg skills 3.63, avg learning 3.32, coverage 1.0
+  People Ops: headcount 11, avg skills 3.91, avg learning 3.36, coverage 1.0
+  Product: headcount 11, avg skills 3.45, avg learning 2.09, coverage 0.82
+
+query tuning demo:
+  rows scanned: 50050; employees: 59
+  per-employee scan loop: 152.4 ms
+  single group-by: 3.7 ms
+  speedup: 41.0x; results match: True
+

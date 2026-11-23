@@ -330,6 +330,93 @@ for `acme-ghes` (on-premises, version 3.14.2, 6 nodes) returns
 3 batches of 2 nodes each with a health gate; the diagnostics bundle
 reports health `down` with 1 active alert and 1 upgrade plan.
 
+It also has an Identity Analytics module (`payments_api/identity.py`),
+added for the Amazon — Software Development Engineer II, AWS Identity
+Analytics application. It models the data-platform side of an
+identity-analytics service: raw IAM/STS-style auth events are ingested
+from many identity services, validated and de-duplicated, transformed
+into structured per-principal features, and served to ML models and LLM
+agents through a feature-lookup and query API, with data-quality and
+freshness checks raising alerts when a source goes stale.
+
+- `POST /v1/identity/events` — ingest a batch of auth events
+  (`event_id`, `principal`, `service`, `action`, `outcome`,
+  `timestamp`, `source_ip`, `region`). Returns accepted / duplicates /
+  rejected counts; invalid events are counted with their error, never
+  lost silently. A retried event with the same `event_id` is a
+  duplicate, not a second event.
+- `GET /v1/identity/events` — raw events, optionally filtered with
+  `?principal=&service=&action=&outcome=` and `&limit=`.
+- `GET /v1/identity/features/{principal}` — the transformed feature
+  record for one principal: event counts by outcome, denial rate,
+  high-denial flag, distinct services and actions, first/last seen.
+  This is what an ML model or LLM agent reads instead of raw logs.
+- `POST /v1/identity/query` — filtered event query for ML models /
+  LLM agents (`principal`, `service`, `action`, `outcome`, `limit`
+  1–500).
+- `GET /v1/identity/quality` — data-quality and freshness summary:
+  total events, duplicates, rejected, invalid rate, per-service counts
+  with latest timestamp, lag behind the newest event, and staleness
+  (threshold 3600s). Runs the freshness check first, so stale services
+  raise alerts here.
+- `GET /v1/identity/alerts` — active identity-pipeline alerts.
+
+Identity engineering points that match the role:
+
+- **Ingestion with validation and de-duplication** — events are
+  validated (known identity service, outcome in
+  success/denied/error, non-negative epoch timestamp, no far-future
+  timestamps) and de-duplicated by `event_id`, like an idempotent
+  ingestion pipeline.
+- **Transformation into queryable features** — raw events become
+  structured per-principal feature records (counts by outcome,
+  denial rate, distinct services/actions, first/last seen) that a
+  model or agent can look up directly.
+- **Serving layer for ML models and LLM agents** — feature lookup
+  plus a filtered query API with a bounded limit, the same shape a
+  real model-serving layer exposes.
+- **Data quality, freshness and alerting** — invalid events are
+  rejected and counted with an invalid rate; a source service whose
+  newest event lags the newest event anywhere by over 3600s raises
+  one stale-service alert, and a fresh event from that service
+  resolves it, so a single late batch pages nobody twice.
+- **Thread-safe store** — events, alerts and counters sit behind one
+  lock, like the loan, policy and retail stores.
+
+All state is in-memory and simulated: there is no real Kafka broker,
+no petabyte-scale store and no real IAM/STS feed. The in-memory event
+store is a stand-in for a real ingestion pipeline and warehouse, and
+the feature records are a stand-in for a real feature store. Nothing
+here contacts AWS.
+
+## Verified results — Identity Analytics extension (Nov 23, 2026)
+
+```
+120 passed in 4.00s
+```
+
+- 18 new identity tests: event validation (unknown service, bad
+  outcome, missing principal, negative and far-future timestamps),
+  query validation, ingest de-duplication, batch accepted /
+  duplicates / rejected counts, feature aggregation (counts by
+  outcome, denial rate, distinct services, first/last seen),
+  high-denial flagging, unknown principal with no features, query
+  filters and limit, stale-service alert raised once and resolved by
+  a fresh event, fresh services raising no alert, quality-summary
+  rejection counts, and a live-server HTTP flow (ingest, features,
+  query, quality, 404 on an unknown principal, 400 on a non-list
+  batch and a bad query limit).
+- The 102 earlier tests still pass unchanged.
+
+Worked example, verified by a live run: `POST /v1/identity/events`
+with 3 events for `alice` (2 success, 1 denied) returns
+`{"accepted": 3, "duplicates": 0, "rejected": 0}`; re-sending one of
+them plus an event from service `s3` returns `{"accepted": 0,
+"duplicates": 1, "rejected": 1}`; `GET /v1/identity/features/alice`
+returns 3 total events, denial rate 0.3333, services `["iam",
+"sts"]`; `GET /v1/identity/quality` reports 3 events, invalid rate
+0.25, and no stale service.
+
 ## Layout
 
 ```
@@ -341,6 +428,7 @@ payments_api/
   insurance.py    policies, premium math, claims, events, quote cache
   retail.py       products, inventory, orders, tax math
   enterprise.py   self-hosted instances, health checks, alerts, upgrades
+  identity.py     identity events, features, serving query, quality/freshness
 run_service.py    entry point
 tests/
   test_service.py unit tests
@@ -349,6 +437,7 @@ tests/
   test_insurance.py insurance unit + integration tests
   test_retail.py  retail unit + integration tests
   test_enterprise.py enterprise unit + integration tests
+  test_identity.py identity unit + integration tests
 ```
 
 ## Tests

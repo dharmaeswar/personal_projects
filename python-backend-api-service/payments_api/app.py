@@ -33,6 +33,12 @@ Endpoints:
   POST /v1/enterprise/instances/{id}/upgrades -> plan a rolling upgrade
   GET  /v1/enterprise/instances/{id}/diagnostics -> troubleshooting bundle
   GET  /v1/enterprise/alerts   -> active alerts across instances
+  POST /v1/identity/events     -> ingest a batch of IAM/STS-style auth events
+  GET  /v1/identity/events     -> raw events (?principal=&service=&outcome=&limit=)
+  GET  /v1/identity/features/{principal} -> per-principal feature record for ML/LLM agents
+  POST /v1/identity/query      -> filtered event query for ML models / LLM agents
+  GET  /v1/identity/quality    -> data quality + freshness summary (raises stale alerts)
+  GET  /v1/identity/alerts     -> active identity-pipeline alerts
 
 Checkout writes through to the (simulated) ledger with retry + backoff.
 Structured JSON logs go to stdout: one line per request with method, path,
@@ -63,6 +69,7 @@ from .enterprise import (
     validate_instance,
     validate_upgrade,
 )
+from .identity import IdentityStore, validate_event, validate_query
 from .idempotency import IdempotencyStore, SimulatedLedger, retry_with_backoff
 from .insurance import (
     EventPublisher,
@@ -123,6 +130,7 @@ def make_handler(
     quotes: QuoteCache,
     retail_store: RetailStore,
     enterprise_store: EnterpriseStore,
+    identity_store: IdentityStore,
 ):
     class Handler(BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
@@ -340,6 +348,41 @@ def make_handler(
                 else:
                     self._send(200, instance.diagnostics())
                     self._log(200, started)
+                return
+            if path == "/v1/identity/events":
+                query = parse_qs(urlparse(self.path).query)
+                filters = {}
+                for field in ("principal", "service", "action", "outcome"):
+                    value = query.get(field, [None])[0]
+                    if value is not None:
+                        filters[field] = value
+                limit_raw = query.get("limit", [None])[0]
+                try:
+                    limit = int(limit_raw) if limit_raw is not None else None
+                except ValueError:
+                    self._send(400, {"error": "limit must be an integer"})
+                    self._log(400, started)
+                    return
+                self._send(200, {"events": identity_store.events(filters, limit)})
+                self._log(200, started)
+                return
+            if len(parts) == 4 and parts[0] == "v1" and parts[1] == "identity" and parts[2] == "features":
+                record = identity_store.features(parts[3])
+                if record is None:
+                    self._send(404, {"error": "principal not found"})
+                    self._log(404, started)
+                else:
+                    self._send(200, record)
+                    self._log(200, started)
+                return
+            if path == "/v1/identity/quality":
+                identity_store.check_freshness()
+                self._send(200, identity_store.quality_summary())
+                self._log(200, started)
+                return
+            if path == "/v1/identity/alerts":
+                self._send(200, {"alerts": identity_store.active_alerts()})
+                self._log(200, started)
                 return
             self._send(404, {"error": "not found"})
             self._log(404, started)
@@ -585,6 +628,20 @@ def make_handler(
                     self._send(201, plan)
                     self._log(201, started)
                     return
+                if path == "/v1/identity/events":
+                    body = self._read_json()
+                    summary = identity_store.ingest_batch(body.get("events"))
+                    self._send(201, summary)
+                    self._log(201, started)
+                    return
+                if path == "/v1/identity/query":
+                    cleaned = validate_query(self._read_json())
+                    self._send(
+                        200,
+                        identity_store.query(cleaned["filters"], cleaned["limit"]),
+                    )
+                    self._log(200, started)
+                    return
                 self._send(404, {"error": "not found"})
                 self._log(404, started)
             except (ValidationError, TemplateError) as exc:
@@ -623,9 +680,10 @@ def create_server(
     quotes = QuoteCache()
     retail_store = RetailStore()
     enterprise_store = EnterpriseStore()
+    identity_store = IdentityStore()
     handler = make_handler(
         store, idempotency, ledger, comms, policy_store, events, quotes, retail_store,
-        enterprise_store,
+        enterprise_store, identity_store,
     )
     server = ThreadingHTTPServer(("127.0.0.1", port), handler)
     server.loan_store = store  # type: ignore[attr-defined]
@@ -637,6 +695,7 @@ def create_server(
     server.quotes = quotes  # type: ignore[attr-defined]
     server.retail_store = retail_store  # type: ignore[attr-defined]
     server.enterprise_store = enterprise_store  # type: ignore[attr-defined]
+    server.identity_store = identity_store  # type: ignore[attr-defined]
     return server
 
 

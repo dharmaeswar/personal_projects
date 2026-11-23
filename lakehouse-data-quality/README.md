@@ -318,3 +318,46 @@ Tests: **91 passed** (`python -m pytest -q`) — 81 earlier tests plus
 counts and reasons, the unified model, view reconciliation, streaming
 exactly-once, batch dedup, tuning results and determinism
 (`tests/test_infraops.py`).
+
+## Added Nov 23, 2026 — backend warehouse load (Kafka-style ingest, Snowflake-style staged MERGE)
+
+Added for a JPMorgan Chase Software Engineer III, Backend Data Engineer role
+(Req 210747185), where the work is scalable data pipelines, ETL, data
+warehouses and ML platform enablement on AWS, Databricks and Spark. One new
+module, running locally with pandas + Parquet — no Kafka broker or Snowflake
+account is involved, and the code says so where it matters.
+
+- **Event ingest** (`lakehouse/warehouse.py`, run with
+  `python run_warehouse.py`) — a Kafka-style consumer polls the event
+  stream in micro-batches, commits offsets per batch, and drops redelivered
+  events on `event_id` (exactly-once). Bad rows are quarantined with a
+  reason (unknown customer, non-positive quantity) instead of being staged.
+- **Staged load** — valid events land in a staging table as Parquet plus a
+  manifest (rows staged, source, load time), the way Snowflake `COPY INTO`
+  loads files into a staging table.
+- **Star-schema warehouse** — SCD Type 2 customer and product dimensions
+  (a changed attribute closes the current version and opens a new one with
+  the next surrogate key; unchanged rows are left alone) and an order fact
+  table loaded by an idempotent `MERGE` on `order_id`: re-running the same
+  batch inserts 0 rows.
+- **Reconciliation** — fact revenue must equal staged valid-event revenue
+  within 0.01; any gap means the MERGE lost or duplicated rows.
+
+## Results of the warehouse run (real run, Nov 23, 2026)
+
+```
+Events received: 160 (150 base + 5 Kafka redeliveries + 5 bad rows)
+Duplicates dropped: 5, micro-batches polled: 4, committed offset: 159
+Quarantined: 5 (3 unknown customer, 2 non-positive quantity)
+Rows staged: 150
+Customer dim (SCD Type 2): 20 inserted; product dim: 8 inserted
+Fact orders inserted: 150 (0 skipped)
+Reconciliation: staged revenue 31889.39 vs fact revenue 31889.39 (difference 0.00)
+Reconciled: YES
+```
+
+Tests: **106 passed** (`python -m pytest -q`) — 91 earlier tests plus
+15 new tests for event generation, consumer dedup and offset commit, resume
+from state, quarantine counts and reasons, staged load, SCD Type 2
+close/reopen, fact MERGE idempotency, reconciliation, determinism and
+consumer-state round-tripping (`tests/test_warehouse.py`).

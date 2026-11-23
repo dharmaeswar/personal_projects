@@ -1,0 +1,12 @@
+Backend warehouse load (Kafka-style ingest -> Snowflake-style staged MERGE)
+Events received: 160
+Duplicates dropped (Kafka redelivery): 5
+Micro-batches polled: 4
+Committed offset: 159
+Quarantined (unknown customer / non-positive quantity): 5
+Rows staged: 150
+Customer dim (SCD Type 2): 20 inserted, 0 updated, 0 unchanged
+Product dim (SCD Type 2): 8 inserted, 0 updated, 0 unchanged
+Fact orders inserted: 150 (0 skipped as already present)
+Reconciliation: staged revenue 31889.39 vs fact revenue 31889.39 (difference 0.00) over 150 fact rows
+Reconciled: YES

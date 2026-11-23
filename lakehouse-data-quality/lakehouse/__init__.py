@@ -6,6 +6,18 @@ from .observability import MonitorResult, run_observability
 from .pipeline import build_gold, build_silver, write_table
 from .schema import TableSchema, enforce_schema
 from .streaming import StreamCheckpoint, generate_event_stream, run_stream
+from .warehouse import (
+    ConsumerState,
+    consume_events,
+    generate_warehouse_events,
+    load_customer_dim,
+    load_order_fact,
+    load_product_dim,
+    reconcile_warehouse,
+    run_warehouse,
+    stage_events,
+    validate_events,
+)
 from .talent import (
     build_unified_model,
     generate_talent,
@@ -29,6 +41,7 @@ from .infraops import (
 
 __all__ = [
     "CheckResult",
+    "ConsumerState",
     "MonitorResult",
     "StreamCheckpoint",
     "TableSchema",
@@ -37,6 +50,7 @@ __all__ = [
     "build_silver",
     "build_unified_model",
     "build_workforce_model",
+    "consume_events",
     "enforce_schema",
     "evaluate_genai_assist",
     "generate_bronze",
@@ -45,14 +59,22 @@ __all__ = [
     "generate_infraops_events",
     "generate_talent",
     "generate_talent_events",
+    "generate_warehouse_events",
     "generate_workforce",
     "generate_workforce_events",
+    "load_customer_dim",
+    "load_order_fact",
+    "load_product_dim",
+    "reconcile_warehouse",
     "run_all_checks",
     "run_infraops_stream",
     "run_observability",
     "run_stream",
     "run_talent_stream",
+    "run_warehouse",
     "run_workforce_stream",
+    "stage_events",
     "tune_query_demo",
+    "validate_events",
     "write_table",
 ]

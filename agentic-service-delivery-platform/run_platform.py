@@ -16,10 +16,14 @@ from delivery_platform import (
     AgentDataInterface,
     AgentWorkflow,
     AuditLog,
+    OpsAgent,
+    OpsIncident,
+    RegionHealth,
     Service,
     ServiceRegistry,
     SLOTracker,
     evaluate_service,
+    toil_report,
 )
 
 
@@ -115,6 +119,42 @@ def main() -> None:
     lines.append("")
     lines.append("Agent query surface: "
                  + ", ".join(sorted(interface.describe_schema())))
+
+    lines.append("")
+    lines.append("Managed operations (agentic-first incident response)")
+    regions = [
+        RegionHealth(region="us-west-2", services=42, availability=0.9995,
+                     open_incidents=1, manual_toil_hours=30.0,
+                     automated_toil_hours=70.0),
+        RegionHealth(region="us-east-1", services=38, availability=0.999,
+                     open_incidents=0, manual_toil_hours=10.0,
+                     automated_toil_hours=10.0),
+    ]
+    report_toil = toil_report(regions)
+    lines.append(f"  regions tracked: {report_toil['regions']}")
+    lines.append(f"  manual toil: {report_toil['manual_toil_hours']} h/week; "
+                 f"automated toil: {report_toil['automated_toil_hours']} h/week")
+    lines.append(f"  automation coverage: "
+                 f"{report_toil['automation_coverage']:.1%}")
+    for region_name, score in report_toil["health_scores"].items():
+        lines.append(f"  health {region_name}: {score}/100")
+    ops_agent = OpsAgent(audit_log)
+    incident = OpsIncident("INC-101", "checkout-api", "sev2",
+                           "elevated error rate on checkout-api")
+    ops_action = ops_agent.propose(incident)
+    ops_result = ops_agent.execute(incident, ops_action)
+    lines.append(f"  incident {incident.incident_id} ({incident.severity}): "
+                 f"{ops_action.name} -> {ops_result['outcome']} "
+                 f"({ops_result['toil_saved_minutes']} toil minutes saved)")
+    sev1 = OpsIncident("INC-102", "checkout-api", "sev1",
+                       "region unavailable")
+    sev1_action = ops_agent.propose(sev1)
+    sev1_result = ops_agent.execute(sev1, sev1_action, approved=False)
+    lines.append(f"  incident {sev1.incident_id} ({sev1.severity}): "
+                 f"{sev1_action.name} -> {sev1_result['outcome']} "
+                 f"(escalated, no approval given)")
+    lines.append(f"  total toil saved by the ops agent: "
+                 f"{ops_agent.toil_saved_minutes} minutes")
     report = "\n".join(lines) + "\n"
     print(report, end="")
     with open(args.report, "w", encoding="utf-8") as fh:

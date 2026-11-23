@@ -35,6 +35,30 @@ real company's systems.
   `list_services`, `get_slo_summary`, `list_audit`). Agents can read
   everything they need to plan a rollout, and cannot mutate platform
   state through it: the platform's data is AI-ready by design.
+- **Managed operations** (`delivery_platform/ops.py`) — the operations
+  side of the platform: per-region health scoring from availability,
+  automation coverage, and open incidents; manual vs automated toil
+  tracking; and an agentic-first incident-response agent. The ops agent
+  proposes a remediation per severity (sev1 failover, sev2 restart,
+  sev3 cache clear); low-risk actions auto-approve, high-risk actions
+  need an explicit human approval, and a denied action escalates to
+  on-call instead of running. Every decision is audited, and every
+  automated action records the manual toil minutes it saved.
+
+## Results (seeded, reproducible)
+
+- Rollout demo: critical checkout API goes live through 6 steps with
+  human approvals; the non-compliant billing worker is blocked by
+  guardrails before any traffic moves.
+- SLO demo: checkout-api 200 samples, availability 0.9950, burn rate
+  5.0x, latency p95 58.0 ms.
+- Managed-operations demo: 2 regions, 40.0 manual vs 80.0 automated
+  toil hours/week (66.7% automation coverage); health us-west-2 84.5/100,
+  us-east-1 80.0/100; sev2 incident mitigated by an auto-approved restart
+  (25 toil minutes saved); sev1 failover denied without approval and
+  escalated.
+- Tests: **48 pytest tests, all passing** (36 rollout/guardrail/SLO/
+  interface tests + 12 managed-operations tests).
 
 ## How it differs from the other projects in this repo
 
@@ -56,7 +80,8 @@ python run_platform.py
 
 The demo registers three services (one deliberately fails guardrails),
 rolls out the critical checkout API with human approvals, records
-synthetic SLO samples, and writes `platform_report.txt`.
+synthetic SLO samples, runs the managed-operations demo (region health,
+toil report, and two incidents), and writes `platform_report.txt`.
 
 ## Requirements
 

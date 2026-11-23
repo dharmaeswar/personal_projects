@@ -78,3 +78,53 @@ python -m pytest -q
 `run_pipeline.py` writes Parquet tables under `pipeline_tables/` (raw,
 cleansed, quarantine, gold, plus `curated/` partitioned by `event_date`) and
 a human-readable `validation_report.txt` in the project root.
+
+## Added Nov 23, 2026 — Risk Technology ETL + agentic-AI quality triage
+
+Added for a JPMorgan Chase Software Engineer III, Data Engineering role
+(Risk Technology team, Databricks / Spark / Agentic AI). A second pipeline
+in the same project, built on the same Spark patterns but over synthetic
+risk-exposure trades instead of retail events:
+
+- **`spark_pipeline/risk_data.py`** — seeded synthetic risk trades
+  (`trade_id`, book, counterparty, instrument, notional, currency,
+  trade date, exposure = notional × instrument risk factor). 150 clean
+  rows + 15 planted defects (3 duplicates, 4 null counterparties,
+  3 negative notionals, 2 unknown books, 2 future trade dates,
+  1 exposure mismatch).
+- **`spark_pipeline/risk_transforms.py`** — window-function dedup on
+  `trade_id`, broadcast join to the 4-row book dimension, quality filter
+  with quarantine, derived exposure bands, daily gold aggregates by
+  trade date / book, and gold-vs-cleansed reconciliation.
+- **`spark_pipeline/agentic_quality.py`** — agentic-AI-assisted triage
+  of the quarantined rows: a deterministic, rule-based policy agent that
+  observes each break, proposes a disposition (AUTO_FIX / ESCALATE /
+  DROP), and verifies any recomputed value. The exposure-mismatch row is
+  auto-fixed by recomputing exposure from notional × factor; missing
+  counterparties, negative notionals and unknown books escalate to a
+  human owner; out-of-window trade dates are dropped for re-ingest.
+  No live LLM is called — the policy engine stands in for the agent's
+  reasoning step so every finding is reproducible and auditable.
+- **`spark_pipeline/risk_pipeline.py` / `run_risk_pipeline.py`** — runs
+  the risk ETL and writes Parquet tables under `risk_tables/` plus a
+  human-readable `risk_validation_report.txt`.
+
+### Risk results (real run, Nov 23, 2026)
+
+```
+raw=165 duplicates=3 quarantined=12 cleansed=150 gold=48 partitions=48
+triage: {'AUTO_FIX': 1, 'ESCALATE': 9, 'DROP': 2}, reconciliation=PASS
+```
+
+- Cleansed notional **$3,702,665,119.14**; cleansed exposure **$104,778,899.76**
+- Gold aggregate rows: **48** (daily notional / exposure by date / book)
+- Curated partitions by `trade_date`: **48**
+- Triage: 1 AUTO_FIX (exposure recomputed to $424,086.42), 9 ESCALATE, 2 DROP
+
+### How to run the risk pipeline
+
+```bash
+pip install -r requirements.txt
+python run_risk_pipeline.py
+python -m pytest tests/test_risk.py -q
+```

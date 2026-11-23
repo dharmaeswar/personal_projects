@@ -1,0 +1,60 @@
+PySpark Pipeline Validation — risk-technology ETL run report
+Raw rows: 165
+Duplicates removed (window dedup): 3
+Quarantined rows: 12
+Cleansed rows: 150
+Gold aggregate rows: 48
+Curated partitions (by trade_date): 48
+Total cleansed notional: $3,702,665,119.14
+Total cleansed exposure: $104,778,899.76
+Reconciliation gold vs cleansed: PASS
+
+Violations quarantined:
+  date_out_of_range: 2
+  exposure_mismatch: 1
+  negative_notional: 3
+  null_counterparty: 4
+  unknown_book: 2
+
+Agentic-AI triage of quarantined rows (rule-based policy agent):
+  AUTO_FIX: 1
+  DROP: 2
+  ESCALATE: 9
+  TRD-BAD-E1: exposure_mismatch -> AUTO_FIX (high confidence) corrected_exposure=424,086.42
+    action: Recompute exposure as notional * instrument factor and re-validate.
+  TRD-BAD-D2: date_out_of_range -> DROP (high confidence)
+    action: Drop from this load: trade date is outside the allowed window; re-ingest when in window.
+  TRD-BAD-D1: date_out_of_range -> DROP (high confidence)
+    action: Drop from this load: trade date is outside the allowed window; re-ingest when in window.
+  TRD-BAD-B2: unknown_book -> ESCALATE (high confidence)
+    action: Send to reference-data owner: book is not in the book dimension; cannot map to a desk.
+  TRD-BAD-B1: unknown_book -> ESCALATE (high confidence)
+    action: Send to reference-data owner: book is not in the book dimension; cannot map to a desk.
+  TRD-BAD-N3: negative_notional -> ESCALATE (medium confidence)
+    action: Send to the source-system owner: negative notional may be a sign error; needs confirmation.
+  TRD-BAD-N2: negative_notional -> ESCALATE (medium confidence)
+    action: Send to the source-system owner: negative notional may be a sign error; needs confirmation.
+  TRD-BAD-N1: negative_notional -> ESCALATE (medium confidence)
+    action: Send to the source-system owner: negative notional may be a sign error; needs confirmation.
+  TRD-BAD-C4: null_counterparty -> ESCALATE (high confidence)
+    action: Send to the source-system owner: counterparty is missing and cannot be inferred.
+  TRD-BAD-C3: null_counterparty -> ESCALATE (high confidence)
+    action: Send to the source-system owner: counterparty is missing and cannot be inferred.
+  TRD-BAD-C2: null_counterparty -> ESCALATE (high confidence)
+    action: Send to the source-system owner: counterparty is missing and cannot be inferred.
+  TRD-BAD-C1: null_counterparty -> ESCALATE (high confidence)
+    action: Send to the source-system owner: counterparty is missing and cannot be inferred.
+
+Quarantined trade_ids:
+  TRD-BAD-E1: exposure_mismatch
+  TRD-BAD-D2: date_out_of_range
+  TRD-BAD-D1: date_out_of_range
+  TRD-BAD-B2: unknown_book
+  TRD-BAD-B1: unknown_book
+  TRD-BAD-N3: negative_notional
+  TRD-BAD-N2: negative_notional
+  TRD-BAD-N1: negative_notional
+  TRD-BAD-C4: null_counterparty
+  TRD-BAD-C3: null_counterparty
+  TRD-BAD-C2: null_counterparty
+  TRD-BAD-C1: null_counterparty

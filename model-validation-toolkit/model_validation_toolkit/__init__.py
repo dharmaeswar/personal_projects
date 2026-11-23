@@ -1,7 +1,16 @@
-"""Small model validation toolkit: outcomes analysis, sensitivity, drift, surveillance."""
+"""Small model validation toolkit: outcomes analysis, sensitivity, drift,
+surveillance, and rating-model / criteria validation."""
 from .outcomes import backtest_summary
 from .sensitivity import sensitivity_table
 from .drift import mean_drift_bps, population_stability_index
+from .ratings import (
+    check_pd_monotonicity,
+    data_aging_check,
+    default_rate_backtest,
+    grade_backtest_table,
+    migration_summary,
+    transition_matrix_stability,
+)
 from .surveillance import (
     garch11_fit,
     garch11_forecast,
@@ -16,6 +25,12 @@ __all__ = [
     "sensitivity_table",
     "mean_drift_bps",
     "population_stability_index",
+    "check_pd_monotonicity",
+    "data_aging_check",
+    "default_rate_backtest",
+    "grade_backtest_table",
+    "migration_summary",
+    "transition_matrix_stability",
     "garch11_fit",
     "garch11_forecast",
     "yield_curve_pca",

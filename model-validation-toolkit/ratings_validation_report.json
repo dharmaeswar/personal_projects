@@ -1,0 +1,108 @@
+{
+  "pd_monotonicity": {
+    "monotone": true,
+    "inversions": [],
+    "n_grades": 7
+  },
+  "default_backtest": {
+    "grades": [
+      {
+        "predicted_pd": 0.0002,
+        "n_obligors": 500,
+        "observed_defaults": 0,
+        "expected_defaults": 0.1,
+        "z": -0.31625939353764676,
+        "p_value": 0.7518056297862072,
+        "pass": true,
+        "grade": "AAA"
+      },
+      {
+        "predicted_pd": 0.0005,
+        "n_obligors": 800,
+        "observed_defaults": 1,
+        "expected_defaults": 0.4,
+        "z": 0.9489205578511598,
+        "p_value": 0.3426610179412263,
+        "pass": true,
+        "grade": "AA"
+      },
+      {
+        "predicted_pd": 0.001,
+        "n_obligors": 1200,
+        "observed_defaults": 1,
+        "expected_defaults": 1.2,
+        "z": -0.18266554145039696,
+        "p_value": 0.8550604547337581,
+        "pass": true,
+        "grade": "A"
+      },
+      {
+        "predicted_pd": 0.004,
+        "n_obligors": 1500,
+        "observed_defaults": 5,
+        "expected_defaults": 6.0,
+        "z": -0.40906724472817996,
+        "p_value": 0.6824903133564607,
+        "pass": true,
+        "grade": "BBB"
+      },
+      {
+        "predicted_pd": 0.015,
+        "n_obligors": 900,
+        "observed_defaults": 14,
+        "expected_defaults": 13.5,
+        "z": 0.13711501163162118,
+        "p_value": 0.8909398869725457,
+        "pass": true,
+        "grade": "BB"
+      },
+      {
+        "predicted_pd": 0.05,
+        "n_obligors": 600,
+        "observed_defaults": 26,
+        "expected_defaults": 30.0,
+        "z": -0.7492686492653552,
+        "p_value": 0.4536952997039291,
+        "pass": true,
+        "grade": "B"
+      },
+      {
+        "predicted_pd": 0.2,
+        "n_obligors": 200,
+        "observed_defaults": 38,
+        "expected_defaults": 40.0,
+        "z": -0.35355339059327373,
+        "p_value": 0.7236736098317631,
+        "pass": true,
+        "grade": "CCC"
+      }
+    ],
+    "n_grades": 7,
+    "failing_grades": [],
+    "all_pass": true
+  },
+  "transition_stability": {
+    "max_abs_diff": 0.039999999999999925,
+    "mean_abs_diff": 0.001857142857142856,
+    "breached_cells": [],
+    "stable": true
+  },
+  "data_aging": {
+    "stale_inputs": [
+      {
+        "input": "criteria_text",
+        "vintage": "2026-08-01",
+        "age_days": 114
+      }
+    ],
+    "max_age_days": 114,
+    "all_fresh": false
+  },
+  "migration_summary": {
+    "total_obligors": 5700,
+    "upgrade_rate": 0.04280701754385965,
+    "downgrade_rate": 0.10877192982456141,
+    "default_rate": 0.02,
+    "stable_rate": 0.828421052631579
+  }
+}

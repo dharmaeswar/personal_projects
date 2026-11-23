@@ -8,12 +8,21 @@ Small Python toolkit for independent model validation work:
 - **Pricing-model surveillance** (`surveillance.py`) — GARCH(1,1) volatility estimation and forecasts,
   PCA on a yield-curve panel, rolling-window diagnostic statistics, out-of-sample backtests with
   threshold/residual analysis, and a CUSUM-style structural-break check.
+- **Rating-model & criteria validation** (`ratings.py`) — PD monotonicity across grades, per-grade
+  default back-tests against implied PDs (binomial z-test), year-on-year transition-matrix stability,
+  criteria-input data-aging checks, and upgrade / downgrade / default migration summaries.
 
 ## Run the tests
 
 ```bash
 pip install pytest
 PYTHONPATH=. pytest -q
+```
+
+## Run the rating checks demo
+
+```bash
+PYTHONPATH=. python3 run_ratings_check.py   # synthetic rating book, prints a validation summary
 ```
 
 Built to match model risk management practice: independent challenge, outcomes

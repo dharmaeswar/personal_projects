@@ -8,7 +8,7 @@ methods below, so the swap is a one-file change.
 
 from __future__ import annotations
 
-from .models import AuditEntry, CarePlan, Event, Referral, Task
+from .models import AuditEntry, CarePlan, Event, Referral, Suggestion, Task
 
 
 class Store:
@@ -24,6 +24,9 @@ class Store:
         # Idempotency keys of write requests already applied, so a retried
         # client call returns the original result instead of duplicating it.
         self.request_keys: dict[str, dict] = {}
+        # Agent-assist suggestions, keyed by suggestion id. A suggestion
+        # never changes plan state until a human approves it.
+        self.suggestions: dict[str, Suggestion] = {}
 
     # -- aggregates -----------------------------------------------------
     def save_plan(self, plan: CarePlan) -> None:

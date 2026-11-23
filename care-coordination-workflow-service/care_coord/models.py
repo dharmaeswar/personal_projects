@@ -125,6 +125,31 @@ class Event:
 
 
 @dataclass
+class Suggestion:
+    """A proposed next step from the agent-assist engine.
+
+    ``kind`` names the rule that fired; ``proposed_action`` is a small
+    dict the engine would apply on approval, e.g.
+    ``{"action": "create_task", "title": ..., "assignee": ...}`` or
+    ``{"action": "complete_plan"}``. ``status`` moves proposed ->
+    approved / rejected only through a human decision; nothing here
+    changes plan state on its own.
+    """
+
+    id: str = field(default_factory=new_id)
+    plan_id: str = ""
+    kind: str = ""
+    summary: str = ""
+    rationale: str = ""
+    proposed_action: dict = field(default_factory=dict)
+    status: str = "proposed"
+    created_at: str = field(default_factory=now_iso)
+    decided_by: str = ""
+    decided_at: str = ""
+    decision_reason: str = ""
+
+
+@dataclass
 class AuditEntry:
     id: str = field(default_factory=new_id)
     actor: str = "system"

@@ -36,8 +36,19 @@ claim about any real company's systems.
 - **HTTP API** (`care_coord/api.py`) — stdlib-only `http.server` API:
   create/list/get care plans, transitions for plans/referrals/tasks,
   audit listing, and an outbox drain endpoint.
+- **AI-agent assist** (`care_coord/agent_assist.py`) — a deterministic,
+  rule-based suggestion engine that plays the AI agent partner: it reads
+  a plan's state and proposes next steps (follow up a referral stalled
+  7+ days, escalate a blocked task, complete a plan whose work is all
+  done, review an on-hold plan with nothing open). Nothing applies on
+  its own: every suggestion stays proposed until a human operator
+  approves or rejects it, the decision is written to the audit trail,
+  and approval applies the change through the normal service methods
+  so state machines, outbox events and idempotency still hold.
+  Re-suggesting a plan never duplicates an open suggestion.
 - **CLI demo** (`run_demo.py`) — runs three synthetic patients through
-  the full workflow and prints the outcome.
+  the full workflow and prints the outcome, then demos agent assist on
+  a stalled fourth plan (one suggestion approved, one rejected).
 
 ## How it differs from the other projects in this repo
 
@@ -55,7 +66,7 @@ claim about any real company's systems.
 ```bash
 python3 run_demo.py                 # run the demo workflow, print a summary
 python3 run_demo.py --serve         # demo, then serve the API on :8000
-python3 -m pytest tests/ -q         # 40 tests
+python3 -m pytest tests/ -q         # 54 tests
 ```
 
 Example API flow:

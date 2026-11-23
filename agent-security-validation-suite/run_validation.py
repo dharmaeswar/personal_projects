@@ -3,6 +3,7 @@ import json
 import os
 
 from agent_security.abac import run_abac_suite
+from agent_security.autonomous import run_autonomous_suite
 from agent_security.evals import (run_guardrail_suite, run_mcp_suite,
                                   summarize)
 from agent_security.monitor import SessionMonitor
@@ -31,6 +32,8 @@ def main():
     anomalies = demo_session_anomalies()
     abac_rows, abac_allowed, abac_denied = run_abac_suite()
     abac_passed = sum(1 for r in abac_rows if r["passed"])
+    auto_rows = run_autonomous_suite()
+    auto_passed = sum(1 for r in auto_rows if r["passed"])
     text = render_text(guardrail_rows, summary, mcp_rows, anomalies)
     text += "\nABAC / CARDS attribute-repository scenarios: %d/%d passed" % (
         abac_passed, len(abac_rows))
@@ -39,12 +42,19 @@ def main():
         if not r["passed"]:
             text += "  FAIL %s -> %s %s: %s\n" % (
                 r["principal"], r["resource"], r["action"], r["rule"])
+    text += "\nAutonomous detection/response scenarios: %d/%d passed\n" % (
+        auto_passed, len(auto_rows))
+    for r in auto_rows:
+        if not r["passed"]:
+            text += "  FAIL %s (expected %s, got %s)\n" % (
+                r["scenario"], r["expected_detector"], r["got_detector"])
     print(text)
     with open(os.path.join(HERE, "validation_report.txt"), "w") as f:
         f.write(text)
     report = json.loads(render_json(guardrail_rows, summary, mcp_rows,
                                     anomalies))
     report["abac_rows"] = abac_rows
+    report["autonomous_rows"] = auto_rows
     with open(os.path.join(HERE, "validation_report.json"), "w") as f:
         f.write(json.dumps(report, indent=2))
 

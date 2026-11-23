@@ -21,3 +21,5 @@ Session monitor anomalies in demo session: 3
   [high] denied-sensitive-retry: sensitive tool delete_record succeeded after denial
 
 ABAC / CARDS attribute-repository scenarios: 13/13 passed (4 allowed, 9 denied)
+
+Autonomous detection/response scenarios: 8/8 passed

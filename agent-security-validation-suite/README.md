@@ -32,6 +32,14 @@ eval is reproducible with no model cost.
   service-account limits on restricted resources, stale-attribute deny
   until refresh, a clearance-must-meet-classification invariant, and
   field-level (FGAC) denial of sensitive fields without same-team + MFA.
+- **Autonomous detection/response** (`agent_security/autonomous.py`):
+  AI/ML-style security automation — detectors over normalized threat
+  signals (brute-force bursts, egress anomalies, privilege-escalation
+  chains, known-bad indicator matches) produce findings with severity
+  and confidence, and a responder executes low-risk containment
+  automatically (revoke session, quarantine host, block indicator) while
+  holding destructive actions (disable account, isolate network) for
+  human approval. Responses are idempotent per finding id.
 - **Eval runner** (`agent_security/evals.py`): scores the suites and
   reports bypass rate, false-positive rate, and per-category results.
 
@@ -59,7 +67,11 @@ python -m pytest -q
   attributes, and unknown principals/resources. Field-level control: a
   sensitive field is denied without same-team + MFA even when the read
   itself is allowed.
-- Tests: **31 pytest tests, all passing** (18 guardrail/MCP/monitor + 13 ABAC).
+- Autonomous detection/response scenarios: **8/8 passed** — brute-force
+  bursts and egress spikes detected with sessions revoked, privilege
+  escalation held for human approval, known-bad indicators quarantined,
+  and below-threshold signals left alone.
+- Tests: **41 pytest tests, all passing** (18 guardrail/MCP/monitor + 13 ABAC + 10 autonomous).
 
 ## Notes and limits
 

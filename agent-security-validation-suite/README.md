@@ -25,6 +25,13 @@ eval is reproducible with no model cost.
 - **Session monitor** (`agent_security/monitor.py`): watches the tool-call
   stream and flags call bursts, repeated denials, retries of a denied
   sensitive tool, and read-then-export sequences.
+- **ABAC / attribute repository** (`agent_security/abac.py`): a CARDS-style
+  consolidated attribute store for principals and resources, plus a
+  deny-by-default policy engine for identity and access decisions. Rules
+  cover same-team and cross-team reads, MFA-gated writes, contractor and
+  service-account limits on restricted resources, stale-attribute deny
+  until refresh, a clearance-must-meet-classification invariant, and
+  field-level (FGAC) denial of sensitive fields without same-team + MFA.
 - **Eval runner** (`agent_security/evals.py`): scores the suites and
   reports bypass rate, false-positive rate, and per-category results.
 
@@ -46,7 +53,13 @@ python -m pytest -q
   missing scopes denied, injection in tool args denied, authorized calls allowed.
 - Session monitor demo session: **3 anomalies flagged** — a 6-call burst
   in 60s, 3 consecutive denials, and a sensitive tool succeeding after denial.
-- Tests: **18 pytest tests, all passing**.
+- ABAC / CARDS scenarios: **13/13 passed** — 4 allowed, 9 denied. Denials
+  cover cross-team confidential reads, low-clearance reads, writes without
+  MFA, restricted resources for contractors/service accounts, stale
+  attributes, and unknown principals/resources. Field-level control: a
+  sensitive field is denied without same-team + MFA even when the read
+  itself is allowed.
+- Tests: **31 pytest tests, all passing** (18 guardrail/MCP/monitor + 13 ABAC).
 
 ## Notes and limits
 

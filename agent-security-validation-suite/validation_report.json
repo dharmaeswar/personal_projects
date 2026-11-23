@@ -429,5 +429,137 @@
       "detail": "sensitive tool delete_record succeeded after denial",
       "severity": "high"
     }
+  ],
+  "abac_rows": [
+    {
+      "principal": "alice",
+      "resource": "cards:attrs:alice",
+      "action": "read",
+      "allowed": true,
+      "expected": true,
+      "passed": true,
+      "rule": "allow-same-team-read",
+      "fields_denied": []
+    },
+    {
+      "principal": "alice",
+      "resource": "cards:attrs:alice",
+      "action": "write",
+      "allowed": true,
+      "expected": true,
+      "passed": true,
+      "rule": "allow-same-team-write",
+      "fields_denied": []
+    },
+    {
+      "principal": "alice",
+      "resource": "cards:attrs:bob",
+      "action": "read",
+      "allowed": true,
+      "expected": true,
+      "passed": true,
+      "rule": "allow-cross-team-read",
+      "fields_denied": []
+    },
+    {
+      "principal": "bob",
+      "resource": "cards:attrs:alice",
+      "action": "read",
+      "allowed": false,
+      "expected": false,
+      "passed": true,
+      "rule": "default-deny",
+      "fields_denied": []
+    },
+    {
+      "principal": "bob",
+      "resource": "cards:attrs:alice",
+      "action": "read",
+      "allowed": false,
+      "expected": false,
+      "passed": true,
+      "rule": "default-deny",
+      "fields_denied": []
+    },
+    {
+      "principal": "carol",
+      "resource": "cards:attrs:alice",
+      "action": "read",
+      "allowed": false,
+      "expected": false,
+      "passed": true,
+      "rule": "clearance-below-classification",
+      "fields_denied": []
+    },
+    {
+      "principal": "carol",
+      "resource": "cards:attrs:alice",
+      "action": "write",
+      "allowed": false,
+      "expected": false,
+      "passed": true,
+      "rule": "clearance-below-classification",
+      "fields_denied": []
+    },
+    {
+      "principal": "dave",
+      "resource": "cards:keys:root",
+      "action": "read",
+      "allowed": false,
+      "expected": false,
+      "passed": true,
+      "rule": "deny-restricted-to-contractors",
+      "fields_denied": []
+    },
+    {
+      "principal": "svc-sync",
+      "resource": "cards:keys:root",
+      "action": "read",
+      "allowed": false,
+      "expected": false,
+      "passed": true,
+      "rule": "deny-restricted-to-contractors",
+      "fields_denied": []
+    },
+    {
+      "principal": "alice",
+      "resource": "cards:attrs:stale",
+      "action": "read",
+      "allowed": false,
+      "expected": false,
+      "passed": true,
+      "rule": "deny-stale-attributes",
+      "fields_denied": []
+    },
+    {
+      "principal": "mallory",
+      "resource": "cards:attrs:alice",
+      "action": "read",
+      "allowed": false,
+      "expected": false,
+      "passed": true,
+      "rule": "unknown-subject",
+      "fields_denied": []
+    },
+    {
+      "principal": "alice",
+      "resource": "cards:attrs:missing",
+      "action": "read",
+      "allowed": false,
+      "expected": false,
+      "passed": true,
+      "rule": "unknown-resource",
+      "fields_denied": []
+    },
+    {
+      "principal": "bob",
+      "resource": "cards:attrs:bob",
+      "action": "write",
+      "allowed": true,
+      "expected": true,
+      "passed": true,
+      "rule": "allow-same-team-write",
+      "fields_denied": []
+    }
   ]
 }

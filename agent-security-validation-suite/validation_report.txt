@@ -19,3 +19,5 @@ Session monitor anomalies in demo session: 3
   [medium] call-burst: 6 tool calls within 60s ending at t=1025
   [medium] failure-streak: 3 consecutive denied tool calls
   [high] denied-sensitive-retry: sensitive tool delete_record succeeded after denial
+
+ABAC / CARDS attribute-repository scenarios: 13/13 passed (4 allowed, 9 denied)

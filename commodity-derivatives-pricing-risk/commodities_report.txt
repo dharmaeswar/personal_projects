@@ -1,0 +1,29 @@
+COMMODITY DERIVATIVES PRICING & RISK REPORT
+
+last simulated spot: WTI 59.13, NATGAS 3.40, GOLD 2156.35
+
+futures curves (cost of carry):
+  WTI: front 59.5, 12M 63.74, contango, avg monthly spread 0.385, implied convenience yield (6M) 0.050
+  NATGAS: front 3.43, 12M 3.85, contango, avg monthly spread 0.0379, implied convenience yield (6M) 0.020
+  GOLD: front 2166.26, 12M 2278.27, contango, avg monthly spread 10.1832, implied convenience yield (6M) -0.000
+
+WTI front future 59.50; 6M call K=80: 0.68, put: 20.72
+  call Greeks: delta 0.1135, gamma 0.01419, vega 8.04 (per 100% vol), theta -2.54/yr
+  implied vol recovered from the call price: 0.3200 (input 0.32)
+
+validation checks:
+  [PASS] put_call_parity: {'check': 'put_call_parity', 'passed': True, 'difference': 7.105427357601002e-15, 'call_minus_put': -20.039851020994945, 'discounted_forward': -20.039851020994938}
+  [PASS] mc_convergence: {'check': 'mc_convergence', 'passed': True, 'closed_form': 0.6801110107043683, 'monte_carlo': 0.6966253102776678, 'std_error': 0.007563635189337557, 'z_score': 2.1833812921833813}
+  [PASS] greeks_finite_difference: {'check': 'greeks_finite_difference', 'passed': True, 'closed_form': {'delta': 0.113476, 'gamma': 0.014187, 'vega': 8.03744, 'theta': -2.539217}, 'finite_difference': {'delta': 0.113476, 'gamma': 0.014187, 'vega': 8.03744}, 'differences': {'delta': 1e-08, 'gamma': 0.0, 'vega': 3e-07}}
+
+book value: 1785.63
+historical VaR 95%: 191.04, ES 95%: 233.74, worst day P&L: -304.26
+historical VaR 99%: 263.32, ES 99%: 289.19
+Monte Carlo VaR 95%: 210.67, ES 95%: 261.86 (independent shocks; labelled approximation)
+scenario P&L:
+  spot -10% (vol bump +0.00): -184.56
+  spot -5% (vol bump +0.00): -93.27
+  spot +5% (vol bump +0.00): 95.77
+  spot +10% (vol bump +0.00): 194.53
+  spot flat (vol bump +0.05): 9.01
+

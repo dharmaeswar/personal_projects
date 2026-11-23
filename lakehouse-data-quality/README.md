@@ -219,3 +219,55 @@ Tests: **70 passed** (`python -m pytest -q`) — 60 earlier tests plus
 counts, the unified model, view reconciliation, streaming
 exactly-once, batch dedup, tuning results and determinism
 (`tests/test_talent.py`).
+
+## Added Nov 23, 2026 — workforce data architecture
+
+One module added for an Amazon Data Engineer III (Workforce Solutions)
+role, where the work is owning the data architecture behind hiring
+processes, career mobility and workforce engagement: scalable ETL
+pipelines, data modeling, warehousing, best practices, mentoring
+standards and evaluating generative AI integrations. New module
+`lakehouse/workforce.py`, run with `python run_workforce.py` — same
+pandas + Parquet approach as the rest of the project, no Spark
+cluster, Kinesis stream, or Redshift warehouse is involved, and the
+code says so where it matters.
+
+- **Streaming ingest** — 120 synthetic hiring change events
+  (requisition / candidate / interview / offer updates) processed
+  exactly once by reusing the shared streamer: 3 duplicate deliveries
+  and 2 late events dropped at the watermark, checkpoint offset 124.
+- **Batch ingest** — a nightly engagement-survey batch of 120 rows
+  (60 employees x 2 quarters), deduplicated on `survey_id`.
+- **Unified workforce model** — one row per requisition (15): the
+  hiring funnel (candidates, interviews, offers, hires), time to
+  fill, and offer-accept rate. Built only from silver rows; 88
+  vendable candidates.
+- **Vended views** — an analytics view (5 departments: requisitions,
+  hires, average time to fill, offer-accept rate, average engagement,
+  internal moves) and an operational view (one row per requisition)
+  for downstream integrations. Both reconcile back to the unified
+  model and silver candidates.
+- **Quality checks** — completeness, uniqueness, score ranges,
+  referential integrity, plus three workforce rules: no interview may
+  predate the application, no offer may exist for a candidate with no
+  interview, and no internal move may predate the hire date. The
+  fixture plants 8 bad rows (2 duplicate candidate ids, 1 null req
+  id, 1 unknown requisition, 1 early interview, 1 offer without an
+  interview, 1 move before hire, 1 out-of-range engagement score);
+  4 candidates, 1 interview, 1 offer, 1 move and 1 survey are
+  quarantined with reasons.
+- **GenAI-assist evaluation** — the module scores a deterministic,
+  seeded stand-in rule proposer (no real LLM call is made) against
+  the planted violations: 8 rules proposed, 5 true, precision 0.625,
+  recall 0.714 (5 of 7 violation types caught), 3 spurious rules
+  rejected. A human stays in the loop: only evaluated rules are
+  adopted.
+- **Query tuning** — a per-requisition full-table scan loop versus a
+  single group-by over 50,072 rows: 44.3 ms vs 4.4 ms, a 10.1x
+  speedup, with identical per-requisition averages.
+
+Tests: **81 passed** (`python -m pytest -q`) — 70 earlier tests plus
+11 new tests for domain shapes, every violation type, quarantine
+counts and reasons, the unified model, view reconciliation, streaming
+exactly-once, batch dedup, the GenAI-assist evaluation, tuning
+results and determinism (`tests/test_workforce.py`).

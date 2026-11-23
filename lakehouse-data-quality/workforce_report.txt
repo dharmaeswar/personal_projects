@@ -1,0 +1,66 @@
+WORKFORCE DATA ARCHITECTURE REPORT
+
+stream events arrived: 125
+stream events accepted: 120
+stream late dropped: 2
+stream duplicates dropped: 3
+stream checkpoint offset: 124
+
+batch engagement rows: 120
+batch engagement loaded: 120
+batch duplicates dropped: 0
+
+candidate checks:
+  [FAIL] completeness: req_id: 1 nulls
+  [FAIL] uniqueness:candidate_id: 2 duplicated candidate_id values (2 extra rows)
+  [FAIL] fk:req_id->req_id: 1 rows with req_id not in req_id
+interview checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:interview_id: all 69 values of interview_id unique
+  [PASS] fk:candidate_id->candidate_id: all candidate_id values found in candidate_id
+  [FAIL] interview_after_application: 1 interviews dated before application
+offer checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:offer_id: all 19 values of offer_id unique
+  [PASS] fk:candidate_id->candidate_id: all candidate_id values found in candidate_id
+  [FAIL] offer_has_interview: 1 offers for candidates with no interview
+move checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:move_id: all 12 values of move_id unique
+  [PASS] fk:employee_id->employee_id: all employee_id values found in employee_id
+  [PASS] fk:to_role_id->role_id: all to_role_id values found in role_id
+  [FAIL] move_after_hire: 1 moves effective before hire
+engagement checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:survey_id: all 120 values of survey_id unique
+  [PASS] fk:employee_id->employee_id: all employee_id values found in employee_id
+  [FAIL] range:score: 1 rows outside range for score
+
+silver candidates: 88; quarantined: 4
+silver interviews: 68; quarantined: 1
+silver offers: 18; quarantined: 1
+silver moves: 11; quarantined: 1
+silver engagement: 119; quarantined: 1
+
+unified workforce model rows: 15
+analytics view rows (departments): 5
+operational view rows (requisitions): 15
+reconciliation: [PASS] workforce_reconciliation: views reconcile: 15 requisitions, 88 vendable candidates
+  Data: reqs 2, hires 0, avg time to fill 81.0, offer-accept 0.0, avg engagement 3.5, moves 1
+  Engineering: reqs 3, hires 2, avg time to fill 33.0, offer-accept 0.67, avg engagement 3.0, moves 0
+  Finance: reqs 2, hires 1, avg time to fill 58.0, offer-accept 0.5, avg engagement 3.2, moves 2
+  People Ops: reqs 3, hires 2, avg time to fill 58.0, offer-accept 0.6, avg engagement 3.06, moves 1
+  Product: reqs 5, hires 1, avg time to fill 37.0, offer-accept 0.33, avg engagement 2.86, moves 2
+
+GenAI-assist evaluation (deterministic stand-in, no real LLM call):
+  rules proposed: 8; true rules: 5
+  violation types caught: 5/7
+  precision: 0.625; recall: 0.714
+  spurious rules rejected: 3
+
+query tuning demo:
+  rows scanned: 50072; requisitions: 15
+  per-requisition scan loop: 44.3 ms
+  single group-by: 4.4 ms
+  speedup: 10.1x; results match: True
+

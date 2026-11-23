@@ -13,6 +13,13 @@ from .talent import (
     run_talent_stream,
     tune_query_demo,
 )
+from .workforce import (
+    build_unified_model as build_workforce_model,
+    evaluate_genai_assist,
+    generate_workforce,
+    generate_workforce_events,
+    run_workforce_stream,
+)
 
 __all__ = [
     "CheckResult",
@@ -22,15 +29,20 @@ __all__ = [
     "build_gold",
     "build_silver",
     "build_unified_model",
+    "build_workforce_model",
     "enforce_schema",
+    "evaluate_genai_assist",
     "generate_bronze",
     "generate_event_stream",
     "generate_talent",
     "generate_talent_events",
+    "generate_workforce",
+    "generate_workforce_events",
     "run_all_checks",
     "run_observability",
     "run_stream",
     "run_talent_stream",
+    "run_workforce_stream",
     "tune_query_demo",
     "write_table",
 ]

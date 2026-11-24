@@ -1,0 +1,30 @@
+Multi-Agent RAG Evaluation
+Cases: 8
+Answer accuracy: 100.00%
+Groundedness (validator PASS): 100.00%
+Citation coverage: 100.00%
+
+E1 [PASS] What is Northgate Logistics Group's leverage ratio?
+  A: Northgate Logistics Group leverage is 3.50x (total debt 420.0 / EBITDA 120.0).
+  Check: expected 3.5, got [3.5, 420.0, 120.0]; grounded=True, cited=True
+E2 [PASS] What is BlueRock Packaging Co's interest coverage ratio?
+  A: BlueRock Packaging Co interest coverage is 2.00x (EBITDA 96.0 / interest expense 48.0).
+  Check: expected 2.0, got [2.0, 96.0, 48.0]; grounded=True, cited=True
+E3 [PASS] What is Summit Ridge Manufacturing's EBITDA margin?
+  A: Summit Ridge Manufacturing EBITDA margin is 12.50% (EBITDA 150.0 / revenue 1200.0).
+  Check: expected 12.5, got [12.5, 150.0, 1200.0]; grounded=True, cited=True
+E4 [PASS] Is BlueRock Packaging Co in compliance with its leverage covenant?
+  A: BlueRock Packaging Co is in breach: leverage 4.00x against a maximum of 3.5x, interest coverage 2.00x against a minimum of 2.0x.
+  Check: expected 'in breach' in answer; grounded=True, cited=True
+E5 [PASS] Is Northgate Logistics Group in compliance with its covenants?
+  A: Northgate Logistics Group is in compliance: leverage 3.50x against a maximum of 4.0x, interest coverage 4.00x against a minimum of 2.5x.
+  Check: expected 'in compliance' in answer; grounded=True, cited=True
+E6 [PASS] Which borrower has the highest EBITDA margin?
+  A: BlueRock Packaging Co has the highest EBITDA margin at 15.00% (BlueRock Packaging Co 15.00%, Northgate Logistics Group 14.12%, Summit Ridge Manufacturing 12.50%).
+  Check: expected phrase 'BlueRock Packaging Co'; grounded=True, cited=True
+E7 [PASS] What does the credit memo say about Summit Ridge Manufacturing's supply-chain risk?
+  A: Supply-chain risk is concentrated in a single-source supplier in Asia for a specialty alloy; the borrower is dual-sourcing the alloy and holds six months of safety stock.
+  Check: expected phrase 'single-source supplier'; grounded=True, cited=True
+E8 [PASS] What is BlueRock Packaging Co's leverage ratio?
+  A: BlueRock Packaging Co leverage is 4.00x (total debt 384.0 / EBITDA 96.0).
+  Check: expected 4.0, got [4.0, 384.0, 96.0]; grounded=True, cited=True

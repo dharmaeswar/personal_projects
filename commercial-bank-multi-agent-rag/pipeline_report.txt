@@ -1,0 +1,7 @@
+Q: What is Northgate Logistics Group's leverage ratio?
+Plan: numeric-lookup, compute-ratio
+Retrieved: Northgate Logistics Group|financials, Northgate Logistics Group|financials, Northgate Logistics Group|covenant, Northgate Logistics Group|memo, BlueRock Packaging Co|covenant
+Context: 820 chars, 8 chunks, truncated=False
+A: Northgate Logistics Group leverage is 3.50x (total debt 420.0 / EBITDA 120.0).
+Citations: Northgate Logistics Group|financials
+Validation: PASS

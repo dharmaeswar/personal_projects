@@ -24,15 +24,15 @@ Bronze checks (3 of 10 passed, 7 FAILED):
 Reconciliation: [PASS] reconciliation: gold matches silver on all 193 daily campaign groups
 
 Pipeline health:
-  streaming ingest: 254 in, 254 out, 0.000s (1,319,762 rows/s)
-  bronze load: 254 in, 254 out, 0.168s (1,515 rows/s)
-  bronze checks: 254 in, 254 out, 0.001s (431,097 rows/s)
-  silver build: 254 in, 240 out, 0.019s (13,648 rows/s)
-  gold build: 240 in, 193 out, 0.019s (12,535 rows/s)
+  streaming ingest: 254 in, 254 out, 0.000s (1,257,345 rows/s)
+  bronze load: 254 in, 254 out, 0.340s (747 rows/s)
+  bronze checks: 254 in, 254 out, 0.001s (454,946 rows/s)
+  silver build: 254 in, 240 out, 0.060s (4,246 rows/s)
+  gold build: 240 in, 193 out, 0.054s (4,476 rows/s)
   failure rate: 5.51% (14 of 254 bronze rows quarantined)
   late-arrival rate: 0.83% (2 of 240 silver rows late)
   gold groups: 193
-  total pipeline time: 0.206s
+  total pipeline time: 0.454s
 
 Lineage: every silver row maps to its bronze event_id, and every gold group lists the silver event_ids that fed it (see lineage.json).
 All data is synthetic and seeded; no real advertiser data is used.

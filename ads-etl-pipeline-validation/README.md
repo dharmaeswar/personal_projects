@@ -74,11 +74,35 @@ Failure rate: 5.51% (14 of 254 bronze rows quarantined)
 Late-arrival rate: 0.83% (2 of 240 silver rows late)
 ```
 
+## Data contracts and the data-ops agent (added Nov 24, 2026)
+
+- **Data contracts** (`ads_etl/contracts.py`) — a versioned contract for
+  each table (bronze, silver, gold): exact columns, types, nullability,
+  value ranges, and the owning team. `validate_contract` checks rows
+  against the contract before a write is accepted; `detect_drift`
+  reports added/removed columns and type changes against the contract on
+  file. The seeded run holds on silver and gold; the bronze contract
+  flags the 2 planted rows that break it (a null key and a negative
+  spend), which is the contract doing its job.
+- **Data-ops agent** (`ads_etl/agent.py`, run with `python run_agent.py`)
+  — a deterministic, rule-based simulation of the agentic pattern used
+  to automate the data operations lifecycle: three specialist agents
+  (ingest, quality, governance) call tools (`run_quality_checks`,
+  `check_contract`, `inspect_quarantine`, `lookup_lineage`,
+  `plan_backfill`), and an orchestrator turns their findings into one
+  action plan where every action names its evidence. There is no LLM
+  call: the agent is fully reproducible and auditable by design. On the
+  seeded run it plans 4 actions — 2 blocks (7 failed bronze checks, 2
+  bronze contract violations), 1 fix (top quarantine cause: duplicate
+  event_id, 3 rows), 1 watch (2 late-arriving rows in silver) — and
+  writes `agent_report.json` and `agent_report.txt`.
+
 ## How to run
 
 ```bash
 pip install -r requirements.txt   # pytest only; everything else is stdlib
 python run_pipeline.py
+python run_agent.py
 python -m pytest -q
 ```
 
@@ -94,12 +118,15 @@ ads_etl/
   data.py        synthetic campaigns, ads, events (seeded) + planted violations
   schema.py      expected schemas + enforcement
   checks.py      data-quality checks (each returns pass/fail + failing rows)
+  contracts.py   versioned data contracts + drift detection
+  agent.py       deterministic data-ops agent (tools, agents, orchestrator)
   streaming.py   in-memory event consumer (offsets, batches, commit/replay)
   pipeline.py    bronze -> silver -> gold in SQLite, lineage, transaction log
   monitoring.py  per-stage timings, failure/late rates, throughput
   report.py      renders validation_report.txt
 run_pipeline.py  runner
-tests/           29 pytest tests
+run_agent.py     runner: pipeline + data-ops agent, writes agent_report.*
+tests/           46 pytest tests
 ```
 
 ## Honest limits
@@ -114,3 +141,7 @@ tests/           29 pytest tests
 - Checks run on the full bronze batch in Python; a production pipeline
   would run them incrementally and alert on failure-rate thresholds
   instead of only reporting them.
+- The data-ops agent is a deterministic simulation of agentic patterns
+  (tool use, planning, multi-agent orchestration) with explicit rules
+  and no model call; it demonstrates the workflow and its audit trail,
+  not a live LLM agent.

@@ -1,0 +1,43 @@
+Data-ops agent report
+=====================
+
+Tool calls:
+- [ingest-agent] run_quality_checks: 3 of 10 bronze checks passed
+    - [FAIL] completeness: campaign_id: 3 nulls
+    - [FAIL] uniqueness:event_id: 3 duplicated event_id values (3 extra rows)
+    - [FAIL] range:spend_usd: 2 rows outside range for spend_usd
+    - [FAIL] clicks_within_impressions: 2 rows where clicks > impressions
+    - [FAIL] range:event_ts: 1 rows outside range for event_ts
+    - [FAIL] fk:ad_id->ad_id: 2 rows with ad_id not in ad_id
+    - [FAIL] spend_arithmetic: 3 rows where spend_usd != clicks * cpc_usd
+- [governance-agent] check_contract:events_bronze: 2 contract violations, 0 drift signals
+    - [events_bronze] row 246: spend_usd=-5.0 outside [0, None]
+    - [events_bronze] row 247: spend_usd=-5.0 outside [0, None]
+- [quality-agent] inspect_quarantine: 14 quarantined rows in 7 reason groups
+    - duplicate event_id: 3 rows
+    - null key: 3 rows
+    - wrong spend: 3 rows
+    - spend out of range: 2 rows
+    - clicks exceed impressions: 2 rows
+    - unknown ad_id: 2 rows
+    - event_ts out of range: 1 rows
+- [governance-agent] check_contract:events_silver: 0 contract violations, 0 drift signals
+    - events_silver v1 holds; no drift
+- [governance-agent] check_contract:gold_daily_spend: 0 contract violations, 0 drift signals
+    - gold_daily_spend v1 holds; no drift
+- [governance-agent] plan_backfill: backfill scope: 2 late rows in silver, 14 quarantined rows pending
+    - 2 late-arriving rows already in silver (flagged, no backfill needed)
+    - 14 quarantined rows excluded from gold until fixed
+- [governance-agent] lookup_lineage: lineage for E0001: found
+    - silver event E0001 <- bronze E0001
+    - feeds 1 gold group(s)
+
+Actions (4):
+- [block] (dsp-analytics-ingest) Hold the silver build until the failing bronze checks are triaged; do not promote bad rows.
+    evidence: 7 bronze quality checks failed
+- [block] (dsp-analytics-platform) Freeze the affected table and open a contract review with the table owner before the next load.
+    evidence: 2 contract violations found
+- [fix] (dsp-analytics-platform) Fix the top quarantine cause at the source and replay the affected events through silver.
+    evidence: 14 rows quarantined; top cause 'duplicate event_id' (3 rows)
+- [watch] (dsp-analytics-platform) Confirm the next gold rebuild picked up the late-arriving rows already flagged in silver.
+    evidence: 2 late-arriving rows in silver

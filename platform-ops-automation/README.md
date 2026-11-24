@@ -48,6 +48,21 @@ claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
   recommends the threshold that detects every incident with the fewest
   false positives. Synthetic data only; no real monitoring tool is
   contacted.
+- `ops/datastore_adoption.py` — data-store adoption readiness (added
+  Nov 24, 2026, for a Senior Cloud Infrastructure Engineer
+  application): scores a candidate store (Vitess / ClickHouse / Redis
+  shape) on replication, durable writes, backups and restore-test
+  freshness, p99 read/write SLOs, observability hooks, failover-test
+  freshness, encryption at rest and data residency, with an
+  adopt / pilot / not-ready verdict. Synthetic data only; no real
+  datastore is contacted and no production adoption experience is
+  claimed.
+- `ops/batch_control_plane.py` — batch processing control plane (added
+  Nov 24, 2026, for the same role): checks queue depth, creation vs
+  fulfillment throughput, stalled jobs, retry exhaustion and
+  per-component fulfill p95, and reports headroom against a 10x
+  growth target. Synthetic data only; no real job system is contacted
+  and no production batch-platform experience is claimed.
 - `ops/dr_check.py` — validates a disaster-recovery / failover readiness
   checklist (runbook review freshness, last failover test, backup
   verification freshness, on-call roster) and reports overall readiness.

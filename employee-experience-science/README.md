@@ -37,13 +37,22 @@ money on a fix.
    This is the baseline a GenAI feedback summariser must beat.
 4. **Writes a plain-language report** (`experience_science/report.py`)
    that a non-technical audience can act on.
+5. **Forecasts workforce needs** (`experience_science/forecast.py`,
+   added Nov 2026 for a workforce-planning data-science role): a
+   logistic-regression attrition-risk model on overtime, shift,
+   schedule churn, manager tenure, tenure and experience score, scored
+   on a held-out split (AUC, Brier vs base rate, quintile calibration);
+   plus a 12-month monthly attrition history simulated from each org's
+   observed annual attrition rate with a seasonal pattern, a trend
+   forecast with 95% prediction intervals, and a backtest that fits on
+   months 1–9 and scores months 10–12 before the forecast is trusted.
 
 ## Run it
 
 ```bash
 pip install -r requirements.txt
 python run_analysis.py        # prints the report, writes experience_report.txt
-python -m pytest -q           # 15 tests
+python -m pytest -q           # 22 tests
 ```
 
 ## What the data shows (1,200 synthetic employees, seed fixed)
@@ -63,8 +72,28 @@ scores accuracy 0.882 and macro F1 0.931 on the six themes
 with no theme keywords are its misses, which is exactly the gap a
 GenAI summariser would need to close.
 
+## Workforce-planning forecasts (12-month simulated history, seed fixed)
+
+- Attrition-risk model, held-out n=240: AUC 0.724, Brier 0.1317 vs
+  base-rate 0.1431 (base attrition rate 10.2%). Strongest drivers:
+  experience score −0.714, overtime +0.230 standardised coefficients.
+- Calibration is honest about its limit: the top risk quintile is
+  under-predicted (predicted 0.206 vs observed 0.375) — attrition jumps
+  at low experience scores, a threshold effect a linear logit only
+  partly captures. Schedule churn's effect is mediated through the
+  experience score, not direct.
+- Headcount forecast backtest (fit months 1–9, scored 10–12): MAPE
+  32.0%, 95% interval coverage 100% (3 of 3 months inside). Next
+  quarter forecast: ~9, ~9 and ~8 attritions per month, each with a
+  wide 95% interval (±7) — small monthly counts are noisy, and the
+  intervals say so.
+
 ## Limits
 
 Synthetic data, planted effects, and a rule-based classifier baseline —
 this is a local analysis pipeline, not production HR data and not a
-claim about any real workforce. No employee data is used.
+claim about any real workforce. No employee data is used. The monthly
+attrition history is simulated from the observed annual rate (divided
+by 12) at steady headcount with replacement hiring, so its absolute
+counts are illustrative; what the backtest validates is the
+forecasting method, not a real headcount plan.

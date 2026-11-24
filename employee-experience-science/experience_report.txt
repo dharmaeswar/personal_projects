@@ -28,3 +28,28 @@ WHAT THIS MEANS
 - New manager (<1y) vs experienced: employees in this group score 0.38 points lower on experience and leave at 13% vs 11%; fix this first.
 - 4+ schedule changes vs fewer: employees in this group score 0.26 points lower on experience and leave at 20% vs 10%; fix this first.
 - The feedback classifier is a transparent baseline: a GenAI summariser must beat its macro F1 before it can be trusted on employee comments.
+
+WORKFORCE PLANNING FORECASTS
+Attrition-risk model (logistic regression, held-out n=240): AUC 0.724, Brier 0.1317 vs base-rate 0.1431 (base attrition rate 10.2%).
+Risk drivers (standardised coefficients, held-out fit):
+- overtime_hours_week: +0.230
+- night_shift: +0.014
+- schedule_changes_month: -0.040
+- manager_tenure_years: -0.057
+- tenure_years: +0.078
+- experience_score: -0.714
+Calibration (predicted vs observed attrition, quintiles):
+- predicted 0.027 vs observed 0.062 (n=48)
+- predicted 0.050 vs observed 0.125 (n=48)
+- predicted 0.073 vs observed 0.104 (n=48)
+- predicted 0.112 vs observed 0.167 (n=48)
+- predicted 0.206 vs observed 0.375 (n=48)
+Calibration limit: the top quintile is under-predicted (predicted ~0.21 vs observed ~0.38) — attrition jumps at low experience scores, a threshold effect a linear logit only partly captures. Treat the top-quintile risk as a floor, not a point estimate.
+Headcount forecast backtest (fit months 1-9, scored months 10-12): MAPE 32.0%, 95% interval coverage 100% over 12-month history (139 simulated attritions).
+- Month 10: forecast 8.2 (95% CI [0.6, 15.8]), actual 11 — inside.
+- Month 11: forecast 7.5 (95% CI [0.0, 15.1]), actual 11 — inside.
+- Month 12: forecast 6.8 (95% CI [0.0, 14.4]), actual 11 — inside.
+Next-quarter attrition forecast (trend model, 95% intervals):
+- Month 13: 9.2 attritions (95% CI [2.3, 16.0])
+- Month 14: 8.8 attritions (95% CI [2.0, 15.6])
+- Month 15: 8.4 attritions (95% CI [1.6, 15.2])

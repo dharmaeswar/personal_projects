@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "change-review-signal-analyzer"
+version = "0.1.0"
+description = "Signal-based change review: parse a diff, flag risky patterns, check test coverage, suggest reviewers."
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+include = ["changereview*"]

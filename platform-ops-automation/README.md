@@ -74,6 +74,18 @@ claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
 - `ops/load_test.py` — stdlib-only load test (urllib + threads) that
   reports totals, error rate, and p50/p95 latency. Exits non-zero with
   a clear message if the service is not running.
+- `ops/fleet_systems.py` — Linux fleet systems automation for a
+  data-center fleet (added Nov 24, 2026, for an Amazon SDE III System
+  Development Engineering role): a host inventory (role, OS/kernel,
+  packages, services), config-drift checks against a desired state,
+  staged rollouts (canary 10%, then 50%, then 100%) with a CPU/memory
+  health gate after each stage and automatic rollback of the failed
+  stage, and a fleet summary by role and status. Demo data only; no
+  real fleet is managed and no production systems-development
+  experience is claimed.
+- `run_fleet_demo.py` — end-to-end demo of the fleet module on a
+  12-host synthetic fleet: drift report, staged rollout with a
+  failing host, rollback, and fleet summary.
 - `RUNBOOK.md` — incident runbook for "elevated 5xx from the web
   platform": triage, checks, rollback, post-incident review template.
 

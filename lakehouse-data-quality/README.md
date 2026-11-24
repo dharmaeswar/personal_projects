@@ -442,3 +442,55 @@ Tests: **129 passed** (`python -m pytest -q`) — 119 earlier tests plus
 coverage, gold-to-silver reconciliation, point-in-time subset and
 reconciliation, and the end-to-end summary counts
 (`tests/test_governance.py`).
+
+## Added Nov 24, 2026 — DataCraft-style streaming ingestion platform
+
+For an Amazon SDE II, Business Data Technologies role (Job 10601713),
+where the work is the Huron team's streaming ingestion platform
+(DataCraft, ~19K pipelines on AWS Managed Flink, sinking to Andes, S3
+and EDX in micro-batches from catalog, inventory, order, page-view and
+Alexa sources) plus the next-generation data catalog and discovery
+engine. New module `lakehouse/datacraft.py`, runner
+`run_datacraft.py`, tests `tests/test_datacraft.py` — same pandas +
+Parquet approach as the rest of the project, no Flink cluster,
+Kinesis stream, S3 bucket, Redshift warehouse or Andes/EDX sink is
+involved, and the code says so where it matters. The demo models a
+seeded fleet of 60 pipelines; the production fleet is ~19K and the
+registry, routing and health logic is the same at either size.
+
+- **Pipeline registry** — 60 seeded pipelines across 5 sources and
+  3 sinks, each with a micro-batch interval (1, 5 or 15 minutes) and
+  an owner team.
+- **Multi-source streaming ingest** — one seeded 120-event stream per
+  source, processed in micro-batches through the shared streamer:
+  exactly-once via dedup on `event_id` against the checkpoint, late
+  events dropped at the watermark. Each source plants 3 duplicate
+  deliveries and 2 late events, so exactly-once and watermark
+  behaviour are exercised for every source.
+- **Sink routing** — accepted events fan out to per-sink bronze
+  tables with a manifest entry (pipeline, source, sink, rows, batch
+  count), the way a Flink job sinks each micro-batch to its target.
+- **Pipeline health** — per-pipeline lag, duplicate rate and late
+  rate; STALLED when the newest accepted event is older than the
+  pipeline's micro-batch interval, DEGRADED when duplicate or late
+  rate passes 5%, otherwise HEALTHY. A pipeline with no accepted
+  events is STALLED, never silently healthy.
+- **Data catalog** — every sink table registered with owner, columns
+  and row count, plus keyword discovery search across table, source,
+  columns and owner.
+
+## Results of the DataCraft run (real run, Nov 24, 2026)
+
+```
+Registered pipelines (demo fleet): 60; production fleet modelled: ~19,000
+Events arrived: 625; accepted: 600; duplicates dropped: 15; late dropped: 10
+Rows landed per sink: Andes 220, EDX 220, S3 160
+Pipeline health (as of 10 min after newest event): HEALTHY 25, DEGRADED 0, STALLED 35
+Catalog tables registered: 15; search 'orders': 3 tables
+```
+
+Tests: **141 passed** (`python -m pytest -q`) — 129 earlier tests plus
+12 new tests for registry coverage and determinism, per-source planted
+cases and exactly-once, replay no-op, sink routing totals, health
+statuses and the empty-source case, catalog registration and search,
+and end-to-end determinism (`tests/test_datacraft.py`).

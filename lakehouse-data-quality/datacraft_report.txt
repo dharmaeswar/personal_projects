@@ -1,0 +1,36 @@
+DATACRAFT-STYLE STREAMING INGESTION REPORT
+
+Registered pipelines (demo fleet): 60
+Production fleet size modelled: ~19,000
+Sources: catalog, inventory, orders, page_views, alexa; sinks: S3, Andes, EDX
+
+Events arrived: 625
+Events accepted: 600
+Duplicates dropped (exactly-once): 15
+Late events dropped at watermark: 10
+
+Rows landed per sink:
+  Andes: 220
+  EDX: 220
+  S3: 160
+
+Pipeline health (as of 10 min after newest event):
+  HEALTHY: 25
+  DEGRADED: 0
+  STALLED: 35
+
+Catalog tables registered: 15
+Catalog search 'orders': 3 table(s) — andes.orders_bronze, edx.orders_bronze, s3.orders_bronze
+
+Sink manifest (first 10 rows):
+pipeline_id  source  sink  rows_landed  batches
+   DC-00001 catalog    S3           10        1
+   DC-00006 catalog Andes           10        1
+   DC-00011 catalog Andes           10        1
+   DC-00016 catalog Andes           10        1
+   DC-00021 catalog    S3           10        1
+   DC-00026 catalog   EDX           10        1
+   DC-00031 catalog   EDX           10        1
+   DC-00036 catalog   EDX           10        1
+   DC-00041 catalog   EDX           10        1
+   DC-00046 catalog Andes           10        1

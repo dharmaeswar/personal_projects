@@ -1,0 +1,13 @@
+style,fc,on_hand
+style_A,FC_WEST,305
+style_A,FC_CENTRAL,244
+style_A,FC_EAST,209
+style_B,FC_WEST,149
+style_B,FC_CENTRAL,95
+style_B,FC_EAST,204
+style_C,FC_WEST,134
+style_C,FC_CENTRAL,121
+style_C,FC_EAST,34
+style_D,FC_WEST,8
+style_D,FC_CENTRAL,16
+style_D,FC_EAST,59

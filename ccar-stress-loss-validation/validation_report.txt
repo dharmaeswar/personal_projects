@@ -97,3 +97,18 @@ reasonableness (severely adverse must exceed baseline every quarter).
 [PASS] coefficient_stability: unemployment coefficient by vintage: 2015-2019=+0.0425, 2018-2021=+0.0429, 2021-2024=+0.0346
 [PASS] scenario_reasonableness: min quarterly stress uplift 0.1203; peak uplift 0.3296 in quarter 3
 ======================================================================
+10. MODEL DEPLOYMENT PIPELINE (EXECUTION PLATFORM)
+   Model: stress-loss-forecaster v1.0  overall: PASS  published: yes  total time: 0.00s
+   ingest    pass    0.00s  rows=1250  1250 rows, all features present
+   score     pass    0.00s  rows=1250  1250 scores in [0, 1]
+   validate  pass    0.00s  rows=1250  batch MAE 0.1521 within gate 0.20
+   publish   pass    0.00s  rows=1250  stress-loss-forecaster v1.0 published
+
+   MODEL REGISTRY
+   stress-loss-forecaster v1.0  champion    MAE=0.1521  hit_rate=0.003
+   stress-loss-forecaster v2.0  challenger  MAE=0.1542  hit_rate=0.046
+
+   CHAMPION / CHALLENGER PROMOTION GATE
+   promote challenger: NO
+   - MAE gain -1.4% below required 2%
+======================================================================

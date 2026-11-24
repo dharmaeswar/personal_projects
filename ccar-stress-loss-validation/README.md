@@ -30,6 +30,11 @@ data is used, and nothing here is a claim about any real institution.
   expansion/recession regime, coefficient stability across origination
   vintages, and scenario reasonableness (severely adverse beats baseline
   every quarter).
+- **Model deployment pipeline** (new, Nov 2026): staged execution pipeline
+  (ingest -> score -> validate -> publish) for the champion loss forecaster,
+  with score-range and batch-MAE validation gates so a broken model version
+  can never publish; a versioned model registry with champion / challenger
+  promotion gates (MAE gain vs hit-rate loss); and per-stage timings.
 - **Outcomes analysis**: bias, MAE, RMSE, hit rate within a tolerance band,
   and calibration by predicted decile.
 - **Scenario analysis**: baseline vs severely adverse CCAR-style macro paths
@@ -62,6 +67,9 @@ PYTHONPATH=. python -m pytest -q
 - `ccar_validation/counterparty.py` — counterparty exposure validation:
   synthetic counterparty book, Monte Carlo MtM simulation, EE/PFE profiles,
   EAD, expected loss, netting benefit, stressed EAD, exposure backtest
+- `ccar_validation/deployment.py` — model deployment pipeline: staged
+  execution (ingest/score/validate/publish), validation gates, versioned
+  model registry, champion/challenger promotion gate
 - `ccar_validation/models.py` — champion / challenger / benchmark models
 - `ccar_validation/backtest.py` — outcomes analysis metrics
 - `ccar_validation/scenarios.py` — CCAR-style scenario paths and forecasts

@@ -14,6 +14,12 @@ import numpy as np
 from ccar_validation.backtest import backtest_all, calibration_by_decile
 from ccar_validation.counterparty import build_counterparty_section, generate_counterparty_book
 from ccar_validation.data import MACRO_COLUMNS, generate_portfolio, train_test_split
+from ccar_validation.deployment import (
+    ModelRegistry,
+    build_deployment_section,
+    promotion_gate,
+    run_pipeline,
+)
 from ccar_validation.macro import build_macro_section
 from ccar_validation.models import fit_all
 from ccar_validation.monitoring import drift_report
@@ -57,6 +63,16 @@ def run_validation(output: str = "validation_report.txt") -> str:
 
     # 9. Macro-forecasting model validation (new module, Nov 2026).
     report = report.rstrip("\n") + "\n" + build_macro_section(train, test, models["champion"]) + "\n" + "=" * 70 + "\n"
+
+    # 10. Deployment pipeline (new module, Nov 2026): run the champion
+    # through the staged execution pipeline, register champion/challenger,
+    # and evaluate the promotion gate.
+    deployment_run = run_pipeline(models["champion"], test, actual, "stress-loss-forecaster", "1.0")
+    registry = ModelRegistry()
+    registry.register("stress-loss-forecaster", "1.0", backtest["champion"], status="champion")
+    registry.register("stress-loss-forecaster", "2.0", backtest["challenger"])
+    gate = promotion_gate(backtest["champion"], backtest["challenger"])
+    report = report.rstrip("\n") + "\n" + build_deployment_section(deployment_run, registry, gate) + "\n" + "=" * 70 + "\n"
     write_report(report, output)
     return report
 

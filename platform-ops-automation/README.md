@@ -48,6 +48,13 @@ claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
   recommends the threshold that detects every incident with the fewest
   false positives. Synthetic data only; no real monitoring tool is
   contacted.
+- `ops/slo_capacity.py` — SLI/SLO and capacity planning (added Nov 24,
+  2026, for an AppFolio Sr. Site Reliability & Infrastructure Engineer
+  application): defines SLOs with error budgets, reports budget
+  remaining/consumed, evaluates multi-window burn-rate alerts (fast burn
+  pages on-call, slow burn opens a ticket), and forecasts capacity
+  headroom with days-until-full and a scale-out recommendation.
+  Synthetic data only; no real service or monitoring tool is contacted.
 - `ops/datastore_adoption.py` — data-store adoption readiness (added
   Nov 24, 2026, for a Senior Cloud Infrastructure Engineer
   application): scores a candidate store (Vitess / ClickHouse / Redis

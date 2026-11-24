@@ -60,6 +60,19 @@ platform, real customers, or real billing data.
   `GET /v1/marketplace/evals/serving/{run_id}`,
   `POST /v1/marketplace/evals/agents`,
   `GET /v1/marketplace/evals/agents/{run_id}`.
+- **Resilience** (`gateway/resilience.py`) — the patterns that keep the
+  gateway serving when a backend fails: a per-backend circuit breaker
+  (closed → open → half-open, with trial calls and fail-fast while open),
+  retry with exponential backoff and full jitter, a per-backend bulkhead
+  that caps concurrent calls so one slow backend cannot starve the rest,
+  and per-call timeouts. `ResilientRouter` ties them to the existing
+  router: it picks backends in router order, runs each call through that
+  backend's breaker and bulkhead with retries, and fails over to the next
+  backend when one is open, full, or failing. `run_resilience_demo.py`
+  shows the full arc on a synthetic two-backend model: a transient
+  failure absorbed by retry, a breaker tripping and traffic failing over,
+  a half-open probe closing the breaker after recovery, and a full
+  bulkhead being skipped instead of queued behind.
 
 ## Marketplace partner intelligence
 

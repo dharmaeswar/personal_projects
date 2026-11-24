@@ -11,12 +11,22 @@ Small Python toolkit for independent model validation work:
 - **Rating-model & criteria validation** (`ratings.py`) — PD monotonicity across grades, per-grade
   default back-tests against implied PDs (binomial z-test), year-on-year transition-matrix stability,
   criteria-input data-aging checks, and upgrade / downgrade / default migration summaries.
+- **Options-pricing model validation** (`options.py`) — Black-Scholes
+  call/put pricing, implied volatility by bisection, put-call parity checks,
+  Greeks (delta, gamma, vega, theta, rho), and book-level validation of
+  observed marks against model prices with breach and parity flags.
 
 ## Run the tests
 
 ```bash
 pip install pytest
 PYTHONPATH=. pytest -q
+```
+
+## Run the options-pricing checks demo
+
+```bash
+PYTHONPATH=. python3 run_options_check.py   # seeded synthetic option book, prints a validation summary
 ```
 
 ## Run the rating checks demo

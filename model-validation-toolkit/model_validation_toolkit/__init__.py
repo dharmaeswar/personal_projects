@@ -1,5 +1,13 @@
 """Small model validation toolkit: outcomes analysis, sensitivity, drift,
-surveillance, and rating-model / criteria validation."""
+surveillance, rating-model / criteria validation, and options-pricing
+model validation."""
+from .options import (
+    black_scholes_price,
+    greeks,
+    implied_volatility,
+    put_call_parity_gap,
+    validate_option_book,
+)
 from .outcomes import backtest_summary
 from .sensitivity import sensitivity_table
 from .drift import mean_drift_bps, population_stability_index
@@ -37,4 +45,9 @@ __all__ = [
     "rolling_window_diagnostics",
     "out_of_sample_backtest",
     "cusum_break_check",
+    "black_scholes_price",
+    "greeks",
+    "implied_volatility",
+    "put_call_parity_gap",
+    "validate_option_book",
 ]

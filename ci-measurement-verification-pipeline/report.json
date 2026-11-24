@@ -1,0 +1,139 @@
+{
+  "event_date": "2026-06-15",
+  "staging": {
+    "raw": 3177,
+    "staged": 3168,
+    "duplicates": 6,
+    "quarantined": 3,
+    "late_arrivals": 2,
+    "already_loaded": 0
+  },
+  "reload_new_rows": 0,
+  "performance": {
+    "SITE-A": {
+      "site_id": "SITE-A",
+      "intervals": 8,
+      "baseline_kw": 231.76,
+      "actual_kw": 190.6,
+      "curtailed_kw": 41.16,
+      "curtailed_kwh": 82.33,
+      "payment_usd": 411.65,
+      "over_use": false
+    },
+    "SITE-B": {
+      "site_id": "SITE-B",
+      "intervals": 8,
+      "baseline_kw": 105.32,
+      "actual_kw": 86.33,
+      "curtailed_kw": 18.99,
+      "curtailed_kwh": 37.98,
+      "payment_usd": 189.9,
+      "over_use": false
+    },
+    "SITE-C": {
+      "site_id": "SITE-C",
+      "intervals": 8,
+      "baseline_kw": 165.41,
+      "actual_kw": 165.26,
+      "curtailed_kw": 0.72,
+      "curtailed_kwh": 1.44,
+      "payment_usd": 7.2,
+      "over_use": false
+    }
+  },
+  "total_payment_usd": 608.75,
+  "quality": {
+    "gaps": {
+      "passed": true,
+      "sites_with_gaps": {}
+    },
+    "late_arrivals": {
+      "passed": false,
+      "count": 2,
+      "examples": [
+        {
+          "site_id": "SITE-A",
+          "timestamp": "2026-06-10T12:00:00+00:00",
+          "kw": 226.37,
+          "late_arrival": true
+        },
+        {
+          "site_id": "SITE-B",
+          "timestamp": "2026-06-10T12:15:00+00:00",
+          "kw": 102.55,
+          "late_arrival": true
+        }
+      ]
+    },
+    "quarantined": {
+      "passed": false,
+      "count": 3,
+      "by_reason": {
+        "invalid kw": 3
+      }
+    },
+    "unknown_sites": {
+      "passed": true,
+      "count": 0
+    }
+  },
+  "mart_site_event_summary": [
+    {
+      "site_id": "SITE-A",
+      "event_date": "2026-06-15",
+      "intervals": 8,
+      "baseline_kw": 231.76,
+      "actual_kw": 190.6,
+      "curtailed_kw": 41.16,
+      "curtailed_kwh": 82.33,
+      "payment_usd": 411.65,
+      "over_use": false
+    },
+    {
+      "site_id": "SITE-B",
+      "event_date": "2026-06-15",
+      "intervals": 8,
+      "baseline_kw": 105.32,
+      "actual_kw": 86.33,
+      "curtailed_kw": 18.99,
+      "curtailed_kwh": 37.98,
+      "payment_usd": 189.9,
+      "over_use": false
+    },
+    {
+      "site_id": "SITE-C",
+      "event_date": "2026-06-15",
+      "intervals": 8,
+      "baseline_kw": 165.41,
+      "actual_kw": 165.26,
+      "curtailed_kw": 0.72,
+      "curtailed_kwh": 1.44,
+      "payment_usd": 7.2,
+      "over_use": false
+    }
+  ],
+  "mart_payments": [
+    {
+      "site_id": "SITE-A",
+      "event_date": "2026-06-15",
+      "payment_usd": 411.65,
+      "curtailed_kwh": 82.33,
+      "intervals": 8
+    },
+    {
+      "site_id": "SITE-B",
+      "event_date": "2026-06-15",
+      "payment_usd": 189.9,
+      "curtailed_kwh": 37.98,
+      "intervals": 8
+    },
+    {
+      "site_id": "SITE-C",
+      "event_date": "2026-06-15",
+      "payment_usd": 7.2,
+      "curtailed_kwh": 1.44,
+      "intervals": 8
+    }
+  ],
+  "gaps_noted": "Baseline is a 10-of-10 same-interval average; no weather adjustment is applied."
+}

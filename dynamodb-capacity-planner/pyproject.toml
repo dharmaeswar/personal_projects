@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dynamodb-capacity-planner"
+version = "1.0.0"
+description = "Demand forecasting, capacity planning and quota enforcement for a distributed NoSQL table"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+include = ["capplanner*"]

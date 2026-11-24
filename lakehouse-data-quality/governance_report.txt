@@ -1,0 +1,24 @@
+GOVERNED LAKEHOUSE — ACCESS, RECONCILIATION & POINT-IN-TIME REPORT
+Bronze orders: 200 rows
+Silver orders: 187 rows (13 quarantined)
+Gold daily groups: 185, revenue $118,446.80
+
+ACCESS CONTROL
+Grants: 5; requests decided: 8 (4 allowed, 4 denied)
+Audit log entries: 8 (one per request)
+  R01 analyst_reporting -> daily_revenue (reporting): allowed — grant covers role, table, columns and purpose
+  R02 analyst_finance -> daily_revenue (reconciliation): allowed — grant covers role, table, columns and purpose
+  R03 analyst_finance -> dim_customer (reconciliation): allowed — grant covers role, table, columns and purpose
+  R04 auditor_external -> fact_orders (audit): denied — no grant for role and table
+  R05 analyst_finance -> dim_customer (reconciliation): denied — column not covered by grant: customer_name
+  R06 engineer_platform -> daily_revenue (monitoring): denied — grant expired
+  R07 analyst_reporting -> daily_revenue (marketing): denied — purpose not covered by grant
+  R08 auditor_external -> daily_revenue (audit): allowed — grant covers role, table, columns and purpose
+
+RECONCILIATION
+Silver revenue $118,446.80 vs gold revenue $118,446.80 (difference $0.00) over 185 groups
+Reconciled: YES
+
+POINT-IN-TIME HISTORY
+Gold as of 2026-06-30: 103 groups, revenue $68,615.75
+Point-in-time reconciled: YES

@@ -406,3 +406,39 @@ Tests: **119 passed** (`python -m pytest -q`) — 106 earlier tests plus
 counts, dedup before ordering, silver/quarantine counts and reasons,
 gold groups, reconciliation, table + Delta-log writes and repeatability
 (`tests/test_battery.py`).
+
+## Added Nov 24, 2026 — governed access, reconciliation & point-in-time history
+
+For a Senior Data Engineer role in a regulated environment (Databricks
+lakehouse standards: access control, reconciliation, point-in-time
+history, auditability). New module `lakehouse/governance.py`, runner
+`run_governance.py`, tests `tests/test_governance.py`.
+
+- **Access control** — 5 seeded grants (role → table, columns, purpose,
+  validity window). 8 seeded access requests are decided against the
+  grants live on 2026-11-24: a request is allowed only when a grant
+  covers the role, table, every requested column, and the purpose.
+  Denials name the reason: no grant, expired grant, purpose not covered,
+  or a column outside the grant. Every decision — allowed or denied —
+  is written to an audit log (one entry per request).
+- **Reconciliation** — gold daily revenue must tie back to silver
+  revenue to the cent, over all gold groups.
+- **Point-in-time history** — gold can be rebuilt as of any past date
+  (demo: 2026-06-30), so a restated number traces to the orders that
+  existed then; the as-of rebuild reconciles too.
+
+## Results of the governance run (real run, Nov 24, 2026)
+
+```
+Bronze orders: 200 rows; silver: 187 rows (13 quarantined)
+Gold daily groups: 185, revenue $118,446.80
+Access: 5 grants; 8 requests decided (4 allowed, 4 denied); 8 audit entries
+Reconciliation: silver $118,446.80 vs gold $118,446.80 (difference $0.00)
+Point-in-time gold as of 2026-06-30: 103 groups, revenue $68,615.75, reconciled
+```
+
+Tests: **129 passed** (`python -m pytest -q`) — 119 earlier tests plus
+10 new tests for grant/request shapes, each allow/deny reason, audit-log
+coverage, gold-to-silver reconciliation, point-in-time subset and
+reconciliation, and the end-to-end summary counts
+(`tests/test_governance.py`).

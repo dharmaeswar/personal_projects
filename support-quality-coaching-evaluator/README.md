@@ -63,6 +63,5 @@ support_quality/
   evaluation.py  # offline agreement, prompt A/B, release gate
 run_demo.py
 tests/
-  test_judge.py test_retrieval.py test_coaching.py
-  test_simulation.py test_evaluation.py test_data.py
+  test_judge.py test_rest.py
 ```

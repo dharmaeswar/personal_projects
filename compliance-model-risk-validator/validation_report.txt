@@ -1,0 +1,42 @@
+COMPLIANCE MODEL RISK VALIDATION REPORT
+Verdict: PASS  (threshold 0.5)
+
+Outcomes analysis (test set):
+  champion    ROC-AUC 0.787  KS 0.467  precision 0.617  recall 0.146  F1 0.236
+  challenger  ROC-AUC 0.776  KS 0.428  precision 0.545  recall 0.119  F1 0.195
+  benchmark   ROC-AUC 0.500  KS 0.000  precision 0.000  recall 0.000  F1 0.000
+
+Decile capture (champion, decile 10 = highest scored):
+  decile  1:    4 positives,   1.6% of all SAR-worthy cases
+  decile  2:    6 positives,   2.4% of all SAR-worthy cases
+  decile  3:    5 positives,   2.0% of all SAR-worthy cases
+  decile  4:   13 positives,   5.1% of all SAR-worthy cases
+  decile  5:   12 positives,   4.7% of all SAR-worthy cases
+  decile  6:   14 positives,   5.5% of all SAR-worthy cases
+  decile  7:   33 positives,  13.0% of all SAR-worthy cases
+  decile  8:   37 positives,  14.6% of all SAR-worthy cases
+  decile  9:   44 positives,  17.4% of all SAR-worthy cases
+  decile 10:   85 positives,  33.6% of all SAR-worthy cases
+
+Threshold trade-off:
+  t=0.2:   390 alerts (21.7%), precision 0.351, recall 0.541, F1 0.426
+  t=0.3:   194 alerts (10.8%), precision 0.464, recall 0.356, F1 0.403
+  t=0.4:   103 alerts (5.7%), precision 0.534, recall 0.217, F1 0.309
+  t=0.5:    60 alerts (3.3%), precision 0.617, recall 0.146, F1 0.236
+  t=0.6:    29 alerts (1.6%), precision 0.655, recall 0.075, F1 0.135
+  t=0.7:    10 alerts (0.6%), precision 0.800, recall 0.032, F1 0.061
+  Review burden at t=0.5: 60 alerts, 20.0 hours, 0.53 team-days
+
+Monitoring: PSI 0.006, score mean drift 2.9%
+Fairness: disparate impact ratio 0.834, equal-opportunity gap 0.173
+  Group A: flag rate 0.031, capture 0.141, base rate 0.147
+  Group B: flag rate 0.035, capture 0.095, base rate 0.145
+  Group C: flag rate 0.037, capture 0.268, base rate 0.117
+
+Governance gaps:
+  AML-TM-01 (High, In Use): validation overdue, 1 open high finding(s) while in use
+  FL-02 (High, Validation): missing owner
+  CDD-03 (Medium, In Use): clean
+
+Findings:
+  - None — no material findings.

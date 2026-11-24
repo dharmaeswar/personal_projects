@@ -73,6 +73,21 @@ seeded random generator so every run is reproducible.
   reuses the evaluation harness to compare a candidate against
   production — refusing to promote when the two runs used different
   datasets.
+- **Agentic runtime & model packaging** (`ml_platform/agent_runtime.py`):
+  an MCP-style tool registry exposing the platform as named tools
+  (`train_model`, `evaluate_candidate`, `package_model`, `explain_model`,
+  `drift_check`, plus guarded `promote_model` / `rollback_model` that need
+  explicit approval), and an `AgentRuntime` that runs multi-step tasks —
+  `validate_and_promote` (train → promotion gate → package → promote) and
+  `drift_response` — with a full step trace, idempotency keys, bounded
+  retries on transient failures, and a hard stop when the promotion gate
+  fails, so a non-improving candidate is never packaged or promoted.
+  `package_model` exports a trained model as a portable, checksummed JSON
+  manifest (feature schema, weights, framework tag, SHA-256) in the spirit
+  of ONNX packaging — a portable envelope, not a real ONNX binary — and
+  `load_package` refuses a tampered artifact. `explain_model` ranks
+  features by standardised-weight importance (a linear-model ranking, not
+  SHAP). Run it with `python3 run_agent_demo.py`.
 - **Performance monitoring** (`ml_platform/monitoring.py`): records
   per-request latency and error observations per model version, computes
   rolling p50/p95/p99 latency and error-rate windows over a bounded
@@ -87,6 +102,7 @@ ml-training-serving-platform/
   README.md
   requirements.txt          # stdlib only; pytest for tests
   run_demo.py               # end-to-end demo: train -> register -> serve -> canary -> rollback
+  run_agent_demo.py         # agentic demo: validate -> package -> promote with approval
   ml_platform/
     __init__.py
     data.py                 # synthetic dataset generation
@@ -98,6 +114,7 @@ ml-training-serving-platform/
     evaluation.py           # experiment log, promotion gate, retrieval eval (P@k / MRR)
     eval_pipeline.py        # evaluation job queue, dataset fingerprints, reproducibility manifests
     monitoring.py           # per-version latency/error tracking, rolling percentiles, SLO alerts
+    agent_runtime.py        # MCP-style tool registry, portable model packaging, agent runtime
   tests/
     test_data.py
     test_training.py
@@ -108,12 +125,15 @@ ml-training-serving-platform/
     test_evaluation.py
     test_eval_pipeline.py
     test_monitoring.py
+    test_agent_runtime.py   # packaging, tool registry, agent tasks, guardrails
+    test_distributed_training.py
 ```
 
 ## Run it
 
 ```bash
 python3 run_demo.py            # full end-to-end demo (incl. decisioning)
+python3 run_agent_demo.py      # agentic demo: validate -> package -> promote
 python3 -m pytest -q           # test suite
 ```
 

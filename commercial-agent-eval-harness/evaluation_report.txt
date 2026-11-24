@@ -1,0 +1,16 @@
+Commercial Agent Eval Harness — evaluation report
+
+invoice-agent: 5/5 passed (pass rate 100%, latency 715ms, cost $0.004800)
+support-triage-agent: 4/4 passed (pass rate 100%, latency 670ms, cost $0.004260)
+
+[PASS] INV-OK-1 (invoice-agent): expected approved, got approved, 145ms, $0.000960
+[PASS] INV-OK-2 (invoice-agent): expected approved, got approved, 145ms, $0.000960
+[PASS] INV-AMT-1 (invoice-agent): expected flagged, got flagged, 140ms, $0.000960
+[PASS] INV-PO-1 (invoice-agent): expected flagged, got flagged, 140ms, $0.000960
+[PASS] INV-DUP-1 (invoice-agent): expected approved, got approved, 145ms, $0.000960
+[PASS] TRI-HOWTO-1 (support-triage-agent): expected resolved, got resolved, 225ms, $0.001440
+[PASS] TRI-HOWTO-2 (support-triage-agent): expected resolved, got resolved, 225ms, $0.001440
+[PASS] TRI-OUTAGE-1 (support-triage-agent): expected escalated, got escalated, 110ms, $0.000690
+[PASS] TRI-REFUND-1 (support-triage-agent): expected escalated, got escalated, 110ms, $0.000690
+
+Regression vs baseline: PASS (pass rate 100% -> 100%)

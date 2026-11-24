@@ -44,15 +44,38 @@ Two agents run over synthetic business data:
 pip install -r requirements.txt
 python run_evaluation.py            # compare with baseline.json
 python run_evaluation.py --record-baseline   # overwrite baseline.json
+python run_evidence_eval.py         # evidence-grounded draft evaluation
 python -m pytest -q
 ```
+
+## Evidence-grounded draft evaluation (added Nov 24, 2026)
+
+`agent_eval/evidence.py` adds the layer an AI content platform needs on
+top of agent evals: every claim in a generated draft must trace to an
+approved source **and** to the version current when the draft was made.
+
+- **Evidence store** — versioned approved content, append-only versions,
+  per-source access roles (a drafter cannot cite a reviewer-only source).
+  Retrieval returns the source id and current version with every result.
+- **Draft evaluator** — one verdict per claim: `supported`,
+  `unsupported` (claim words no approved source contains), `stale-version`
+  (cited a superseded version), `unknown-source`, or `access-denied`;
+  plus a groundedness rate across the draft.
+- **Review-feedback loop** — a reviewer correction records an approval
+  boost for the corrected source, so later retrieval ranks
+  reviewer-approved sources first for that brand.
+
+Run it with `python run_evidence_eval.py` (writes `evidence_report.json`).
 
 ## Results (seeded, reproducible)
 
 - Eval suites: **9/9 cases pass** — invoice agent 5/5 (715 ms, $0.004800),
   support-triage agent 4/4 (670 ms, $0.004260).
 - Regression vs baseline: **PASS** (pass rate 100% -> 100%, no regressions).
-- Tests: **41 pytest tests, all passing**.
+- Evidence evaluation: **clean draft 2/2 supported (groundedness 1.0)**;
+  stale, unsupported and unknown-source drafts each score 0.0 with the
+  right verdict; feedback loop re-ranks retrieval after one correction.
+- Tests: **55 pytest tests, all passing** (41 original + 14 evidence).
 - Edge cases covered: amount mismatch flagged, missing PO flagged, outage
   escalated to engineering without a KB lookup, refund escalated to billing,
   duplicate invoice/PO pair re-processed cleanly.

@@ -1,0 +1,174 @@
+{
+  "summaries": [
+    {
+      "agent": "invoice-agent",
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "total_latency_ms": 715,
+      "total_cost_usd": 0.0048
+    },
+    {
+      "agent": "support-triage-agent",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "pass_rate": 1.0,
+      "total_latency_ms": 670,
+      "total_cost_usd": 0.00426
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "INV-OK-1",
+      "agent": "invoice-agent",
+      "input_id": "INV-1001",
+      "expected": "approved",
+      "actual": "approved",
+      "passed": true,
+      "failures": [],
+      "latency_ms": 145,
+      "cost_usd": 0.00096,
+      "tools_called": [
+        "lookup_invoice",
+        "lookup_po",
+        "approve_invoice"
+      ]
+    },
+    {
+      "case_id": "INV-OK-2",
+      "agent": "invoice-agent",
+      "input_id": "INV-1003",
+      "expected": "approved",
+      "actual": "approved",
+      "passed": true,
+      "failures": [],
+      "latency_ms": 145,
+      "cost_usd": 0.00096,
+      "tools_called": [
+        "lookup_invoice",
+        "lookup_po",
+        "approve_invoice"
+      ]
+    },
+    {
+      "case_id": "INV-AMT-1",
+      "agent": "invoice-agent",
+      "input_id": "INV-1002",
+      "expected": "flagged",
+      "actual": "flagged",
+      "passed": true,
+      "failures": [],
+      "latency_ms": 140,
+      "cost_usd": 0.00096,
+      "tools_called": [
+        "lookup_invoice",
+        "lookup_po",
+        "flag_invoice"
+      ]
+    },
+    {
+      "case_id": "INV-PO-1",
+      "agent": "invoice-agent",
+      "input_id": "INV-1004",
+      "expected": "flagged",
+      "actual": "flagged",
+      "passed": true,
+      "failures": [],
+      "latency_ms": 140,
+      "cost_usd": 0.00096,
+      "tools_called": [
+        "lookup_invoice",
+        "lookup_po",
+        "flag_invoice"
+      ]
+    },
+    {
+      "case_id": "INV-DUP-1",
+      "agent": "invoice-agent",
+      "input_id": "INV-1005",
+      "expected": "approved",
+      "actual": "approved",
+      "passed": true,
+      "failures": [],
+      "latency_ms": 145,
+      "cost_usd": 0.00096,
+      "tools_called": [
+        "lookup_invoice",
+        "lookup_po",
+        "approve_invoice"
+      ]
+    },
+    {
+      "case_id": "TRI-HOWTO-1",
+      "agent": "support-triage-agent",
+      "input_id": "TKT-2001",
+      "expected": "resolved",
+      "actual": "resolved",
+      "passed": true,
+      "failures": [],
+      "latency_ms": 225,
+      "cost_usd": 0.00144,
+      "tools_called": [
+        "get_ticket",
+        "search_kb",
+        "resolve_ticket"
+      ]
+    },
+    {
+      "case_id": "TRI-HOWTO-2",
+      "agent": "support-triage-agent",
+      "input_id": "TKT-2004",
+      "expected": "resolved",
+      "actual": "resolved",
+      "passed": true,
+      "failures": [],
+      "latency_ms": 225,
+      "cost_usd": 0.00144,
+      "tools_called": [
+        "get_ticket",
+        "search_kb",
+        "resolve_ticket"
+      ]
+    },
+    {
+      "case_id": "TRI-OUTAGE-1",
+      "agent": "support-triage-agent",
+      "input_id": "TKT-2002",
+      "expected": "escalated",
+      "actual": "escalated",
+      "passed": true,
+      "failures": [],
+      "latency_ms": 110,
+      "cost_usd": 0.00069,
+      "tools_called": [
+        "get_ticket",
+        "escalate_ticket"
+      ]
+    },
+    {
+      "case_id": "TRI-REFUND-1",
+      "agent": "support-triage-agent",
+      "input_id": "TKT-2003",
+      "expected": "escalated",
+      "actual": "escalated",
+      "passed": true,
+      "failures": [],
+      "latency_ms": 110,
+      "cost_usd": 0.00069,
+      "tools_called": [
+        "get_ticket",
+        "escalate_ticket"
+      ]
+    }
+  ],
+  "regression": {
+    "verdict": "PASS",
+    "baseline_pass_rate": 1.0,
+    "current_pass_rate": 1.0,
+    "pass_rate_delta": 0.0,
+    "regressions": [],
+    "improvements": []
+  }
+}

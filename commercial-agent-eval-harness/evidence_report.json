@@ -1,0 +1,89 @@
+{
+  "scenarios": {
+    "draft-clean": {
+      "total": 2,
+      "supported": 2,
+      "groundedness": 1.0,
+      "verdicts": [
+        {
+          "claim_id": "C1",
+          "text": "BrandA tablets are taken once daily with food",
+          "cited_source": "SRC-PI-101",
+          "cited_version": 2,
+          "verdict": "supported",
+          "detail": "every claim word appears in SRC-PI-101 v2"
+        },
+        {
+          "claim_id": "C2",
+          "text": "68 percent of patients reached the primary endpoint",
+          "cited_source": "SRC-STUDY-202",
+          "cited_version": 1,
+          "verdict": "supported",
+          "detail": "every claim word appears in SRC-STUDY-202 v1"
+        }
+      ]
+    },
+    "draft-stale": {
+      "total": 1,
+      "supported": 0,
+      "groundedness": 0.0,
+      "verdicts": [
+        {
+          "claim_id": "C1",
+          "text": "BrandA tablets are taken once daily with food",
+          "cited_source": "SRC-PI-101",
+          "cited_version": 1,
+          "verdict": "stale-version",
+          "detail": "cited v1 but v2 is current"
+        }
+      ]
+    },
+    "draft-unsupported": {
+      "total": 1,
+      "supported": 0,
+      "groundedness": 0.0,
+      "verdicts": [
+        {
+          "claim_id": "C1",
+          "text": "BrandA tablets cure migraines permanently",
+          "cited_source": "SRC-PI-101",
+          "cited_version": 2,
+          "verdict": "unsupported",
+          "detail": "claim words not in the cited source: cure, migraines, permanently"
+        }
+      ]
+    },
+    "draft-unknown-source": {
+      "total": 1,
+      "supported": 0,
+      "groundedness": 0.0,
+      "verdicts": [
+        {
+          "claim_id": "C1",
+          "text": "BrandA tablets are taken once daily with food",
+          "cited_source": "SRC-PI-999",
+          "cited_version": 1,
+          "verdict": "unknown-source",
+          "detail": "source SRC-PI-999 is not in the approved evidence store"
+        }
+      ]
+    }
+  },
+  "feedback_loop": {
+    "retrieval_before": [
+      "SRC-PI-101",
+      "SRC-STUDY-202"
+    ],
+    "retrieval_after": [
+      "SRC-STUDY-202",
+      "SRC-PI-101"
+    ],
+    "applied": {
+      "claim_id": "C1",
+      "source_id": "SRC-STUDY-202",
+      "brand": "BrandA",
+      "reason": "reviewer approved the trial citation for this brand",
+      "boost": 1
+    }
+  }
+}

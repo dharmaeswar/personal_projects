@@ -7,8 +7,16 @@ Usage:
 import argparse
 import json
 
+import pandas as pd
+
 from .backtest import apply_vol_target, backtest, diversification_stats, portfolio_metrics
 from .data import daily_returns, generate_carry, generate_prices
+from .equity_factor_risk import (
+    estimate_factor_betas,
+    generate_equity_panel,
+    governance_checks,
+    portfolio_risk_summary,
+)
 from .portfolio import build_portfolio
 from .robustness import cost_sensitivity, signal_decay, sim_vs_actual_gap, walk_forward
 from .signals import (
@@ -72,6 +80,20 @@ def run_research(seed=42):
     decay = signal_decay(prices["ES"], es_momentum, max_lag=10)
     gap = sim_vs_actual_gap(strategy_results["ES"])
 
+    # Equity factor-risk section (Axioma-style): equal-weighted 40-stock
+    # book, factor betas, tracking error vs the equal-weighted benchmark,
+    # and governance checks on the risk model itself.
+    eq_rets, eq_factors, _, eq_sectors = generate_equity_panel(seed=42)
+    eq_est = estimate_factor_betas(eq_rets, eq_factors)
+    eq_weights = pd.Series(1.0 / len(eq_est["betas"]), index=eq_est["betas"].index)
+    eq_summary = portfolio_risk_summary(
+        eq_weights, eq_rets, eq_factors, eq_est["betas"],
+        benchmark_returns=eq_rets.mean(axis=1), sectors=eq_sectors,
+    )
+    eq_checks = governance_checks(
+        eq_rets, eq_factors, eq_est["betas"], eq_est["r_squared"], eq_est["residuals"]
+    )
+
     return {
         "instruments": list(prices.columns),
         "n_days": int(len(prices)),
@@ -82,6 +104,15 @@ def run_research(seed=42):
         "cost_sensitivity_es_momentum": costs,
         "signal_decay_es_momentum": decay,
         "sim_vs_actual_gap_es": gap,
+        "equity_factor_risk": {
+            "total_vol": round(eq_summary["total_vol"], 4),
+            "factor_vol": round(eq_summary["factor_vol"], 4),
+            "specific_vol": round(eq_summary["specific_vol"], 4),
+            "tracking_error": round(eq_summary["tracking_error"], 4),
+            "top_factor_tilts": eq_summary["top_factor_tilts"],
+            "concentration_hhi": round(eq_summary["concentration_hhi"], 4),
+            "governance": {c["check"]: c["status"] for c in eq_checks},
+        },
     }
 
 

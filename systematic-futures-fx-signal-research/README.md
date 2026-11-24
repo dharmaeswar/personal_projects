@@ -35,6 +35,26 @@ real fund, strategy, or live return.
 - Metrics reported per book: CAGR, annualised volatility, Sharpe,
   Sortino, maximum drawdown, and Calmar.
 
+## Equity factor risk (new, Nov 2026 — built for a JPMorgan Equity Portfolio Management / Model Risk Management role)
+
+- `equity_factor_risk.py`: Axioma-style factor-risk analytics for an equity book.
+  - `generate_equity_panel`: seeded synthetic panel of 40 stocks over 504 days, built from known
+    Market / Size / Value / Momentum / Quality factor betas plus idiosyncratic noise.
+  - `estimate_factor_betas`: OLS factor betas, alpha, R-squared and residual volatility per stock.
+  - `tracking_error`: annualised volatility of active returns vs a benchmark.
+  - `factor_risk_decomposition`: splits portfolio variance into factor risk and stock-specific risk,
+    with each factor's risk contribution.
+  - `portfolio_risk_summary`: one-page PM risk summary — total/factor/specific vol, tracking error,
+    top factor tilts, concentration (Herfindahl), largest positions, sector exposures.
+  - `governance_checks`: SR 11-7 style checks on the risk model itself — missing data, stale factors,
+    low explanatory power, residual autocorrelation (Durbin-Watson), beta stability across halves,
+    factor collinearity — each reported pass / warn / fail.
+- The research report (`python -m sys_signal_research`) now includes an `equity_factor_risk` section
+  with the equal-weighted book's vols, tracking error, top tilts and governance statuses.
+- `tests/test_equity_factor_risk.py` — 9 tests: seeded reproducibility, beta recovery vs ground truth,
+  tracking-error edge cases, variance additivity, summary completeness, governance pass on a clean
+  panel and fail on a constant factor / gappy data.
+
 ## Robust research procedures
 
 - **Walk-forward validation** (`robustness.py`): the best momentum
@@ -74,9 +94,10 @@ PYTHONPATH=. python run_demo.py
 ## Files
 
 - `sys_signal_research/data.py` — seeded synthetic futures/FX prices and carry
+- `sys_signal_research/equity_factor_risk.py` — equity factor exposures, tracking error, risk summary, governance checks
 - `sys_signal_research/signals.py` — momentum, crossover, carry, mean reversion
 - `sys_signal_research/backtest.py` — backtester, vol targeting, risk parity, metrics
 - `sys_signal_research/portfolio.py` — combine strategy backtests into one book
 - `sys_signal_research/robustness.py` — walk-forward, cost sensitivity, decay, gap
-- `tests/` — 5 test modules
+- `tests/` — 6 test modules
 - `README.md`, `requirements.txt`, `.gitignore`, `run_demo.py`

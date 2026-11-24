@@ -41,6 +41,13 @@ claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
   p95 latency, error-budget burn, per-service breakdown) and evaluates
   alert rules. The alert-rule shape mirrors Azure Monitor-style alert
   rules as a study; no production Azure use is claimed.
+- `ops/alert_tuning.py` — alert-threshold tuning (added Nov 24, 2026,
+  for a Site Reliability Engineer application): replays a labelled
+  per-minute metric series against candidate thresholds, scores true
+  positives, false positives and missed incidents for each one, and
+  recommends the threshold that detects every incident with the fewest
+  false positives. Synthetic data only; no real monitoring tool is
+  contacted.
 - `ops/dr_check.py` — validates a disaster-recovery / failover readiness
   checklist (runbook review freshness, last failover test, backup
   verification freshness, on-call roster) and reports overall readiness.

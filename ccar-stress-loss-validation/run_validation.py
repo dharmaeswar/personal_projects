@@ -23,6 +23,7 @@ from ccar_validation.deployment import (
 from ccar_validation.macro import build_macro_section
 from ccar_validation.models import fit_all
 from ccar_validation.monitoring import drift_report
+from ccar_validation.optimize import benchmark_scoring, build_optimization_section
 from ccar_validation.prepayment import build_prepayment_section, generate_prepayment_pool
 from ccar_validation.report import build_report, write_report
 from ccar_validation.scenarios import compare_scenarios
@@ -73,6 +74,12 @@ def run_validation(output: str = "validation_report.txt") -> str:
     registry.register("stress-loss-forecaster", "2.0", backtest["challenger"])
     gate = promotion_gate(backtest["champion"], backtest["challenger"])
     report = report.rstrip("\n") + "\n" + build_deployment_section(deployment_run, registry, gate) + "\n" + "=" * 70 + "\n"
+
+    # 11. Scoring-execution optimization (new module, Nov 2026): benchmark
+    # row-wise vs batch vs chunked scoring of the champion and pick the
+    # fastest chunk size, verifying chunked scores match batch scores.
+    benchmark = benchmark_scoring(models["champion"], test)
+    report = report.rstrip("\n") + "\n" + build_optimization_section(benchmark) + "\n" + "=" * 70 + "\n"
     write_report(report, output)
     return report
 

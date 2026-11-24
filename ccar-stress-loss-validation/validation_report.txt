@@ -112,3 +112,13 @@ reasonableness (severely adverse must exceed baseline every quarter).
    promote challenger: NO
    - MAE gain -1.4% below required 2%
 ======================================================================
+11. SCORING EXECUTION OPTIMIZATION
+   Rows scored: 1250
+   Row-wise scoring:      1481.7 rows/sec (unoptimized baseline)
+   Single batch:       1811263.5 rows/sec
+   Chunk size   250:     381799.1 rows/sec
+   Chunk size   500:     618636.7 rows/sec
+   Chunk size  1000:     864142.9 rows/sec
+   Best chunk size: 1000 (864142.9 rows/sec, 583.2x vs row-wise)
+   Chunked scores match batch scores: yes
+======================================================================

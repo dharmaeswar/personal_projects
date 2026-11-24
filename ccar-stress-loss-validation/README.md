@@ -30,6 +30,11 @@ data is used, and nothing here is a claim about any real institution.
   expansion/recession regime, coefficient stability across origination
   vintages, and scenario reasonableness (severely adverse beats baseline
   every quarter).
+- **Scoring execution optimization** (new, Nov 2026): row-wise vs
+  single-batch vs chunked scoring benchmark for the champion loss
+  forecaster, with measured rows/second and the fastest chunk size;
+  chunked scores are verified identical to batch scores, so the
+  optimization can never silently change a forecast.
 - **Model deployment pipeline** (new, Nov 2026): staged execution pipeline
   (ingest -> score -> validate -> publish) for the champion loss forecaster,
   with score-range and batch-MAE validation gates so a broken model version
@@ -70,6 +75,9 @@ PYTHONPATH=. python -m pytest -q
 - `ccar_validation/deployment.py` — model deployment pipeline: staged
   execution (ingest/score/validate/publish), validation gates, versioned
   model registry, champion/challenger promotion gate
+- `ccar_validation/optimize.py` — scoring execution optimization:
+  row-wise vs batch vs chunked scoring, measured throughput, best chunk
+  size, score-equality check
 - `ccar_validation/models.py` — champion / challenger / benchmark models
 - `ccar_validation/backtest.py` — outcomes analysis metrics
 - `ccar_validation/scenarios.py` — CCAR-style scenario paths and forecasts

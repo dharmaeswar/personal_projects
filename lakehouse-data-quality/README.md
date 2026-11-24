@@ -220,6 +220,48 @@ counts, the unified model, view reconciliation, streaming
 exactly-once, batch dedup, tuning results and determinism
 (`tests/test_talent.py`).
 
+## Added Nov 24, 2026 — Intelligent Talent Acquisition candidate funnel
+
+One module added for an Amazon Data Engineer I (Intelligent Talent
+Acquisition, ITA Data) role, where the work is the foundational data
+infrastructure behind hiring decisions: pipelines that turn raw
+recruiting events into a trusted, governed candidate funnel. New
+module `lakehouse/recruiting.py`, run with `python run_recruiting.py`
+— same pandas + Parquet approach as the rest of the project, no Spark
+cluster, Kinesis stream, or Redshift warehouse is involved, and the
+code says so where it matters.
+
+- **Streaming ingest** — 150 synthetic funnel events (applied,
+  assessed, interviewed, offered, hired) processed exactly once by
+  reusing the shared streamer: 3 duplicate deliveries and 2 late
+  events dropped at the watermark, checkpoint offset 154.
+- **Batch ingest** — a nightly online-assessment batch of 205 rows
+  (the feed behind the 6M+ assessments ITA delivers a year),
+  deduplicated on `assessment_id` (205 loaded, 0 duplicates).
+- **Candidate-funnel model** — one row per clean application (297):
+  requisition and department, furthest stage reached, assessment
+  score, interview count, offer and hire flags, and days from
+  application to hire. Built only from silver rows; stage rows whose
+  application was quarantined are held back, not vended.
+- **Vended views** — a funnel view (5 departments: conversion at
+  each stage, overall hire rate 0.09–0.19) and a requisition view
+  (30 requisitions: applications, hires, fill rate, median days to
+  hire — 46 days). Both reconcile back to the funnel model and
+  silver stage tables.
+- **Quality checks** — completeness, uniqueness, score ranges,
+  referential integrity, plus two recruiting rules: no interview may
+  predate its application date, and every hire must trace to an
+  offer. The fixture plants 8 bad rows (2 duplicate application
+  ids, 2 null candidate ids, 1 unknown candidate, 1 interview
+  before application, 1 assessment score of 142, 1 offer for an
+  unknown requisition, 1 hire with no offer); 5 applications and
+  1 row in each stage table are quarantined with reasons.
+
+Tests: **151 passed** (`python -m pytest -q`) — 141 earlier tests
+plus 10 new tests for domain shapes, every violation type,
+quarantine counts, the funnel model, view reconciliation, streaming
+exactly-once and batch dedup (`tests/test_recruiting.py`).
+
 ## Added Nov 23, 2026 — workforce data architecture
 
 One module added for an Amazon Data Engineer III (Workforce Solutions)

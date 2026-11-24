@@ -1,0 +1,62 @@
+INTELLIGENT TALENT ACQUISITION — CANDIDATE FUNNEL REPORT
+
+stream events arrived: 155
+stream events accepted: 150
+stream late dropped: 2
+stream duplicates dropped: 3
+stream checkpoint offset: 154
+
+batch assessments rows: 205
+batch assessments loaded: 205
+batch duplicates dropped: 0
+
+application checks:
+  [FAIL] completeness: candidate_id: 2 nulls
+  [FAIL] uniqueness:application_id: 2 duplicated application_id values (2 extra rows)
+  [PASS] fk:req_id->req_id: all req_id values found in req_id
+  [FAIL] fk:candidate_id->candidate_id: 1 rows with candidate_id not in candidate_id
+assessment checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:assessment_id: all 205 values of assessment_id unique
+  [FAIL] range:score: 1 rows outside range for score
+  [PASS] fk:application_id->application_id: all application_id values found in application_id
+interview checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:interview_id: all 271 values of interview_id unique
+  [PASS] fk:application_id->application_id: all application_id values found in application_id
+  [FAIL] interview_after_application: 1 interviews dated before application
+offer checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:offer_id: all 57 values of offer_id unique
+  [PASS] fk:application_id->application_id: all application_id values found in application_id
+  [FAIL] fk:req_id->req_id: 1 rows with req_id not in req_id
+hire checks:
+  [PASS] completeness: no nulls in checked columns
+  [PASS] uniqueness:hire_id: all 40 values of hire_id unique
+  [FAIL] fk:offer_id->offer_id: 1 rows with offer_id not in offer_id
+  [PASS] fk:application_id->application_id: all application_id values found in application_id
+
+silver applications: 297; quarantined: 5
+silver assessments: 204; quarantined: 1
+silver interviews: 270; quarantined: 1
+silver offers: 56; quarantined: 1
+silver hires: 39; quarantined: 1
+
+funnel model rows: 297
+funnel view rows (departments): 5
+requisition view rows: 30
+reconciliation: [PASS] funnel_reconciliation: views reconcile: 297 applications, 39 hires
+  Data: apps 18, assessed 16 (0.89), interviewed 8, offered 4, hired 2 (overall 0.11)
+  Engineering: apps 46, assessed 31 (0.67), interviewed 20, offered 6, hired 4 (overall 0.09)
+  Finance: apps 90, assessed 56 (0.62), interviewed 40, offered 19, hired 17 (overall 0.19)
+  People Ops: apps 88, assessed 60 (0.68), interviewed 38, offered 17, hired 10 (overall 0.11)
+  Product: apps 55, assessed 39 (0.71), interviewed 23, offered 10, hired 6 (overall 0.11)
+
+funnel stages:
+  Applied: 95
+  Interviewed: 73
+  Assessed: 73
+  Hired: 39
+  Offered: 17
+
+median days to hire: 46.0

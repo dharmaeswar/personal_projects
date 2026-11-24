@@ -13,9 +13,24 @@ every run is reproducible with no model cost.
 """
 
 from .agent import FinanceAgent
+from .close_agent import CloseAgent
+from .databricks_jobs import DatabricksJob, DataQualityCheck, JobTask
+from .eval_framework import EvaluationFramework, GoldenCase
+from .finance_api import FakeErpTransport, FinanceApiClient
+from .finance_close import (CloseChecklist, CloseTask, arr_roll_forward,
+                            billings_vs_revenue, consolidate,
+                            forecast_variance)
+from .finance_sql import FinanceWarehouse
 from .ledger import BankLine, LedgerEntry, Reconciler
 from .mcp import McpServer
-from .observability import AuditLog, Metrics
+from .observability import (AuditLog, CostTracker, Metrics,
+                            StructuredLogger, Tracer)
 
-__all__ = ["FinanceAgent", "BankLine", "LedgerEntry", "Reconciler",
-           "McpServer", "AuditLog", "Metrics"]
+__all__ = ["FinanceAgent", "CloseAgent", "BankLine", "LedgerEntry",
+           "Reconciler", "McpServer", "AuditLog", "Metrics",
+           "StructuredLogger", "Tracer", "CostTracker",
+           "CloseChecklist", "CloseTask", "consolidate",
+           "arr_roll_forward", "billings_vs_revenue",
+           "forecast_variance", "FinanceWarehouse", "DatabricksJob",
+           "DataQualityCheck", "JobTask", "FinanceApiClient",
+           "FakeErpTransport", "EvaluationFramework", "GoldenCase"]

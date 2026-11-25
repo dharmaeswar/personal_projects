@@ -78,6 +78,28 @@ agrees with the expected verdict on 10/10 cases, pass rate 20%, mean
 overall score 0.836; the regression check against a second seeded run
 finds no regression (mean diff +0.000, Welch p=1.0).
 
+## Access propensity, wallet & attrition (added Nov 25, 2026)
+
+`agentic_stats/access.py` adds the Digital-Agenda side of the same
+statistical gate: propensity / ranking models for Access
+opportunities, wallet and share-of-wallet models, and engagement /
+attrition (time-to-event) analysis over a synthetic 240-client
+interaction dataset (meetings, research reads, events, tenure).
+
+- **Propensity** (`fit_logistic`, from scratch): test AUC **0.781**,
+  train log-loss 0.393; calibration by decile, max gap 0.246.
+- **Wallet** (`fit_ols`, from scratch): R² 0.811 train / 0.788 test;
+  meetings, reads and events all carry positive weight, as the
+  generator intends.
+- **Attrition** (`kaplan_meier`, `attrition_by_engagement`):
+  high-engagement clients attrite at 10.0% vs 34.3% for low
+  engagement (chi-square 20.6, p < 0.001); 12-month survival 90.0%
+  vs 65.7%.
+
+Run it with `python run_access_eval.py` (writes
+`access_eval_report.json`). Verdict on the seeded data: **PASS**.
+Tests: 66 pytest tests pass (53 original + 13 new).
+
 ## What the demo data shows (240 synthetic rows, seed fixed)
 
 | Claim | Analyst says | Validator verdict | Why |
@@ -93,6 +115,8 @@ p-value on the subgroup alone cannot support that claim.
 
 ## Layout
 
+- `agentic_stats/access.py` — Access propensity (logistic regression),
+  wallet OLS, Kaplan-Meier survival, attrition chi-square (pure stdlib)
 - `agentic_stats/stats.py` — t-test, chi-square, bootstrap CI, Cohen's d,
   Bonferroni, power, interaction test (pure stdlib)
 - `agentic_stats/experiments.py` — A/B test design, guardrails, O'Brien-Fleming

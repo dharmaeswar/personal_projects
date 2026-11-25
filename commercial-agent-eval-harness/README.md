@@ -90,6 +90,30 @@ which budget — before the bill lands.
 
 Run it with `python run_spend.py` (writes `spend_report.json`).
 
+## Cash Equities client targeting + RAG evaluation (added Nov 25, 2026)
+
+`agent_eval/rag_targeting.py` extends the harness for Cash Equities
+Sales analytics: a deterministic "who to call" ranker over synthetic
+client-flow data (trades, axes, IOIs, trade-idea fit, near-term
+catalysts) with a plain-language rationale per client, and a RAG judge
+that scores LLM-generated client content claim by claim against
+retrieved sources — supported / unsupported / missing source — plus a
+prompt-variant comparison by groundedness.
+
+- **Ranker** (`score_client`, `rank_clients`): weighted score — flow
+  35%, axes+IOI liquidity 25%, trade-idea match 25%, catalyst 15%.
+- **RAG judge** (`evaluate_draft`): a claim is supported only when
+  every keyword appears in the cited source; anything else is flagged
+  as hallucinated.
+- **Prompt comparison** (`compare_prompt_variants`): grounded prompt
+  1.00 groundedness vs loose prompt 0.75 — the loose draft's extra
+  claim ("$90m in technology") is correctly flagged unsupported.
+
+Run it with `python run_cash_equities_eval.py` (writes
+`cash_equities_eval_report.json`). On the seeded data the verdict is
+**PASS**: top client Beacon Hill Capital scores 71.7; 86 pytest tests
+pass (70 original + 16 new).
+
 ## Results (seeded, reproducible)
 
 - Eval suites: **9/9 cases pass** — invoice agent 5/5 (715 ms, $0.004800),
@@ -102,7 +126,7 @@ Run it with `python run_spend.py` (writes `spend_report.json`).
   3 models; finance breaches its $0.50 budget ($2.15, driven by the
   $2.10 spike day), support is forecast to $0.30 vs a $0.20 budget, and
   the finance spike day is flagged at 234.4x the daily mean.
-- Tests: **70 pytest tests, all passing** (55 original + 15 spend).
+- Tests: **86 pytest tests, all passing** (70 original + 16 Cash Equities targeting/RAG).
 - Edge cases covered: amount mismatch flagged, missing PO flagged, outage
   escalated to engineering without a KB lookup, refund escalated to billing,
   duplicate invoice/PO pair re-processed cleanly.
@@ -110,7 +134,9 @@ Run it with `python run_spend.py` (writes `spend_report.json`).
 ## Notes and limits
 
 - **All data is synthetic.** Vendors, invoices, purchase orders, customers,
-  tickets and knowledge-base articles are invented for this harness.
+  tickets and knowledge-base articles are invented for this harness, as
+  are the Cash Equities clients, flows, axes and IOIs in the targeting
+  module — no real clients or trading data.
 - **No real LLM or API calls.** The agents are deterministic policies and
   the latency/cost figures come from a fixed per-tool model in
   `agent_eval/tracer.py` — they are harness constants, not measured model

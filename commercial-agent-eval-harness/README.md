@@ -126,10 +126,42 @@ pass (70 original + 16 new).
   3 models; finance breaches its $0.50 budget ($2.15, driven by the
   $2.10 spike day), support is forecast to $0.30 vs a $0.20 budget, and
   the finance spike day is flagged at 234.4x the daily mean.
-- Tests: **86 pytest tests, all passing** (70 original + 16 Cash Equities targeting/RAG).
+- Tests: **104 pytest tests, all passing** (70 original + 16 Cash Equities targeting/RAG + 18 change-gate).
+- Change-gate demo: **1/5 sample changes pass** — the clean agent change
+  scores 100; the other four each fail a different stage (syntax error,
+  `eval` + hardcoded password, triple-nested loop in a hot path, failing
+  tests with no retrieval context).
 - Edge cases covered: amount mismatch flagged, missing PO flagged, outage
   escalated to engineering without a KB lookup, refund escalated to billing,
   duplicate invoice/PO pair re-processed cleanly.
+
+## AI-generated-code change gate (added Nov 25, 2026)
+
+`agent_eval/change_gate.py` adds the compile/test/evaluate pipeline an
+Agentic AI team runs before an agent's change can ship:
+
+- **Compile gate** — real Python `compile()` on every changed file.
+- **Static analysis** — unused imports and over-long functions via `ast`.
+- **Style checks** — line length, trailing whitespace, tab indentation.
+- **Safety checks** — banned calls (`eval`, `exec`, `os.system`,
+  `pickle.loads`), `shell=True`, hardcoded credentials/secrets.
+- **Performance gates** — added-line budgets and a loop-depth budget for
+  files flagged as hot paths.
+- **Tests** — the change must claim a test run, and all claimed tests
+  must pass.
+- **Retrieval-context coverage** — every changed file must be covered by
+  a snippet from the context the agent was given, so the change is
+  auditable against what the agent actually read.
+- **Code-review score** — 100 minus a fixed deduction per failed stage;
+  a change passes only with no failed stage and a score of 70+.
+
+Run it with `python run_change_gate_eval.py` (writes
+`change_gate_report.json`; exits non-zero when any sample change fails,
+which is the gate working — 4 of the 5 seeded samples are meant to
+fail). Retrieval context itself comes from the existing evidence store
+(`agent_eval/evidence.py`) and the RAG targeting module
+(`agent_eval/rag_targeting.py`) — no separate retrieval module was
+needed.
 
 ## Notes and limits
 

@@ -1,0 +1,239 @@
+{
+  "changes": [
+    {
+      "change_id": "CHG-101",
+      "author": "agent",
+      "passed": true,
+      "score": 100,
+      "failures": [],
+      "checks": [
+        {
+          "stage": "compile",
+          "passed": true,
+          "detail": "1 file(s) compile cleanly"
+        },
+        {
+          "stage": "static-analysis",
+          "passed": true,
+          "detail": "no unused imports or over-long functions"
+        },
+        {
+          "stage": "style",
+          "passed": true,
+          "detail": "line length, whitespace and indentation clean"
+        },
+        {
+          "stage": "safety",
+          "passed": true,
+          "detail": "no banned calls, shell use or hardcoded secrets"
+        },
+        {
+          "stage": "performance",
+          "passed": true,
+          "detail": "3 added line(s) within budgets; hot-path loop depth within budget"
+        },
+        {
+          "stage": "tests",
+          "passed": true,
+          "detail": "4/4 tests pass"
+        },
+        {
+          "stage": "retrieval-context",
+          "passed": true,
+          "detail": "1 file(s) covered by retrieved context"
+        }
+      ]
+    },
+    {
+      "change_id": "CHG-102",
+      "author": "agent",
+      "passed": false,
+      "score": 40,
+      "failures": [
+        "pricing/engine.py: expected ':' (line 1)",
+        "no tests run for this change"
+      ],
+      "checks": [
+        {
+          "stage": "compile",
+          "passed": false,
+          "detail": "pricing/engine.py: expected ':' (line 1)"
+        },
+        {
+          "stage": "static-analysis",
+          "passed": true,
+          "detail": "no unused imports or over-long functions"
+        },
+        {
+          "stage": "style",
+          "passed": true,
+          "detail": "line length, whitespace and indentation clean"
+        },
+        {
+          "stage": "safety",
+          "passed": true,
+          "detail": "no banned calls, shell use or hardcoded secrets"
+        },
+        {
+          "stage": "performance",
+          "passed": true,
+          "detail": "2 added line(s) within budgets; hot-path loop depth within budget"
+        },
+        {
+          "stage": "tests",
+          "passed": false,
+          "detail": "no tests run for this change"
+        },
+        {
+          "stage": "retrieval-context",
+          "passed": true,
+          "detail": "1 file(s) covered by retrieved context"
+        }
+      ]
+    },
+    {
+      "change_id": "CHG-103",
+      "author": "agent",
+      "passed": false,
+      "score": 70,
+      "failures": [
+        "auth/session.py: hardcoded credential or secret; auth/session.py: banned call eval()"
+      ],
+      "checks": [
+        {
+          "stage": "compile",
+          "passed": true,
+          "detail": "1 file(s) compile cleanly"
+        },
+        {
+          "stage": "static-analysis",
+          "passed": true,
+          "detail": "no unused imports or over-long functions"
+        },
+        {
+          "stage": "style",
+          "passed": true,
+          "detail": "line length, whitespace and indentation clean"
+        },
+        {
+          "stage": "safety",
+          "passed": false,
+          "detail": "auth/session.py: hardcoded credential or secret; auth/session.py: banned call eval()"
+        },
+        {
+          "stage": "performance",
+          "passed": true,
+          "detail": "5 added line(s) within budgets; hot-path loop depth within budget"
+        },
+        {
+          "stage": "tests",
+          "passed": true,
+          "detail": "2/2 tests pass"
+        },
+        {
+          "stage": "retrieval-context",
+          "passed": true,
+          "detail": "1 file(s) covered by retrieved context"
+        }
+      ]
+    },
+    {
+      "change_id": "CHG-104",
+      "author": "agent",
+      "passed": false,
+      "score": 85,
+      "failures": [
+        "pricing/engine.py: hot path loop depth 3 (max 2)"
+      ],
+      "checks": [
+        {
+          "stage": "compile",
+          "passed": true,
+          "detail": "1 file(s) compile cleanly"
+        },
+        {
+          "stage": "static-analysis",
+          "passed": true,
+          "detail": "no unused imports or over-long functions"
+        },
+        {
+          "stage": "style",
+          "passed": true,
+          "detail": "line length, whitespace and indentation clean"
+        },
+        {
+          "stage": "safety",
+          "passed": true,
+          "detail": "no banned calls, shell use or hardcoded secrets"
+        },
+        {
+          "stage": "performance",
+          "passed": false,
+          "detail": "pricing/engine.py: hot path loop depth 3 (max 2)"
+        },
+        {
+          "stage": "tests",
+          "passed": true,
+          "detail": "3/3 tests pass"
+        },
+        {
+          "stage": "retrieval-context",
+          "passed": true,
+          "detail": "1 file(s) covered by retrieved context"
+        }
+      ]
+    },
+    {
+      "change_id": "CHG-105",
+      "author": "human",
+      "passed": false,
+      "score": 70,
+      "failures": [
+        "1/3 tests pass",
+        "no retrieved context covers: reporting/daily.py"
+      ],
+      "checks": [
+        {
+          "stage": "compile",
+          "passed": true,
+          "detail": "1 file(s) compile cleanly"
+        },
+        {
+          "stage": "static-analysis",
+          "passed": true,
+          "detail": "no unused imports or over-long functions"
+        },
+        {
+          "stage": "style",
+          "passed": true,
+          "detail": "line length, whitespace and indentation clean"
+        },
+        {
+          "stage": "safety",
+          "passed": true,
+          "detail": "no banned calls, shell use or hardcoded secrets"
+        },
+        {
+          "stage": "performance",
+          "passed": true,
+          "detail": "6 added line(s) within budgets; hot-path loop depth within budget"
+        },
+        {
+          "stage": "tests",
+          "passed": false,
+          "detail": "1/3 tests pass"
+        },
+        {
+          "stage": "retrieval-context",
+          "passed": false,
+          "detail": "no retrieved context covers: reporting/daily.py"
+        }
+      ]
+    }
+  ],
+  "total": 5,
+  "passed": 1,
+  "failed": 4,
+  "pass_rate": 0.2,
+  "verdict": "FAIL"
+}

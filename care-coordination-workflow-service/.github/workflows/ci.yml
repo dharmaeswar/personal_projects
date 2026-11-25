@@ -1,0 +1,36 @@
+# Automated CI/CD framework for the care-coordination workflow service.
+# Pipeline: test -> demo smoke check -> container build. The deploy step is
+# a placeholder echo: this is a portfolio/demo service with no real target
+# environment, and the workflow says so instead of faking a deployment.
+name: ci
+
+on:
+  push:
+    paths:
+      - "care-coordination-workflow-service/**"
+  pull_request:
+    paths:
+      - "care-coordination-workflow-service/**"
+
+defaults:
+  run:
+    working-directory: care-coordination-workflow-service
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install test runner
+        run: pip install pytest
+      - name: Run tests
+        run: python -m pytest tests/ -q
+      - name: Demo smoke check
+        run: python run_demo.py
+      - name: Build container image
+        run: docker build -t care-coordination-workflow-service .
+      - name: Deploy (placeholder)
+        run: echo "Demo project only - no deployment target configured."

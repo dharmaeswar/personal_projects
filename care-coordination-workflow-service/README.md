@@ -1,8 +1,11 @@
 # Care Coordination Workflow Service
 
 An event-driven care-coordination workflow service built as a portfolio
-project for a Senior Software Engineer application at Clover Health /
-Counterpart Health. It models the core of a care-coordination platform:
+project for Senior Software Engineer applications in healthcare
+technology (first built for Clover Health / Counterpart Health; extended
+in Nov 2026 for an HCA Healthcare Senior Software Engineer application —
+data-science signal delivery, a data pipeline, and DevOps infrastructure).
+It models the core of a care-coordination platform:
 care plans, referrals and tasks as a state-machine-driven service, with a
 transactional outbox, idempotent event handling, retries with backoff, and
 a full audit trail — plus a small HTTP API and a CLI demo.
@@ -46,6 +49,23 @@ claim about any real company's systems.
   and approval applies the change through the normal service methods
   so state machines, outbox events and idempotency still hold.
   Re-suggesting a plan never duplicates an open suggestion.
+- **Data-science signal delivery** (`care_coord/signals.py`, added
+  Nov 2026 for the HCA Healthcare application) — a scheduled pipeline
+  tick computes per-plan signals from the care events and aggregates in
+  the store (open referral count, blocked task count, task and referral
+  completion ratios, and a coordination risk score a downstream data
+  science consumer can threshold on) and delivers each signal to a
+  caller-supplied sink. Every attempt is written to a delivery log;
+  a failing sink is retried with exponential backoff up to 3 attempts
+  and then logged as failed rather than retried forever; delivery is
+  idempotent per (signal, plan, window), so re-running the same
+  scheduled window delivers nothing twice.
+- **Container + CI/CD** (`Dockerfile`, `.github/workflows/ci.yml`, added
+  Nov 2026) — a `python:3.12-slim` image that smoke-runs the demo at
+  build time and serves the API, and a GitHub Actions workflow that
+  runs the tests, the demo smoke check, and the container build on
+  every change to this folder. The workflow's deploy step is an honest
+  placeholder: this is a demo service with no real target environment.
 - **CLI demo** (`run_demo.py`) — runs three synthetic patients through
   the full workflow and prints the outcome, then demos agent assist on
   a stalled fourth plan (one suggestion approved, one rejected).
@@ -66,7 +86,8 @@ claim about any real company's systems.
 ```bash
 python3 run_demo.py                 # run the demo workflow, print a summary
 python3 run_demo.py --serve         # demo, then serve the API on :8000
-python3 -m pytest tests/ -q         # 54 tests
+python3 -m pytest tests/ -q         # 65 tests
+docker build -t care-coordination-workflow-service .   # container build
 ```
 
 Example API flow:
@@ -88,14 +109,21 @@ care_coord/
   events.py    outbox dispatcher: retries, backoff, idempotent delivery
   service.py   workflow service: plans, referrals, tasks, audit, outbox
   api.py       stdlib HTTP API
+  signals.py   scheduled data-science signal computation + delivery log
 run_demo.py    CLI demo over synthetic de-identified data
-tests/         40 pytest tests (service, events, API)
+Dockerfile     python:3.12-slim image; demo smoke-runs at build time
+.github/workflows/ci.yml   CI: tests -> demo smoke check -> docker build
+tests/         65 pytest tests (service, events, API, agent assist, signals)
 ```
 
 ## Tests
 
-40 pytest tests cover: plan/referral/task state machines (valid and
+65 pytest tests cover: plan/referral/task state machines (valid and
 invalid transitions), plan completion blocked by open work, idempotent
 writes with the same request key, outbox retries and dead-lettering after
-3 attempts, duplicate-delivery skipping, backoff growth, and the full
-HTTP workflow including 400/404/409 error paths.
+3 attempts, duplicate-delivery skipping, backoff growth, the full
+HTTP workflow including 400/404/409 error paths, the agent-assist
+suggestion rules, and (added Nov 2026) the signal pipeline: per-plan
+signal values and ratios, the risk-score weighting, delivery logging,
+same-window idempotency, retry-then-failed logging for a broken sink,
+and recovery from a transient sink failure.

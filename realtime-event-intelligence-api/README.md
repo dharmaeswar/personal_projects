@@ -43,6 +43,39 @@ describes a real platform or a real threat posture.
   `POST /v1/events` ingests one signal, `GET /v1/alerts` lists alerts,
   `GET /v1/alerts/{id}` fetches one, `GET /health` is the liveness check.
 
+## Streaming at scale (new, Nov 2026 — for the Zscaler Senior SDE, Data & APIs application)
+
+- **Anomaly detection** (`event_intel/anomaly.py`) — statistical and
+  rules-based detectors over windowed telemetry counts: z-score against
+  a rolling baseline, a median/MAD detector robust to spikes already in
+  the baseline, and rules (absolute ceiling, rate-of-change). Detectors
+  wait for at least 5 history points before flagging, so a 2-point
+  baseline cannot produce a false spike. Anomalies from different
+  sources in the same window are correlated into one signal.
+- **Backpressure & cost** (`event_intel/backpressure.py`) — bottleneck
+  triangulation across producer / broker / consumer / stateful-operator
+  stages (lowest drain ratio wins, ties break on queue depth); a
+  backpressure controller that recommends scale-consumers, tune-consumer
+  or shed-load with the reason attached; and a planning cost model for
+  cost per TB/day (ingest / retention / scan split).
+- **Versioned APIs** (`event_intel/apiversion.py`) — API contracts with
+  additive-only evolution checks (removals and type changes are named
+  violations), version negotiation (highest supported at or below the
+  requested version), and a deprecation registry with removal versions.
+
+```bash
+python run_scale_demo.py   # detectors + correlation + bottleneck + backpressure + API compat
+```
+
+Demo results: 4 anomalies found across the detectors; 1 correlated
+signal (two sources spiking in window 10, critical); bottleneck is the
+consumer (drain ratio 0.53, 98% utilized, queue 45,000); backpressure
+recommends scaling consumers; v1 → v2 is backward compatible
+(additive `severity` field); 10 TB/day costs $1,060/day with retention
+dominating. Cost constants are illustrative planning numbers, not
+measured cloud prices, and the detectors are statistical/rules-based
+stand-ins — no production ML model is claimed.
+
 ## Run it
 
 ```bash
@@ -67,6 +100,7 @@ curl -X POST -H "Authorization: Bearer <token>" -H "Content-Type: application/js
 python -m pytest tests/ -q
 ```
 
-54 tests cover the stream offsets, the scoring bands and decay, dedupe
+77 tests cover the stream offsets, the scoring bands and decay, dedupe
 counts, the SQL store, token expiry and scopes, and the API endpoints
-(including unauthenticated and wrong-scope rejections).
+(including unauthenticated and wrong-scope rejections), plus the new
+anomaly detectors, backpressure/cost model, and API versioning.

@@ -55,6 +55,18 @@ real fund, strategy, or live return.
   tracking-error edge cases, variance additivity, summary completeness, governance pass on a clean
   panel and fail on a constant factor / gappy data.
 
+## Cross-sectional equity alpha research (new, Nov 2026 — built for a Point72 Cubist Quantitative Researcher role)
+
+- `equity_alpha.py`: the workflow a systematic-equities researcher runs on a new alpha idea — build the signal from point-in-time data only, measure its information coefficient, check how fast the edge decays with execution delay, and backtest a cost-aware long-short book.
+  - `generate_equity_alpha_panel`: seeded synthetic panel of 40 stocks over 504 days. Returns are built from a known structure — a persistent drift tied to each stock's value and quality characteristics plus a stock-specific part, a market factor, and idiosyncratic noise — so the signals have a real (seeded) edge to discover. The drift is deliberately strong (about 22% annual cross-sectional dispersion) so a two-year, 40-stock panel can detect it; the point is to exercise the research tooling, not to claim a tradable edge.
+  - Signals: 12-1 cross-sectional momentum (trailing return skipping the most recent month, z-scored each day), value (book-to-price) and quality (profitability) characteristics, plus an equal-weighted composite.
+  - `information_coefficient`: daily rank IC vs forward returns, with mean IC, standard deviation, t-statistic and hit rate. On the seeded panel: momentum IC 0.042 (t = 4.3), value 0.049 (t = 6.6), quality 0.021 (t = 2.9), composite 0.052 (t = 7.7).
+  - `signal_decay`: composite IC at 1/5/10/20-day lags — 0.052, 0.051, 0.050, 0.049. The edge is a persistent drift, so it decays slowly; a fast-fading signal would show up here as a collapse by lag 5.
+  - `long_short_backtest`: daily long-short quintile book (top 20% long, bottom 20% short, equal-weighted, signal applied from the next day — no look-ahead), turnover charged at 5 bps. On the seeded panel: 46% CAGR, 7.3% annualised volatility, Sharpe 5.3, maximum drawdown −5.5%, mean daily turnover 4.5%. The high Sharpe is the seeded drift doing its job, not a market claim.
+  - `alpha_report`: one-call summary of ICs, decay and backtest metrics.
+- `tests/test_equity_alpha.py` — 11 tests: seeded reproducibility, cross-sectional standardisation, IC recovery vs the known drift, cost sensitivity (higher costs lower net returns; zero cost means net equals gross), dollar-neutral positions, and the full report.
+- No real market data is used anywhere in this module, and nothing here claims a live return or any affiliation with Point72 or Cubist.
+
 ## Robust research procedures
 
 - **Walk-forward validation** (`robustness.py`): the best momentum

@@ -2,6 +2,15 @@
 
 from .backtest import backtest, portfolio_metrics
 from .data import generate_carry, generate_prices
+from .equity_alpha import (
+    alpha_report,
+    cross_sectional_momentum,
+    generate_equity_alpha_panel,
+    information_coefficient,
+    long_short_backtest,
+    quality_signal,
+    value_signal,
+)
 from .equity_factor_risk import (
     estimate_factor_betas,
     factor_risk_decomposition,
@@ -21,24 +30,31 @@ from .signals import (
 )
 
 __all__ = [
+    "alpha_report",
     "backtest",
     "build_portfolio",
     "carry_signal",
     "combine_signals",
     "cost_sensitivity",
+    "cross_sectional_momentum",
     "estimate_factor_betas",
     "factor_risk_decomposition",
     "generate_carry",
+    "generate_equity_alpha_panel",
     "generate_equity_panel",
     "generate_prices",
     "governance_checks",
+    "information_coefficient",
+    "long_short_backtest",
     "mean_reversion",
     "moving_average_crossover",
     "portfolio_metrics",
     "portfolio_risk_summary",
+    "quality_signal",
     "signal_decay",
     "sim_vs_actual_gap",
     "time_series_momentum",
     "tracking_error",
+    "value_signal",
     "walk_forward",
 ]

@@ -23,6 +23,39 @@ scoring of candidate designs against requirements.
 - **Metrics** (`eng_sim_evaluator/metrics.py`): MAE, RMSE, max absolute error,
   within-tolerance share.
 
+## Energy data modelling layer (drilling telemetry → ROP model)
+
+Added for a Data Scientist, Energy Software (Landmark, Halliburton)
+application: the workflow of turning technical data into models for energy
+software — data dictionaries, cleaning and validation, feature engineering,
+statistical/ML modelling, holdout validation against an analytic ground
+truth, and a deployable model artifact.
+
+- **Energy data** (`eng_sim_evaluator/energy_data.py`) — synthetic drilling
+  telemetry (weight on bit, rotary speed, mud flow, torque, depth → rate of
+  penetration) generated from an analytic ROP formula with seeded noise and
+  deliberately injected quality problems (missing values, out-of-range
+  sensor readings, duplicate rows). The data dictionary
+  (`eng_sim_evaluator/data_dictionary.json`, version `energy-rop-v1`)
+  documents every field's meaning, unit, valid range and source.
+- **Cleaning and EDA** — `clean_and_validate` drops missing, out-of-range
+  and duplicate rows and reports exactly what was found; `eda_summary`
+  reports per-field statistics and flags 3-sigma ROP anomalies.
+- **Modelling** (`eng_sim_evaluator/energy_model.py`) — engineered features
+  (specific energy, weight-on-bit per depth, flow per rpm, torque per
+  weight), an OLS model (the deployable one — its coefficients serialise to
+  JSON) and a random-forest challenger. `validate_models` scores both on a
+  seeded holdout and benchmarks them against the analytic ROP formula.
+  `model_card` records methods, assumptions and limitations.
+- **Deployment** (`eng_sim_evaluator/deployment.py`) — `export_model_artifact`
+  writes a JSON artifact (features, standardisation, coefficients, holdout
+  metrics, dictionary version); `predict_from_artifact` is the pure-NumPy
+  function a software engineer embeds in the energy software; the
+  deployment checklist gates schema validation, artifact parity, a shadow
+  run, monitoring, documentation and rollback.
+
+Run it with `python run_energy_model.py`.
+
 ## Agent layer (MCP tools, CI guardrails, provenance)
 
 Added for a Developer Platform Engineer (agentic) role: the layer that lets
@@ -54,6 +87,7 @@ AI coding agents drive the simulators end to end, with evidence.
 pip install -r requirements.txt
 python run_evaluation.py
 python run_agent_layer.py
+python run_energy_model.py
 python -m pytest -q
 ```
 
@@ -67,16 +101,29 @@ python -m pytest -q
   passes 266.7 W/m^2.
 - Solver comparison: 4 AI-proposed designs vs reference — MAE 0.00006 m,
   max error 0.00010 m, 100% within a 0.0002 m tolerance.
+- Energy ROP model: 404 raw telemetry rows cleaned to 389 (8 missing, 4
+  duplicates, 3 out of range dropped); 2 3-sigma ROP anomalies flagged.
+  Holdout (78 rows): OLS MAE 3.07 ft/hr, RMSE 3.80, R2 0.709; random forest
+  MAE 3.34 ft/hr; naive mean baseline MAE 5.77 ft/hr. OLS stays within
+  MAE 2.67 ft/hr of the analytic ROP ground truth (truth vs observed
+  MAE 1.24 ft/hr is the noise floor). Artifact predictions match the
+  training-time model exactly (parity < 1e-9 ft/hr).
 
 ## Honesty note
 
 All measurements are **synthetic** (seeded random noise around the analytic
 model) — this is a demonstration harness, not production engineering data and
-not a claim of work with manufacturers or labs. The physics formulas are
-standard textbook results (Euler-Bernoulli beam theory, Fourier conduction).
+not a claim of work with manufacturers, labs, wells, or rigs. The physics
+formulas are standard textbook results (Euler-Bernoulli beam theory, Fourier
+conduction); the ROP formula is a simple power-law stand-in for drilling
+behaviour, not a calibrated drilling model. The energy layer was built as a
+role-matching project for the Halliburton Data Scientist, Energy Software
+(Landmark) application, Req 212877, and its model card lists its limits.
 
 ## Author
 
 Built as a role-matching project for an Applied Scientist (engineering /
-applied science evaluation) application. Solo work, Python standard library
-only, pytest for tests.
+applied science evaluation) application, extended for a Data Scientist,
+Energy Software (Landmark, Halliburton) application. Solo work; NumPy,
+pandas and scikit-learn for the energy modelling layer, Python standard
+library elsewhere, pytest for tests.

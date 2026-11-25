@@ -1,8 +1,11 @@
 # Inventory–Demand Allocation Simulator
 
-A data-science project for the Stitch Fix — Data Scientist, Logistics Algorithms role
-(Greenhouse 8406513). It answers the team's core question: how do we put the right
-inventory in the right places at the right times, and prove the sourcing policy works?
+Originally built for a logistics-algorithms data-science role; updated Nov 25, 2026
+for the Johnson & Johnson — Sr Scientist, Data Science role (Req R-111095), whose
+Innovative Medicine Supply Chain DS/AI team works on operations research, machine
+learning, statistics, time series and simulation for supply continuity and network
+performance. It answers the core question: how do we put the right inventory in the
+right places at the right times, and prove the sourcing policy works?
 
 **Demo project. Synthetic data only.** Nothing here contacts Stitch Fix, a real
 retailer, or a real fulfillment network, and no production deployment, customer use,
@@ -27,7 +30,17 @@ are generated from a fixed seed for demonstration.
    two sourcing policies: two-proportion test on fill rate, Welch's t-test on cost
    per order, confidence intervals, minimum detectable effect and a go / no-go
    recommendation.
-5. **Report** (`inventory_ds/report.py`, `run_analysis.py`) — runs the whole pipeline
+5. **Optimize — LP/MILP layer** (`inventory_ds/optimize.py`, added Nov 25, 2026) —
+   formulates the same allocation as a linear program and as a mixed-integer
+   program with integer shipped units, solved with `scipy.optimize.milp` (HiGHS;
+   the LP relaxation uses the same formulation with continuous units). Adds
+   scenario analysis (shipping-cost ±20%, demand +10%, doubled stockout penalty,
+   a lead-time penalty per day using a 1/3/5-day FC-to-region lead-time table) and
+   one-at-a-time sensitivity analysis on the shipping-cost multiplier and the
+   stockout penalty. The MILP optimum is benchmark-compared with the greedy and
+   LP policies in the tests — the validation pattern of benchmark comparison,
+   sensitivity/scenario analysis and regression testing.
+6. **Report** (`inventory_ds/report.py`, `run_analysis.py`) — runs the whole pipeline
    and writes charts (matplotlib) plus `report.md` under `output/`.
 
 ## Layout
@@ -36,6 +49,7 @@ are generated from a fixed seed for demonstration.
 - `inventory_ds/allocate.py` — greedy + LP allocation of inventory to forecast demand.
 - `inventory_ds/simulate.py` — Monte Carlo fulfillment simulation across policies.
 - `inventory_ds/ab_test.py` — A/B test statistics for the two sourcing policies.
+- `inventory_ds/optimize.py` — LP/MILP formulation (scipy.optimize.milp), scenario and sensitivity analysis.
 - `inventory_ds/report.py` — charts and the markdown summary report.
 - `inventory_ds/data_gen.py` — deterministic synthetic data generator (seeded).
 - `run_analysis.py` — CLI entry point: generate data, forecast, allocate, simulate, A/B test, report.
@@ -61,3 +75,9 @@ python -m venv .venv && .venv/bin/pip install -r requirements.txt
   both policies; the LP policy's cost band sits ~$1,050/week below greedy.
 - A/B test (4,000 orders per arm): fill-rate lift +2.85 pp, 95% CI (1.66, 4.04),
   p = 3e-06; cost per order $0.59 lower, p < 0.001. Recommendation: GO.
+- MILP layer: integer shipped units match the LP relaxation on fill rate, with
+  total cost within $100 of the LP optimum on the seeded data (the gap is the
+  fractional-demand remainder carried as unmet); the scenario table shows unmet
+  units rising when demand is scaled +10% against fixed on-hand stock.
+- Tests: 16 passed (10 original + 6 new for the optimization layer), run with the
+  project venv's pytest.

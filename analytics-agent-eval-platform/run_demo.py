@@ -13,7 +13,9 @@ import json
 import os
 
 from agent_eval.agent import AnalyticsAgent
+from agent_eval.data_quality import run_quality_sweep
 from agent_eval.evals import run_eval_set
+from agent_eval.experiments import analyze_experiment
 from agent_eval.provenance import render_report
 from agent_eval.regression import (load_baseline, release_gate,
                                    save_baseline)
@@ -31,6 +33,33 @@ def main() -> int:
     gate = release_gate(results, baseline)
     report = render_report(results, gate)
     print(report)
+
+    # Data quality agent over the seeded warehouse snapshot.
+    rows = [dict(zip(("id", "community", "title", "score", "comments",
+                      "created_day"), row))
+            for row in sandbox.conn.execute(
+                "SELECT * FROM posts").fetchall()]
+    sweep = run_quality_sweep({
+        "table": "posts", "today_day": 29, "last_load_day": 29,
+        "sla_days": 1, "row_count": len(rows), "expected_rows": len(rows),
+        "columns": ["id", "community", "title", "score", "comments",
+                    "created_day"],
+        "expected_columns": ["id", "community", "title", "score",
+                             "comments", "created_day"],
+        "rows": rows, "key": "id", "null_columns": ["score", "comments"],
+    })
+    print(f"\nData quality sweep: {sweep['summary']}")
+
+    # AI-powered experiment analysis on a seeded A/B test.
+    experiment = analyze_experiment(
+        10000, 1000, 10000, 1150,
+        guardrails=[{"name": "retention", "control_rate": 0.80,
+                     "treatment_rate": 0.79, "max_relative_drop": 0.05}])
+    print(f"Experiment analysis: {experiment['recommendation']} — "
+          f"p={experiment['p_value']}, uplift"
+          f" {experiment['relative_uplift']:.1%}; "
+          + "; ".join(experiment["reasons"]))
+
     with open(os.path.join(HERE, "eval_report.json"), "w",
               encoding="utf-8") as fh:
         json.dump(results, fh, indent=2)

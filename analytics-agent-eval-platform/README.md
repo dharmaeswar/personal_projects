@@ -7,8 +7,11 @@ that decide what ships, and sandboxed execution with provenance so every
 answer can be reproduced.
 
 Built for the Reddit — Senior Software Engineer, AI & Science Platform
-application (Greenhouse job 8411613). All data is synthetic and seeded;
-nothing here is real Reddit data, users, or communities.
+application (Greenhouse job 8411613), then extended for the Perplexity —
+Member of Data Staff (Data Acceleration) application with a data quality
+agent and an AI-powered experiment analysis module. All data is synthetic
+and seeded; nothing here is real Reddit or Perplexity data, users, or
+communities.
 
 ## The problem
 
@@ -56,13 +59,25 @@ gates.
 - **Audit + reproducible artifacts** (`agent_eval/provenance.py`) — every
   run writes a run record (run id, dataset version, SQL hash, tool
   trace) and a plain-text regression report.
+- **Data quality agent** (`agent_eval/data_quality.py`) — the detection
+  layer for data quality agents: freshness vs SLA, volume drop/spike vs
+  expected rows, null-rate spikes in watched columns, duplicate keys,
+  and schema drift. Every finding carries a severity, a likely cause
+  and a recommended fix, so the agent can page the owner or open a
+  ticket instead of just failing a check.
+- **Experiment analysis** (`agent_eval/experiments.py`) — the statistical
+  core for AI-powered experiment analysis: a two-proportion z-test on
+  aggregate counts, a sample-ratio-mismatch check on the allocation,
+  guardrail checks and segment-direction checks, and an explicit
+  SHIP / NO-SHIP / HOLD recommendation with its reasons. It refuses to
+  call a result when the sample is too small to support the test.
 
 ## Run it
 
 ```bash
 pip install -r requirements.txt
 python run_demo.py     # prints the eval report, writes eval_report.json/.txt and baseline.json
-python -m pytest -q    # 34 tests
+python -m pytest -q    # 52 tests
 ```
 
 ## Demo results
@@ -74,6 +89,14 @@ python -m pytest -q    # 34 tests
 - All 8 summaries grounded: every number in each summary appears in its
   result rows. Audit trail: 16 entries (8 reference queries + 8 agent
   queries).
+- Data quality sweep over the seeded warehouse snapshot: **no issues
+  found**. A seeded broken snapshot (stale load, volume drop, duplicate
+  keys, null spike) is caught with all four issue types and worst
+  severity `critical` — covered by tests.
+- Experiment analysis on a seeded A/B test (10,000 users per arm, 10.0%
+  vs 11.5% conversion): **SHIP**, p=0.0006, +15.0% relative uplift; a
+  60/40 allocation split is flagged as sample ratio mismatch and the
+  same test then correctly returns **HOLD** — covered by tests.
 
 ## Honest limits
 
@@ -89,3 +112,10 @@ python -m pytest -q    # 34 tests
 - The exact-result grader fails on ties unless the reference SQL pins
   the tie-break, and the groundedness grader cannot judge whether a
   summary states the right conclusion from correct numbers.
+- The experiment module uses the normal approximation for the z-test and
+  the SRM p-value, takes aggregate counts only (no raw user data), and
+  refuses to call results below 30 users per arm; it does not do
+  sequential testing, CUPED/variance reduction, or multi-metric
+  correction. The data quality agent checks one snapshot at a time and
+  does not page anyone, open tickets, or run dbt models — those are the
+  production integrations this demo stands in for.

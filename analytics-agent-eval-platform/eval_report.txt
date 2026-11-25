@@ -3,13 +3,13 @@ Pass: 8/8 (100.0%)
 Release gate: PASS
 Failure handling (unknown-community): PASS — could not translate question to SQL: no known community in question: 'what is the average score of posts in quantumcomputing?' (known: ['datascience', 'learnprogramming', 'machinelearning', 'python', 'statistics'])
 Cases:
-  [PASS] top-communities-7d (ranking, human-reviewed=True, grounded, 0.44ms, $0.0068)
-  [PASS] avg-score-datascience (aggregation, human-reviewed=True, grounded, 0.11ms, $0.0068)
+  [PASS] top-communities-7d (ranking, human-reviewed=True, grounded, 0.45ms, $0.0068)
+  [PASS] avg-score-datascience (aggregation, human-reviewed=True, grounded, 0.12ms, $0.0068)
   [PASS] post-count-ml-14d (aggregation, human-reviewed=True, grounded, 0.09ms, $0.0068)
-  [PASS] highest-avg-score (ranking, human-reviewed=True, grounded, 0.3ms, $0.0068)
-  [PASS] total-comments-python-7d (aggregation, human-reviewed=False, grounded, 0.11ms, $0.0068)
+  [PASS] highest-avg-score (ranking, human-reviewed=True, grounded, 0.32ms, $0.0068)
+  [PASS] total-comments-python-7d (aggregation, human-reviewed=False, grounded, 0.09ms, $0.0068)
   [PASS] posts-per-day-datascience-3d (time-series, human-reviewed=True, grounded, 0.1ms, $0.0068)
-  [PASS] top-posts-ml (ranking, human-reviewed=False, grounded, 0.2ms, $0.0068)
+  [PASS] top-posts-ml (ranking, human-reviewed=False, grounded, 0.19ms, $0.0068)
   [PASS] total-score-python (aggregation, human-reviewed=True, grounded, 0.07ms, $0.0068)
 Grader limitations:
   - Exact-result matching fails on ties: two different orderings of equal counts are both correct, but the grader counts the tie-break order as part of the answer. Reference SQL pins the tie-break (community ASC).

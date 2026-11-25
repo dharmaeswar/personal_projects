@@ -10,7 +10,7 @@
       "failure_mode": null,
       "failure_reason": null,
       "sql": "SELECT community, COUNT(*) AS post_count FROM posts WHERE created_day >= 23 GROUP BY community ORDER BY post_count DESC, community ASC LIMIT 3",
-      "latency_ms": 0.44,
+      "latency_ms": 0.45,
       "cost_usd": 0.0068
     },
     {
@@ -22,7 +22,7 @@
       "failure_mode": null,
       "failure_reason": null,
       "sql": "SELECT AVG(score) AS avg_score FROM posts WHERE community = 'datascience'",
-      "latency_ms": 0.11,
+      "latency_ms": 0.12,
       "cost_usd": 0.0068
     },
     {
@@ -46,7 +46,7 @@
       "failure_mode": null,
       "failure_reason": null,
       "sql": "SELECT community, AVG(score) AS avg_score FROM posts GROUP BY community HAVING COUNT(*) >= 5 ORDER BY avg_score DESC LIMIT 1",
-      "latency_ms": 0.3,
+      "latency_ms": 0.32,
       "cost_usd": 0.0068
     },
     {
@@ -58,7 +58,7 @@
       "failure_mode": null,
       "failure_reason": null,
       "sql": "SELECT SUM(comments) AS total_comments FROM posts WHERE community = 'python' AND created_day >= 23",
-      "latency_ms": 0.11,
+      "latency_ms": 0.09,
       "cost_usd": 0.0068
     },
     {
@@ -82,7 +82,7 @@
       "failure_mode": null,
       "failure_reason": null,
       "sql": "SELECT id, title, score FROM posts WHERE community = 'machinelearning' ORDER BY score DESC LIMIT 5",
-      "latency_ms": 0.2,
+      "latency_ms": 0.19,
       "cost_usd": 0.0068
     },
     {

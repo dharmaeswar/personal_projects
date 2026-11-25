@@ -1,0 +1,151 @@
+{
+  "total_cases": 10,
+  "recall_at_k": 1.0,
+  "answered": 10,
+  "grounded_rate": 1.0,
+  "guardrail_pass_rate": 1.0,
+  "hallucination_flag_rate": 0.0,
+  "per_case": [
+    {
+      "question": "What was Acme Industrial Holdings third-quarter revenue and operating margin?",
+      "expected_docs": [
+        "ACME-10K-2026-Q3"
+      ],
+      "retrieved_ids": [
+        "ACME-10K-2026-Q3#c0",
+        "HELIX-AN-2026-10#c0",
+        "ACME-EARN-Q3-2026#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    },
+    {
+      "question": "How much did Acme's automation segment grow and what is the order backlog?",
+      "expected_docs": [
+        "ACME-10K-2026-Q3",
+        "ACME-EARN-Q3-2026"
+      ],
+      "retrieved_ids": [
+        "ACME-EARN-Q3-2026#c0",
+        "ACME-RISK-2026#c0",
+        "ACME-10K-2026-Q3#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    },
+    {
+      "question": "What is Beacon Health Systems net leverage and commercial insurance share of revenue?",
+      "expected_docs": [
+        "BEACON-AN-2026-11"
+      ],
+      "retrieved_ids": [
+        "BEACON-AN-2026-11#c0",
+        "BEACON-EARN-Q3-2026#c0",
+        "BEACON-10K-2026-Q2#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    },
+    {
+      "question": "What dividend did Northwind Energy Partners declare and what is its capital budget?",
+      "expected_docs": [
+        "NORTHWIND-EARN-Q3-2026"
+      ],
+      "retrieved_ids": [
+        "NORTHWIND-EARN-Q3-2026#c0",
+        "NORTHWIND-10K-2026-Q3#c0",
+        "BEACON-EARN-Q3-2026#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    },
+    {
+      "question": "How much of Northwind's oil production is hedged and at what collar levels?",
+      "expected_docs": [
+        "NORTHWIND-RISK-2026"
+      ],
+      "retrieved_ids": [
+        "NORTHWIND-RISK-2026#c0",
+        "NORTHWIND-10K-2026-Q3#c0",
+        "NORTHWIND-EARN-Q3-2026#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    },
+    {
+      "question": "What was Helix Software Group subscription revenue growth and net revenue retention?",
+      "expected_docs": [
+        "HELIX-AN-2026-10"
+      ],
+      "retrieved_ids": [
+        "HELIX-AN-2026-10#c0",
+        "HELIX-10K-2026-Q3#c0",
+        "HELIX-EARN-Q3-2026#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    },
+    {
+      "question": "What is Helix Software Group's research and development spending as a share of revenue?",
+      "expected_docs": [
+        "HELIX-10K-2026-Q3"
+      ],
+      "retrieved_ids": [
+        "HELIX-10K-2026-Q3#c0",
+        "HELIX-AN-2026-10#c0",
+        "HELIX-EARN-Q3-2026#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    },
+    {
+      "question": "What would a 10 percent rise in copper prices cost Acme Industrial Holdings?",
+      "expected_docs": [
+        "ACME-RISK-2026"
+      ],
+      "retrieved_ids": [
+        "ACME-RISK-2026#c0",
+        "ACME-10K-2026-Q3#c0",
+        "NORTHWIND-RISK-2026#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    },
+    {
+      "question": "What did Beacon Health Systems raise its full-year EBITDA guidance to?",
+      "expected_docs": [
+        "BEACON-EARN-Q3-2026"
+      ],
+      "retrieved_ids": [
+        "BEACON-EARN-Q3-2026#c0",
+        "BEACON-AN-2026-11#c0",
+        "BEACON-10K-2026-Q2#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    },
+    {
+      "question": "What are Northwind Energy Partners proved reserves and where are they located?",
+      "expected_docs": [
+        "NORTHWIND-10K-2026-Q3"
+      ],
+      "retrieved_ids": [
+        "NORTHWIND-10K-2026-Q3#c0",
+        "NORTHWIND-EARN-Q3-2026#c0",
+        "NORTHWIND-RISK-2026#c0"
+      ],
+      "hit": true,
+      "grounded": true,
+      "guardrail_passed": true
+    }
+  ]
+}

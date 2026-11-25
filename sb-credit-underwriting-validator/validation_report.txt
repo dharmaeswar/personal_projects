@@ -1,0 +1,41 @@
+INDEPENDENT MODEL VALIDATION REPORT
+Small-Business Credit Underwriting Model (champion: logistic regression)
+Framework: interagency model risk management guidance (SR 26-2)
+Scope: conceptual soundness, outcomes analysis, backtesting,
+  monitoring, data integrity, implementation reproduction, challenger model.
+
+1. CONCEPTUAL SOUNDNESS
+   Methodology: logistic regression on revenue, years in business,
+   cash-flow coverage, credit score, loan amount, industry risk.
+   Limitation: no interaction terms; coverage and score effects are
+   assumed additive. Management adjustment: none applied.
+
+2. OUTCOMES ANALYSIS (validation sample, n=4000)
+   Champion AUC 0.734 | KS 0.356 | Gini 0.468
+   Challenger AUC 0.735 | KS 0.356
+   Top decile captures 25.0% of defaults; bottom decile 1.8%.
+   At t=0.5: precision 0.639, recall 0.091, F1 0.159
+
+3. BACKTESTING (vintage, by origination quarter)
+   2024-Q1 n=652 predicted 0.211 observed 0.222 ratio 0.95
+   2024-Q2 n=688 predicted 0.202 observed 0.169 ratio 1.20
+   2024-Q3 n=652 predicted 0.202 observed 0.199 ratio 1.01
+   2024-Q4 n=682 predicted 0.204 observed 0.185 ratio 1.10
+   2025-Q1 n=654 predicted 0.206 observed 0.188 ratio 1.10
+   2025-Q2 n=672 predicted 0.200 observed 0.177 ratio 1.13
+
+4. ONGOING MONITORING
+   PSI 0.038 (0.10 watch, 0.25 action); mean score drift 10.6%
+
+5. DATA INTEGRITY & IMPLEMENTATION
+   Data issues: 2 credit scores outside 300-850
+   Developer code reproduced: True (max abs diff 0.0000)
+
+6. FINDINGS (severity-rated)
+   [Medium] Modest rank-ordering: champion AUC 0.734; challenger reaches 0.735, so the methodology leaves discrimination on the table.
+   [Medium] Mean score drift 10.6% vs validation; re-check the score distribution before the next quarterly review.
+   [Medium] Input data gaps: 2 credit scores outside 300-850
+
+7. RISK RATING & VERDICT
+   Recommended risk rating: Medium (owner proposed: Medium)
+   Verdict: PASS — approve for use

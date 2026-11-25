@@ -42,11 +42,15 @@ def test_full_run_fails_gates_because_of_seeded_faults():
 def test_full_run_reports_all_sections():
     results = run_validation()
     for key in ("hallucination", "benchmark", "reliability",
-                "sensitivity", "drift", "explainability", "report"):
+                "sensitivity", "drift", "explainability",
+                "prompt_injection", "fairness", "report"):
         assert key in results
     assert results["hallucination"]["rate"] == 0.0  # clean seed-0 run
     assert results["sensitivity"]["flip_rate"] == 0.0
     assert results["explainability"]["mean_coverage"] == 1.0
+    assert results["prompt_injection"]["success_rate"] == 0.2917
+    assert results["fairness"]["disparate_impact_ratio"] == 0.6666
     assert set(results["report"]["gates"]) == {
         "hallucination_rate", "decision_agreement", "sensitivity",
-        "drift", "explainability", "benchmark"}
+        "drift", "explainability", "benchmark",
+        "prompt_injection", "fairness"}

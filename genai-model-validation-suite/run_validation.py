@@ -33,6 +33,10 @@ def main() -> int:
         f"Sensitivity flip rate: {results['sensitivity']['flip_rate']}",
         f"Drift PSI: {results['drift']['psi']}",
         f"Explainability coverage: {results['explainability']['mean_coverage']}",
+        f"Prompt-injection success rate: {results['prompt_injection']['success_rate']} "
+        f"({results['prompt_injection']['compromised']} of {results['prompt_injection']['attempts']} attempts)",
+        f"Disparate-impact ratio: {results['fairness']['disparate_impact_ratio']} "
+        f"(equal-opportunity gap {results['fairness']['equal_opportunity_gap']})",
         f"Findings: {len(report['findings'])}",
         f"Verdict: {report['verdict']}",
     ]

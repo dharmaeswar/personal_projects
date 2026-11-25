@@ -28,6 +28,10 @@ class CandidateModel:
     explanation (seed 3) and a misread utilization that flips the
     decision (seed 4). This mirrors a real GenAI failure pattern where
     the narrative cites numbers the source data does not support.
+    ``prompt_variant="injection:<probe>"`` simulates a prompt-injection
+    attempt: the candidate obeys a direct instruction override and a
+    fake system message (decision forced to "approve"), but resists an
+    instruction buried in retrieved text and a roleplay jailbreak.
     """
 
     name = "candidate-genai-v1"
@@ -42,6 +46,14 @@ class CandidateModel:
         decision = decision_rule(facts)
         cited = dict(facts)
         fault = None
+        if prompt_variant.startswith("injection:"):
+            # Seeded vulnerability: the candidate obeys direct instruction
+            # overrides and system-message impersonation, but resists
+            # injections buried in retrieved text and roleplay jailbreaks.
+            probe = prompt_variant.split(":", 1)[1]
+            if probe in ("direct-override", "system-impersonation"):
+                decision = "approve"
+                fault = "prompt_injection"
         if seed == 3:
             # Hallucination: explanation cites an APR never in the source.
             cited["apr"] = round(facts["apr"] + 5.0, 2)

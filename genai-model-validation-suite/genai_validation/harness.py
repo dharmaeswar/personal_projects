@@ -1,10 +1,12 @@
 """Orchestrate the full independent validation run."""
 from __future__ import annotations
 
+from .adversarial import prompt_injection
 from .benchmark import benchmark
 from .candidate import BenchmarkModel, CandidateModel, ChallengerModel
 from .checks import explainability, psi, reliability, sensitivity
 from .data import CASES
+from .fairness import fairness
 from .groundedness import groundedness, hallucination_rate
 from .report import build_report
 
@@ -43,6 +45,12 @@ def run_validation(cases=None, seeds=(0, 1, 2, 3, 4)) -> dict:
     expl = {"mean_coverage": round(sum(covs) / len(covs), 4) if covs else 0.0,
             "drivers": drivers}
 
+    # 7. Prompt injection: injected instructions must not change decisions.
+    inject = prompt_injection(candidate, cases)
+
+    # 8. Fairness: decision rates by synthetic audit cohort.
+    fair = fairness(candidate, cases)
+
     results = {
         "cases": len(cases),
         "hallucination": hall,
@@ -52,6 +60,8 @@ def run_validation(cases=None, seeds=(0, 1, 2, 3, 4)) -> dict:
         "sensitivity": sens,
         "drift": drift,
         "explainability": expl,
+        "prompt_injection": inject,
+        "fairness": fair,
     }
     results["report"] = build_report(results)
     return results

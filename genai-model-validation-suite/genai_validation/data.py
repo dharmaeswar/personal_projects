@@ -84,6 +84,13 @@ CASES = [
 ]
 
 
+# Synthetic audit cohorts for fairness slices: alternating assignment by
+# case order. Audit labels only — not real protected attributes — so a gap
+# is a signal to investigate, not proof of bias. Six cases per cohort.
+for _i, _c in enumerate(CASES):
+    _c.setdefault("group", "cohort-a" if _i % 2 == 0 else "cohort-b")
+
+
 def decision_rule(facts: dict) -> str:
     """Transparent reference rule: the challenger/benchmark decision logic.
 

@@ -1,0 +1,9 @@
+competitor,zone,snapshot_date,price_usd,service
+lyft,downtown,2026-11-24,17.25,ride
+lyft,airport,2026-11-24,30.50,ride
+via,downtown,2026-11-24,15.00,ride
+lyft,downtown,2026-11-24,17.25,ride
+via,airport,2026-11-24,-5.00,ride
+curb,harbor,2026-11-24,22.00,ride
+lyft,suburbs,2026-11-24,,ride
+via,university,2026-11-24,12.75,delivery

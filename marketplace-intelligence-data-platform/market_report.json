@@ -1,0 +1,106 @@
+{
+  "run_id": "daily",
+  "raw_records": 19,
+  "mapped_records": 19,
+  "api_pages_fetched": 2,
+  "api_retries": 1,
+  "unmapped_fields": [],
+  "review_queue_pending": 1,
+  "contract": {
+    "completeness": 0.9474,
+    "errors": [],
+    "additive_changes": [],
+    "breaking_changes": []
+  },
+  "quality": {
+    "checked": 19,
+    "loaded": 15,
+    "quarantined": 4,
+    "duplicates": 1,
+    "missing": 1,
+    "delayed": 0,
+    "inconsistent": 2,
+    "quarantine_reasons": [
+      "duplicate natural key",
+      "price_usd <= 0",
+      "unknown zone: harbor",
+      "missing required field"
+    ]
+  },
+  "inserted": 15,
+  "skipped_on_load": 0,
+  "reconciliation": {
+    "source_rows": 15,
+    "warehouse_rows": 15,
+    "source_price_total": 290.6,
+    "warehouse_price_total": 290.6,
+    "rows_match": true,
+    "totals_match": true
+  },
+  "catalog": "# Marketplace Intelligence \u2014 Dataset Catalog\n\n## dim_competitor (6 rows)\n- competitor_key (INTEGER)\n- competitor (TEXT)\n- service (TEXT)\n\n## dim_zone (5 rows)\n- zone_key (INTEGER)\n- zone (TEXT)\n- city (TEXT)\n- valid_from (TEXT)\n- valid_to (TEXT)\n- current (INTEGER)\n\n## fact_market_snapshot (15 rows)\n- snapshot_key (INTEGER)\n- zone_key (INTEGER)\n- competitor_key (INTEGER)\n- zone (TEXT)\n- competitor (TEXT)\n- service (TEXT)\n- snapshot_date (TEXT)\n- source (TEXT)\n- price_usd (REAL)\n- demand_index (REAL)\n- surge_multiplier (REAL)\n- ingested_at (TEXT)\n\n## run_state (6 rows)\n- run_id (TEXT)\n- task (TEXT)\n- status (TEXT)\n- updated_at (TEXT)\n\n## sqlite_sequence (3 rows)\n- name ()\n- seq ()\n\n## watermark (1 rows)\n- id (INTEGER)\n- last_snapshot_date (TEXT)\n",
+  "dag": {
+    "ingest": "done",
+    "map": "done",
+    "contract": "done",
+    "quality": "done",
+    "load": "done",
+    "reconcile": "done",
+    "publish": "done"
+  },
+  "daily_avg_price": [
+    {
+      "zone": "airport",
+      "date": "2026-11-24",
+      "avg_price": 31.23,
+      "n": 3
+    },
+    {
+      "zone": "downtown",
+      "date": "2026-11-24",
+      "avg_price": 16.91,
+      "n": 4
+    },
+    {
+      "zone": "downtown",
+      "date": "2026-11-25",
+      "avg_price": 18.9,
+      "n": 1
+    },
+    {
+      "zone": "suburbs",
+      "date": "2026-11-24",
+      "avg_price": 14.6,
+      "n": 1
+    },
+    {
+      "zone": "suburbs",
+      "date": "2026-11-25",
+      "avg_price": 16.4,
+      "n": 1
+    },
+    {
+      "zone": "university",
+      "date": "2026-11-24",
+      "avg_price": 12.57,
+      "n": 2
+    },
+    {
+      "zone": "university",
+      "date": "2026-11-25",
+      "avg_price": 13.1,
+      "n": 1
+    },
+    {
+      "zone": "waterfront",
+      "date": "2026-11-24",
+      "avg_price": 21.3,
+      "n": 1
+    },
+    {
+      "zone": "waterfront",
+      "date": "2026-11-25",
+      "avg_price": 19.8,
+      "n": 1
+    }
+  ]
+}

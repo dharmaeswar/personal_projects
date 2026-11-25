@@ -1,0 +1,42 @@
+# Marketplace Intelligence — Dataset Catalog
+
+## dim_competitor (6 rows)
+- competitor_key (INTEGER)
+- competitor (TEXT)
+- service (TEXT)
+
+## dim_zone (5 rows)
+- zone_key (INTEGER)
+- zone (TEXT)
+- city (TEXT)
+- valid_from (TEXT)
+- valid_to (TEXT)
+- current (INTEGER)
+
+## fact_market_snapshot (15 rows)
+- snapshot_key (INTEGER)
+- zone_key (INTEGER)
+- competitor_key (INTEGER)
+- zone (TEXT)
+- competitor (TEXT)
+- service (TEXT)
+- snapshot_date (TEXT)
+- source (TEXT)
+- price_usd (REAL)
+- demand_index (REAL)
+- surge_multiplier (REAL)
+- ingested_at (TEXT)
+
+## run_state (6 rows)
+- run_id (TEXT)
+- task (TEXT)
+- status (TEXT)
+- updated_at (TEXT)
+
+## sqlite_sequence (3 rows)
+- name ()
+- seq ()
+
+## watermark (1 rows)
+- id (INTEGER)
+- last_snapshot_date (TEXT)

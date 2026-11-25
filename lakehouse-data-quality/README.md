@@ -133,6 +133,74 @@ Tests: **45 passed** (`python -m pytest -q`) — 33 earlier tests plus
 quarantine counts, gold reconciliation and determinism
 (`tests/test_home_health.py`).
 
+## Added Nov 25, 2026 — Data Forge extension (Iceberg lakehouse, extraction, contracts, triage)
+
+For a Redfin / Rocket Companies Senior Software Developer, Data Forge
+role, where the work is owning the data lake and the reusable
+production datasets for ML, search, analytics and product: unifying
+Snowflake and the data lake into a single Iceberg lakehouse, migrating
+legacy systems to production Airflow + Iceberg pipelines, extracting
+from Postgres replicas, Kafka and Lambda ingest, and building
+operational AI tooling that cuts on-call toil. Four new modules, run
+with `python run_data_forge.py` — same pandas + Parquet approach as
+the rest of the project, no Spark cluster, Iceberg runtime, Airflow
+service, Postgres replica, Kafka broker or Lambda function is
+involved, and the code says so where it matters.
+
+- **Extraction** (`lakehouse/extract.py`) — watermark-based incremental
+  reads from a simulated Postgres replica in capped batches (a
+  per-run row cap stops the read early instead of overloading the
+  replica, and the watermark resumes a failed run where it stopped);
+  a KCL-style Kafka shard consumer with checkpointed offsets and
+  at-least-once dedup on `event_id`; Lambda ingest that commits good
+  records and returns only the failed ones for retry; third-party
+  feed schema-drift detection (added / removed / type-changed
+  columns) and a chunked backfill planner so one bad day cannot stall
+  a whole range.
+- **Data contracts** (`lakehouse/contracts.py`) — a contract names the
+  dataset, owner, schema, freshness SLA and minimum daily rows;
+  validation returns every violation as a result, never an exception.
+  Breaking-change detection classifies schema diffs: removing a
+  column or changing a type breaks readers; adding a nullable column
+  does not.
+- **Alert triage agent** (`lakehouse/triage.py`) — classifies alerts
+  (freshness breach, schema drift, volume anomaly, upstream failure,
+  cost spike) from the monitor that fired and how far the metric
+  moved, proposes the diagnostic steps a human would run first, and
+  escalates to P2 at twice the threshold. A feedback loop records
+  each resolution's root cause and fix, so a repeat alert gets the
+  learned diagnosis first. No model is called — every suggestion
+  traces to a signal or a past resolution.
+- **Iceberg-style maintenance** (`lakehouse/compaction.py`) —
+  partition specs (identity, day, bucket), a compaction planner that
+  picks merge-on-read by default and copy-on-write only when a table
+  is dominated by small files, and snapshot expiry that keeps the
+  newest N snapshots for time travel.
+
+## Results of the Data Forge run (real run, Nov 25, 2026)
+
+```
+Replica extract: 300 rows in 3 batches; new watermark 2026-11-25 17:59:00+00:00; truncated=False
+Kafka shard-0: 300 new records; crash-replay skipped 300 duplicates; lag 0
+Lambda ingest: 48 committed, 2 failed (retried separately)
+Third-party feed drift: added: agent_id; removed: price
+Backfill plan: 1 windows [(datetime.date(2026, 11, 18), datetime.date(2026, 11, 24))]
+Contract 'curated_listings': no violations
+Snapshot 1 committed: 300 rows, schema v1
+Snapshot retention: 1 kept, 0 expired
+Compaction: merge-on-read: compact 9 files into ~1 (9 small files totalling 18874368 bytes; merge-on-read keeps old files until readers move over)
+Triage first sight: freshness breach (p3) — upstream extraction stalled or the pipeline run failed before writing
+Triage repeat sight: learned=True — replica extractor stalled on a long-running transaction
+```
+
+Tests: **172 passed** (`python -m pytest -q`) — 151 earlier tests
+plus 21 new tests for replica extraction (watermark, run cap, empty
+read), Kafka dedup, Lambda partial failure, schema drift, backfill
+chunking, contract validation, breaking-change classification, alert
+classification and the learned-diagnosis feedback loop, partition
+specs, compaction planning and snapshot expiry
+(`tests/test_data_forge.py`).
+
 ## How to run
 
 ```bash

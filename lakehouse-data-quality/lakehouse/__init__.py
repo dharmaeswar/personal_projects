@@ -58,6 +58,29 @@ from .governance import (
     reconcile_gold,
     run_governance,
 )
+from .extract import (
+    ReplicaExtract,
+    ShardCheckpoint,
+    consume_shard,
+    detect_schema_drift,
+    extract_from_replica,
+    ingest_lambda_events,
+    plan_backfill,
+)
+from .contracts import (
+    DataContract,
+    contract_is_compatible,
+    detect_breaking_change,
+    validate_contract,
+)
+from .triage import Alert, TriageMemory, TriageResult, classify_alert
+from .compaction import (
+    TableFile,
+    expire_snapshots,
+    partition_value,
+    plan_compaction,
+    table_health_summary,
+)
 from .infraops import (
     build_unified_model as build_infraops_model,
     generate_infraops,

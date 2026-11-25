@@ -1,0 +1,13 @@
+# Data Forge run — 2026-11-25
+
+Replica extract: 300 rows in 3 batches; new watermark 2026-11-25 17:59:00+00:00; truncated=False
+Kafka shard-0: 300 new records; crash-replay skipped 300 duplicates; lag 0
+Lambda ingest: 48 committed, 2 failed (retried separately)
+Third-party feed drift: added: agent_id; removed: price
+Backfill plan: 1 windows [(datetime.date(2026, 11, 18), datetime.date(2026, 11, 24))]
+Contract 'curated_listings': no violations
+Snapshot 2 committed: 300 rows, schema v1
+Snapshot retention: 2 kept, 0 expired
+Compaction: merge-on-read: compact 9 files into ~1 (9 small files totalling 18874368 bytes; merge-on-read keeps old files until readers move over)
+Triage first sight: freshness breach (p3) — upstream extraction stalled or the pipeline run failed before writing
+Triage repeat sight: learned=True — replica extractor stalled on a long-running transaction

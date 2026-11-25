@@ -1,0 +1,153 @@
+{
+  "tickets": {
+    "SDLC-101": {
+      "codegen": {
+        "passed": true,
+        "summary": "generated patch for average (off_by_one)",
+        "findings": []
+      },
+      "review": {
+        "passed": true,
+        "summary": "reviewed 1 file(s) via subagents: 0 blocking, 0 warnings",
+        "findings": []
+      },
+      "testgen": {
+        "passed": true,
+        "summary": "3/3 generated cases passed",
+        "findings": []
+      },
+      "release": {
+        "passed": true,
+        "summary": "released SDLC-101 \u2014 all gates green",
+        "findings": []
+      }
+    },
+    "SDLC-102": {
+      "codegen": {
+        "passed": true,
+        "summary": "generated patch for parse_int (bare_except)",
+        "findings": []
+      },
+      "review": {
+        "passed": true,
+        "summary": "reviewed 1 file(s) via subagents: 0 blocking, 0 warnings",
+        "findings": []
+      },
+      "testgen": {
+        "passed": true,
+        "summary": "2/2 generated cases passed",
+        "findings": []
+      },
+      "release": {
+        "passed": true,
+        "summary": "released SDLC-102 \u2014 all gates green",
+        "findings": []
+      }
+    },
+    "SDLC-103": {
+      "codegen": {
+        "passed": true,
+        "summary": "generated patch for charge (missing_validation)",
+        "findings": []
+      },
+      "review": {
+        "passed": true,
+        "summary": "reviewed 1 file(s) via subagents: 0 blocking, 0 warnings",
+        "findings": []
+      },
+      "testgen": {
+        "passed": true,
+        "summary": "2/2 generated cases passed",
+        "findings": []
+      },
+      "release": {
+        "passed": true,
+        "summary": "released SDLC-103 \u2014 all gates green",
+        "findings": []
+      }
+    }
+  },
+  "grounding_first_try_hit_rate": 1.0,
+  "tool_totals": {
+    "calls": 9,
+    "failed_calls": 0,
+    "total_latency_ms": 0.08,
+    "total_cost": 0.012,
+    "calls_by_tool": {
+      "open_pr": 3,
+      "read_file": 3,
+      "run_tests": 3
+    }
+  },
+  "model_spend_usd": 11.295,
+  "spend_by_model_usd": {
+    "sdlc-strong": 8.64,
+    "sdlc-standard": 2.52,
+    "sdlc-small": 0.135
+  },
+  "benchmark": {
+    "baseline_mean": 0.333,
+    "improved_mean": 1.0,
+    "mean_by_kind": {
+      "bug_detection": 1.0,
+      "latency": 1.0,
+      "review_quality": 1.0
+    },
+    "pass_rate": 1.0,
+    "ab_vs_baseline": {
+      "delta": 0.667,
+      "per_kind_delta": {
+        "bug_detection": 1.0,
+        "latency": 0.0,
+        "review_quality": 1.0
+      },
+      "verdict": "candidate wins"
+    }
+  },
+  "pareto_frontier_cost_quality": [
+    [
+      0.02,
+      0.55
+    ],
+    [
+      0.1,
+      0.82
+    ],
+    [
+      0.35,
+      0.93
+    ]
+  ],
+  "dashboard": {
+    "total_stage_runs": 12,
+    "overall_pass_rate": 1.0,
+    "pass_rate_by_stage": {
+      "codegen": {
+        "runs": 3,
+        "pass_rate": 1.0
+      },
+      "release": {
+        "runs": 3,
+        "pass_rate": 1.0
+      },
+      "review": {
+        "runs": 3,
+        "pass_rate": 1.0
+      },
+      "testgen": {
+        "runs": 3,
+        "pass_rate": 1.0
+      }
+    },
+    "total_model_spend_usd": 11.295,
+    "spend_by_model_usd": {
+      "sdlc-small": 0.135,
+      "sdlc-standard": 2.52,
+      "sdlc-strong": 8.64
+    },
+    "governance": {
+      "blocked_releases": 0,
+      "unreviewed_auto_merges": 0
+    }
+  }
+}

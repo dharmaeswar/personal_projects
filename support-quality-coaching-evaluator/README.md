@@ -43,6 +43,7 @@ plugs into the same `grade()` interface.
   set, the KB, and the simulation scenarios live in one place with a
   completeness check (every case carries human labels on every
   criterion), so eval data stays curated instead of drifting.
+- **Production observability and outcome tracking** (`support_quality/outcomes.py`, new, Nov 2026 — built for a Toast Software Engineer II, Support AI role) — watches the system that serves the conversations: per-conversation outcomes (channel, resolved-without-human, escalated, turns, per-turn latency, vendor, vendor errors, CSAT, cost), a summary (resolution/escalation rates, mean and p95 latency, vendor error rate, mean CSAT, cost per conversation), a release-regression check (resolution drop or p95 latency rise vs baseline), per-vendor health against an SLO (error rate, p95 latency, breach flag), and an on-call alert check. On the seeded panel (400 conversations): resolution 68%, escalation 38%, mean latency 667ms, p95 1182ms, vendor error rate 2.0%, mean CSAT 4.3; the seeded unreliable vendor (3.8% errors) breaches its SLO while the reliable one (1.1%) does not.
 
 ## Run it
 
@@ -61,7 +62,8 @@ support_quality/
   coaching.py    # coaching plans from quality evidence
   simulation.py  # training simulations scored turn by turn
   evaluation.py  # offline agreement, prompt A/B, release gate
+  outcomes.py    # production observability: resolution, latency, vendor SLOs, alerts
 run_demo.py
 tests/
-  test_judge.py test_rest.py
+  test_judge.py test_rest.py test_outcomes.py
 ```

@@ -67,6 +67,29 @@ approved source **and** to the version current when the draft was made.
 
 Run it with `python run_evidence_eval.py` (writes `evidence_report.json`).
 
+## AI spend management backend (added Nov 25, 2026)
+
+`agent_eval/spend.py` adds the backend an AI spend-management product
+needs on top of agent evals: every agent run costs tokens and dollars,
+and a finance team needs to see who spent what, on which model, against
+which budget — before the bill lands.
+
+- **Spend ingestion** — schema-validated events (`team`, `model`, `agent`,
+  prompt/completion tokens, day); cost is priced from a fixed per-model
+  table when the event does not carry its own cost. Bad events (unknown
+  model, negative tokens, bad date) are rejected, never silently stored.
+- **Aggregation** — totals plus per-team, per-model and per-day breakdowns
+  (`SpendLedger.summary`), and monthly spend per team/model.
+- **Budgets and alerts** — monthly USD caps per team (optionally per
+  model) with warn (80%) and breach (100%) thresholds, a forecast alert
+  when the run rate projects past the cap by month end (needs 3+ days of
+  data), and a daily-spike alert when one day costs over 2x the daily mean.
+- **Tracer feed** — `ledger.from_tracer(tracer, team, model)` turns a
+  finished eval run's traced tool calls into spend events, so eval cost
+  and product spend are measured from the same source.
+
+Run it with `python run_spend.py` (writes `spend_report.json`).
+
 ## Results (seeded, reproducible)
 
 - Eval suites: **9/9 cases pass** — invoice agent 5/5 (715 ms, $0.004800),
@@ -75,7 +98,11 @@ Run it with `python run_evidence_eval.py` (writes `evidence_report.json`).
 - Evidence evaluation: **clean draft 2/2 supported (groundedness 1.0)**;
   stale, unsupported and unknown-source drafts each score 0.0 with the
   right verdict; feedback loop re-ranks retrieval after one correction.
-- Tests: **55 pytest tests, all passing** (41 original + 14 evidence).
+- Spend demo: **36 events, 553,020 tokens, $2.1957** across 2 teams and
+  3 models; finance breaches its $0.50 budget ($2.15, driven by the
+  $2.10 spike day), support is forecast to $0.30 vs a $0.20 budget, and
+  the finance spike day is flagged at 234.4x the daily mean.
+- Tests: **70 pytest tests, all passing** (55 original + 15 spend).
 - Edge cases covered: amount mismatch flagged, missing PO flagged, outage
   escalated to engineering without a KB lookup, refund escalated to billing,
   duplicate invoice/PO pair re-processed cleanly.

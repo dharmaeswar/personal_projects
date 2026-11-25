@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic 340B TPA captures. C1012 has no capture on purpose. -->
+<tpa_captures>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1001</claim_id><patient_id>P000000001</patient_id><program>340B</program><capture_date>2026-11-20</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1002</claim_id><patient_id>P000000001</patient_id><program>340B</program><capture_date>2026-11-21</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1003</claim_id><patient_id>P000000002</patient_id><program>340B</program><capture_date>2026-11-20</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1004</claim_id><patient_id>P000000003</patient_id><program>340B</program><capture_date>2026-11-20</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1005</claim_id><patient_id>P000000004</patient_id><program>340B</program><capture_date>2026-11-20</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1007</claim_id><patient_id>P000000002</patient_id><program>340B</program><capture_date>2026-11-20</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1008</claim_id><patient_id>P000000002</patient_id><program>340B</program><capture_date>2026-11-20</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1009</claim_id><patient_id>P000000001</patient_id><program>340B</program><capture_date>2026-11-22</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1010</claim_id><patient_id>P000000002</patient_id><program>340B</program><capture_date>2026-11-23</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C1011</claim_id><patient_id>P000000001</patient_id><program>340B</program><capture_date>2026-11-23</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C2001</claim_id><patient_id>P000000001</patient_id><program>340B</program><capture_date>2026-11-24</capture_date></capture>
+  <capture><tpa_id>TPA-01</tpa_id><claim_id>C2002</claim_id><patient_id>P000000002</patient_id><program>340B</program><capture_date>2026-11-24</capture_date></capture>
+</tpa_captures>

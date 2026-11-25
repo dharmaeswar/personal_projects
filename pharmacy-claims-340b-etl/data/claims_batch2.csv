@@ -1,0 +1,3 @@
+claim_id,patient_id,ndc,drug_name,quantity,days_supply,fill_date,pharmacy_id,prescriber_id,amount
+C2001,P000000001,00093721401,Amoxicillin,30,30,2026-11-24,PH01,DR01,45.00
+C2002,P000000002,00904123401,Atorvastatin,30,30,2026-11-24,PH02,DR02,12.00

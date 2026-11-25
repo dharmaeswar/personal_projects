@@ -16,6 +16,9 @@ from .oas import option_adjusted_spread, callable_bond_price
 from .risk import duration_convexity, dv01, key_rate_durations, spread_scenarios
 from .relative_value import RelativeValueScreen
 from .public_finance import sector_summary, sector_relative_value, sales_ideas
+from .leverage import (TobStructure, funding_shock_scenarios,
+                      leverage_risk_summary, vmtp_cost)
+from .performance import attribute_performance, performance_bridge
 
 __all__ = [
     "TaxExemptCurve",
@@ -35,4 +38,10 @@ __all__ = [
     "sector_summary",
     "sector_relative_value",
     "sales_ideas",
+    "TobStructure",
+    "funding_shock_scenarios",
+    "leverage_risk_summary",
+    "vmtp_cost",
+    "attribute_performance",
+    "performance_bridge",
 ]

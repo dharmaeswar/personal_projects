@@ -436,5 +436,53 @@
       "taxable_equivalent_yield_pct": 8.57,
       "rationale": "MUNI-13 (General Obligation, AA, 20y): spread 130bp vs 83.65bp model (+46.4bp), +37.6bp cheap vs sector peers; TEY 8.57% at a 37% tax bracket."
     }
-  ]
+  ],
+  "leverage": {
+    "leverage_ratio": 4.0,
+    "residual_yield_pct": 8.55,
+    "distribution_coverage": 1.425,
+    "coverage_at_plus_100bp": 0.925,
+    "verdict": "FUNDING STRESS",
+    "funding_shocks": {
+      "-50": {
+        "floater_rate_pct": 2.5,
+        "funding_cost": 1.9875,
+        "residual_yield_pct": 10.05,
+        "distribution_coverage": 1.675
+      },
+      "0": {
+        "floater_rate_pct": 3.0,
+        "funding_cost": 2.3625,
+        "residual_yield_pct": 8.55,
+        "distribution_coverage": 1.425
+      },
+      "50": {
+        "floater_rate_pct": 3.5,
+        "funding_cost": 2.7375,
+        "residual_yield_pct": 7.05,
+        "distribution_coverage": 1.175
+      },
+      "100": {
+        "floater_rate_pct": 4.0,
+        "funding_cost": 3.1125,
+        "residual_yield_pct": 5.55,
+        "distribution_coverage": 0.925
+      },
+      "200": {
+        "floater_rate_pct": 5.0,
+        "funding_cost": 3.8625,
+        "residual_yield_pct": 2.55,
+        "distribution_coverage": 0.425
+      }
+    },
+    "vmtp_cost_per_100_par": 3.45
+  },
+  "performance_attribution": {
+    "expected_return_pct": 1.2,
+    "realized_return_pct": 0.85,
+    "gap_pct": -0.35,
+    "explained_pct": -0.25,
+    "unexplained_pct": -0.1,
+    "verdict": "MARKET-DRIVEN"
+  }
 }

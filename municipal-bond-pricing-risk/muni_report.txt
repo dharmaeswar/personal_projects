@@ -16,3 +16,5 @@ MUNI-12 FAIR residual -14.6bp
 MUNI-13 CHEAP residual +46.4bp
 Sales ideas (cheap vs sector peers, 37% bracket):
 - MUNI-13 (General Obligation, AA, 20y): spread 130bp vs 83.65bp model (+46.4bp), +37.6bp cheap vs sector peers; TEY 8.57% at a 37% tax bracket.
+TOB leverage 4.0x | residual yield 8.55% | coverage 1.425 | FUNDING STRESS
+Performance attribution: gap -0.35% | explained -0.25% | unexplained -0.10% | MARKET-DRIVEN

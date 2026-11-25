@@ -1,12 +1,17 @@
 # Municipal Bond Pricing & Risk Engine
 
 A local, end-to-end municipal bond pricing and risk engine built in Python
-(standard library only) — a portfolio project matching Morgan Stanley's
-**Fixed Income Division — Analyst or Associate, Municipal Markets (New
-York)** role: pricing and risk models for municipal bonds, bond derivatives
-and related products, trading-strategy research, Python, pandas/NumPy-style
-analysis, and machine learning / statistical relative-value work for a
-municipal bond market-making desk.
+(standard library only) — a portfolio project matching municipal
+fixed-income quantitative roles: pricing and risk models for municipal
+bonds, bond derivatives and related products, trading-strategy research,
+Python, pandas/NumPy-style analysis, and machine learning / statistical
+relative-value work for a municipal bond market-making desk. It was first
+built for Morgan Stanley's Fixed Income Division — Analyst or Associate,
+Municipal Markets (New York) role, extended with a public-finance sector
+screen for JPMorgan's Quantitative Trading & Research — Credit & Public
+Finance Sales role, and extended again with leverage/funding risk and
+performance attribution for Invesco's Quantitative Analyst, Municipal
+Fixed Income role (Req R-15895).
 
 **All market data is synthetic and seeded in code.** No real issuer, CUSIP,
 or market data appears anywhere in this project, and nothing here was used
@@ -22,6 +27,8 @@ in production or by any real company.
 | `muni_engine/risk.py` | **Inventory risk** — modified duration, convexity, DV01, key-rate durations, credit-spread scenarios (P&L per 100 par) |
 | `muni_engine/relative_value.py` | **Relative-value screen** — OLS regression of spread on maturity, coupon, rating and callability; CHEAP / RICH / FAIR flags |
 | `muni_engine/public_finance.py` | **Public-finance sector screen** — mean spread/residual per sector (GO, water/sewer, toll road, hospital, school, housing); cheap/rich vs sector peers; ranked sales ideas with taxable-equivalent yield |
+| `muni_engine/leverage.py` | **Leverage & funding risk** — tender option bond (TOB) trust: leverage ratio, funding cost incl. liquidity/remarketing fees, residual yield, distribution coverage, funding-rate shock scenarios; VMTP cost; FUNDING STRESS verdict when a +100bp floater-rate rise leaves the distribution uncovered |
+| `muni_engine/performance.py` | **Performance attribution** — expected vs realised return decomposed into market/economic drivers (rates, spread, curve) and an unexplained residual; MARKET-DRIVEN vs DATA/MODEL ISSUE verdict so a data or model problem is told apart from a market move |
 | `run_muni.py` | End-to-end demo: curve, callable-bond pricing, risk report, 13-bond screen; writes `muni_report.txt` / `muni_report.json` |
 
 ## How to run
@@ -29,7 +36,7 @@ in production or by any real company.
 ```bash
 pip install -r requirements.txt   # pytest only; the engine is stdlib-only
 python run_muni.py                # demo: writes muni_report.txt + muni_report.json
-python -m pytest -q               # 33 tests
+python -m pytest -q               # 54 tests
 ```
 
 Requires Python 3.12.
@@ -58,6 +65,16 @@ callable at par in 10 years, priced at 104.50**:
   **MUNI-13** (GO, AA, 20y) at 130bp vs an 83.65bp model spread,
   **+37.6bp cheap vs its GO peers**, taxable-equivalent yield **8.57%**
   at a 37% tax bracket.
+- Leverage & funding (TOB trust: 100 par of 4.5% bonds, 75 par floaters
+  at 3.0% + 15bp fees): leverage **4.0x**, residual yield **8.55%**,
+  distribution coverage **1.425** — but a **+100bp** rise in the floater
+  rate cuts coverage to **0.925**, verdict **FUNDING STRESS**; at
+  **+200bp** coverage falls to **0.425**. VMTP leg (50 par at 3.2% +
+  25bp spread) costs **$1.725** (**3.45** per 100 par).
+- Performance attribution (expected 1.20% vs realised 0.85%): gap
+  **−0.35%**, market drivers explain **−0.25%** (rates −0.20, spread
+  −0.10, curve +0.05), unexplained residual **−0.10%** — within the
+  10bp tolerance, verdict **MARKET-DRIVEN**.
 
 ## Tests
 

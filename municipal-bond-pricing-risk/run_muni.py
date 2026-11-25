@@ -14,7 +14,9 @@ from muni_engine import (
     duration_convexity, key_rate_durations, option_adjusted_spread,
     price, spread_scenarios, yield_to_maturity, yield_to_worst,
     RelativeValueScreen, sector_summary, sector_relative_value,
-    sales_ideas,
+    sales_ideas, TobStructure, funding_shock_scenarios,
+    leverage_risk_summary, vmtp_cost, attribute_performance,
+    performance_bridge,
 )
 
 
@@ -107,6 +109,39 @@ def main():
     else:
         print("  (none — no bond is cheap against its own sector peers)")
 
+    # Leverage and funding risk: a TOB trust holding 100 par of 4.5%
+    # munis, funded with 75 par of floaters at 3.0% plus 15bp of fees.
+    tob = TobStructure(underlying_par=100.0, floater_par=75.0,
+                       underlying_yield=0.045, floater_rate=0.030,
+                       liquidity_fee_bps=10.0, remarketing_fee_bps=5.0)
+    target_distribution = 1.50
+    lev_summary = leverage_risk_summary(tob, target_distribution)
+    shocks = funding_shock_scenarios(tob, target_distribution)
+    vmtp = vmtp_cost(50.0, 0.032, remarketing_spread_bps=25.0)
+    print("\nTOB leverage (100 par @ 4.5%, 75 par floaters @ 3.0% + 15bp fees):")
+    print(f"  leverage {lev_summary['leverage_ratio']:.1f}x | residual yield "
+          f"{lev_summary['residual_yield_pct']:.2f}% | distribution coverage "
+          f"{lev_summary['distribution_coverage']:.3f} -> "
+          f"{lev_summary['verdict']}")
+    print("  Funding shocks (residual yield / coverage):",
+          {f"{k:+d}bp": f"{v['residual_yield_pct']:.2f}% / {v['distribution_coverage']:.3f}"
+           for k, v in shocks.items()})
+    print(f"  VMTP leg (50 par @ 3.2% + 25bp spread): cost "
+          f"${vmtp['annual_cost']:.3f} ({vmtp['cost_per_100_par']:.2f} per 100 par)")
+
+    # Performance attribution: expected 1.20% vs realised 0.85% for the month.
+    drivers = [
+        {"name": "Rates", "contribution_pct": -0.20},
+        {"name": "Spread", "contribution_pct": -0.10},
+        {"name": "Curve", "contribution_pct": 0.05},
+    ]
+    attribution = attribute_performance(1.20, 0.85, drivers)
+    bridge = performance_bridge(1.20, 0.85, drivers)
+    print("\nPerformance attribution (expected 1.20% vs realised 0.85%):")
+    print(f"  gap {attribution['gap_pct']:+.2f}% | explained "
+          f"{attribution['explained_pct']:+.2f}% | unexplained "
+          f"{attribution['unexplained_pct']:+.2f}% -> {attribution['verdict']}")
+
     report = {
         "bond": "5% 20y callable muni, callable at par in 10y, price 104.50",
         "ytm_pct": round(ytm * 100, 3), "ytw_pct": round(ytw * 100, 3),
@@ -127,6 +162,23 @@ def main():
              "taxable_equivalent_yield_pct": i["taxable_equivalent_yield_pct"],
              "rationale": i["rationale"]} for i in ideas
         ],
+        "leverage": {
+            "leverage_ratio": lev_summary["leverage_ratio"],
+            "residual_yield_pct": lev_summary["residual_yield_pct"],
+            "distribution_coverage": lev_summary["distribution_coverage"],
+            "coverage_at_plus_100bp": lev_summary["coverage_at_plus_100bp"],
+            "verdict": lev_summary["verdict"],
+            "funding_shocks": shocks,
+            "vmtp_cost_per_100_par": vmtp["cost_per_100_par"],
+        },
+        "performance_attribution": {
+            "expected_return_pct": attribution["expected_return_pct"],
+            "realized_return_pct": attribution["realized_return_pct"],
+            "gap_pct": attribution["gap_pct"],
+            "explained_pct": attribution["explained_pct"],
+            "unexplained_pct": attribution["unexplained_pct"],
+            "verdict": attribution["verdict"],
+        },
     }
     with open("muni_report.json", "w") as f:
         json.dump(report, f, indent=2)
@@ -142,6 +194,14 @@ def main():
         f.write("Sales ideas (cheap vs sector peers, 37% bracket):\n")
         for idea in ideas:
             f.write(f"- {idea['rationale']}\n")
+        f.write(f"TOB leverage {lev_summary['leverage_ratio']:.1f}x | "
+                f"residual yield {lev_summary['residual_yield_pct']:.2f}% | "
+                f"coverage {lev_summary['distribution_coverage']:.3f} | "
+                f"{lev_summary['verdict']}\n")
+        f.write(f"Performance attribution: gap {attribution['gap_pct']:+.2f}% | "
+                f"explained {attribution['explained_pct']:+.2f}% | unexplained "
+                f"{attribution['unexplained_pct']:+.2f}% | "
+                f"{attribution['verdict']}\n")
     print("\nWrote muni_report.txt and muni_report.json")
 
 

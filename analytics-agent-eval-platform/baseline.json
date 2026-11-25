@@ -1,0 +1,115 @@
+{
+  "task_set_version": "v1",
+  "cases": [
+    {
+      "id": "top-communities-7d",
+      "category": "ranking",
+      "human_reviewed": true,
+      "passed": true,
+      "grounded": true,
+      "failure_mode": null,
+      "failure_reason": null,
+      "sql": "SELECT community, COUNT(*) AS post_count FROM posts WHERE created_day >= 23 GROUP BY community ORDER BY post_count DESC, community ASC LIMIT 3",
+      "latency_ms": 0.44,
+      "cost_usd": 0.0068
+    },
+    {
+      "id": "avg-score-datascience",
+      "category": "aggregation",
+      "human_reviewed": true,
+      "passed": true,
+      "grounded": true,
+      "failure_mode": null,
+      "failure_reason": null,
+      "sql": "SELECT AVG(score) AS avg_score FROM posts WHERE community = 'datascience'",
+      "latency_ms": 0.11,
+      "cost_usd": 0.0068
+    },
+    {
+      "id": "post-count-ml-14d",
+      "category": "aggregation",
+      "human_reviewed": true,
+      "passed": true,
+      "grounded": true,
+      "failure_mode": null,
+      "failure_reason": null,
+      "sql": "SELECT COUNT(*) AS post_count FROM posts WHERE community = 'machinelearning' AND created_day >= 16",
+      "latency_ms": 0.09,
+      "cost_usd": 0.0068
+    },
+    {
+      "id": "highest-avg-score",
+      "category": "ranking",
+      "human_reviewed": true,
+      "passed": true,
+      "grounded": true,
+      "failure_mode": null,
+      "failure_reason": null,
+      "sql": "SELECT community, AVG(score) AS avg_score FROM posts GROUP BY community HAVING COUNT(*) >= 5 ORDER BY avg_score DESC LIMIT 1",
+      "latency_ms": 0.3,
+      "cost_usd": 0.0068
+    },
+    {
+      "id": "total-comments-python-7d",
+      "category": "aggregation",
+      "human_reviewed": false,
+      "passed": true,
+      "grounded": true,
+      "failure_mode": null,
+      "failure_reason": null,
+      "sql": "SELECT SUM(comments) AS total_comments FROM posts WHERE community = 'python' AND created_day >= 23",
+      "latency_ms": 0.11,
+      "cost_usd": 0.0068
+    },
+    {
+      "id": "posts-per-day-datascience-3d",
+      "category": "time-series",
+      "human_reviewed": true,
+      "passed": true,
+      "grounded": true,
+      "failure_mode": null,
+      "failure_reason": null,
+      "sql": "SELECT created_day, COUNT(*) AS post_count FROM posts WHERE community = 'datascience' AND created_day >= 27 GROUP BY created_day ORDER BY created_day ASC",
+      "latency_ms": 0.1,
+      "cost_usd": 0.0068
+    },
+    {
+      "id": "top-posts-ml",
+      "category": "ranking",
+      "human_reviewed": false,
+      "passed": true,
+      "grounded": true,
+      "failure_mode": null,
+      "failure_reason": null,
+      "sql": "SELECT id, title, score FROM posts WHERE community = 'machinelearning' ORDER BY score DESC LIMIT 5",
+      "latency_ms": 0.2,
+      "cost_usd": 0.0068
+    },
+    {
+      "id": "total-score-python",
+      "category": "aggregation",
+      "human_reviewed": true,
+      "passed": true,
+      "grounded": true,
+      "failure_mode": null,
+      "failure_reason": null,
+      "sql": "SELECT SUM(score) AS total_score FROM posts WHERE community = 'python'",
+      "latency_ms": 0.07,
+      "cost_usd": 0.0068
+    }
+  ],
+  "pass_count": 8,
+  "total": 8,
+  "pass_rate": 1.0,
+  "failure_handling": {
+    "id": "unknown-community",
+    "passed": true,
+    "failure_reason": "could not translate question to SQL: no known community in question: 'what is the average score of posts in quantumcomputing?' (known: ['datascience', 'learnprogramming', 'machinelearning', 'python', 'statistics'])"
+  },
+  "failure_modes": {},
+  "grader_limitations": [
+    "Exact-result matching fails on ties: two different orderings of equal counts are both correct, but the grader counts the tie-break order as part of the answer. Reference SQL pins the tie-break (community ASC).",
+    "The groundedness grader only checks that numbers in the summary appear in the result rows; it cannot tell whether the summary states the right conclusion from those numbers.",
+    "Float averages are compared with rounding to 6 decimals; a different but equally valid rounding would fail the grader."
+  ]
+}

@@ -1,0 +1,1 @@
+{"case_ids":null,"description":"Support answers must be grounded in the knowledge base: every key fact present, no invented figures, no refusal on a benign question.","graders":["groundedness","completeness","refusal","format","llm_judge"],"min_pass_rate":0.9,"name":"support-answers","surfaces":["support"]}

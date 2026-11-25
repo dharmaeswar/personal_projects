@@ -18,6 +18,13 @@ from .quantization import quantize_int8, dequantize_int8
 from .sharding import plan_tensor_parallel
 from .batching import InferenceRequest, simulate
 from .profiler import HardwareProfile, HARDWARE_PRESETS, profile
+from .serving_monitor import (
+    LatencySLO,
+    ServingSnapshot,
+    check_latency,
+    compare_outputs,
+    investigate_discrepancy,
+)
 
 __all__ = [
     "ModelConfig",
@@ -30,4 +37,9 @@ __all__ = [
     "HardwareProfile",
     "HARDWARE_PRESETS",
     "profile",
+    "LatencySLO",
+    "ServingSnapshot",
+    "check_latency",
+    "compare_outputs",
+    "investigate_discrepancy",
 ]

@@ -41,6 +41,14 @@ pytest for tests.
   throughput; `compare_configs` ranks dtype / tensor-parallel choices.
 - **CLI** (`inference_optimizer/cli.py`) — `optimize` compares configs
   for a model/hardware pair; `demo` runs a small end-to-end pass.
+- **Serving monitor** (`inference_optimizer/serving_monitor.py`) —
+  the post-deployment half: latency SLO checks (p50/p95/p99, tail-stall
+  vs systematic bottleneck call), research-vs-production output
+  comparison with a tolerance gate, discrepancy triage that ranks
+  likely causes (quantization drift, preprocessing mismatch, batching
+  nondeterminism, kernel change) with the check that would confirm
+  each, and a serving-health snapshot (GPU memory pressure,
+  utilisation, error rate, SLO state).
 
 ## Why it is new — distinctness check
 
@@ -71,6 +79,7 @@ training data.
 ```bash
 python3 -m pytest tests/ -q
 python3 run_demo.py
+python3 run_serving_monitor.py
 python3 -m inference_optimizer.cli optimize --model glm-4b --hardware accel-80gb --batch 8 --seq 2048
 ```
 
@@ -87,6 +96,7 @@ Continuous batching: 128 steps, 7.5 tokens/step, max 2 requests active at once
 
 ## Tests
 
-- **61 pytest tests, all passing** (`python3 -m pytest tests/ -q` from
+- **77 pytest tests, all passing** (`python3 -m pytest tests/ -q` from
   the project directory): model shapes (12), quantization (11),
-  sharding (7), kernels (13), batching (9), profiler (9).
+  sharding (7), kernels (13), batching (9), profiler (9),
+  serving monitor (16).

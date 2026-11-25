@@ -1,15 +1,18 @@
 Municipal Bond Pricing & Risk — demo report
 YTM 4.652%  YTW 4.438% (call@10.0y)  OAS 42.7bp
 Duration 12.85  Convexity 218.8  DV01 $0.1382
-MUNI-01 FAIR residual +3.5bp
-MUNI-02 FAIR residual -1.9bp
-MUNI-03 FAIR residual +2.5bp
-MUNI-04 FAIR residual -9.3bp
-MUNI-05 FAIR residual +2.9bp
-MUNI-06 FAIR residual -11.6bp
-MUNI-07 FAIR residual -7.4bp
-MUNI-08 FAIR residual +8.9bp
-MUNI-09 FAIR residual +1.0bp
-MUNI-10 FAIR residual +10.3bp
-MUNI-11 FAIR residual +0.1bp
-MUNI-12 FAIR residual +0.8bp
+MUNI-01 FAIR residual +3.9bp
+MUNI-02 FAIR residual -5.0bp
+MUNI-03 FAIR residual -12.7bp
+MUNI-04 FAIR residual -8.6bp
+MUNI-05 FAIR residual -2.6bp
+MUNI-06 FAIR residual -16.2bp
+MUNI-07 FAIR residual -8.7bp
+MUNI-08 FAIR residual +14.1bp
+MUNI-09 FAIR residual +7.4bp
+MUNI-10 FAIR residual +5.4bp
+MUNI-11 FAIR residual -8.8bp
+MUNI-12 FAIR residual -14.6bp
+MUNI-13 CHEAP residual +46.4bp
+Sales ideas (cheap vs sector peers, 37% bracket):
+- MUNI-13 (General Obligation, AA, 20y): spread 130bp vs 83.65bp model (+46.4bp), +37.6bp cheap vs sector peers; TEY 8.57% at a 37% tax bracket.

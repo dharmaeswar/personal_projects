@@ -21,14 +21,15 @@ in production or by any real company.
 | `muni_engine/oas.py` | **Option-adjusted spread** — recombining binomial short-rate tree calibrated to the curve, optimal call exercise, OAS by bisection |
 | `muni_engine/risk.py` | **Inventory risk** — modified duration, convexity, DV01, key-rate durations, credit-spread scenarios (P&L per 100 par) |
 | `muni_engine/relative_value.py` | **Relative-value screen** — OLS regression of spread on maturity, coupon, rating and callability; CHEAP / RICH / FAIR flags |
-| `run_muni.py` | End-to-end demo: curve, callable-bond pricing, risk report, 12-bond screen; writes `muni_report.txt` / `muni_report.json` |
+| `muni_engine/public_finance.py` | **Public-finance sector screen** — mean spread/residual per sector (GO, water/sewer, toll road, hospital, school, housing); cheap/rich vs sector peers; ranked sales ideas with taxable-equivalent yield |
+| `run_muni.py` | End-to-end demo: curve, callable-bond pricing, risk report, 13-bond screen; writes `muni_report.txt` / `muni_report.json` |
 
 ## How to run
 
 ```bash
 pip install -r requirements.txt   # pytest only; the engine is stdlib-only
 python run_muni.py                # demo: writes muni_report.txt + muni_report.json
-python -m pytest -q               # 23 tests
+python -m pytest -q               # 33 tests
 ```
 
 Requires Python 3.12.
@@ -48,15 +49,23 @@ callable at par in 10 years, priced at 104.50**:
   risk concentrates at the 20-year point, as expected for a 20y bond
 - Spread scenarios (P&L per 100 par): −100bp **+15.06**, −50bp **+7.21**,
   +50bp **−6.62**, +100bp **−12.70**, +200bp **−23.45**
-- Relative-value screen over a synthetic 12-bond universe: OLS spread
-  model R² **0.948**; all 12 bonds screen FAIR within ±25bp, and a
-  deliberately mispriced bond at +150bp spread is flagged CHEAP (test).
+- Relative-value screen over a synthetic 13-bond universe: OLS spread
+  model R² **0.755**; 12 bonds screen FAIR within ±25bp, and a
+  deliberately mispriced bond at +130bp spread is flagged CHEAP (test).
+- Public-finance sector screen: GO mean spread **56.2bp**, hospital
+  **103.0bp**, toll road **73.0bp** — sectors trade at different levels,
+  so the screen is run within each sector too. Top sales idea:
+  **MUNI-13** (GO, AA, 20y) at 130bp vs an 83.65bp model spread,
+  **+37.6bp cheap vs its GO peers**, taxable-equivalent yield **8.57%**
+  at a 37% tax bracket.
 
 ## Tests
 
-23 pytest tests cover curve interpolation and bootstrapping (par bonds
+33 pytest tests cover curve interpolation and bootstrapping (par bonds
 reprice at 100), pricing/yield round-trips, yield-to-worst call-vs-maturity
 selection, callable < bullet value, OAS repricing the market price,
 duration/convexity/DV01 ranges, key-rate durations summing near total
-duration, spread-scenario monotonicity, and the relative-value screen
-(coefficient signs, R², outlier flagged CHEAP, fit guards).
+duration, spread-scenario monotonicity, the relative-value screen
+(coefficient signs, R², outlier flagged CHEAP, fit guards), and the
+public-finance sector screen (sector means, sector residuals removing the
+sector mean, sector vs market flags, sales-idea ranking and TEY math).

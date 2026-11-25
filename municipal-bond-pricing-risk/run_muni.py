@@ -13,7 +13,8 @@ from muni_engine import (
     MunicipalBond, TaxExemptCurve, bootstrap_curve, dv01,
     duration_convexity, key_rate_durations, option_adjusted_spread,
     price, spread_scenarios, yield_to_maturity, yield_to_worst,
-    RelativeValueScreen,
+    RelativeValueScreen, sector_summary, sector_relative_value,
+    sales_ideas,
 )
 
 
@@ -43,30 +44,43 @@ def main():
           {f"{k:+d}bp": round(v, 3) for k, v in scenarios.items()})
 
     universe = [
-        {"id": "MUNI-01", "maturity_years": 5, "coupon": 0.03, "rating": "AAA",
-         "callable": False, "spread_bp": 28},
-        {"id": "MUNI-02", "maturity_years": 10, "coupon": 0.04, "rating": "AA",
-         "callable": True, "spread_bp": 52},
-        {"id": "MUNI-03", "maturity_years": 20, "coupon": 0.05, "rating": "AA",
-         "callable": True, "spread_bp": 71},
-        {"id": "MUNI-04", "maturity_years": 30, "coupon": 0.045, "rating": "A",
-         "callable": True, "spread_bp": 88},
-        {"id": "MUNI-05", "maturity_years": 7, "coupon": 0.035, "rating": "AAA",
-         "callable": False, "spread_bp": 31},
-        {"id": "MUNI-06", "maturity_years": 12, "coupon": 0.05, "rating": "A",
-         "callable": True, "spread_bp": 64},
-        {"id": "MUNI-07", "maturity_years": 15, "coupon": 0.04, "rating": "AA",
-         "callable": False, "spread_bp": 49},
-        {"id": "MUNI-08", "maturity_years": 25, "coupon": 0.05, "rating": "BBB",
-         "callable": True, "spread_bp": 118},
-        {"id": "MUNI-09", "maturity_years": 3, "coupon": 0.025, "rating": "AAA",
-         "callable": False, "spread_bp": 22},
-        {"id": "MUNI-10", "maturity_years": 20, "coupon": 0.05, "rating": "A",
-         "callable": True, "spread_bp": 96},
-        {"id": "MUNI-11", "maturity_years": 10, "coupon": 0.045, "rating": "AA",
-         "callable": True, "spread_bp": 55},
-        {"id": "MUNI-12", "maturity_years": 30, "coupon": 0.05, "rating": "AA",
-         "callable": True, "spread_bp": 82},
+        {"id": "MUNI-01", "sector": "GO", "maturity_years": 5, "coupon": 0.03,
+         "rating": "AAA", "callable": False, "spread_bp": 28, "yield_pct": 2.9},
+        {"id": "MUNI-02", "sector": "GO", "maturity_years": 10, "coupon": 0.04,
+         "rating": "AA", "callable": True, "spread_bp": 52, "yield_pct": 3.5},
+        {"id": "MUNI-03", "sector": "WATER_SEWER", "maturity_years": 20,
+         "coupon": 0.05, "rating": "AA", "callable": True, "spread_bp": 71,
+         "yield_pct": 4.2},
+        {"id": "MUNI-04", "sector": "HOSPITAL", "maturity_years": 30,
+         "coupon": 0.045, "rating": "A", "callable": True, "spread_bp": 88,
+         "yield_pct": 4.6},
+        {"id": "MUNI-05", "sector": "SCHOOL", "maturity_years": 7,
+         "coupon": 0.035, "rating": "AAA", "callable": False, "spread_bp": 31,
+         "yield_pct": 3.0},
+        {"id": "MUNI-06", "sector": "TOLL_ROAD", "maturity_years": 12,
+         "coupon": 0.05, "rating": "A", "callable": True, "spread_bp": 64,
+         "yield_pct": 3.9},
+        {"id": "MUNI-07", "sector": "GO", "maturity_years": 15, "coupon": 0.04,
+         "rating": "AA", "callable": False, "spread_bp": 49, "yield_pct": 3.6},
+        {"id": "MUNI-08", "sector": "HOSPITAL", "maturity_years": 25,
+         "coupon": 0.05, "rating": "BBB", "callable": True, "spread_bp": 118,
+         "yield_pct": 5.1},
+        {"id": "MUNI-09", "sector": "GO", "maturity_years": 3, "coupon": 0.025,
+         "rating": "AAA", "callable": False, "spread_bp": 22, "yield_pct": 2.6},
+        {"id": "MUNI-10", "sector": "HOUSING", "maturity_years": 20,
+         "coupon": 0.05, "rating": "A", "callable": True, "spread_bp": 96,
+         "yield_pct": 4.8},
+        {"id": "MUNI-11", "sector": "WATER_SEWER", "maturity_years": 10,
+         "coupon": 0.045, "rating": "AA", "callable": True, "spread_bp": 55,
+         "yield_pct": 3.7},
+        {"id": "MUNI-12", "sector": "TOLL_ROAD", "maturity_years": 30,
+         "coupon": 0.05, "rating": "AA", "callable": True, "spread_bp": 82,
+         "yield_pct": 4.5},
+        # Deliberately mispriced vs its GO peers, so the sales-ideas path
+        # is exercised by the demo (mirrors the CHEAP test case).
+        {"id": "MUNI-13", "sector": "GO", "maturity_years": 20,
+         "coupon": 0.05, "rating": "AA", "callable": True, "spread_bp": 130,
+         "yield_pct": 5.4},
     ]
     screen = RelativeValueScreen()
     screen.fit(universe)
@@ -77,6 +91,21 @@ def main():
               f"spread {row['spread_bp']:>3}bp predicted "
               f"{row['predicted_spread_bp']:>6}bp residual "
               f"{row['residual_bp']:+6.1f}bp -> {row['flag']}")
+
+    summary = sector_summary(flagged)
+    sector_flagged = sector_relative_value(flagged)
+    ideas = sales_ideas(flagged, top_n=3, marginal_tax_rate=0.37)
+    print("\nPublic-finance sector summary (mean spread / mean residual):")
+    for sector, s in summary.items():
+        print(f"  {sector:<12} {s['sector_name']:<22} n={s['count']} "
+              f"spread {s['mean_spread_bp']:>6.1f}bp residual "
+              f"{s['mean_residual_bp']:+6.1f}bp")
+    print("\nTop sales ideas (cheap vs sector peers, 37% tax bracket):")
+    if ideas:
+        for idea in ideas:
+            print(f"  - {idea['rationale']}")
+    else:
+        print("  (none — no bond is cheap against its own sector peers)")
 
     report = {
         "bond": "5% 20y callable muni, callable at par in 10y, price 104.50",
@@ -90,6 +119,14 @@ def main():
                                  for k, v in scenarios.items()},
         "relative_value_r2": round(screen.r_squared(universe), 3),
         "screen": flagged,
+        "sector_summary": summary,
+        "sector_screen": sector_flagged,
+        "sales_ideas": [
+            {"id": i["id"], "sector": i.get("sector", "GO"),
+             "sector_residual_bp": i["sector_residual_bp"],
+             "taxable_equivalent_yield_pct": i["taxable_equivalent_yield_pct"],
+             "rationale": i["rationale"]} for i in ideas
+        ],
     }
     with open("muni_report.json", "w") as f:
         json.dump(report, f, indent=2)
@@ -102,6 +139,9 @@ def main():
         for row in flagged:
             f.write(f"{row['id']} {row['flag']} residual "
                     f"{row['residual_bp']:+.1f}bp\n")
+        f.write("Sales ideas (cheap vs sector peers, 37% bracket):\n")
+        for idea in ideas:
+            f.write(f"- {idea['rationale']}\n")
     print("\nWrote muni_report.txt and muni_report.json")
 
 

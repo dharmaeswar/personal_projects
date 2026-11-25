@@ -15,6 +15,7 @@ from .bonds import MunicipalBond, price, yield_to_maturity, yield_to_call, yield
 from .oas import option_adjusted_spread, callable_bond_price
 from .risk import duration_convexity, dv01, key_rate_durations, spread_scenarios
 from .relative_value import RelativeValueScreen
+from .public_finance import sector_summary, sector_relative_value, sales_ideas
 
 __all__ = [
     "TaxExemptCurve",
@@ -31,4 +32,7 @@ __all__ = [
     "key_rate_durations",
     "spread_scenarios",
     "RelativeValueScreen",
+    "sector_summary",
+    "sector_relative_value",
+    "sales_ideas",
 ]

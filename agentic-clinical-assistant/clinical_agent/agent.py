@@ -43,6 +43,8 @@ class Agent:
                     {"patient_id": patient_id, "reason": reason},
                 )
             )
+        if any(k in lowered for k in ("cohort", "claims", "real-world", "real world", "utilization", "treatment pattern", "patient journey")):
+            steps.append(("analyze_rwd", {"patient_id": patient_id}))
         if ("send" in lowered or "message" in lowered) and patient_id:
             steps.append(
                 (
@@ -89,6 +91,11 @@ class Agent:
                     "Patient context reviewed: "
                     + ", ".join(result["conditions"])
                     + "."
+                )
+            elif tool == "analyze_rwd":
+                answer_parts.append(
+                    f"RWD cohort built: {len(result['cohort'])} patients; "
+                    f"{result['utilization']['n_claims']} synthetic claims analysed."
                 )
             elif tool == "draft_summary":
                 answer_parts.append("Draft summary ready for clinician review.")

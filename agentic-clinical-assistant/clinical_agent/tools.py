@@ -12,6 +12,8 @@ import time
 from .kb import PATIENTS
 from .phi import redact
 from .retrieval import search
+from .rwd import (build_cohort, data_quality, generate_claims,
+                 patient_journey, treatment_patterns, utilization_summary)
 
 
 class ToolError(Exception):
@@ -135,3 +137,16 @@ class ToolServer:
             "message": message,
             "status": "delivered after clinician approval",
         }
+
+    def _tool_analyze_rwd(self, condition=None, patient_id=None):
+        """RWD analytics over synthetic claims-like records (demo data only)."""
+        records = generate_claims()
+        result = {
+            "cohort": build_cohort(records, condition=condition),
+            "treatment_patterns": treatment_patterns(records),
+            "utilization": utilization_summary(records),
+            "quality": data_quality(records),
+        }
+        if patient_id:
+            result["journey"] = patient_journey(records, patient_id)
+        return result

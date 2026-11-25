@@ -1,7 +1,9 @@
 # Agentic Clinical Assistant
 
 A customer-facing agentic AI assistant for care teams, built as a portfolio
-project for a Senior Software Engineer, Agentic AI application. It answers
+project, updated for a Johnson & Johnson Senior AI Engineer application:
+GenAI/LLM applications, RAG, semantic search, AI agents, and healthcare
+Real-World Data (RWD) analytics in Python and SQL-style data processing. It answers
 care-team questions by retrieving guidance from a knowledge base, calling
 tools over patient context, drafting summaries, and escalating urgent cases —
 with a clinician in the loop for anything that leaves the system.
@@ -31,6 +33,14 @@ safeguard design, not a HIPAA certification.
   de-identified by design (conditions and medications only).
 - **Audit log** (`clinical_agent/audit.py`) — append-only, timestamped,
   actor + action + redacted detail, so any request can be replayed.
+- **Real-World Data analytics** (`clinical_agent/rwd.py`) — synthetic
+  claims-like records generated locally (no real patient data): cohort
+  building by condition / procedure / drug, longitudinal patient-journey
+  summaries (events over time), treatment-pattern and healthcare-utilization
+  aggregates, and data-quality / completeness checks. Exposed to the agent
+  as the `analyze_rwd` tool, triggered by cohort / claims / utilization /
+  treatment-pattern / patient-journey requests. Codes are simple synthetic
+  labels only — not ICD-10-CM, CPT/HCPCS, NDC or RxNorm work.
 - **Eval suite** (`clinical_agent/evals.py`) — six acceptance cases: the
   agent must use the right tools, must hold sends and escalations for
   approval, must escalate when approved, and must never leak PHI into logs.
@@ -70,6 +80,7 @@ python -m pytest tests/ -q
 - `clinical_agent/tools.py` — validated tool server with tracing and approval gates
 - `clinical_agent/agent.py` — planner, step budget, human-in-the-loop loop
 - `clinical_agent/audit.py` — append-only redacted audit log
+- `clinical_agent/rwd.py` — synthetic RWD: cohorts, journeys, treatment patterns, utilization, data quality
 - `clinical_agent/evals.py` — acceptance eval cases
 - `run_assistant.py` — demo CLI (`--eval` runs the suite)
 - `tests/` — pytest suite

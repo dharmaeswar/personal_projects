@@ -5,6 +5,8 @@ from .audit import AuditLog
 from .evals import EVAL_CASES, run_evals
 from .phi import contains_phi, redact
 from .retrieval import search
+from .rwd import (build_cohort, data_quality, generate_claims,
+                 patient_journey, treatment_patterns, utilization_summary)
 from .tools import ToolError, ToolServer
 
 __all__ = [
@@ -18,4 +20,10 @@ __all__ = [
     "redact",
     "run_evals",
     "search",
+    "build_cohort",
+    "data_quality",
+    "generate_claims",
+    "patient_journey",
+    "treatment_patterns",
+    "utilization_summary",
 ]

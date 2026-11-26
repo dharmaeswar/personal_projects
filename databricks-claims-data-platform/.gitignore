@@ -1,0 +1,5 @@
+lakehouse/
+__pycache__/
+*.pyc
+.pytest_cache/
+validation_report.txt

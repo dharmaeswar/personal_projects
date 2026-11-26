@@ -1,0 +1,48 @@
+{
+  "accepted_records_stored": 200,
+  "checkpoint_after_crash": {
+    "dataset": "webtext-train-v1",
+    "done_shards": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "num_shards": 4,
+    "run_id": "demo-run-1",
+    "updated_at": "2026-11-26T16:54:23.166881+00:00",
+    "version": "1.0"
+  },
+  "corpus_records": 220,
+  "crash_simulated": true,
+  "final_totals_crash_plus_resume": {
+    "accepted": 200,
+    "duplicates": 10,
+    "quarantined": 10,
+    "received": 220
+  },
+  "no_duplicates_stored": true,
+  "reference_totals_single_pass": {
+    "accepted": 200,
+    "duplicates": 10,
+    "quarantined": 10,
+    "received": 220
+  },
+  "resumed_shards": [
+    {
+      "accepted": 51,
+      "duplicates": 4,
+      "quarantined": 5,
+      "received": 60,
+      "shard": 2
+    },
+    {
+      "accepted": 54,
+      "duplicates": 2,
+      "quarantined": 5,
+      "received": 61,
+      "shard": 3
+    }
+  ],
+  "totals_match_reference": true
+}

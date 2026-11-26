@@ -33,13 +33,24 @@ third-party runtime dependencies.
   pipeline health.
 - **HTTP API** (`llm_data_infra/server.py`) — stdlib `http.server`
   JSON API plus a dashboard page; no framework needed.
+- **Parallel sharded loading** (`llm_data_infra/loader.py`) — records
+  are assigned to shards deterministically by content hash; quality-gate
+  evaluation runs in parallel across shards on a worker pool, then a
+  single-threaded commit phase inserts them (one writer avoids
+  database-lock contention, and content-hash dedup makes re-ingest
+  idempotent). Each shard reports its own counts.
+- **Checkpoint / resume** (`llm_data_infra/checkpoint.py`) — a small
+  JSON checkpoint is written after every shard commits. If the process
+  dies mid-run, the next run loads only the shards not yet checkpointed
+  as done, so no shard is loaded twice and no record is inserted twice.
 
 ## Run it
 
 ```bash
 python -m llm_data_infra     # serves http://127.0.0.1:8000
 python run_demo.py            # seeds synthetic data, prints the summary
-python -m pytest tests/ -q    # 8 tests
+python run_training_loader.py # parallel sharded load, crash, resume; writes training_loader_report.json
+python -m pytest tests/ -q    # 13 tests
 ```
 
 Example API flow:
@@ -56,3 +67,17 @@ curl localhost:8000/api/dashboard
 Demo seed: 2 datasets, 7 records ingested — 4 accepted, 1 duplicate
 dropped by content hash, 2 quarantined (too short, PII pattern);
 accept rate 0.57 on the deliberately dirty demo feed.
+
+Training-loader demo (`run_training_loader.py`): 220-record synthetic
+corpus, 4 shards, crash simulated after 2 shards, resume from
+checkpoint — crash + resume totals equal a clean single-pass load
+exactly (200 accepted, 10 duplicates, 10 quarantined), with no record
+stored twice. See `training_loader_report.json`.
+
+## Honest limits
+
+- The loader is a CPU-bound, in-process pipeline on SQLite: gate
+  evaluation runs in parallel, but the commit phase is single-threaded
+  by design. It models sharding, parallelism and fault-tolerant resume
+  for training-data loading; it is not a distributed system and claims
+  no GPU, CUDA/Triton kernel, or multi-node training work.

@@ -9,6 +9,8 @@ the validator can reproduce the developer's code and compare outputs.
 
 import math
 
+from sb_credit_validator.features import engineer_features
+
 FEATURES = ["annual_revenue", "years_in_business", "cashflow_coverage",
             "credit_score", "loan_amount", "industry_risk"]
 
@@ -85,3 +87,35 @@ class LogisticModel:
             out.append(_sigmoid(sum(wi * xij
                                     for wi, xij in zip(self.weights, x))))
         return out
+
+
+class GradientBoostingChallenger:
+    """Second challenger: scikit-learn gradient boosting on engineered features.
+
+    Same fit/predict_proba interface as LogisticModel, so the validator can
+    score it, compare it with the champion, and test whether the gain is
+    statistically significant. The import is lazy so the pure-Python
+    logistic path still works on a machine without scikit-learn.
+    """
+
+    def __init__(self, max_iter=200, learning_rate=0.08, max_depth=3,
+                 random_state=42):
+        self.max_iter = max_iter
+        self.learning_rate = learning_rate
+        self.max_depth = max_depth
+        self.random_state = random_state
+        self.model = None
+
+    def fit(self, rows):
+        from sklearn.ensemble import HistGradientBoostingClassifier
+        X = [engineer_features(r) for r in rows]
+        y = [r["defaulted"] for r in rows]
+        self.model = HistGradientBoostingClassifier(
+            max_iter=self.max_iter, learning_rate=self.learning_rate,
+            max_depth=self.max_depth, random_state=self.random_state)
+        self.model.fit(X, y)
+        return self
+
+    def predict_proba(self, rows):
+        X = [engineer_features(r) for r in rows]
+        return [float(p) for p in self.model.predict_proba(X)[:, 1]]

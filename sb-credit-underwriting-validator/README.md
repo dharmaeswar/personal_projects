@@ -6,6 +6,16 @@ before a Square Loans-style model is approved for use and while it
 stays in production. Built for the Block, Inc. Senior Model Risk
 Analyst, AI & Model Risk role (Req R0007341).
 
+**November 2026 update — Upstart Applied Scientist roles:** the same
+validator now also carries a gradient-boosting challenger on engineered
+lending features and a champion/challenger experiment module (bootstrap
+AUC-difference confidence interval, paired log-loss test, rollout
+sample sizing) — the experiment design and model-evaluation work an
+AI lending marketplace's Applied Scientist does when a challenger
+claims to beat the champion. The underwriting problem is the same one
+Upstart solves at scale: approve the right borrowers, reject the wrong
+ones, and prove the model before it ships.
+
 **All data is synthetic and seeded.** No real borrower, bank, or
 transaction data is used, and nothing here is a claim about any real
 institution.
@@ -28,6 +38,18 @@ model risk management guidance (SR 26-2).
 - **Challenger model**: an independent logistic regression adding
   interaction terms (revenue x coverage, score x years in business),
   benchmarked against the champion on the same validation sample.
+- **Feature engineering** (`features.py`): loan-to-income, log revenue,
+  credit-score and coverage bands, and revenue x coverage / score x
+  years interactions — the lending features a linear champion cannot
+  express on its own.
+- **Gradient-boosting challenger** (`models.py`): scikit-learn
+  `HistGradientBoostingClassifier` on the engineered features, scored
+  with the same interface as the logistic models so the comparison is
+  apples-to-apples.
+- **Experiment design** (`experiments.py`): bootstrap 95% confidence
+  interval for the paired AUC difference between two models, a paired
+  log-loss test, and per-arm sample sizing for a champion/challenger
+  rollout experiment.
 - **Outcomes analysis** (`outcomes.py`): ROC-AUC, KS statistic, Gini,
   decile capture, calibration by predicted decile, and the confusion
   matrix at the operating threshold.
@@ -52,7 +74,7 @@ model risk management guidance (SR 26-2).
 ```bash
 pip install -r requirements.txt
 PYTHONPATH=. python3 run_validation.py   # prints the report, writes validation_report.txt
-PYTHONPATH=. python3 -m pytest -q        # 25 tests
+PYTHONPATH=. python3 -m pytest -q        # 39 tests
 ```
 
 ## Results (seeded demo, 4,000 synthetic loans)
@@ -60,6 +82,17 @@ PYTHONPATH=. python3 -m pytest -q        # 25 tests
 - Champion ROC-AUC **0.734**, KS **0.356**, Gini **0.468**; challenger
   0.735 — the interaction terms add almost nothing, which the report
   says plainly instead of overselling the challenger.
+- Gradient-boosting challenger ROC-AUC **0.853**, KS **0.543** on the
+  engineered features. Experiment: AUC gain over the champion **+0.120
+  (95% CI 0.109 to 0.132, 200 bootstrap draws)**; paired log-loss test
+  mean diff −0.0716, p < 0.0001 — the gain is statistically significant
+  on this sample. Honest limit, stated in the report: all three models
+  are fit and scored on the same validation sample, so the GBM's edge
+  is partly in-sample fit; an out-of-sample holdout is the next step
+  before any adoption decision.
+- A champion/challenger rollout needs **24,617 loans per arm** to
+  detect a 1 percentage-point change in the default rate (80% power,
+  5% significance).
 - Top scored decile captures **25.0%** of all defaults; bottom decile
   1.8%.
 - At the operating threshold (t=0.5): precision 0.639, recall 0.091,
@@ -73,7 +106,8 @@ PYTHONPATH=. python3 -m pytest -q        # 25 tests
 - Developer code reproduces exactly (max abs diff 0.0000).
 - Verdict: **PASS — approve for use**, recommended risk rating
   Medium (owner proposed Medium), with 3 Medium findings to track to
-  closure.
+  closure, plus a Low finding recommending the gradient-boosting
+  challenger be evaluated for adoption at the next redevelopment.
 
 ## Why this project is different from the others in the repo
 

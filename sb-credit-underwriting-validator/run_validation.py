@@ -10,7 +10,9 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from sb_credit_validator.data import generate_portfolio
-from sb_credit_validator.models import LogisticModel
+from sb_credit_validator.experiments import (
+    bootstrap_auc_diff, min_sample_size, paired_logloss_test)
+from sb_credit_validator.models import GradientBoostingChallenger, LogisticModel
 from sb_credit_validator.outcomes import (
     roc_auc, ks_statistic, gini, decile_capture, confusion_at_threshold)
 from sb_credit_validator.validation import (
@@ -27,8 +29,10 @@ def run():
 
     champion = LogisticModel(interactions=False).fit(loans)
     challenger = LogisticModel(interactions=True).fit(loans)
+    gbm = GradientBoostingChallenger().fit(loans)
     champ_scores = champion.predict_proba(loans)
     chal_scores = challenger.predict_proba(loans)
+    gbm_scores = gbm.predict_proba(loans)
 
     # Independent reproduction: re-fit the developer model from scratch.
     refit = LogisticModel(interactions=False).fit(loans)
@@ -46,11 +50,22 @@ def run():
         "gini": gini(y, champ_scores),
         "challenger_auc": roc_auc(y, chal_scores),
         "challenger_ks": ks_statistic(y, chal_scores),
+        "gbm_auc": roc_auc(y, gbm_scores),
+        "gbm_ks": ks_statistic(y, gbm_scores),
     }
     challenger_better = outcomes["challenger_auc"] > outcomes["auc"] + 0.005
+    gbm_better = outcomes["gbm_auc"] > outcomes["auc"] + 0.005
+    # Experiment: is the GBM challenger's gain over the champion real?
+    experiment = bootstrap_auc_diff(y, champ_scores, gbm_scores)
+    logloss = paired_logloss_test(y, champ_scores, gbm_scores)
+    baseline_rate = sum(y) / len(y)
+    rollout_n = min_sample_size(baseline_rate, 0.01)
+    experiment_significant = experiment["ci_lo"] > 0
     findings = build_findings(outcomes, backtest, psi_value, drift,
                               data_issues, repro["reproduced"],
-                              challenger_better)
+                              challenger_better,
+                              gbm_better=gbm_better,
+                              experiment_significant=experiment_significant)
     rating = recommend_rating(findings)
     high = any(s == "High" for s, _ in findings)
     verdict = ("CONDITIONAL PASS — approve for use once High findings are "
@@ -63,6 +78,11 @@ def run():
         "gini": outcomes["gini"],
         "challenger_auc": outcomes["challenger_auc"],
         "challenger_ks": outcomes["challenger_ks"],
+        "gbm_auc": outcomes["gbm_auc"],
+        "gbm_ks": outcomes["gbm_ks"],
+        "experiment": experiment,
+        "logloss": logloss,
+        "rollout_n": rollout_n,
         "deciles": decile_capture(y, champ_scores),
         "confusion": confusion_at_threshold(y, champ_scores),
         "backtest": backtest,

@@ -13,6 +13,9 @@ Scope: conceptual soundness, outcomes analysis, backtesting,
 2. OUTCOMES ANALYSIS (validation sample, n=4000)
    Champion AUC 0.734 | KS 0.356 | Gini 0.468
    Challenger AUC 0.735 | KS 0.356
+   Gradient-boosting challenger AUC 0.853 | KS 0.543
+   Experiment: GBM vs champion AUC diff 0.120 (95% CI 0.109 to 0.132, 200 bootstrap draws)
+   Paired log-loss test: mean diff -0.0716, z -27.244, p 0.0000; rollout needs 24617 loans per arm to detect a 1pp default-rate change
    Top decile captures 25.0% of defaults; bottom decile 1.8%.
    At t=0.5: precision 0.639, recall 0.091, F1 0.159
 
@@ -35,6 +38,7 @@ Scope: conceptual soundness, outcomes analysis, backtesting,
    [Medium] Modest rank-ordering: champion AUC 0.734; challenger reaches 0.735, so the methodology leaves discrimination on the table.
    [Medium] Mean score drift 10.6% vs validation; re-check the score distribution before the next quarterly review.
    [Medium] Input data gaps: 2 credit scores outside 300-850
+   [Low] Gradient-boosting challenger beats the champion on AUC and the bootstrap 95% CI for the gain excludes zero; evaluate it for adoption at the next redevelopment.
 
 7. RISK RATING & VERDICT
    Recommended risk rating: Medium (owner proposed: Medium)

@@ -4,7 +4,8 @@ FINDING_SEVERITY = {"High": 3, "Medium": 2, "Low": 1}
 
 
 def build_findings(outcomes, backtest, psi_value, drift, data_issues,
-                   reproduced, challenger_better):
+                   reproduced, challenger_better, gbm_better=False,
+                   experiment_significant=False):
     """Findings follow SR 26-2 validation practice: each finding names the
     evidence, the impact, and a severity the model owner must remediate."""
     findings = []
@@ -45,6 +46,16 @@ def build_findings(outcomes, backtest, psi_value, drift, data_issues,
         findings.append(("Low", "Challenger beats champion on AUC; consider "
                          "adopting the interaction terms at the next "
                          "redevelopment, not as a blocking change."))
+    if gbm_better:
+        if experiment_significant:
+            findings.append(("Low", "Gradient-boosting challenger beats the "
+                             "champion on AUC and the bootstrap 95% CI for the "
+                             "gain excludes zero; evaluate it for adoption at "
+                             "the next redevelopment."))
+        else:
+            findings.append(("Low", "Gradient-boosting challenger beats the "
+                             "champion on AUC, but the bootstrap 95% CI for the "
+                             "gain includes zero, so the gain is not proven."))
     if not findings:
         findings.append(("Low", "No material findings: outcomes, backtest, "
                          "monitoring and data checks all pass."))
@@ -80,6 +91,21 @@ def render_report(results):
                  % (results["auc"], results["ks"], results["gini"]))
     lines.append("   Challenger AUC %.3f | KS %.3f"
                  % (results["challenger_auc"], results["challenger_ks"]))
+    if "gbm_auc" in results:
+        lines.append("   Gradient-boosting challenger AUC %.3f | KS %.3f"
+                     % (results["gbm_auc"], results["gbm_ks"]))
+    if "experiment" in results:
+        exp = results["experiment"]
+        ll = results["logloss"]
+        lines.append("   Experiment: GBM vs champion AUC diff %.3f "
+                     "(95%% CI %.3f to %.3f, %d bootstrap draws)"
+                     % (exp["mean_diff"], exp["ci_lo"], exp["ci_hi"],
+                        exp["n_boot"]))
+        lines.append("   Paired log-loss test: mean diff %.4f, z %.3f, "
+                     "p %.4f; rollout needs %d loans per arm to detect a "
+                     "1pp default-rate change"
+                     % (ll["mean_diff"], ll["z"], ll["p_value"],
+                        results["rollout_n"]))
     lines.append("   Top decile captures %.1f%% of defaults; bottom decile %.1f%%."
                  % (results["deciles"][0] * 100, results["deciles"][-1] * 100))
     lines.append("   At t=0.5: precision %.3f, recall %.3f, F1 %.3f"

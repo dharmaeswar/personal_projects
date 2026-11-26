@@ -1,0 +1,4 @@
+pyarrow>=15
+pandas>=2
+numpy>=2
+pytest>=8

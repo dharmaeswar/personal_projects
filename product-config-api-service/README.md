@@ -79,6 +79,17 @@ curl localhost:8080/v1/products/runner-x1/published
 curl localhost:8080/v1/products/runner-x1/suggest
 ```
 
+## Fare configuration example (Uber — Software Engineer II, Backend, Fares Platform)
+
+`examples/fare_config.json` is a fare configuration built on the same generic service: modules for base fare,
+per-mile / per-minute rates, a surge multiplier, and the service area. Creating it, publishing it through the
+draft -> review -> published workflow, and serving only the published version is exactly the problem a fares
+platform solves: fare rules change often, must be validated before they go live, and must be versioned so a bad
+change can be rolled back by republishing the previous version. `tests/test_fare_config.py` covers that flow:
+publish, version bump with a fare change, invalid surge multiplier rejected, duplicate module rejected, illegal
+transition rejected, and the full HTTP round trip. All fare values are synthetic examples. Nothing here describes
+a real Uber system, real fares, or real trip data.
+
 ## Skills used
 
 Only skills Dharma has verified: Python, REST APIs, JSON data modelling,

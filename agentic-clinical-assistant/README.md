@@ -41,6 +41,15 @@ safeguard design, not a HIPAA certification.
   as the `analyze_rwd` tool, triggered by cohort / claims / utilization /
   treatment-pattern / patient-journey requests. Codes are simple synthetic
   labels only — not ICD-10-CM, CPT/HCPCS, NDC or RxNorm work.
+- **Data pipeline** (`clinical_agent/pipeline.py`) — validates FHIR-shaped
+  interoperability records, de-duplicates them, builds per-patient features,
+  and loads them into the feature store and vector store, with a run report
+  (received / loaded / rejected / duplicates) so a bad feed is visible.
+- **Vector store + feature store** (`clinical_agent/vector_store.py`) —
+  deterministic in-memory vector store (hashed embeddings, cosine search,
+  metadata filters) and a versioned feature store so a model trained on v1
+  features can be reproduced after v2 is published. Embeddings here are
+  deterministic hashes for testing, not production model embeddings.
 - **Eval suite** (`clinical_agent/evals.py`) — six acceptance cases: the
   agent must use the right tools, must hold sends and escalations for
   approval, must escalate when approved, and must never leak PHI into logs.
@@ -81,6 +90,8 @@ python -m pytest tests/ -q
 - `clinical_agent/agent.py` — planner, step budget, human-in-the-loop loop
 - `clinical_agent/audit.py` — append-only redacted audit log
 - `clinical_agent/rwd.py` — synthetic RWD: cohorts, journeys, treatment patterns, utilization, data quality
+- `clinical_agent/vector_store.py` — deterministic vector store and versioned feature store
+- `clinical_agent/pipeline.py` — interoperability ingest pipeline with validation, dedupe and run reports
 - `clinical_agent/evals.py` — acceptance eval cases
 - `run_assistant.py` — demo CLI (`--eval` runs the suite)
 - `tests/` — pytest suite

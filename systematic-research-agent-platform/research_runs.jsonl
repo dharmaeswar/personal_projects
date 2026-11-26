@@ -1,0 +1,1 @@
+{"question": "What is the momentum signal and what did the momentum factor return?", "tools_used": ["compute_statistic", "read_code", "search_knowledge", "validate_number"], "citations": ["RN-MOM-01", "RN-MREV-01", "DATA-MOM-01", "DATA-CARRY-01", "DATA-VOL-01", "CODE-MOM-01"], "validation_passed": true, "steps_used": 4}

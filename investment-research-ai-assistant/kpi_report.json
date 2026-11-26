@@ -1,0 +1,273 @@
+{
+  "quarters": [
+    "2024-Q1",
+    "2024-Q2",
+    "2024-Q3",
+    "2024-Q4",
+    "2025-Q1",
+    "2025-Q2",
+    "2025-Q3",
+    "2025-Q4",
+    "2026-Q1",
+    "2026-Q2",
+    "2026-Q3",
+    "2026-Q4"
+  ],
+  "dashboard": [
+    {
+      "company": "Acme Industrial Holdings",
+      "latest_revenue_growth_pct": 5.98,
+      "latest_operating_margin_pct": 17.29,
+      "latest_alt_index": 100.7,
+      "alt_momentum_pct": 2.13,
+      "revenue_inflections": [
+        {
+          "index": 7,
+          "value": 5.57,
+          "z": -6.11,
+          "direction": "down"
+        },
+        {
+          "index": 10,
+          "value": 6.58,
+          "z": 2.21,
+          "direction": "up"
+        }
+      ],
+      "margin_inflections": [
+        {
+          "index": 5,
+          "value": 18.06,
+          "z": 2.87,
+          "direction": "up"
+        },
+        {
+          "index": 9,
+          "value": 17.72,
+          "z": -3.72,
+          "direction": "down"
+        },
+        {
+          "index": 11,
+          "value": 17.29,
+          "z": -3.53,
+          "direction": "down"
+        }
+      ],
+      "next_quarter_revenue_growth_forecast_pct": 6.26,
+      "revenue_trend_slope": 0.037,
+      "revenue_forecast_r_squared": 0.209,
+      "signal_score": 1,
+      "position": "NEUTRAL"
+    },
+    {
+      "company": "Beacon Health Systems",
+      "latest_revenue_growth_pct": 2.94,
+      "latest_operating_margin_pct": 11.66,
+      "latest_alt_index": 96.6,
+      "alt_momentum_pct": -1.13,
+      "revenue_inflections": [
+        {
+          "index": 4,
+          "value": 3.19,
+          "z": 3.45,
+          "direction": "up"
+        }
+      ],
+      "margin_inflections": [
+        {
+          "index": 4,
+          "value": 11.89,
+          "z": -3.26,
+          "direction": "down"
+        },
+        {
+          "index": 7,
+          "value": 12.57,
+          "z": 2.19,
+          "direction": "up"
+        },
+        {
+          "index": 11,
+          "value": 11.66,
+          "z": -3.26,
+          "direction": "down"
+        }
+      ],
+      "next_quarter_revenue_growth_forecast_pct": 3.16,
+      "revenue_trend_slope": 0.042,
+      "revenue_forecast_r_squared": 0.332,
+      "signal_score": 1,
+      "position": "NEUTRAL"
+    },
+    {
+      "company": "Northwind Energy Partners",
+      "latest_revenue_growth_pct": 4.68,
+      "latest_operating_margin_pct": 14.89,
+      "latest_alt_index": 99.0,
+      "alt_momentum_pct": 1.64,
+      "revenue_inflections": [
+        {
+          "index": 4,
+          "value": 3.96,
+          "z": -2.03,
+          "direction": "down"
+        },
+        {
+          "index": 6,
+          "value": 4.55,
+          "z": 3.49,
+          "direction": "up"
+        },
+        {
+          "index": 7,
+          "value": 4.86,
+          "z": 2.85,
+          "direction": "up"
+        }
+      ],
+      "margin_inflections": [
+        {
+          "index": 6,
+          "value": 22.72,
+          "z": 2.04,
+          "direction": "up"
+        },
+        {
+          "index": 8,
+          "value": 15.29,
+          "z": -57.66,
+          "direction": "down"
+        }
+      ],
+      "next_quarter_revenue_growth_forecast_pct": 4.58,
+      "revenue_trend_slope": 0.025,
+      "revenue_forecast_r_squared": 0.106,
+      "signal_score": 1,
+      "position": "NEUTRAL"
+    },
+    {
+      "company": "Helix Software Group",
+      "latest_revenue_growth_pct": 19.51,
+      "latest_operating_margin_pct": 14.48,
+      "latest_alt_index": 119.7,
+      "alt_momentum_pct": 9.82,
+      "revenue_inflections": [
+        {
+          "index": 4,
+          "value": 9.64,
+          "z": 2.72,
+          "direction": "up"
+        },
+        {
+          "index": 6,
+          "value": 20.09,
+          "z": 29.71,
+          "direction": "up"
+        }
+      ],
+      "margin_inflections": [
+        {
+          "index": 4,
+          "value": 14.54,
+          "z": -5.66,
+          "direction": "down"
+        },
+        {
+          "index": 6,
+          "value": 15.06,
+          "z": 2.1,
+          "direction": "up"
+        },
+        {
+          "index": 10,
+          "value": 14.56,
+          "z": -9.97,
+          "direction": "down"
+        },
+        {
+          "index": 11,
+          "value": 14.48,
+          "z": -2.14,
+          "direction": "down"
+        }
+      ],
+      "next_quarter_revenue_growth_forecast_pct": 22.92,
+      "revenue_trend_slope": 1.331,
+      "revenue_forecast_r_squared": 0.766,
+      "signal_score": 2,
+      "position": "LONG"
+    }
+  ],
+  "backtest": {
+    "trades": [
+      {
+        "formation_quarter": "2025-Q1",
+        "holding_quarter": "2025-Q2",
+        "long": "Helix Software Group",
+        "short": "Northwind Energy Partners",
+        "long_return_pct": -0.74,
+        "short_return_pct": 2.56,
+        "net_return_pct": -3.4
+      },
+      {
+        "formation_quarter": "2025-Q2",
+        "holding_quarter": "2025-Q3",
+        "long": "Helix Software Group",
+        "short": "Northwind Energy Partners",
+        "long_return_pct": 6.98,
+        "short_return_pct": -2.2,
+        "net_return_pct": 9.08
+      },
+      {
+        "formation_quarter": "2025-Q3",
+        "holding_quarter": "2025-Q4",
+        "long": "Helix Software Group",
+        "short": "Northwind Energy Partners",
+        "long_return_pct": 4.19,
+        "short_return_pct": -0.1,
+        "net_return_pct": 4.19
+      },
+      {
+        "formation_quarter": "2025-Q4",
+        "holding_quarter": "2026-Q1",
+        "long": "Northwind Energy Partners",
+        "short": "Acme Industrial Holdings",
+        "long_return_pct": -0.01,
+        "short_return_pct": 1.76,
+        "net_return_pct": -1.87
+      },
+      {
+        "formation_quarter": "2026-Q1",
+        "holding_quarter": "2026-Q2",
+        "long": "Helix Software Group",
+        "short": "Acme Industrial Holdings",
+        "long_return_pct": 2.27,
+        "short_return_pct": 3.13,
+        "net_return_pct": -0.96
+      },
+      {
+        "formation_quarter": "2026-Q2",
+        "holding_quarter": "2026-Q3",
+        "long": "Helix Software Group",
+        "short": "Acme Industrial Holdings",
+        "long_return_pct": 1.23,
+        "short_return_pct": 1.71,
+        "net_return_pct": -0.58
+      },
+      {
+        "formation_quarter": "2026-Q3",
+        "holding_quarter": "2026-Q4",
+        "long": "Helix Software Group",
+        "short": "Beacon Health Systems",
+        "long_return_pct": 1.09,
+        "short_return_pct": 2.26,
+        "net_return_pct": -1.27
+      }
+    ],
+    "n_trades": 7,
+    "hit_rate": 0.286,
+    "mean_quarterly_return_pct": 0.74,
+    "total_return_pct": 5.19
+  }
+}

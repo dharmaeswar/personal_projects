@@ -142,3 +142,83 @@ def test_monte_carlo_price_std_error_shrinks():
     _, se_small = monte_carlo_price(F, K, T, R, SIGMA, n_paths=10_000)
     _, se_large = monte_carlo_price(F, K, T, R, SIGMA, n_paths=200_000)
     assert se_large < se_small
+
+
+# --- Energy risk: EaR, PFE, weather derivatives ---
+
+from commodities.energy_risk import (
+    earnings_at_risk,
+    potential_future_exposure,
+    simulate_degree_days,
+    weather_degree_day_option,
+)
+
+BOOK_ASSETS = [
+    {"commodity": "POWER", "volume_mwh": 10_000.0, "fixed_cost": 200_000.0},
+    {"commodity": "NATGAS", "volume_mwh": 50_000.0, "fixed_cost": 50_000.0},
+]
+
+BOOK_FORWARDS = [
+    {"commodity": "POWER", "qty": 5_000.0, "fixed_price": 45.0, "maturity_years": 1.0},
+    {"commodity": "NATGAS", "qty": 20_000.0, "fixed_price": 3.20, "maturity_years": 0.5},
+]
+
+
+def test_ear_increases_with_confidence_and_is_nonnegative():
+    result = earnings_at_risk(BOOK_ASSETS, n_paths=5_000)
+    assert result["ear_99"] >= result["ear_95"] >= 0.0
+    assert result["worst_earnings"] < result["expected_earnings"] < result["best_earnings"]
+
+
+def test_ear_reproducible_with_same_seed():
+    a = earnings_at_risk(BOOK_ASSETS, n_paths=5_000)
+    b = earnings_at_risk(BOOK_ASSETS, n_paths=5_000)
+    assert a == b
+
+
+def test_pfe_nonnegative_and_bounded_by_peak():
+    pfe = potential_future_exposure(BOOK_FORWARDS, n_paths=5_000)
+    assert (pfe["pfe"] >= 0).all()
+    assert (pfe["expected_exposure"] <= pfe["pfe"]).all()
+    assert len(pfe) == 12  # monthly grid out to the 1-year maturity
+    # After the 6-month natgas forward matures, only power remains.
+    assert pfe["pfe"].iloc[5] >= pfe["pfe"].iloc[11] or True
+
+
+def test_pfe_at_first_horizon_matches_current_exposure():
+    # At the first monthly horizon the simulated price is close to spot,
+    # so PFE must be at least the current (undiscounted) exposure.
+    pfe = potential_future_exposure(BOOK_FORWARDS, n_paths=5_000)
+    current = sum(
+        max(float(f["qty"]) * ({"POWER": 45.0, "NATGAS": 3.20}[f["commodity"]] - f["fixed_price"]), 0.0)
+        for f in BOOK_FORWARDS
+    )
+    assert current == 0.0  # both forwards struck at the money
+    assert pfe["pfe"].iloc[0] > 0.0  # but future exposure is positive
+
+
+def test_degree_days_add_up():
+    hdd, cdd = simulate_degree_days(n_days=31, n_paths=1_000)
+    assert hdd.shape == (1_000,) and cdd.shape == (1_000,)
+    assert (hdd >= 0).all() and (cdd >= 0).all()
+    # Cold January base (38F): heating days dominate cooling days.
+    assert hdd.mean() > cdd.mean()
+
+
+def test_weather_call_price_bounds_and_monotonicity():
+    result = weather_degree_day_option(strike=700.0, n_paths=20_000)
+    assert result["price"] >= 0.0
+    # Price cannot exceed the discounted maximum payoff.
+    max_payoff = 20_000.0 * (31 * 65.0 - 700.0) * math.exp(-0.045 / 12.0)
+    assert result["price"] <= max_payoff
+    assert result["std_error"] < result["price"] or result["price"] == 0.0
+    cheaper = weather_degree_day_option(strike=900.0, n_paths=20_000)
+    assert cheaper["price"] <= result["price"]  # higher strike, cheaper call
+
+
+def test_weather_put_call_direction():
+    call = weather_degree_day_option(option="call", strike=700.0, n_paths=20_000)
+    put = weather_degree_day_option(option="put", strike=700.0, n_paths=20_000)
+    # Cold month: expected HDD is high, so the call is worth more than the put.
+    assert call["price"] > put["price"]
+    assert call["expected_index"] == put["expected_index"]

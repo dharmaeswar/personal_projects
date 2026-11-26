@@ -13,7 +13,7 @@ WTI front future 59.50; 6M call K=80: 0.68, put: 20.72
 
 validation checks:
   [PASS] put_call_parity: {'check': 'put_call_parity', 'passed': True, 'difference': 7.105427357601002e-15, 'call_minus_put': -20.039851020994945, 'discounted_forward': -20.039851020994938}
-  [PASS] mc_convergence: {'check': 'mc_convergence', 'passed': True, 'closed_form': 0.6801110107043683, 'monte_carlo': 0.6966253102776678, 'std_error': 0.007563635189337557, 'z_score': 2.1833812921833813}
+  [PASS] mc_convergence: {'check': 'mc_convergence', 'passed': True, 'closed_form': 0.6801110107043683, 'monte_carlo': 0.6966253102776677, 'std_error': 0.007563635189337557, 'z_score': 2.1833812921833666}
   [PASS] greeks_finite_difference: {'check': 'greeks_finite_difference', 'passed': True, 'closed_form': {'delta': 0.113476, 'gamma': 0.014187, 'vega': 8.03744, 'theta': -2.539217}, 'finite_difference': {'delta': 0.113476, 'gamma': 0.014187, 'vega': 8.03744}, 'differences': {'delta': 1e-08, 'gamma': 0.0, 'vega': 3e-07}}
 
 book value: 1785.63
@@ -26,4 +26,28 @@ scenario P&L:
   spot +5% (vol bump +0.00): 95.77
   spot +10% (vol bump +0.00): 194.53
   spot flat (vol bump +0.05): 9.01
+
+energy risk — merchant portfolio EaR (12 months, 20,000 paths):
+  expected earnings 5736343.21, EaR 95% 3230918.39, EaR 99% 4032593.21, worst 202603.47, best 26627879.96
+energy risk — PFE on forward book (95%, undiscounted MtM):
+  horizon 0.08y: PFE 205782.11, expected exposure 113626.17
+  horizon 0.17y: PFE 211714.53, expected exposure 90076.33
+  horizon 0.25y: PFE 166617.33, expected exposure 50789.69
+  horizon 0.33y: PFE 148860.01, expected exposure 38122.46
+  horizon 0.42y: PFE 211633.81, expected exposure 60000.26
+  horizon 0.50y: PFE 324208.1, expected exposure 106644.2
+  horizon 0.58y: PFE 356698.95, expected exposure 105198.54
+  horizon 0.67y: PFE 329238.26, expected exposure 88616.3
+  horizon 0.75y: PFE 261151.18, expected exposure 57123.25
+  horizon 0.83y: PFE 228168.06, expected exposure 44665.98
+  horizon 0.92y: PFE 289921.12, expected exposure 61597.43
+  horizon 1.00y: PFE 392852.22, expected exposure 96424.05
+  peak PFE 392852.22 at 1.00y
+energy risk — January HDD weather derivative (tick $20,000, strike 700):
+  expected HDD 836.88 (std 52.72); call 2728930.19 (SE 4677.06), put 1631.42 (SE 142.74)
+
+energy derivatives — spark spread and seasonal power curve:
+  spark spread at power 45.00 $/MWh, gas 3.20 $/MMBtu, heat rate 7.0: 22.60 $/MWh; breakeven gas 6.43 $/MMBtu
+  seasonal power forwards (base 40.00 $/MWh, +/-25%): July peak 50.00, January trough 30.00
+  spark-spread call K=5, 6M (power vol 0.80, gas vol 0.65, corr 0.60): 18.08 $/MWh +/- 0.15 (discounted intrinsic 17.21); bounds check: PASS
 

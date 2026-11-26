@@ -14,6 +14,12 @@ from .pricing import (
     implied_vol,
     monte_carlo_price,
 )
+from .energy_risk import (
+    earnings_at_risk,
+    potential_future_exposure,
+    simulate_degree_days,
+    weather_degree_day_option,
+)
 from .risk import (
     book_value,
     historical_var,
@@ -38,6 +44,7 @@ __all__ = [
     "check_put_call_parity",
     "curve_shape",
     "curve_summary",
+    "earnings_at_risk",
     "generate_futures_curve",
     "generate_spot_paths",
     "historical_var",
@@ -45,5 +52,8 @@ __all__ = [
     "implied_vol",
     "monte_carlo_price",
     "monte_carlo_var",
+    "potential_future_exposure",
     "scenario_shocks",
+    "simulate_degree_days",
+    "weather_degree_day_option",
 ]

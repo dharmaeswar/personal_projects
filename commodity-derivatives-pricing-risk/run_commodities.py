@@ -16,6 +16,18 @@ import numpy as np
 
 from commodities.curves import curve_summary, implied_convenience_yield
 from commodities.data import COMMODITIES, generate_futures_curve, generate_spot_paths
+from commodities.energy import (
+    check_spark_spread_call_bounds,
+    seasonal_power_forward_curve,
+    spark_spread,
+    spark_spread_breakeven_gas,
+    spark_spread_call_mc,
+)
+from commodities.energy_risk import (
+    earnings_at_risk,
+    potential_future_exposure,
+    weather_degree_day_option,
+)
 from commodities.pricing import black76_call, black76_greeks, black76_put, implied_vol
 from commodities.risk import book_value, historical_var, monte_carlo_var, scenario_shocks
 from commodities.validation import (
@@ -112,6 +124,66 @@ def main() -> None:
     lines.append("scenario P&L:")
     for _, row in scenario_shocks(BOOK, last_spot, R).iterrows():
         lines.append(f"  {row['scenario']} (vol bump {row['vol_bump']:+.2f}): {row['pnl']}")
+    lines.append("")
+
+    # Energy risk: EaR on a merchant power/gas portfolio, PFE on a
+    # forward book, and a January HDD weather-derivative call.
+    assets = [
+        {"commodity": "POWER", "volume_mwh": 10_000.0, "fixed_cost": 200_000.0},
+        {"commodity": "NATGAS", "volume_mwh": 50_000.0, "fixed_cost": 50_000.0},
+    ]
+    ear = earnings_at_risk(assets)
+    lines.append("energy risk — merchant portfolio EaR (12 months, 20,000 paths):")
+    lines.append(
+        f"  expected earnings {ear['expected_earnings']}, EaR 95% {ear['ear_95']}, "
+        f"EaR 99% {ear['ear_99']}, worst {ear['worst_earnings']}, best {ear['best_earnings']}"
+    )
+    forwards = [
+        {"commodity": "POWER", "qty": 5_000.0, "fixed_price": 45.0, "maturity_years": 1.0},
+        {"commodity": "NATGAS", "qty": 20_000.0, "fixed_price": 3.20, "maturity_years": 0.5},
+    ]
+    pfe = potential_future_exposure(forwards)
+    lines.append("energy risk — PFE on forward book (95%, undiscounted MtM):")
+    for _, row in pfe.iterrows():
+        lines.append(
+            f"  horizon {row['horizon_years']:.2f}y: PFE {row['pfe']}, "
+            f"expected exposure {row['expected_exposure']}"
+        )
+    lines.append(f"  peak PFE {pfe['pfe'].max()} at {pfe.loc[pfe['pfe'].idxmax(), 'horizon_years']:.2f}y")
+    hdd_call = weather_degree_day_option(kind="HDD", option="call", strike=700.0)
+    hdd_put = weather_degree_day_option(kind="HDD", option="put", strike=700.0)
+    lines.append("energy risk — January HDD weather derivative (tick $20,000, strike 700):")
+    lines.append(
+        f"  expected HDD {hdd_call['expected_index']} (std {hdd_call['index_std']}); "
+        f"call {hdd_call['price']} (SE {hdd_call['std_error']}), "
+        f"put {hdd_put['price']} (SE {hdd_put['std_error']})"
+    )
+    lines.append("")
+
+    # Energy derivatives: spark spread and seasonal power curve.
+    power_fwd, gas_fwd = 45.0, 3.20
+    spread = spark_spread(power_fwd, gas_fwd)
+    lines.append("energy derivatives — spark spread and seasonal power curve:")
+    lines.append(
+        f"  spark spread at power {power_fwd:.2f} $/MWh, gas {gas_fwd:.2f} $/MMBtu, "
+        f"heat rate 7.0: {spread:.2f} $/MWh; breakeven gas "
+        f"{spark_spread_breakeven_gas(power_fwd):.2f} $/MMBtu"
+    )
+    pcurve = seasonal_power_forward_curve(40.0)
+    july = float(pcurve.loc[pcurve["month"] == 7, "forward_price"].iloc[0])
+    january = float(pcurve.loc[pcurve["month"] == 1, "forward_price"].iloc[0])
+    lines.append(
+        f"  seasonal power forwards (base 40.00 $/MWh, +/-25%): July peak {july:.2f}, "
+        f"January trough {january:.2f}"
+    )
+    ss = spark_spread_call_mc(power_fwd, gas_fwd, strike=5.0, T=0.5, power_vol=0.80, gas_vol=0.65)
+    ss_check = check_spark_spread_call_bounds(ss, power_fwd, R, 0.5)
+    lines.append(
+        f"  spark-spread call K=5, 6M (power vol 0.80, gas vol 0.65, corr 0.60): "
+        f"{ss['value']:.2f} $/MWh +/- {ss['std_error']:.2f} "
+        f"(discounted intrinsic {ss['discounted_intrinsic']:.2f}); "
+        f"bounds check: {'PASS' if ss_check['passed'] else 'FAIL'}"
+    )
     lines.append("")
 
     (HERE / "commodities_report.txt").write_text("\n".join(lines) + "\n")

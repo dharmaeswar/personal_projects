@@ -33,6 +33,17 @@ claim about any real price, curve, or return.
    put-call parity (an arbitrage identity, must hold to 1e-8),
    Monte Carlo convergence to Black-76 within 3 standard errors,
    and closed-form Greeks versus finite differences.
+6. **Energy derivatives** (`commodities/energy.py`): spark spreads
+   for gas-fired generation (power price minus heat-rate-adjusted
+   gas price), breakeven gas, seasonal power forward curves, and a
+   Monte Carlo spark-spread call with a bounds validation check.
+7. **Energy risk** (`commodities/energy_risk.py`): earnings at risk
+   (EaR) for a merchant power/gas portfolio from simulated monthly
+   prices, potential future exposure (PFE) on a forward book over a
+   monthly horizon grid, and weather-derivative pricing — HDD/CDD
+   degree-day calls and puts priced by Monte Carlo on simulated
+   daily temperatures (mean-reverting AR(1) around a seasonal base,
+   65F balance point).
 
 ## How to run
 

@@ -1,0 +1,32 @@
+# Azure DevOps pipeline for the Fabric payer file exchange project.
+# Test -> demo monthly run. Nothing here deploys to Azure; the pipeline
+# definition demonstrates the CI/CD shape the role asks for.
+
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.12'
+    displayName: 'Use Python 3.12'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    displayName: 'Install dependencies'
+
+  - script: python -m pytest -q
+    displayName: 'Run tests'
+
+  - script: python run_pipeline.py --month 2026-10 --workdir $(Build.ArtifactStagingDirectory)/work
+    displayName: 'Demo monthly run'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: '$(Build.ArtifactStagingDirectory)/work/hedis_report.txt'
+      artifactName: 'hedis-report'
+    displayName: 'Publish HEDIS report'

@@ -1,0 +1,118 @@
+{
+  "post_trade": {
+    "executions": 8,
+    "clearing_records": 7,
+    "matched": 5,
+    "breaks": 4,
+    "breaks_by_type": {
+      "MISSING_CLEARING": 2,
+      "MISSING_EXECUTION": 1,
+      "QTY_MISMATCH": 1
+    },
+    "unmatched_executions": [
+      "E6",
+      "E7",
+      "E8"
+    ],
+    "positions": [
+      {
+        "account": "ACC-001",
+        "symbol": "AAPL",
+        "net_quantity": 100,
+        "average_cost": 250.0
+      },
+      {
+        "account": "ACC-001",
+        "symbol": "AAPL 260117C00250000",
+        "net_quantity": 6,
+        "average_cost": 4.2
+      },
+      {
+        "account": "ACC-001",
+        "symbol": "SPX 260117P00590000",
+        "net_quantity": 5,
+        "average_cost": 12.3
+      },
+      {
+        "account": "ACC-002",
+        "symbol": "MSFT 260117C00420000",
+        "net_quantity": 20,
+        "average_cost": 2.1
+      }
+    ],
+    "pnl": [
+      {
+        "account": "ACC-001",
+        "symbol": "AAPL",
+        "realised": 0.0,
+        "unrealised": 200.0
+      },
+      {
+        "account": "ACC-001",
+        "symbol": "AAPL 260117C00250000",
+        "realised": 120.0,
+        "unrealised": 240.0
+      },
+      {
+        "account": "ACC-001",
+        "symbol": "SPX 260117P00590000",
+        "realised": 0.0,
+        "unrealised": -150.0
+      },
+      {
+        "account": "ACC-002",
+        "symbol": "MSFT 260117C00420000",
+        "realised": 0.0,
+        "unrealised": 300.0
+      }
+    ],
+    "realised_pnl": 120.0,
+    "unrealised_pnl": 590.0,
+    "total_pnl": 710.0,
+    "stored_positions": 4,
+    "stored_breaks": 4
+  },
+  "quarantined": {
+    "ingest_executions": [
+      {
+        "source": "executions",
+        "row": 10,
+        "reason": "bad side 'HOLD'"
+      },
+      {
+        "source": "executions",
+        "row": 11,
+        "reason": "duplicate exec_id E1"
+      }
+    ],
+    "ingest_clearing": [],
+    "ingest_marks": [
+      {
+        "source": "marks",
+        "row": 6,
+        "reason": "could not convert string to float: 'not-a-price'"
+      }
+    ],
+    "ingest_notes": [
+      {
+        "source": "notes",
+        "row": 3,
+        "reason": "malformed note line (no ':')"
+      }
+    ]
+  },
+  "notes": [
+    [
+      "AAPL 260117C00250000",
+      "weekly expiry, watch pin risk into expiry"
+    ],
+    [
+      "AAPL",
+      "earnings next week, expect higher realised volatility"
+    ],
+    [
+      "SPX 260117P00590000",
+      "monthly expiry, wide wings on downside puts"
+    ]
+  ]
+}

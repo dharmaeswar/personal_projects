@@ -25,6 +25,8 @@ persisted in PostgreSQL.
 5. **Store** (`posttrade/store.py`, `schema.sql`) — the production
    store is PostgreSQL (DDL in `schema.sql`); local runs and tests use
    SQLite from the standard library as a stand-in with the same tables.
+6. **Multi-source ETL ingest** (`posttrade/ingest.py`) — executions and marks arrive as CSV and reference notes as free text (`SYMBOL: note` per line). Every row is validated (side, positive quantity/price, YYYY-MM-DD dates, fees); bad rows are quarantined with a reason instead of being dropped silently or loaded dirty, and duplicate ids keep the first record.
+7. **Job orchestration** (`posttrade/orchestrator.py`) — a DAG scheduler for the compute cluster: jobs declare dependencies, run on a worker pool in dependency order, retry once on failure, and downstream jobs are skipped (never run on stale inputs) when a dependency fails. Every job records status, attempts, duration and error.
 
 ## Run
 
@@ -32,12 +34,18 @@ persisted in PostgreSQL.
 pip install -r requirements.txt
 python -m pytest -q
 python run_posttrade.py
+python run_orchestrated.py
 ```
 
 Demo output: 8 executions, 7 clearing records, 5 matched, 4 breaks
 (2 missing clearing, 1 missing execution, 1 quantity mismatch),
 realised P&L $120.00, unrealised P&L $590.00, total $710.00.
 The run writes `posttrade_report.json`.
+The orchestrated run (`run_orchestrated.py`) ingests the same day
+through the DAG, quarantines 4 dirty rows (bad side, duplicate
+execution, bad mark price, malformed note), keeps 3 reference notes,
+and writes `posttrade_orchestrated_report.json` with the same
+reconciliation and P&L outcome.
 
 ## Layout
 
@@ -48,8 +56,11 @@ The run writes `posttrade_report.json`.
 - `posttrade/pnl.py` — realised / unrealised P&L
 - `posttrade/store.py` — SQLite stand-in store (PostgreSQL DDL in `schema.sql`)
 - `posttrade/service.py` — orchestration: enrich → reconcile → positions → P&L → store
+- `posttrade/ingest.py` — multi-source ETL ingest (CSV executions/marks, text notes) with quarantine
+- `posttrade/orchestrator.py` — DAG job scheduler with worker pool, retries and skip-on-failure
 - `run_posttrade.py` — seeded demo runner
-- `tests/` — pytest suites for enrichment, reconciliation, positions/P&L, store and service
+- `run_orchestrated.py` — seeded demo runner through the DAG scheduler
+- `tests/` — pytest suites for enrichment, reconciliation, positions/P&L, store and service, ingest, orchestrator
 
 ## Honest limits
 

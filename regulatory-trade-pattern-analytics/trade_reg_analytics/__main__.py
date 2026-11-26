@@ -16,6 +16,7 @@ from .data import WarehouseConfig, build_warehouse, load_table
 from .patterns import run_all_detectors
 from .report import findings_summary, write_report
 from .stats import daily_volume
+from .tuning import run_tuning
 
 
 def main() -> None:
@@ -24,6 +25,8 @@ def main() -> None:
     parser.add_argument("--out", default="report", help="Report output directory")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--days", type=int, default=20)
+    parser.add_argument("--tune", action="store_true",
+                        help="Tune the analytics queries and write a tuning report")
     args = parser.parse_args()
 
     cfg = WarehouseConfig(seed=args.seed, days=args.days)
@@ -42,6 +45,19 @@ def main() -> None:
     files = write_report(findings, daily, args.out)
     for name, path in files.items():
         print(f"  {name}: {path}")
+    if args.tune:
+        import sqlite3
+
+        conn = sqlite3.connect(args.db)
+        try:
+            tuning = run_tuning(conn, args.out)
+        finally:
+            conn.close()
+        print(f"Tuning: {tuning['queries_tuned']} queries, "
+              f"{tuning['full_scans_removed']} full scans removed")
+        for r in tuning["results"]:
+            print(f"  {r['name']}: {r['median_ms_before']} ms -> "
+                  f"{r['median_ms_after']} ms ({r['speedup']}x)")
 
 
 if __name__ == "__main__":

@@ -11,6 +11,16 @@ from .patterns import (
 )
 from .report import findings_summary, write_report
 from .stats import account_volume_share, add_zscores, daily_volume, flag_outlier_days, price_move_stats
+from .tuning import (
+    ANALYTICS_QUERIES,
+    RECOMMENDED_INDEXES,
+    apply_indexes,
+    explain_plan,
+    run_tuning,
+    time_query,
+    tune_query,
+    uses_full_scan,
+)
 
 __all__ = [
     "WarehouseConfig",
@@ -30,4 +40,12 @@ __all__ = [
     "daily_volume",
     "flag_outlier_days",
     "price_move_stats",
+    "ANALYTICS_QUERIES",
+    "RECOMMENDED_INDEXES",
+    "apply_indexes",
+    "explain_plan",
+    "run_tuning",
+    "time_query",
+    "tune_query",
+    "uses_full_scan",
 ]

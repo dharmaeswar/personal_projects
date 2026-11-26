@@ -9,6 +9,10 @@ Built for a Sr. Regulatory Data Scientist role at an exchange: the
 work mirrors analysing order, trade and position data from Market
 Regulation data warehouses, building working solutions that augment
 analytical capability, and producing regulatory data-analysis reports.
+It also fits a Senior SQL / Data Analytics Developer role for NYSE
+trading data (ICE, Nov 2026): SQL design and optimisation, query-plan
+review, automated data collection, statistical analysis and reporting
+on large-scale trading data.
 
 ## What it does
 
@@ -25,6 +29,10 @@ analytical capability, and producing regulatory data-analysis reports.
   priced away from VWAP), position concentration (>= 35% of net open
   interest). Every finding cites the orders behind it with a severity
   score and a plain-language reason.
+- **Query tuning** (`trade_reg_analytics/tuning.py`): EXPLAIN QUERY
+  PLAN review, wall-clock timing and index recommendations for the
+  five recurring analytics queries. Run with `--tune`; it writes
+  `tuning_report.md` and `tuning_summary.json` next to the report.
 - **Reporting** (`trade_reg_analytics/report.py`): Markdown report,
   `findings.csv`, `daily_volume.csv`, `summary.json` and an SVG bar
   chart of findings by pattern.
@@ -38,18 +46,39 @@ analytical capability, and producing regulatory data-analysis reports.
   on this seed. The planted patterns are the test signal, not real
   market abuse: all data is synthetic.
 
+## Query tuning (seed 42, 20 days, `--tune`)
+
+Five recurring analytics queries, measured before and after the
+recommended indexes (median of 3–5 runs, SQLite, demo scale):
+
+| Query | Before | After | Speedup |
+|---|---|---|---|
+| Daily volume by instrument | 8.38 ms, full scan | 3.95 ms, index seek | 2.12x |
+| Account volume share (one day) | 1.24 ms, full scan | 0.39 ms, index seek | 3.15x |
+| Wash-trade candidates (self-join) | 2.82 ms, full scan | 0.54 ms, index seek | 5.26x |
+| Fast-cancel scan (spoofing triage) | 2.34 ms, full scan | 0.74 ms, index seek | 3.14x |
+| Position concentration (one day) | 0.49 ms, full scan | 0.24 ms, index seek | 2.05x |
+
+All five full-table scans are removed. The wash-trade self-join
+needed a second pass: the first index choice made the planner pick a
+date-led index and run slower (0.21x), so a composite index on
+(account, instrument, trade_date, side, quantity) was added and the
+query then ran 5.26x faster. Timings are demo-scale (17k trades),
+not production benchmarks.
+
 ## Run it
 
 ```bash
 pip install -r requirements.txt
 pytest -q
 python -m trade_reg_analytics --db warehouse.db --out report
+python -m trade_reg_analytics --db warehouse.db --out report --tune
 python run_demo.py
 ```
 
 ## Files
 
 - `trade_reg_analytics/data.py`, `stats.py`, `patterns.py`,
-  `report.py`, `__main__.py`
-- `tests/` — 4 test modules, 23 tests
+  `tuning.py`, `report.py`, `__main__.py`
+- `tests/` — 5 test modules, 31 tests
 - `README.md`, `requirements.txt`, `run_demo.py`

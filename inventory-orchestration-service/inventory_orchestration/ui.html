@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inventory Orchestration — Dashboard</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2em auto; padding: 0 1em; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+  th { background: #f0f0f0; }
+  form label { margin-right: 1em; }
+  #events { list-style: none; padding: 0; font-family: monospace; font-size: 13px; }
+  #events li { border-bottom: 1px solid #eee; padding: 4px 0; }
+  .error { color: #b00; }
+</style>
+</head>
+<body>
+<h1>Inventory Orchestration</h1>
+<p>Multi-warehouse stock, order allocation and the event feed. Demo data only.</p>
+
+<h2>Stock by warehouse</h2>
+<table id="stock">
+  <thead><tr><th>SKU</th><th>Product</th><th>Warehouse</th><th>Available</th><th>Reserved</th><th>On hand</th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<h2>Place an order</h2>
+<form id="order-form">
+  <label>SKU
+    <select name="sku">
+      <option value="SKU-1001">SKU-1001 — Wireless headset</option>
+      <option value="SKU-1002">SKU-1002 — USB-C hub</option>
+      <option value="SKU-1003">SKU-1003 — Mechanical keyboard</option>
+      <option value="SKU-1004">SKU-1004 — 27in monitor</option>
+    </select>
+  </label>
+  <label>Qty <input name="qty" type="number" min="1" value="2" required></label>
+  <label>Prefer warehouse
+    <select name="warehouse">
+      <option value="">cheapest first</option>
+      <option value="DAL">DAL — Dallas</option>
+      <option value="FTW">FTW — Fort Worth</option>
+      <option value="HOU">HOU — Houston</option>
+    </select>
+  </label>
+  <button type="submit">Create order</button>
+</form>
+<p id="order-result"></p>
+
+<h2>Orders</h2>
+<table id="orders">
+  <thead><tr><th>Order</th><th>SKU</th><th>Qty</th><th>Allocated</th><th>Status</th><th></th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<h2>Event feed</h2>
+<ul id="events"></ul>
+
+<script>
+async function refresh() {
+  const stock = await (await fetch('/v1/inventory')).json();
+  document.querySelector('#stock tbody').innerHTML = stock.map(r =>
+    `<tr><td>${r.sku}</td><td>${r.name}</td><td>${r.warehouse}</td>` +
+    `<td>${r.available}</td><td>${r.reserved}</td><td>${r.on_hand}</td></tr>`).join('');
+  const orders = await (await fetch('/v1/orders')).json();
+  document.querySelector('#orders tbody').innerHTML = orders.map(o =>
+    `<tr><td>${o.order_id}</td><td>${o.sku}</td><td>${o.qty}</td><td>${o.allocated_qty}</td>` +
+    `<td>${o.status}</td><td>` +
+    (o.status === 'allocated' || o.status === 'backordered'
+      ? `<button data-fulfill="${o.order_id}">Fulfil</button> ` +
+        `<button data-cancel="${o.order_id}">Cancel</button>` : '') +
+    `</td></tr>`).join('');
+  const events = await (await fetch('/v1/events')).json();
+  document.querySelector('#events').innerHTML = events.slice(-20).reverse().map(e =>
+    `<li>#${e.seq} <b>${e.topic}</b> ${JSON.stringify(e.payload)}</li>`).join('');
+}
+document.querySelector('#order-form').addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const data = new FormData(ev.target);
+  const res = await fetch('/v1/orders', {method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({sku: data.get('sku'), qty: Number(data.get('qty')),
+      warehouse: data.get('warehouse') || undefined,
+      idempotency_key: 'ui-' + Date.now()})});
+  const out = await res.json();
+  document.querySelector('#order-result').textContent =
+    res.ok ? `Created ${out.order_id} — ${out.status}, allocated ${out.allocated_qty} of ${out.qty}.`
+           : `Error: ${out.error}`;
+  document.querySelector('#order-result').className = res.ok ? '' : 'error';
+  refresh();
+});
+document.querySelector('#orders').addEventListener('click', async (ev) => {
+  const id = ev.target.dataset.fulfill || ev.target.dataset.cancel;
+  if (!id) return;
+  const action = ev.target.dataset.fulfill ? 'fulfill' : 'cancel';
+  await fetch(`/v1/orders/${id}/${action}`, {method: 'POST'});
+  refresh();
+});
+refresh();
+setInterval(refresh, 5000);
+</script>
+</body>
+</html>

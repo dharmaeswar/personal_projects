@@ -31,7 +31,24 @@ and a stale load ships without anyone noticing.
 | `analytics_solutions/governance.py` | **PII regulations**: rule-based classification (email, phone, SSN, DOB, name, address) by column name + sampled values; masking (redact / last-4 / SHA-256 hash); role-based access — analysts never see restricted columns, engineers see masked values, auditors get a logged read-only view |
 | `analytics_solutions/quality.py` | **Testing / data accuracy designs**: completeness, uniqueness, range, referential-integrity and freshness-SLA checks; the gate fails the build when any check fails, so no dataset ships with a failing gate |
 | `analytics_solutions/publish.py` | **Publish dashboard-ready datasets**: partitioned output plus a manifest (schema, row count, gate result, metric versions) — the manifest is the one-source-of-truth pointer consumers read, never a hand-picked file |
+| `analytics_solutions/discovery.py` | **Data-product discovery (Carvana Data Product Engineer, Nov 2026)**: the front door of the internal data product — business users ask a question in plain words and get the governed dataset that answers it, with owner, freshness and quality score; ranked search, domain/quality filters, freshness-SLA status, and an explicit "no match" answer instead of guessing |
 | `run_demo.py` | End-to-end run of the whole pipeline with a JSON summary |
+
+## Data-product discovery (added Nov 26, 2026, for Carvana's Data Product Engineer role)
+
+Carvana's role is the same problem from the consumer's side: teams need to
+*find* and *use* business information, not just have clean tables exist
+somewhere. The discovery service (`analytics_solutions/discovery.py`,
+14 tests in `tests/test_discovery.py`) registers each governed dataset as
+a product — owner, domain, description, keywords, source datasets,
+freshness SLA, quality score, PII flag — and answers plain-words
+questions ("which policies are active and what premium do they carry?")
+with the best-matching product, the terms that matched, and runner-ups.
+Search ranks name hits above description/keyword hits, hides deprecated
+and draft products, and can filter by domain or minimum quality; a
+freshness check flags any product past its SLA so a stale dataset never
+ships silently. All data stays synthetic and seeded; no Carvana data or
+affiliation is claimed.
 
 ## How to run
 

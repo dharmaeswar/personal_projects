@@ -1,0 +1,45 @@
+# Event streaming platform — desired state.
+# Declarative manifest validated by messaging.iac.validate_platform_manifest.
+# No AWS call is made from this file; it is the source of truth the
+# Terraform / Ansible / Chef artifacts below are generated from.
+cluster:
+  name: messaging-platform
+  environment: production
+  brokers:
+    - id: broker-1
+      availability_zone: us-east-1a
+      instance_type: kafka.m7g.large
+    - id: broker-2
+      availability_zone: us-east-1b
+      instance_type: kafka.m7g.large
+    - id: broker-3
+      availability_zone: us-east-1c
+      instance_type: kafka.m7g.large
+topics:
+  - name: orders
+    partitions: 6
+    replication_factor: 3
+    retention_hours: 168
+    availability_zones: [us-east-1a, us-east-1b, us-east-1c]
+    encryption_at_rest: true
+  - name: inventory-events
+    partitions: 6
+    replication_factor: 3
+    retention_hours: 168
+    availability_zones: [us-east-1a, us-east-1b, us-east-1c]
+    encryption_at_rest: true
+  - name: fulfillment-updates
+    partitions: 3
+    replication_factor: 3
+    retention_hours: 72
+    availability_zones: [us-east-1a, us-east-1b, us-east-1c]
+    encryption_at_rest: true
+queues:
+  - name: order-notifications
+    visibility_timeout_seconds: 120
+    dead_letter_queue: order-notifications-dlq
+    encryption_at_rest: true
+  - name: inventory-alerts
+    visibility_timeout_seconds: 60
+    dead_letter_queue: inventory-alerts-dlq
+    encryption_at_rest: true

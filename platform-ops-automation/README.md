@@ -48,6 +48,16 @@ claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
   recommends the threshold that detects every incident with the fewest
   false positives. Synthetic data only; no real monitoring tool is
   contacted.
+- `ops/observability_platform.py` — observability platform (added Nov 26,
+  2026, for a Gusto Site Reliability Engineer application): correlates
+  distributed traces, logs and metrics by trace id; detects anomalies
+  with a rolling statistical baseline (z-score, not an AI model);
+  ranks likely root causes by error-rate and latency lift against
+  baseline; routes alerts by severity and blast radius (page / ticket /
+  log); and rolls up per-service health for dashboards. Synthetic data
+  only; no real observability tool (Datadog, Sentry, Splunk,
+  OpenTelemetry collector, Prometheus server) is contacted and no
+  production observability-platform experience is claimed.
 - `ops/slo_capacity.py` — SLI/SLO and capacity planning (added Nov 24,
   2026, for an AppFolio Sr. Site Reliability & Infrastructure Engineer
   application): defines SLOs with error budgets, reports budget

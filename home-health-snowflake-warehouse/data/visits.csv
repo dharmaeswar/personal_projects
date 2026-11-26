@@ -1,0 +1,17 @@
+visit_id,patient_key,clinician_id,visit_date,duration_min,care_plan,assessment_score
+V001,P001,C101,2026-11-10,45,wound-care,82
+V002,P002,C102,2026-11-10,60,physical-therapy,74
+V003,P001,C101,2026-11-12,30,wound-care,85
+V004,P003,C103,2026-11-12,90,medication-management,68
+V005,P004,C101,2026-11-13,45,physical-therapy,91
+V006,P002,C102,2026-11-14,75,physical-therapy,79
+V007,P005,C104,2026-11-14,60,wound-care,88
+V008,P003,C103,2026-11-16,45,medication-management,71
+V009,P006,C102,2026-11-16,120,post-surgical-care,64
+V010,P001,C101,2026-11-18,50,wound-care-plus,86
+V011,P004,C105,2026-11-19,35,physical-therapy,93
+V012,P007,C104,2026-11-20,55,wound-care,77
+V001,P001,C101,2026-11-10,45,wound-care,82
+V014,P008,C103,2026-11-20,-30,physical-therapy,80
+V015,P009,,2026-11-20,40,wound-care,84
+V016,P010,C105,2027-06-01,45,physical-therapy,90

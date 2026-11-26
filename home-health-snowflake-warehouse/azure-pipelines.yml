@@ -1,0 +1,26 @@
+# Azure DevOps pipeline for the home-health warehouse.
+# Runs on every push: tests, then package. Mirrors the CI/CD the
+# Humana posting asks for (Git + CI/CD in a software development
+# environment); the local equivalent is `python -m pytest -q`.
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.12'
+    displayName: 'Use Python 3.12'
+
+  - script: |
+      python -m pip install --upgrade pip
+      python -m pip install pytest
+    displayName: 'Install dependencies'
+
+  - script: python -m pytest -q
+    displayName: 'Run tests'
+
+  - script: python run_pipeline.py
+    displayName: 'Demo pipeline run'

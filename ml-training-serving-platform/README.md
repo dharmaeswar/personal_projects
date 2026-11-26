@@ -88,6 +88,22 @@ seeded random generator so every run is reproducible.
   `load_package` refuses a tampered artifact. `explain_model` ranks
   features by standardised-weight importance (a linear-model ranking, not
   SHAP). Run it with `python3 run_agent_demo.py`.
+- **Market-data pipeline** (`ml_platform/market_data_pipeline.py`):
+  ingests a stream of synthetic order-book events (adds, cancels, trades),
+  featurizes them into price-move signals (log-return, order-flow
+  imbalance, realized volatility, relative spread, trade share, cancel
+  ratio), and runs a time-ordered train/evaluate cycle for a directional
+  model. The split is by time, never shuffled, so a model is always
+  tested on events after everything it trained on; labels use prices
+  strictly after the feature window, so there is no look-ahead. The
+  candidate is gated against a production model trained on order-flow
+  imbalance alone, and both are compared with naive baselines (majority
+  class, OFI rule) so a win means real signal, not noise. Every run
+  writes a reproducibility manifest (dataset fingerprint, config hash,
+  code version, seed). Run it with `python3 run_market_data_demo.py`.
+  On the default seeded run (20,000 events): candidate AUC 0.8802 vs
+  naive OFI-rule AUC 0.8661, accuracy 0.808 vs majority 0.609 — gate
+  promotes (AUC delta 0.0141).
 - **Performance monitoring** (`ml_platform/monitoring.py`): records
   per-request latency and error observations per model version, computes
   rolling p50/p95/p99 latency and error-rate windows over a bounded
@@ -103,6 +119,7 @@ ml-training-serving-platform/
   requirements.txt          # stdlib only; pytest for tests
   run_demo.py               # end-to-end demo: train -> register -> serve -> canary -> rollback
   run_agent_demo.py         # agentic demo: validate -> package -> promote with approval
+  run_market_data_demo.py   # market-data demo: ingest -> featurize -> train -> gate
   ml_platform/
     __init__.py
     data.py                 # synthetic dataset generation
@@ -113,6 +130,7 @@ ml-training-serving-platform/
     decisioning.py          # next-best-action decisioning + outcome tracking
     evaluation.py           # experiment log, promotion gate, retrieval eval (P@k / MRR)
     eval_pipeline.py        # evaluation job queue, dataset fingerprints, reproducibility manifests
+    market_data_pipeline.py # order-book ingestion, featurization, time-ordered train/eval
     monitoring.py           # per-version latency/error tracking, rolling percentiles, SLO alerts
     agent_runtime.py        # MCP-style tool registry, portable model packaging, agent runtime
   tests/
@@ -124,6 +142,7 @@ ml-training-serving-platform/
     test_decisioning.py
     test_evaluation.py
     test_eval_pipeline.py
+    test_market_data_pipeline.py
     test_monitoring.py
     test_agent_runtime.py   # packaging, tool registry, agent tasks, guardrails
     test_distributed_training.py
@@ -134,6 +153,7 @@ ml-training-serving-platform/
 ```bash
 python3 run_demo.py            # full end-to-end demo (incl. decisioning)
 python3 run_agent_demo.py      # agentic demo: validate -> package -> promote
+python3 run_market_data_demo.py  # market-data demo: ingest -> featurize -> train -> gate
 python3 -m pytest -q           # test suite
 ```
 

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vehicle-purchase-fulfilment
+  labels:
+    app: vehicle-purchase-fulfilment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vehicle-purchase-fulfilment
+  template:
+    metadata:
+      labels:
+        app: vehicle-purchase-fulfilment
+    spec:
+      containers:
+        - name: api
+          image: vehicle-purchase-fulfilment:1.0.0
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          env:
+            - name: DATA_DIR
+              value: "/data"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: vehicle-purchase-data

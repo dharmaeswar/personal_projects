@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from .checks import CheckResult
 from .monitoring import PipelineMetrics
+from .privacy import privacy_summary_lines
 
 
 def render_report(
@@ -17,6 +18,7 @@ def render_report(
     metrics: PipelineMetrics,
     silver_spend: float,
     gold_spend: float,
+    privacy_rollup: dict | None = None,
 ) -> str:
     failed = [r for r in results if not r.passed]
     lines = [
@@ -43,6 +45,9 @@ def render_report(
         "",
     ]
     lines += metrics.summary_lines()
+    if privacy_rollup is not None:
+        lines += [""]
+        lines += privacy_summary_lines(privacy_rollup)
     lines += [
         "",
         "Lineage: every silver row maps to its bronze event_id, and every "

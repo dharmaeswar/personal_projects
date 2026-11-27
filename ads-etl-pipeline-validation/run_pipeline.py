@@ -23,6 +23,7 @@ from ads_etl.pipeline import (
     load_bronze,
     read_log,
 )
+from ads_etl.privacy import build_privacy_safe_rollup, privacy_summary_lines
 from ads_etl.report import render_report
 from ads_etl.streaming import EventConsumer, consume_all_in_batches
 
@@ -89,6 +90,13 @@ def main() -> None:
 
     reconciliation = check_reconciliation(silver, gold)
     late_check = check_late_arriving(ingested)
+    # Stage 6: privacy-safe reporting gate (T-Ads is privacy-first: small
+    # cells are suppressed from published aggregates, never leaked).
+    channel_of = {c["campaign_id"]: c["channel"] for c in campaigns}
+    privacy_rollup = build_privacy_safe_rollup(silver, channel_of)
+    print()
+    for line in privacy_summary_lines(privacy_rollup):
+        print(line)
     metrics.bronze_rows = len(ingested)
     metrics.silver_rows = len(silver)
     metrics.quarantine_rows = len(quarantine)
@@ -109,6 +117,7 @@ def main() -> None:
         metrics=metrics,
         silver_spend=silver_spend,
         gold_spend=gold_spend,
+        privacy_rollup=privacy_rollup,
     )
     (root / "validation_report.txt").write_text(report)
     (root / "lineage.json").write_text(

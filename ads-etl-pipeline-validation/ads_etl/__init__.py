@@ -1,4 +1,4 @@
-"""Advertising-data ETL + pipeline validation (Amazon DEPO-style).
+"""Advertising-data ETL + pipeline validation (AdTech-style).
 
 Bronze -> silver -> gold over synthetic ad event data, using only the
 Python standard library (sqlite3 for SQL transforms). No cluster, no

@@ -1,7 +1,7 @@
 # Advertising ETL Pipeline Validation
 
-A portfolio project for a Data Engineer role in advertising (Amazon
-Advertising Demand Enablement & Product Ops style). It builds a small
+A portfolio project for a Data Engineer role in advertising technology
+(AdTech). It builds a small
 bronze → silver → gold pipeline over synthetic ad impression / click /
 spend events and validates every layer the way a data-quality team
 would: schema enforcement, completeness, uniqueness, ranges,
@@ -36,6 +36,13 @@ spend data is used, and nothing here is a claim about any real company.
   rows removed).
 - **Monitoring** — per-stage row counts and timings, failure rate,
   late-arrival rate, and throughput, printed in the report.
+- **Privacy-safe reporting** (`ads_etl/privacy.py`) — a minimum-cell-size
+  gate on the campaign/channel rollup: a group fed by fewer than 5 silver
+  events is suppressed from published aggregates and listed with its
+  spend held out, so no published number rests on a handful of events.
+  Published + suppressed spend always reconciles back to the silver
+  total. On the seeded run all 12 groups clear the gate (240 silver
+  events across 12 campaigns), so nothing is suppressed.
 
 ## What it validates
 
@@ -72,6 +79,7 @@ Bronze checks: 3 of 10 passed, 7 FAILED (as designed — the planted rows)
 Reconciliation: PASS — gold matches silver on all 193 daily campaign groups
 Failure rate: 5.51% (14 of 254 bronze rows quarantined)
 Late-arrival rate: 0.83% (2 of 240 silver rows late)
+Privacy-safe rollup: 12 of 12 groups published, 0 suppressed, reconciliation PASS
 ```
 
 ## Data contracts and the data-ops agent (added Nov 24, 2026)
@@ -123,10 +131,11 @@ ads_etl/
   streaming.py   in-memory event consumer (offsets, batches, commit/replay)
   pipeline.py    bronze -> silver -> gold in SQLite, lineage, transaction log
   monitoring.py  per-stage timings, failure/late rates, throughput
+  privacy.py     minimum-cell-size gate for privacy-safe published aggregates
   report.py      renders validation_report.txt
 run_pipeline.py  runner
 run_agent.py     runner: pipeline + data-ops agent, writes agent_report.*
-tests/           46 pytest tests
+tests/           54 pytest tests
 ```
 
 ## Honest limits

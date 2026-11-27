@@ -1,0 +1,3 @@
+# Backend: Python standard library only (no runtime dependencies).
+# Tests need pytest:
+pytest>=8

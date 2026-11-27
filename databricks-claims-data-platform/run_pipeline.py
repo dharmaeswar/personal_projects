@@ -8,3 +8,5 @@ if __name__ == "__main__":
           f"gold_daily={summary['gold_daily_rows']} total_paid=${summary['total_paid']:,.2f}")
     print(f"checks: {summary['checks_passed']} passed, "
           f"reconciliation={'PASS' if checks['reconciliation'] else 'FAIL'}")
+    print(f"ML: test MAE=${summary['ml_test_mae']:,.2f} R2={summary['ml_test_r2']} "
+          f"flagged_for_review={summary['ml_flagged_for_review']}")

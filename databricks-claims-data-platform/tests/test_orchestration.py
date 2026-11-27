@@ -7,7 +7,10 @@ from claims_platform.orchestration import load_pipeline, run_pipeline, topo_orde
 def test_pipeline_definition_loads():
     pipeline = load_pipeline()
     assert pipeline["name"] == "claims_daily"
-    assert len(pipeline["activities"]) == 4
+    assert len(pipeline["activities"]) == 5
+    assert [a["name"] for a in pipeline["activities"]] == [
+        "IngestRawClaims", "ValidateSilver", "PublishGold", "ScoreClaimsML",
+        "RefreshApiCache"]
 
 
 def test_topo_order_respects_dependencies():
@@ -15,7 +18,8 @@ def test_topo_order_respects_dependencies():
     order = topo_order(pipeline["activities"])
     assert order.index("IngestRawClaims") < order.index("ValidateSilver")
     assert order.index("ValidateSilver") < order.index("PublishGold")
-    assert order.index("PublishGold") < order.index("RefreshApiCache")
+    assert order.index("PublishGold") < order.index("ScoreClaimsML")
+    assert order.index("ScoreClaimsML") < order.index("RefreshApiCache")
 
 
 def test_topo_order_rejects_cycles():
@@ -29,7 +33,8 @@ def test_run_succeeds_and_logs_attempts():
     seen = []
     log = run_pipeline(pipeline, lambda name: seen.append(name))
     assert log["status"] == "Succeeded"
-    assert seen == ["IngestRawClaims", "ValidateSilver", "PublishGold", "RefreshApiCache"]
+    assert seen == ["IngestRawClaims", "ValidateSilver", "PublishGold",
+                    "ScoreClaimsML", "RefreshApiCache"]
     assert all(v["status"] == "Succeeded" and v["attempts"] == 1
                for v in log["activities"].values())
 

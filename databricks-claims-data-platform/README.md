@@ -4,9 +4,10 @@ A portfolio project for a Data Engineer role (Databricks / Spark / Azure).
 It builds the pipeline the JD asks for over synthetic healthcare member and
 claims data: ingest raw feeds, cleanse and transform them through a
 bronze → silver → gold lakehouse, enforce data-quality checks with
-quarantine, publish reconciled gold aggregates, and expose the large
-datasets to applications through a paginated read API — orchestrated as an
-ADF-style pipeline and provisioned with Terraform.
+quarantine, publish reconciled gold aggregates, score every cleansed claim
+with a paid-amount ML model that flags unusual claims for human review, and
+expose the large datasets to applications through a paginated read API —
+orchestrated as an ADF-style pipeline and provisioned with Terraform.
 
 **All data is synthetic and seeded (seed 42).** No real member, patient,
 claim, or PHI data is used, and nothing here is a claim about any real
@@ -19,8 +20,8 @@ locally with pandas + Parquet and the API with the Python standard library.
 It does **not** pretend a cluster or cloud run happened. Every pandas
 operation names the Spark operation it mirrors, so the same code maps
 one-to-one onto a real Databricks job; the Terraform in `infra/` is
-plan-only and provisions nothing. `requirements.txt` lists only pandas,
-pyarrow, numpy, pytest.
+plan-only and provisions nothing. `requirements.txt` lists pandas,
+pyarrow, numpy, scikit-learn, pytest.
 
 ## Spark / Databricks mapping
 
@@ -34,6 +35,7 @@ pyarrow, numpy, pytest.
 | `aggregate_monthly` groupBy | `GROUP BY service_month, plan, diag_group` |
 | Partitioned Parquet write | `df.write.partitionBy("service_date").parquet(...)` into ADLS Gen2 (bronze / silver / gold) |
 | Schema enforcement | `StructType` validation before any write lands |
+| `ml.py` — paid-amount model + scoring | Spark ML Pipeline: `VectorAssembler` + `StandardScaler` + `OneHotEncoder` + `LinearRegression`, batch-scored in a Databricks notebook step writing a Delta table (`gold/model_scores`) |
 
 ## Azure mapping
 
@@ -61,11 +63,32 @@ as `paid_amount_mismatch` (9 total: 5 planted + 4 duplicates). A late
 correction that changes a value is a real data-quality break, and the
 pipeline treats it as one instead of silently keeping it.
 
-## Results (real run, Nov 26, 2026)
+## AI / ML scoring (added Nov 27, 2026)
+
+After the gold publish, the ADF pipeline runs a `ScoreClaimsML` Databricks
+notebook step (`claims_platform/ml.py`): a Ridge regression predicts
+`paid_amount` from `billed_amount`, service month, plan, diagnosis group,
+and age band — deliberately **not** from `adjustment`, so the residual
+measures whether a claim's paid amount looks unusual for its billed amount
+and cohort. Each scored claim lands in `gold/model_scores` with its
+predicted paid, residual, residual z-score, and a `model_flag`
+(`high_residual` when |z| >= 3).
+
+**Model card / responsible AI:** the model is trained and scored on the
+same synthetic, seeded data (seed 42) — no PHI, no real members or claims.
+It is a review queue, not a decision: a flagged claim goes to a human
+reviewer; the model never auto-denies, auto-pays, or otherwise decides a
+claim. On this seeded run the model scores all 296 cleansed claims and
+flags **0** for review — the clean synthetic data has no extreme paid
+outliers — while `tests/test_ml.py` proves the flag works by planting a
+claim paid at 5x its billed amount and asserting it is flagged.
+
+## Results (real run, Nov 27, 2026)
 
 ```
 raw=324 duplicates=4 quarantined=24 cleansed=296 gold_daily=194 total_paid=$1,079,949.49
-checks: 7/7 passed, reconciliation=PASS
+checks: 8/8 passed, reconciliation=PASS
+ML: test MAE=$230.87 R2=0.9771 flagged_for_review=0
 ```
 
 - Raw rows: **324** (300 clean + 24 planted defects)
@@ -73,7 +96,8 @@ checks: 7/7 passed, reconciliation=PASS
 - Quarantined rows: **24** — paid_amount_mismatch 9, null_member_id 5, negative_paid_amount 4, service_date_out_of_range 3, unknown_diag_code 3
 - Cleansed rows: **296**; total cleansed paid **$1,079,949.49**
 - Gold daily rows: **194** (daily paid by service date / plan); gold monthly rows: **60**
-- Quality checks: **7/7 PASS** (schema, dedup, completeness, non-negative paid, diag codes, arithmetic, reconciliation)
+- ML scores: **296** rows in `gold/model_scores`; test MAE **$230.87**, test R² **0.9771**, **0** flagged for review
+- Quality checks: **8/8 PASS** (schema, dedup, completeness, non-negative paid, diag codes, arithmetic, reconciliation, ml_scoring)
 
 ## The API layer
 
@@ -94,15 +118,25 @@ GET /gold/monthly?service_month=2026-10
 
 ```bash
 pip install -r requirements.txt
-python run_pipeline.py            # bronze -> silver -> gold + validation report
+python run_pipeline.py            # bronze -> silver -> gold + ML scores + validation report
 python run_orchestrated.py        # same load through the ADF-style DAG runner
 python run_api.py 8080            # serve the read API on port 8080
-python -m pytest -q               # 24 tests
+python -m pytest -q               # 30 tests
+```
+
+Or use the automation scripts (PowerShell + Bash — same steps, tests first):
+
+```powershell
+powershell -File scripts/run_pipeline.ps1
+```
+
+```bash
+bash scripts/run_pipeline.sh
 ```
 
 `run_pipeline.py` writes Parquet + CSV tables under `lakehouse/` (bronze,
 silver, quarantine, gold/daily partitioned by `service_date`,
-gold/monthly) and a human-readable `validation_report.txt` in the project
+gold/monthly, gold/model_scores) and a human-readable `validation_report.txt` in the project
 root. `terraform plan` in `infra/` reviews the Azure resources (nothing is
 applied; the Synapse SQL password is passed via `TF_VAR_synapse_sql_password`,
 never committed).

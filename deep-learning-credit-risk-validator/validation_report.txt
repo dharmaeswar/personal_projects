@@ -1,0 +1,37 @@
+DEEP-LEARNING CREDIT-RISK MODEL — VALIDATION REPORT
+
+Model: MLP deep-learning classifier (NumPy, 2 hidden layers) vs logistic challenger vs base-rate benchmark
+Train rows: 3703   Test rows: 1534
+
+Outcomes (test split, threshold 0.5):
+  candidate   AUC 0.7363  KS 0.3366  Gini 0.4726  Brier 0.1888  precision 0.639  recall 0.395  F1 0.489  top-decile capture 21.5%
+  challenger  AUC 0.7499  KS 0.3729  Gini 0.4999  Brier 0.1844  precision 0.653  recall 0.390  F1 0.488  top-decile capture 20.9%
+  benchmark   AUC 0.5000  KS 0.0000  Gini 0.0000  Brier 0.2232  precision 0.000  recall 0.000  F1 0.000  top-decile capture 9.3%
+
+Vintage backtest (predicted vs observed default rate):
+  2025Q3  n=765  predicted 0.3342  observed 0.3412  ratio 0.98
+  2025Q4  n=769  predicted 0.3373  observed 0.3316  ratio 1.02
+
+Drift (PSI, validation vs later population):
+  model_score              0.0180
+  credit_score             0.0149
+  annual_income            0.0118
+  debt_to_income           0.0170
+  revolving_utilization    0.0167
+  history_years            0.0383
+  delinquencies_12m        0.0009
+  inquiries_6m             0.0011
+  open_accounts            0.0081
+  requested_limit          0.0158
+
+Top features by permutation importance (test AUC drop):
+  credit_score             0.1597
+  delinquencies_12m        0.0316
+  history_years            0.0216
+  txt_full_time            0.0122
+  debt_to_income           0.0111
+
+Findings (1):
+  F-01 [High] Deep-learning candidate does not beat the logistic challenger on test ROC-AUC; a simpler model performs as well.
+
+Verdict: FAIL

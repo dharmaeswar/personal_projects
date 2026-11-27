@@ -1,0 +1,154 @@
+{
+  "model": "MLP deep-learning classifier (NumPy, 2 hidden layers) vs logistic challenger vs base-rate benchmark",
+  "n_train": 3703,
+  "n_test": 1534,
+  "candidate": {
+    "n": 1534,
+    "default_rate": 0.3363754889178618,
+    "roc_auc": 0.7362875222734957,
+    "gini": 0.4725750445469914,
+    "ks": 0.33663437961651516,
+    "brier": 0.18884200782613525,
+    "confusion": {
+      "tp": 204,
+      "tn": 903,
+      "fp": 115,
+      "fn": 312
+    },
+    "precision": 0.6394984326018809,
+    "recall": 0.3953488372093023,
+    "f1": 0.488622754491018,
+    "top_decile_capture": 0.21511627906976744,
+    "max_calibration_gap": 0.05553077755371971
+  },
+  "challenger": {
+    "n": 1534,
+    "default_rate": 0.3363754889178618,
+    "roc_auc": 0.7499409847550296,
+    "gini": 0.49988196951005914,
+    "ks": 0.37293065899087735,
+    "brier": 0.1844423654021631,
+    "confusion": {
+      "tp": 201,
+      "tn": 911,
+      "fp": 107,
+      "fn": 315
+    },
+    "precision": 0.6525974025974026,
+    "recall": 0.38953488372093026,
+    "f1": 0.4878640776699029,
+    "top_decile_capture": 0.20930232558139536,
+    "max_calibration_gap": 0.05986876453339701
+  },
+  "benchmark": {
+    "n": 1534,
+    "default_rate": 0.3363754889178618,
+    "roc_auc": 0.5,
+    "gini": 0.0,
+    "ks": 0.0,
+    "brier": 0.2232425613122865,
+    "confusion": {
+      "tp": 0,
+      "tn": 1018,
+      "fp": 0,
+      "fn": 516
+    },
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "top_decile_capture": 0.09302325581395349,
+    "max_calibration_gap": 0.059723700444260897
+  },
+  "backtest": [
+    {
+      "quarter": "2025Q3",
+      "n": 765,
+      "predicted_rate": 0.33420686466288924,
+      "observed_rate": 0.3411764705882353,
+      "ratio": 0.9795718447015719,
+      "breach": false
+    },
+    {
+      "quarter": "2025Q4",
+      "n": 769,
+      "predicted_rate": 0.33725177502775017,
+      "observed_rate": 0.33159947984395316,
+      "ratio": 1.0170455490052546,
+      "breach": false
+    }
+  ],
+  "drift": [
+    {
+      "feature": "model_score",
+      "psi": 0.01798883760592273
+    },
+    {
+      "feature": "credit_score",
+      "psi": 0.01492553844151696
+    },
+    {
+      "feature": "annual_income",
+      "psi": 0.011801456709970293
+    },
+    {
+      "feature": "debt_to_income",
+      "psi": 0.017048516231801064
+    },
+    {
+      "feature": "revolving_utilization",
+      "psi": 0.01666204176073999
+    },
+    {
+      "feature": "history_years",
+      "psi": 0.03834601668918135
+    },
+    {
+      "feature": "delinquencies_12m",
+      "psi": 0.0009179224640286442
+    },
+    {
+      "feature": "inquiries_6m",
+      "psi": 0.001103086963484053
+    },
+    {
+      "feature": "open_accounts",
+      "psi": 0.008124946908486171
+    },
+    {
+      "feature": "requested_limit",
+      "psi": 0.01575371082783366
+    }
+  ],
+  "permutation_importance_top5": [
+    {
+      "feature": "credit_score",
+      "auc_drop": 0.15968763801952457
+    },
+    {
+      "feature": "delinquencies_12m",
+      "auc_drop": 0.03164168989202121
+    },
+    {
+      "feature": "history_years",
+      "auc_drop": 0.021607194529477125
+    },
+    {
+      "feature": "txt_full_time",
+      "auc_drop": 0.012191407380332309
+    },
+    {
+      "feature": "debt_to_income",
+      "auc_drop": 0.011089154901692044
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-01",
+      "severity": "High",
+      "text": "Deep-learning candidate does not beat the logistic challenger on test ROC-AUC; a simpler model performs as well."
+    }
+  ],
+  "verdict": "FAIL",
+  "epochs_run": 40,
+  "reproduction_max_diff": 0.0
+}

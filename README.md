@@ -1,99 +1,164 @@
-# Regulatory Trade-Pattern Analytics
+# Platform Ops Automation
 
-Market-regulation analytics toolkit: loads order, trade and position
-data into a SQLite warehouse, runs statistical triage and rule-based
-trade-pattern detectors, and writes a regulatory review report with
-findings, CSV exports and a findings chart.
+A portfolio project for a Senior DevOps Engineer role: a containerized
+Python web service plus the ops automation around it — Docker, Kubernetes
+manifests, CI pipelines, log analysis, load testing, an incident
+runbook, and AWS platform configuration checks (EKS, Kafka, RDS Aurora,
+Cloud Foundation guardrails, storage and backup).
 
-Built for a Sr. Regulatory Data Scientist role at an exchange: the
-work mirrors analysing order, trade and position data from Market
-Regulation data warehouses, building working solutions that augment
-analytical capability, and producing regulatory data-analysis reports.
-It also fits a Senior SQL / Data Analytics Developer role for NYSE
-trading data (ICE, Nov 2026): SQL design and optimisation, query-plan
-review, automated data collection, statistical analysis and reporting
-on large-scale trading data.
+**Demo project. Synthetic traffic only. Not a real production platform.**
+Nothing here is a claim about a real production system, and no real
+incident history is described.
 
-## What it does
+## Skills used
 
-- **Warehouse** (`trade_reg_analytics/data.py`): seeded synthetic
-  order/trade/position data (6 instruments, 40 accounts, 20 business
-  days) loaded into SQLite with plain SQL — relational tables for
-  orders, trades and net positions.
-- **Statistics** (`trade_reg_analytics/stats.py`): daily volume,
-  rolling z-scores, outlier-day flags, account volume share and
-  close-to-close return stats.
-- **Detectors** (`trade_reg_analytics/patterns.py`): wash trades
-  (matched buy/sell, same account/day), spoofing/layering (large
-  orders cancelled within 10 seconds), marking the close (late trades
-  priced away from VWAP), position concentration (>= 35% of net open
-  interest). Every finding cites the orders behind it with a severity
-  score and a plain-language reason.
-- **Query tuning** (`trade_reg_analytics/tuning.py`): EXPLAIN QUERY
-  PLAN review, wall-clock timing and index recommendations for the
-  five recurring analytics queries. Run with `--tune`; it writes
-  `tuning_report.md` and `tuning_summary.json` next to the report.
-- **Microstructure** (`trade_reg_analytics/microstructure.py`): per
-  instrument-day VWAP, trade-price deviation from VWAP (an
-  effective-spread proxy in basis points), buy/sell imbalance,
-  intraday price dispersion and large-trade share, with plain-language
-  flags for days the tape itself says are unusual.
-- **Reporting** (`trade_reg_analytics/report.py`): Markdown report,
-  `findings.csv`, `daily_volume.csv`, `summary.json` and an SVG bar
-  chart of findings by pattern.
+Only skills Dharma has verified: Python, Docker, Kubernetes, Jenkins /
+GitLab CI, Linux, AWS concepts, SQL, Terraform (used in his roles and
+hackathons, confirmed Nov 18, 2026), EKS, Vault. This project does **not**
+claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
 
-## Demo result (seed 42, 20 days)
+## What is inside
 
-- Warehouse: 19,755 orders, 17,177 trades, 4,643 position rows
-- Findings: 20 wash-trade flags (ACC-007, one per day) and 20
-  spoofing flags (ACC-019, one per day) — both planted patterns are
-  found on every day; no false concentration or close-marking flags
-  on this seed. The planted patterns are the test signal, not real
-  market abuse: all data is synthetic.
+- `service/app.py` — stdlib-only web service (`http.server`, no web
+  framework). Endpoints: `/` (demo page), `/health` (JSON `ok`),
+  `/metrics` (Prometheus text format: request count, latency histogram,
+  error count). Latency simulation via the `LATENCY_MS` env var;
+  error simulation via `ERROR_RATE`.
+- `run_service.py` — starts the service on `$PORT` (default 8080).
+- `docker/Dockerfile` — multi-stage build, non-root user, HEALTHCHECK
+  on `/health`.
+- `k8s/` — deployment (3 replicas, resource requests/limits, readiness
+  and liveness probes), service, CPU-based HPA, ConfigMap, ingress
+  (generic `platform-ops.example.com` placeholder host).
+- `ci/` — GitHub Actions workflow (test, docker build, manifest
+  validation) and a Jenkinsfile (Test / Build / Validate Manifests).
+  No real deploy target.
+- `ops/log_analysis.py` — parses synthetic access logs, computes the
+  per-minute 5xx rate, flags minutes above a threshold, and provides
+  p50/p95 latency helpers.
+- `ops/reliability_dashboard.py` — aggregates synthetic per-request health
+  signals into an operational health summary (availability, error rate,
+  p95 latency, error-budget burn, per-service breakdown) and evaluates
+  alert rules. The alert-rule shape mirrors Azure Monitor-style alert
+  rules as a study; no production Azure use is claimed.
+- `ops/alert_tuning.py` — alert-threshold tuning (added Nov 24, 2026,
+  for a Site Reliability Engineer application): replays a labelled
+  per-minute metric series against candidate thresholds, scores true
+  positives, false positives and missed incidents for each one, and
+  recommends the threshold that detects every incident with the fewest
+  false positives. Synthetic data only; no real monitoring tool is
+  contacted.
+- `ops/observability_platform.py` — observability platform (added Nov 26,
+  2026, for a Gusto Site Reliability Engineer application): correlates
+  distributed traces, logs and metrics by trace id; detects anomalies
+  with a rolling statistical baseline (z-score, not an AI model);
+  ranks likely root causes by error-rate and latency lift against
+  baseline; routes alerts by severity and blast radius (page / ticket /
+  log); and rolls up per-service health for dashboards. Synthetic data
+  only; no real observability tool (Datadog, Sentry, Splunk,
+  OpenTelemetry collector, Prometheus server) is contacted and no
+  production observability-platform experience is claimed.
+- `ops/slo_capacity.py` — SLI/SLO and capacity planning (added Nov 24,
+  2026, for an AppFolio Sr. Site Reliability & Infrastructure Engineer
+  application): defines SLOs with error budgets, reports budget
+  remaining/consumed, evaluates multi-window burn-rate alerts (fast burn
+  pages on-call, slow burn opens a ticket), and forecasts capacity
+  headroom with days-until-full and a scale-out recommendation.
+  Synthetic data only; no real service or monitoring tool is contacted.
+- `ops/datastore_adoption.py` — data-store adoption readiness (added
+  Nov 24, 2026, for a Senior Cloud Infrastructure Engineer
+  application): scores a candidate store (Vitess / ClickHouse / Redis
+  shape) on replication, durable writes, backups and restore-test
+  freshness, p99 read/write SLOs, observability hooks, failover-test
+  freshness, encryption at rest and data residency, with an
+  adopt / pilot / not-ready verdict. Synthetic data only; no real
+  datastore is contacted and no production adoption experience is
+  claimed.
+- `ops/batch_control_plane.py` — batch processing control plane (added
+  Nov 24, 2026, for the same role): checks queue depth, creation vs
+  fulfillment throughput, stalled jobs, retry exhaustion and
+  per-component fulfill p95, and reports headroom against a 10x
+  growth target. Synthetic data only; no real job system is contacted
+  and no production batch-platform experience is claimed.
+- `ops/dr_check.py` — validates a disaster-recovery / failover readiness
+  checklist (runbook review freshness, last failover test, backup
+  verification freshness, on-call roster) and reports overall readiness.
+- `ops/nosql_health.py` — checks a synthetic multi-node NoSQL cluster (nodes up, replication lag, p99 read latency, throughput headroom) and reports overall health. Demo data only; no production NoSQL experience is claimed.
+- `ops/multicloud_iac.py` — validates a Terraform-style multi-cloud plan summary (resource tags, no open ingress, secrets via Vault, two-cloud redundancy), audits secret rotation freshness (90-day limit), and estimates cross-cloud transfer cost to pick the cheapest resilient path. Demo data only; no real cloud account is touched.
+- `ops/gitops_drift.py` — GitOps drift detection: compares the desired
+  state declared in the `k8s/` manifests with a live-state snapshot and
+  reports drift in image tags, replica counts, environment variables and
+- `ops/incident_response.py` — incident response for enterprise platform
+  support: weekly on-call rotation, incident lifecycle (detected →
+  triaged → mitigating → resolved → closed), SLA timers by severity,
+  runbook steps per incident type, and ServiceNow-style ticket sync.
+  resource limits, plus missing/extra resources. A rollout gate blocks a
+  deploy while drift is unresolved or error-budget burn is over its limit.
+  Also includes W3C `traceparent` parse/format helpers (the propagation
+  format OpenTelemetry uses) for passing trace context between services.
+  All live state is synthetic input; no real cluster is contacted and no
+  production GitOps or observability deployment is claimed.
+- `ops/host_bottleneck.py` — diagnoses a synthetic Linux host from CPU, IO wait, memory, load and disk-latency signals, answering "is it CPU? IO?" with a verdict and a next check. Demo data only.
+- `ops/aws_platform_check.py` — validates a synthetic AWS platform
+  config: EKS cluster (version, multi-AZ node groups, control-plane
+  logging, secrets encryption, endpoint restriction), Kafka/MSK
+  (broker count, replication factor, min.insync.replicas, storage
+  encryption, TLS, pinned version), RDS Aurora (engine, backup
+  retention, multi-AZ instances, storage encryption, deletion
+  protection), Cloud Foundation guardrails (required tags, no public
+  0.0.0.0/0 ingress, SSO/federation, CloudTrail) and storage/backup
+  (backup plan, retention, vault encryption, recent successful backup,
+  cold-storage lifecycle). Demo data only; no real AWS account or
+  resource is contacted and no production AWS experience is claimed.
+- `ops/load_test.py` — stdlib-only load test (urllib + threads) that
+  reports totals, error rate, and p50/p95 latency. Exits non-zero with
+  a clear message if the service is not running.
+- `ops/fleet_systems.py` — Linux fleet systems automation for a
+  data-center fleet (added Nov 24, 2026, for an Amazon SDE III System
+  Development Engineering role): a host inventory (role, OS/kernel,
+  packages, services), config-drift checks against a desired state,
+  staged rollouts (canary 10%, then 50%, then 100%) with a CPU/memory
+  health gate after each stage and automatic rollback of the failed
+  stage, and a fleet summary by role and status. Demo data only; no
+  real fleet is managed and no production systems-development
+  experience is claimed.
+- `run_fleet_demo.py` — end-to-end demo of the fleet module on a
+  12-host synthetic fleet: drift report, staged rollout with a
+  failing host, rollback, and fleet summary.
+- `RUNBOOK.md` — incident runbook for "elevated 5xx from the web
+  platform": triage, checks, rollback, post-incident review template.
 
-## Market microstructure (seed 42, 20 days)
-
-120 instrument-days: median mean absolute deviation from VWAP 4.04
-bps, median absolute buy/sell imbalance 0.07, median large-trade
-share 0.36. 13 days flagged (max deviation >= 25 bps or |imbalance|
->= 0.25) — ordinary days peak at 10-17 bps from VWAP, while flagged
-days run 31-90 bps; the largest, 90.3 bps on ES 2026-11-16, is a
-planted close-marking trade priced away from VWAP. Thresholds are
-parameters in `flag_microstructure_days`, not hard-coded facts.
-
-## Query tuning (seed 42, 20 days, `--tune`)
-
-Five recurring analytics queries, measured before and after the
-recommended indexes (median of 3–5 runs, SQLite, demo scale):
-
-| Query | Before | After | Speedup |
-|---|---|---|---|
-| Daily volume by instrument | 8.38 ms, full scan | 3.95 ms, index seek | 2.12x |
-| Account volume share (one day) | 1.24 ms, full scan | 0.39 ms, index seek | 3.15x |
-| Wash-trade candidates (self-join) | 2.82 ms, full scan | 0.54 ms, index seek | 5.26x |
-| Fast-cancel scan (spoofing triage) | 2.34 ms, full scan | 0.74 ms, index seek | 3.14x |
-| Position concentration (one day) | 0.49 ms, full scan | 0.24 ms, index seek | 2.05x |
-
-All five full-table scans are removed. The wash-trade self-join
-needed a second pass: the first index choice made the planner pick a
-date-led index and run slower (0.21x), so a composite index on
-(account, instrument, trade_date, side, quantity) was added and the
-query then ran 5.26x faster. Timings are demo-scale (17k trades),
-not production benchmarks.
-
-## Run it
+## How to run
 
 ```bash
 pip install -r requirements.txt
-pytest -q
-python -m trade_reg_analytics --db warehouse.db --out report
-python -m trade_reg_analytics --db warehouse.db --out report --tune
-python run_demo.py
+python run_service.py
+# then: curl http://127.0.0.1:8080/health
+#       curl http://127.0.0.1:8080/metrics
 ```
 
-## Files
+Docker:
 
-- `trade_reg_analytics/data.py`, `stats.py`, `patterns.py`,
-  `tuning.py`, `microstructure.py`, `report.py`, `__main__.py`
-- `tests/` — 6 test modules, 36 tests
-- `README.md`, `requirements.txt`, `run_demo.py`
+```bash
+docker build -f docker/Dockerfile -t platform-ops:latest .
+docker run -p 8080:8080 platform-ops:latest
+```
+
+Kubernetes (demo manifests only — no cluster is provisioned here):
+
+```bash
+kubectl apply -f k8s/
+```
+
+Log analysis and load test:
+
+```bash
+python -m ops.log_analysis
+python ops/load_test.py --url http://127.0.0.1:8080 --requests 100 --concurrency 10
+```
+
+## Tests
+
+```bash
+PYTHONPATH=. python -m pytest -q
+```

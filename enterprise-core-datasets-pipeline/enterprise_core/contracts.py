@@ -1,4 +1,4 @@
-"""Source contracts for the three enterprise feeds.
+"""Source contracts for the four enterprise feeds.
 
 A contract is the agreement a pipeline makes with a source: required fields,
 types, allowed values, and ranges. Rows that break the contract are
@@ -45,7 +45,23 @@ CONTRACTS = {
                    "payment_cost_usd": (0.0, 500_000.0)},
         "date_range": ("2026-10-01", "2026-11-25"),
     },
+    "payments": {
+        "required": ["txn_id", "txn_date", "payment_method", "status",
+                     "amount_usd", "settled_amount_usd", "settlement_lag_days"],
+        "types": {"txn_id": str, "txn_date": str, "payment_method": str,
+                  "status": str, "amount_usd": float,
+                  "settled_amount_usd": float, "settlement_lag_days": int},
+        "allowed": {"payment_method": ["card", "ach", "wire", "wallet"],
+                    "status": ["authorized", "captured", "settled", "failed"]},
+        "ranges": {"amount_usd": (0.0, 1_000_000.0),
+                   "settled_amount_usd": (0.0, 1_000_000.0),
+                   "settlement_lag_days": (0, 5)},
+        "date_range": ("2026-10-01", "2026-11-25"),
+    },
 }
+
+DATE_FIELD = {"ai_usage": "event_date", "jira_issues": "created_date",
+              "bookings": "booking_date", "payments": "txn_date"}
 
 
 def validate(feed, rows):
@@ -90,12 +106,18 @@ def validate(feed, rows):
                     break
         if reason is None:
             low, high = contract["date_range"]
-            date_field = "event_date" if feed == "ai_usage" else (
-                "created_date" if feed == "jira_issues" else "booking_date")
+            date_field = DATE_FIELD[feed]
             if not (low <= str(row[date_field]) <= high):
                 reason = f"{date_field}={row[date_field]} outside [{low}, {high}]"
         if reason is None and feed == "bookings" and row["revenue_usd"] > row["gbv_usd"]:
             reason = "revenue_usd exceeds gbv_usd"
+        if reason is None and feed == "payments":
+            if row["settled_amount_usd"] > row["amount_usd"]:
+                reason = "settled_amount_usd exceeds amount_usd"
+            elif row["status"] == "failed" and row["settled_amount_usd"] != 0:
+                reason = "failed txn carries settled_amount_usd"
+            elif row["status"] == "settled" and row["settled_amount_usd"] <= 0:
+                reason = "settled txn with no settled_amount_usd"
         if reason is None:
             good.append(row)
         else:

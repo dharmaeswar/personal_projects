@@ -29,8 +29,12 @@ def run_checks(wh):
         "fact_cost_daily": ["date", "cost_category", "amount_usd"],
         "fact_jira_weekly": ["week_end", "project_key", "status",
                              "open_issues", "story_points"],
+        "fact_payments_daily": ["date", "payment_method", "status",
+                                "txn_count", "gross_amount_usd",
+                                "settled_amount_usd", "avg_settlement_lag_days"],
         "dim_tool": ["tool_key", "tool_name", "price_per_1k_tokens",
                      "effective_from", "effective_to", "is_current"],
+        "dim_payment_method": ["payment_method"],
     }
     for table, cols in expected.items():
         df = tables.get(table)
@@ -57,6 +61,11 @@ def run_checks(wh):
         dupes = int(ue.duplicated(["date"]).sum())
         checks.append(_check("uniqueness:fact_unit_economics_daily", dupes == 0,
                              f"duplicate_dates={dupes}"))
+    pay_fact = tables.get("fact_payments_daily")
+    if pay_fact is not None and not pay_fact.empty:
+        dupes = int(pay_fact.duplicated(["date", "payment_method", "status"]).sum())
+        checks.append(_check("uniqueness:fact_payments_daily", dupes == 0,
+                             f"duplicate_grains={dupes}"))
 
     # --- ranges ------------------------------------------------------------
     if fact is not None and not fact.empty:
@@ -68,6 +77,14 @@ def run_checks(wh):
                    | (ue["margin_pct"] < -1) | (ue["margin_pct"] > 1)).sum())
         checks.append(_check("ranges:fact_unit_economics_daily", bad == 0,
                              f"bad_rows={bad}"))
+    if pay_fact is not None and not pay_fact.empty:
+        bad = int(((pay_fact["gross_amount_usd"] < 0)
+                   | (pay_fact["settled_amount_usd"] < 0)
+                   | (pay_fact["settled_amount_usd"] > pay_fact["gross_amount_usd"])
+                   | (pay_fact["txn_count"] <= 0)
+                   | (pay_fact["avg_settlement_lag_days"] < 0)
+                   | (pay_fact["avg_settlement_lag_days"] > 5)).sum())
+        checks.append(_check("ranges:fact_payments_daily", bad == 0, f"bad_rows={bad}"))
 
     # --- referential integrity: fact keys exist in dims --------------------
     dim_tool = tables.get("dim_tool")
@@ -87,6 +104,11 @@ def run_checks(wh):
         unknown = set(fact["team"]) - set(dim_team["team"])
         checks.append(_check("referential:fact_ai_usage_daily->dim_team",
                              not unknown, f"unknown_teams={sorted(unknown)}"))
+    dim_method = tables.get("dim_payment_method")
+    if pay_fact is not None and dim_method is not None and not pay_fact.empty:
+        unknown = set(pay_fact["payment_method"]) - set(dim_method["payment_method"])
+        checks.append(_check("referential:fact_payments_daily->dim_payment_method",
+                             not unknown, f"unknown_methods={sorted(unknown)}"))
 
     # --- SCD2 invariant: exactly one current row per tool ------------------
     if dim_tool is not None and not dim_tool.empty:
@@ -113,10 +135,24 @@ def run_checks(wh):
         diff = round(abs(float(ue["total_cost_usd"].sum()) - cost_total), 2)
         checks.append(_check("reconciliation:fact_cost_daily_vs_unit_economics",
                              diff == 0.0, f"diff_usd={diff}"))
+    bronze_pay = tables.get("bronze_payments")
+    if pay_fact is not None and bronze_pay is not None and not pay_fact.empty:
+        diff = round(abs(float(pay_fact["gross_amount_usd"].sum())
+                         - float(bronze_pay["amount_usd"].sum())), 2)
+        checks.append(_check("reconciliation:fact_payments_gross_vs_bronze",
+                             diff == 0.0, f"diff_usd={diff}"))
+        diff = round(abs(float(pay_fact["settled_amount_usd"].sum())
+                         - float(bronze_pay["settled_amount_usd"].sum())), 2)
+        checks.append(_check("reconciliation:fact_payments_settled_vs_bronze",
+                             diff == 0.0, f"diff_usd={diff}"))
+        diff = int(pay_fact["txn_count"].sum()) - len(bronze_pay)
+        checks.append(_check("reconciliation:fact_payments_txn_count_vs_bronze",
+                             diff == 0, f"diff_txns={diff}"))
 
     # --- freshness SLA: newest fact date within 2 days of the run date -----
     for fact_name, date_col in (("fact_ai_usage_daily", "date"),
-                                ("fact_unit_economics_daily", "date")):
+                                ("fact_unit_economics_daily", "date"),
+                                ("fact_payments_daily", "date")):
         df = tables.get(fact_name)
         if df is not None and not df.empty:
             newest = str(df[date_col].max())

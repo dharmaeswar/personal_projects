@@ -16,7 +16,7 @@ def plan_backfill(wh, feed, start_date, end_date):
     bronze = f"bronze_{feed}"
     affected = []
     for table in ("fact_ai_usage_daily", "fact_unit_economics_daily",
-                  "fact_cost_daily", "fact_jira_weekly"):
+                  "fact_cost_daily", "fact_jira_weekly", "fact_payments_daily"):
         if bronze in wh.lineage_for(table, exclude={"dim_date", "dim_team"}):
             affected.append(table)
     return {"feed": feed, "start": start_date, "end": end_date,
@@ -28,6 +28,7 @@ def plan_backfill(wh, feed, start_date, end_date):
 FACT_DATE_COL = {"fact_ai_usage_daily": "date",
                  "fact_unit_economics_daily": "date",
                  "fact_cost_daily": "date",
+                 "fact_payments_daily": "date",
                  "fact_jira_weekly": "week_end"}
 
 

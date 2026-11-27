@@ -1,4 +1,4 @@
-"""Synthetic seed data for the three enterprise feeds.
+"""Synthetic seed data for the four enterprise feeds.
 
 All data is synthetic and seeded (seed 42). No real company, customer, or
 booking data is used, and nothing here is a claim about any real institution.
@@ -11,6 +11,10 @@ paths run on every execution:
 - jira_issues: 2 issues in an unknown project, 1 negative story points,
   1 status outside the allowed set.
 - bookings: 1 row with revenue above GBV, 1 negative hosting cost.
+- payments: 2 duplicate txn_ids (re-delivered gateway batches, deduped not
+  quarantined), 2 negative amounts, 1 unknown payment method, 1 settled
+  amount above the authorised amount, 1 failed txn carrying a settled
+  amount, 1 future date (6 quarantined in total).
 """
 
 import random
@@ -19,6 +23,8 @@ from datetime import date, timedelta
 TOOLS = ["copilot-pro", "code-assistant", "doc-summarizer", "support-drafting"]
 TEAMS = ["platform", "payments", "trust", "growth", "finance"]
 PROJECTS = ["CORE", "DATA", "BIZ"]
+PAYMENT_METHODS = ["card", "ach", "wire", "wallet"]
+PAYMENT_STATUSES = ["authorized", "captured", "settled", "failed"]
 START = date(2026, 10, 1)
 DAYS = 56  # 2026-10-01 .. 2026-11-25
 
@@ -130,10 +136,65 @@ def seed_bookings(rng):
     return rows
 
 
+def seed_payments(rng):
+    """Payment transactions from a gateway feed.
+
+    A transaction moves authorized -> captured -> settled; a failed txn
+    settles nothing. settled_amount_usd is the amount that reached the
+    settlement account; settlement_lag_days is txn_date -> settlement date.
+    """
+    rows = []
+    for i, day in enumerate(_dates()):
+        for method in PAYMENT_METHODS:
+            n = rng.randint(3, 8)
+            for _ in range(n):
+                status = rng.choice(PAYMENT_STATUSES + ["settled", "settled"])
+                amount = round(rng.uniform(25.0, 4_800.0), 2)
+                if status == "settled":
+                    settled = round(amount * rng.uniform(0.97, 1.0), 2)
+                    lag = rng.randint(1, 2)
+                elif status == "captured":
+                    settled = 0.0
+                    lag = 0
+                else:  # authorized or failed: nothing settled yet
+                    settled = 0.0
+                    lag = 0
+                rows.append({
+                    "txn_id": f"pay-{i:02d}-{method}-{rng.randint(0, 99999):05d}",
+                    "txn_date": day.isoformat(),
+                    "payment_method": method,
+                    "status": status,
+                    "amount_usd": amount,
+                    "settled_amount_usd": settled,
+                    "settlement_lag_days": lag,
+                })
+    # Planted defects (8 rows, 6 quarantined + 2 deduped).
+    base = list(rows[:2])
+    for r in base:  # 2 duplicates: same txn_id, re-delivered gateway batch
+        rows.append(dict(r))
+    bad = dict(rows[10]); bad["txn_id"] = "pay-bad-neg-0"; bad["amount_usd"] = -12.50
+    rows.append(bad)
+    bad = dict(rows[11]); bad["txn_id"] = "pay-bad-neg-1"; bad["settled_amount_usd"] = -5.0
+    rows.append(bad)
+    bad = dict(rows[12]); bad["txn_id"] = "pay-bad-method-0"; bad["payment_method"] = "crypto"
+    rows.append(bad)
+    bad = dict(rows[13]); bad["txn_id"] = "pay-bad-settled-0"; bad["status"] = "settled"
+    bad["settled_amount_usd"] = bad["amount_usd"] + 10.0
+    rows.append(bad)
+    bad = dict(rows[14]); bad["txn_id"] = "pay-bad-failed-0"; bad["status"] = "failed"
+    bad["settled_amount_usd"] = 100.0
+    rows.append(bad)
+    bad = dict(rows[15]); bad["txn_id"] = "pay-bad-date-0"; bad["txn_date"] = "2026-12-01"
+    rows.append(bad)
+    rng.shuffle(rows)
+    return rows
+
+
 def seed_all(seed=42):
     rng = random.Random(seed)
     return {
         "ai_usage": seed_ai_usage(rng),
         "jira_issues": seed_jira(rng),
         "bookings": seed_bookings(rng),
+        "payments": seed_payments(rng),
     }

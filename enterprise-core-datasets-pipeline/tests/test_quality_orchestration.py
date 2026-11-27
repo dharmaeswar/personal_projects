@@ -12,8 +12,8 @@ from enterprise_core.quality import all_passed, run_checks
 def _loaded_wh():
     wh = Warehouse()
     feeds = seed_mod.seed_all()
-    for feed in ("ai_usage", "jira_issues", "bookings"):
-        wh.ingest(feed, feeds[feed])
+    for feed, rows in feeds.items():
+        wh.ingest(feed, rows)
     wh.build_dims()
     wh.build_facts()
     return wh

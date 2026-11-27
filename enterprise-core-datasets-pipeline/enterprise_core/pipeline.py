@@ -9,9 +9,10 @@ Spark mapping (each pandas step names its Spark equivalent):
 Layers:
 - bronze_<feed>: raw rows that passed the source contract, append-only.
 - quarantine_<feed>: rows that broke the contract, kept with a reason.
-- dim_tool (SCD2 on unit price), dim_team (SCD1), dim_date, dim_cost_category.
+- dim_tool (SCD2 on unit price), dim_team (SCD1), dim_date, dim_cost_category,
+  dim_payment_method (SCD1).
 - fact_ai_usage_daily, fact_unit_economics_daily, fact_cost_daily,
-  fact_jira_weekly.
+  fact_jira_weekly, fact_payments_daily.
 """
 
 import pandas as pd
@@ -19,23 +20,28 @@ import pandas as pd
 from . import seed as seed_mod
 from .contracts import validate
 
-FEEDS = ["ai_usage", "jira_issues", "bookings"]
-KEY_FIELD = {"ai_usage": "event_id", "jira_issues": "issue_key", "bookings": "booking_id"}
-DATE_FIELD = {"ai_usage": "event_date", "jira_issues": "updated_date", "bookings": "booking_date"}
+FEEDS = ["ai_usage", "jira_issues", "bookings", "payments"]
+KEY_FIELD = {"ai_usage": "event_id", "jira_issues": "issue_key", "bookings": "booking_id",
+             "payments": "txn_id"}
+DATE_FIELD = {"ai_usage": "event_date", "jira_issues": "updated_date", "bookings": "booking_date",
+              "payments": "txn_date"}
 COST_CATEGORIES = ["hosting", "support", "payment"]
 
 LINEAGE = {
     "bronze_ai_usage": ["source:ai_usage_events"],
     "bronze_jira_issues": ["source:jira_api"],
     "bronze_bookings": ["source:bookings_db"],
+    "bronze_payments": ["source:payments_gateway"],
     "dim_tool": ["bronze_ai_usage", "source:tool_price_contract"],
     "dim_team": ["bronze_ai_usage", "bronze_jira_issues"],
-    "dim_date": ["bronze_ai_usage", "bronze_jira_issues", "bronze_bookings"],
+    "dim_date": ["bronze_ai_usage", "bronze_jira_issues", "bronze_bookings", "bronze_payments"],
     "dim_cost_category": ["bronze_bookings"],
+    "dim_payment_method": ["bronze_payments"],
     "fact_ai_usage_daily": ["bronze_ai_usage", "dim_tool", "dim_team", "dim_date"],
     "fact_unit_economics_daily": ["bronze_bookings", "dim_date"],
     "fact_cost_daily": ["bronze_bookings", "dim_cost_category", "dim_date"],
     "fact_jira_weekly": ["bronze_jira_issues", "dim_date"],
+    "fact_payments_daily": ["bronze_payments", "dim_payment_method", "dim_date"],
 }
 
 
@@ -110,6 +116,11 @@ class Warehouse:
             [{"date": d} for d in sorted(dates)])
         self.tables["dim_cost_category"] = pd.DataFrame(
             [{"cost_category": c} for c in COST_CATEGORIES])
+        pay = self.tables.get("bronze_payments")
+        methods = sorted(pay["payment_method"].dropna().unique().tolist()) \
+            if pay is not None and not pay.empty and "payment_method" in pay.columns else []
+        self.tables["dim_payment_method"] = pd.DataFrame(
+            [{"payment_method": m} for m in methods])
 
     def _price_on(self, tool, day_iso):
         return seed_mod.price_on(tool, day_iso)
@@ -189,6 +200,34 @@ class Warehouse:
                     else weekly)
                 self.load_state["fact_jira_weekly"] = str(new["week_end"].max())
                 added["fact_jira_weekly"] = len(weekly)
+
+        pay = self.tables.get("bronze_payments")
+        if pay is not None and not pay.empty:
+            wm = self.load_state.get("fact_payments_daily", "0000-00-00")
+            new = pay[pay["txn_date"].astype(str) > wm]
+            if not new.empty:
+                settled = new[new["status"] == "settled"]
+                grouped = (new.groupby(["txn_date", "payment_method", "status"], as_index=False)
+                           .agg(txn_count=("txn_id", "count"),
+                                gross_amount_usd=("amount_usd", "sum"),
+                                settled_amount_usd=("settled_amount_usd", "sum")))
+                lag = (settled.groupby(["txn_date", "payment_method"], as_index=False)
+                       .agg(avg_settlement_lag_days=("settlement_lag_days", "mean")))
+                grouped = grouped.merge(
+                    lag, left_on=["txn_date", "payment_method"],
+                    right_on=["txn_date", "payment_method"], how="left")
+                grouped["avg_settlement_lag_days"] = (
+                    grouped["avg_settlement_lag_days"].fillna(0.0).round(2))
+                # Settlement lag is meaningful only on settled rows.
+                grouped.loc[grouped["status"] != "settled",
+                            "avg_settlement_lag_days"] = 0.0
+                grouped = grouped.rename(columns={"txn_date": "date"})
+                prev = self.tables.get("fact_payments_daily")
+                self.tables["fact_payments_daily"] = (
+                    pd.concat([prev, grouped], ignore_index=True) if prev is not None
+                    else grouped)
+                self.load_state["fact_payments_daily"] = str(new["txn_date"].max())
+                added["fact_payments_daily"] = len(grouped)
         return added
 
     def lineage_for(self, table, exclude=frozenset()):

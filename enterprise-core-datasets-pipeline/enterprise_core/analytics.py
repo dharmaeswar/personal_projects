@@ -56,3 +56,22 @@ def gbv_vs_revenue(wh):
             round(float(ue["revenue_usd"].sum() / ue["gbv_usd"].sum() * 100), 2)],
         "avg_margin_pct": [round(float(ue["margin_pct"].mean() * 100), 2)],
     })
+
+
+def payments_settlement_summary(wh):
+    """Settlement by payment method: gross vs settled, settlement rate, lag.
+
+    Finance reads this to see which rails settle in full and how fast:
+    a method whose settled share drops, or whose lag grows, is a pipeline
+    or gateway problem, not a reporting quirk.
+    """
+    fact = wh.tables["fact_payments_daily"]
+    out = (fact.groupby("payment_method", as_index=False)
+           .agg(txns=("txn_count", "sum"),
+                gross_amount_usd=("gross_amount_usd", "sum"),
+                settled_amount_usd=("settled_amount_usd", "sum"),
+                avg_settlement_lag_days=("avg_settlement_lag_days", "mean")))
+    out["settlement_rate_pct"] = (
+        out["settled_amount_usd"] / out["gross_amount_usd"] * 100).round(2)
+    out["avg_settlement_lag_days"] = out["avg_settlement_lag_days"].round(2)
+    return out.sort_values("gross_amount_usd", ascending=False).reset_index(drop=True)

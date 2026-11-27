@@ -31,7 +31,9 @@ def run_pipeline(run_id="default", backfill=None):
         Task("ingest_ai_usage", [], ingest("ai_usage")),
         Task("ingest_jira", [], ingest("jira_issues")),
         Task("ingest_bookings", [], ingest("bookings")),
-        Task("build_dims", ["ingest_ai_usage", "ingest_jira", "ingest_bookings"],
+        Task("ingest_payments", [], ingest("payments")),
+        Task("build_dims", ["ingest_ai_usage", "ingest_jira", "ingest_bookings",
+                            "ingest_payments"],
              lambda: (wh.build_dims(), {"dims": sorted(
                  t for t in wh.tables if t.startswith("dim_"))})[1]),
         Task("build_facts", ["build_dims"], lambda: wh.build_facts()),
@@ -61,6 +63,7 @@ def run_pipeline(run_id="default", backfill=None):
         "ai_cost_by_tool_month": analytics.ai_cost_by_tool_month(wh).to_dict("records"),
         "ai_cost_by_team": analytics.ai_cost_by_team(wh).to_dict("records"),
         "gbv_vs_revenue": analytics.gbv_vs_revenue(wh).to_dict("records"),
+        "payments_settlement": analytics.payments_settlement_summary(wh).to_dict("records"),
         "backfill": backfill_report,
     }
     with open(os.path.join(OUT, "run_report.json"), "w") as fh:

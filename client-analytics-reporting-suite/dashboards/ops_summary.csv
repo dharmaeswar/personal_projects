@@ -1,0 +1,24 @@
+month,event_type,count,avg_resolution_days
+2026-05,Account Review,8,7.25
+2026-05,Dispute,3,5.67
+2026-05,Onboarding,7,5.57
+2026-05,Service Request,1,1.0
+2026-06,Account Review,13,7.46
+2026-06,Dispute,4,4.75
+2026-06,Service Request,6,8.0
+2026-07,Account Review,2,6.5
+2026-07,Dispute,5,8.2
+2026-07,Onboarding,9,9.89
+2026-07,Service Request,4,7.75
+2026-08,Account Review,4,6.5
+2026-08,Dispute,3,8.33
+2026-08,Onboarding,6,7.0
+2026-08,Service Request,5,8.2
+2026-09,Account Review,3,4.33
+2026-09,Dispute,6,8.5
+2026-09,Onboarding,6,6.5
+2026-09,Service Request,6,8.0
+2026-10,Account Review,5,7.4
+2026-10,Dispute,3,13.33
+2026-10,Onboarding,5,4.4
+2026-10,Service Request,6,7.5

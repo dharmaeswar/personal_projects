@@ -1,0 +1,27 @@
+CLIENT ANALYTICS — STAKEHOLDER SUMMARY (synthetic data, May–Oct 2026)
+==========================================================================
+Transactions processed: 601 (593 valid, 9 exceptions queued for review).
+Total valid volume: $2,559,161.42 across 593 transactions.
+
+Monthly trend (volume, % change vs prior month):
+  2026-05: $  421,022.38       n/a  97 txns, 57 active accounts
+  2026-06: $  426,045.45    +1.19%  99 txns, 56 active accounts
+  2026-07: $  415,340.75    -2.51%  100 txns, 56 active accounts
+  2026-08: $  457,270.80   +10.10%  99 txns, 57 active accounts
+  2026-09: $  435,229.52    -4.82%  100 txns, 56 active accounts
+  2026-10: $  404,252.52    -7.12%  98 txns, 55 active accounts
+
+Volume by channel:
+  Branch   $  666,682.41  143 txns, avg ticket $4,662.11
+  Mobile   $  582,644.70  136 txns, avg ticket $4,284.15
+  Online   $  600,662.87  143 txns, avg ticket $4,200.44
+  Phone    $  709,171.44  171 txns, avg ticket $4,147.20
+
+Top 3 clients by volume:
+  CL-0045 (Wealth): $101,780.39 across 21 transactions
+  CL-0032 (Small Business): $95,274.28 across 19 transactions
+  CL-0027 (Wealth): $84,303.03 across 17 transactions
+
+Operations events: 120 total; mean resolution 7.3 days.
+Data quality: 9 exceptions queued; Python/SQL reconciliation mismatches: 0.
+All figures exclude invalid rows; exceptions are listed in dashboards/exceptions.csv for review and escalation.

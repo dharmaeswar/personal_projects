@@ -1,0 +1,10 @@
+txn_id,check,detail
+TXN-0007,negative_amount,amount=-120.5 account=ACC-0067
+TXN-0019,missing_amount,amount=None account=ACC-0010
+TXN-0030,orphan_account,amount=719.81 account=ACC-0080
+TXN-0187,orphan_account,amount=5895.67 account=ACC-0080
+TXN-0388,orphan_account,amount=6132.36 account=ACC-0080
+TXN-0548,orphan_account,amount=2528.34 account=ACC-0080
+TXN-0563,orphan_account,amount=3244.57 account=ACC-0080
+TXN-0003,duplicate_txn_id,amount=410.0 account=ACC-0061
+,orphan_account,client=CL-9999 has no client record

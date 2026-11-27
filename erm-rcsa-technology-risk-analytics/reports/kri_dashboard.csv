@@ -1,0 +1,9 @@
+kri_id,name,unit,current,warning,breach,status,emerging_risk,history
+K-01,Unpatched critical vulnerabilities (count),count,24,10,20,BREACH,True,4 -> 6 -> 8 -> 12 -> 18 -> 24
+K-02,Failed changes (% of all changes),%,3.2,5,8,OK,False,3.1 -> 2.8 -> 3.4 -> 3.0 -> 2.9 -> 3.2
+K-03,Vendor SLA breaches (count/quarter),count,5,3,5,BREACH,True,1 -> 2 -> 1 -> 2 -> 4 -> 5
+K-04,Data quality exceptions (% of feeds),%,3.9,2,4,WARNING,True,1.2 -> 1.5 -> 1.1 -> 1.8 -> 2.6 -> 3.9
+K-05,Backup restore test success (%),%,91,95,90,WARNING,True,98 -> 97 -> 99 -> 96 -> 94 -> 91
+K-06,Privileged access reviews on time (%),%,91,90,80,OK,True,96 -> 94 -> 95 -> 93 -> 92 -> 91
+K-07,Mean time to patch criticals (days),days,19,14,30,WARNING,True,9 -> 11 -> 10 -> 13 -> 16 -> 19
+K-08,Control test pass rate (%),%,87,90,85,WARNING,True,93 -> 91 -> 92 -> 90 -> 89 -> 87

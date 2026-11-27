@@ -1,0 +1,15 @@
+risk_id,name,category,source,inherent,inherent_band,residual,residual_band,controls,control_ratings,challenge
+R-01,Unpatched critical vulnerabilities in production,technology,IS,20,High,6.0,Low,2,Effective; Needs Improvement,No challenge: controls cover the risk within appetite.
+R-02,Third-party vendor service outage,operational,TP,12,Medium,3.6,Low,1,Effective,No challenge: controls cover the risk within appetite.
+R-03,Incomplete data lineage for regulatory reporting,technology,DM,16,High,12.8,Medium,1,Needs Improvement,CHALLENGE: residual risk stays High after controls — escalate to the risk committee.
+R-04,Failed change without rollback plan,operational,IT,12,Medium,3.6,Low,1,Effective,No challenge: controls cover the risk within appetite.
+R-05,Phishing-driven credential compromise,technology,IS,16,High,4.8,Low,2,Effective; Effective,No challenge: controls cover the risk within appetite.
+R-06,Vendor concentration in payment processing,strategic,TP,20,High,16.0,High,1,Needs Improvement,CHALLENGE: residual risk stays High after controls — escalate to the risk committee.
+R-07,Stale reference data in risk calculations,financial,DM,9,Medium,2.7,Low,1,Effective,No challenge: controls cover the risk within appetite.
+R-08,Backup restore never tested end to end,operational,IT,10,Medium,9.5,Medium,1,Ineffective,CHALLENGE: at least one control is Ineffective — remediation plan required before sign-off.
+R-09,Excess privileged access without review,technology,IS,12,Medium,3.6,Low,1,Effective,No challenge: controls cover the risk within appetite.
+R-10,Vendor contract missing exit clause,strategic,TP,8,Low,4.8,Low,1,Needs Improvement,No challenge: controls cover the risk within appetite.
+R-11,Manual reconciliation of GL postings,financial,DM,9,Medium,2.7,Low,1,Effective,No challenge: controls cover the risk within appetite.
+R-12,Single point of failure in network core,operational,IT,10,Medium,3.0,Low,1,Effective,No challenge: controls cover the risk within appetite.
+R-13,Outdated encryption on data at rest,technology,IS,12,Medium,9.6,Medium,1,Needs Improvement,No challenge: controls cover the risk within appetite.
+R-14,Missing data quality checks on feeds,technology,DM,12,Medium,3.6,Low,1,Effective,No challenge: controls cover the risk within appetite.

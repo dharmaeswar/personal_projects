@@ -1,0 +1,6 @@
+req_id,framework,function,requirement,status
+F-02,COBIT,IT Operations,Access reviews completed on schedule,Partial
+F-03,NIST,Information Security,Vulnerabilities patched within SLA,Not Met
+F-05,ITIL,IT Operations,Incident and problem records linked to changes,Partial
+F-08,DCAM,Data Management,Data lineage documented for regulatory reports,Partial
+F-11,COBIT,Third Party,Vendor risk tier reviewed at onboarding,Partial

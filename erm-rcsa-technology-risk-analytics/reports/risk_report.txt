@@ -1,0 +1,30 @@
+ENTERPRISE RISK MANAGEMENT — TECHNOLOGY RISK REPORT
+As of 2026-11-27 | Sources: IT, IS, Third Party, Data Management
+
+RCSA: 14 risks assessed; 1 High residual risk.
+KRIs: 8 tracked; 2 in BREACH: K-01, K-03
+Framework coverage: 69.6% (5 open gaps).
+Loss reconciliation Python vs SQL: PASS.
+Largest loss event: LE-37 (operational/IS) $285,000.00.
+
+HIGH RESIDUAL RISKS
+- R-06 Vendor concentration in payment processing — residual 16.0 (High). CHALLENGE: residual risk stays High after controls — escalate to the risk committee.
+
+BREACHED / EMERGING KRIs
+- K-01 Unpatched critical vulnerabilities (count): 24 count — BREACH; EMERGING RISK (worsening trend)
+- K-03 Vendor SLA breaches (count/quarter): 5 count — BREACH; EMERGING RISK (worsening trend)
+- K-04 Data quality exceptions (% of feeds): 3.9 % — WARNING; EMERGING RISK (worsening trend)
+- K-05 Backup restore test success (%): 91 % — WARNING; EMERGING RISK (worsening trend)
+- K-06 Privileged access reviews on time (%): 91 % — OK; EMERGING RISK (worsening trend)
+- K-07 Mean time to patch criticals (days): 19 days — WARNING; EMERGING RISK (worsening trend)
+- K-08 Control test pass rate (%): 87 % — WARNING; EMERGING RISK (worsening trend)
+
+OPEN EXCEPTIONS (most severe first)
+- [BREACH] KRI K-01: Unpatched critical vulnerabilities (count) at 24 count (breach 20)
+- [BREACH] KRI K-03: Vendor SLA breaches (count/quarter) at 5 count (breach 5)
+- [High residual] RCSA risk R-06: Vendor concentration in payment processing — residual 16.0
+- [Ineffective control] Control C-09: ToE pass rate below 75% or design Ineffective
+- [WARNING] KRI K-04: Data quality exceptions (% of feeds) at 3.9 % (warning 2)
+- [WARNING] KRI K-05: Backup restore test success (%) at 91 % (warning 95)
+- [WARNING] KRI K-07: Mean time to patch criticals (days) at 19 days (warning 14)
+- [WARNING] KRI K-08: Control test pass rate (%) at 87 % (warning 90)

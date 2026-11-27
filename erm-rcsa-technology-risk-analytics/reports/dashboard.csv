@@ -1,0 +1,23 @@
+type,id,name,category,source,value,status
+RCSA risk,R-01,Unpatched critical vulnerabilities in production,technology,IS,6.0,Low
+RCSA risk,R-02,Third-party vendor service outage,operational,TP,3.6,Low
+RCSA risk,R-03,Incomplete data lineage for regulatory reporting,technology,DM,12.8,Medium
+RCSA risk,R-04,Failed change without rollback plan,operational,IT,3.6,Low
+RCSA risk,R-05,Phishing-driven credential compromise,technology,IS,4.8,Low
+RCSA risk,R-06,Vendor concentration in payment processing,strategic,TP,16.0,High
+RCSA risk,R-07,Stale reference data in risk calculations,financial,DM,2.7,Low
+RCSA risk,R-08,Backup restore never tested end to end,operational,IT,9.5,Medium
+RCSA risk,R-09,Excess privileged access without review,technology,IS,3.6,Low
+RCSA risk,R-10,Vendor contract missing exit clause,strategic,TP,4.8,Low
+RCSA risk,R-11,Manual reconciliation of GL postings,financial,DM,2.7,Low
+RCSA risk,R-12,Single point of failure in network core,operational,IT,3.0,Low
+RCSA risk,R-13,Outdated encryption on data at rest,technology,IS,9.6,Medium
+RCSA risk,R-14,Missing data quality checks on feeds,technology,DM,3.6,Low
+KRI,K-01,Unpatched critical vulnerabilities (count),-,-,24,BREACH
+KRI,K-02,Failed changes (% of all changes),-,-,3.2,OK
+KRI,K-03,Vendor SLA breaches (count/quarter),-,-,5,BREACH
+KRI,K-04,Data quality exceptions (% of feeds),-,-,3.9,WARNING
+KRI,K-05,Backup restore test success (%),-,-,91,WARNING
+KRI,K-06,Privileged access reviews on time (%),-,-,91,OK
+KRI,K-07,Mean time to patch criticals (days),-,-,19,WARNING
+KRI,K-08,Control test pass rate (%),-,-,87,WARNING

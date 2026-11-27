@@ -1,0 +1,23 @@
+Next-best-action recommendation evaluation (seeded synthetic data)
+Users: 200, k=5
+
+Popularity baseline:
+  mean precision@5: 0.104
+  mean recall@5:    0.104
+  mean NDCG@5:      0.111
+  catalog coverage:  0.125
+
+Personalised ranker:
+  mean precision@5: 0.377
+  mean recall@5:    0.377
+  mean NDCG@5:      0.392
+  catalog coverage:  1.000
+
+Statistical gate (per-user NDCG, personalised vs baseline):
+  NDCG difference: +0.281
+  Welch t = 14.90, p = 0
+  Bootstrap 95% CI on the difference: (+0.242, +0.318)
+  Significant improvement: True
+  Coverage guardrail (>= 0.25 of catalog): True
+
+Verdict: SHIP

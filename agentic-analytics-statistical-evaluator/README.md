@@ -98,7 +98,35 @@ interaction dataset (meetings, research reads, events, tenure).
 
 Run it with `python run_access_eval.py` (writes
 `access_eval_report.json`). Verdict on the seeded data: **PASS**.
-Tests: 66 pytest tests pass (53 original + 13 new).
+Tests: 79 pytest tests pass (66 before + 13 new, Nov 27, 2026).
+
+## Recommendation & personalization evaluation (added Nov 27, 2026 — Intuit AI Scientist 2 fit)
+
+The Consumer Group AI role's second front is in-product recommendation
+and personalization: the right guidance, products and next-best-actions.
+`agentic_stats/recommendation.py` evaluates a personalised
+next-best-action ranker against a popularity baseline on a seeded
+synthetic catalog of 40 guidance cards (budgeting, taxes, invoicing,
+payroll, saving) and 200 users with true topic affinities.
+
+- **Rankers** — popularity baseline (global interaction counts) vs a
+  content-based personalised ranker (the user's topic profile from their
+  own history, times item quality; cold-start users fall back to the
+  popularity order; items already seen are never re-recommended).
+- **Metrics** — precision@5, recall@5 and NDCG@5 per user against
+  held-out relevant cards from the user's top-2 topics.
+- **Statistical gate** — the same Welch t-test + bootstrap 95% CI used
+  elsewhere in this project, on per-user NDCG@5, plus a coverage
+  guardrail (the personalised ranker must surface at least 25% of the
+  catalog — a ranker that only ever shows a handful of cards is not
+  personalisation).
+
+Run it with `python run_recommendation_eval.py` (writes
+`recommendation_eval_report.txt`). On the seeded data the personalised
+ranker wins clearly: mean NDCG@5 **0.392 vs 0.111** for the baseline
+(precision@5 0.377 vs 0.104, recall@5 0.377 vs 0.104), difference +0.281,
+Welch t = 14.90, p ≈ 0, bootstrap 95% CI (+0.242, +0.318), and coverage
+1.000 vs 0.125. Verdict: **SHIP**.
 
 ## What the demo data shows (240 synthetic rows, seed fixed)
 

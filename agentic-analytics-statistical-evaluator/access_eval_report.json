@@ -1,0 +1,73 @@
+{
+  "verdict": "PASS",
+  "n_train": 180,
+  "n_test": 60,
+  "propensity": {
+    "test_auc": 0.7807,
+    "train_log_loss": 0.3931,
+    "calibration": [
+      {
+        "bin": 1,
+        "n": 12,
+        "mean_predicted": 0.522,
+        "observed_rate": 0.333
+      },
+      {
+        "bin": 2,
+        "n": 12,
+        "mean_predicted": 0.754,
+        "observed_rate": 1.0
+      },
+      {
+        "bin": 3,
+        "n": 12,
+        "mean_predicted": 0.82,
+        "observed_rate": 0.833
+      },
+      {
+        "bin": 4,
+        "n": 12,
+        "mean_predicted": 0.898,
+        "observed_rate": 0.75
+      },
+      {
+        "bin": 5,
+        "n": 12,
+        "mean_predicted": 0.966,
+        "observed_rate": 1.0
+      }
+    ],
+    "max_calibration_gap": 0.246
+  },
+  "wallet": {
+    "train_r2": 0.8114,
+    "test_r2": 0.7877,
+    "coefficients": {
+      "meetings_90d": 0.308,
+      "research_reads": 0.014,
+      "events_attended": 0.49,
+      "tenure_months": 0.002
+    }
+  },
+  "attrition": {
+    "table": [
+      [
+        17,
+        153
+      ],
+      [
+        24,
+        46
+      ]
+    ],
+    "high_attrition_rate": 0.1,
+    "low_attrition_rate": 0.343,
+    "chi2": 20.645,
+    "p": 0.0
+  },
+  "survival_month_12": {
+    "all": 0.8292,
+    "high_engagement": 0.9,
+    "low_engagement": 0.6571
+  }
+}

@@ -60,6 +60,13 @@ CREATE TABLE IF NOT EXISTS quality_results (
     status     TEXT NOT NULL,
     detail     TEXT NOT NULL DEFAULT ''
 );
+CREATE TABLE IF NOT EXISTS model_test_results (
+    model_name TEXT NOT NULL,
+    test_name  TEXT NOT NULL,
+    status     TEXT NOT NULL,
+    detail     TEXT NOT NULL DEFAULT '',
+    PRIMARY KEY (model_name, test_name)
+);
 """
 
 

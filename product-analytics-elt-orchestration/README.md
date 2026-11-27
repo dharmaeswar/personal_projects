@@ -39,6 +39,35 @@ tests/              pytest suite (contracts, ingest, transforms,
                     metrics, experiments, orchestration, quality/catalog/optimize)
 ```
 
+## Discord update — dbt-style modeling layer (Nov 27, 2026)
+
+Built for a Data Engineer role (Gaming / Ads squads) whose core work is
+curated, tested, documented datasets in BigQuery using dbt. New in this update:
+
+- **dbt-style models** (`models/`, `product_analytics/models.py`) —
+  staging → intermediate → mart SQL models, wired with `{{ ref() }}`, run in
+  the order declared in `models/schema.yml`. `build_models` is a DAG task
+  between `quality_checks` and `publish_catalog`.
+- **Squad marts** — Gaming: `mart_gaming_daily` (daily active gamers,
+  sessions, play minutes by game, from a third-party-style game catalog
+  joined to user-to-game play sessions). Ads: `mart_ads_measurement_daily`
+  (impressions, clicks, spend, CTR, CPC by campaign and channel).
+- **Schema tests as code** — `models/schema.yml` declares unique, not_null,
+  relationships, accepted_values and non_negative tests plus a freshness
+  check; every build enforces them, writes `model_test_results`, and fails
+  the DAG on a failure. Docs regenerate into `MODELS.md` from the warehouse
+  that actually ran.
+- **Semantic layer** (`configs/semantic_layer.yaml`) — shared metric
+  definitions (gaming DAU, play minutes, ads CTR/CPC/spend) naming the mart
+  they are defined on; the build validates that each metric's model and
+  columns exist, and each metric evaluates to a non-null value on its mart.
+- **Honest scope:** the models run locally on SQLite; the SQL is standard
+  SQL except the `event_date` extraction in `stg_events`
+  (`substr(event_ts, 1, 10)` here, `DATE()` on BigQuery). This is a
+  dbt-style modeling layer, not a live dbt + BigQuery deployment — no live
+  dbt run or BigQuery warehouse is claimed. All game, ad and session data
+  is synthetic and seeded deterministically (`seed_squad_sources`).
+
 ## Run it
 
 ```bash
@@ -47,7 +76,7 @@ python run_pipeline.py
 python -m pytest -q
 ```
 
-`run_pipeline.py` seeds 6,000 synthetic events over 14 days, runs the DAG, prints DAU and the funnel for the latest day, and writes `CATALOG.md`. The seed includes deliberately broken rows (missing user, duplicate id, unknown type, missing payload key) so the contract and quarantine paths run on every execution.
+`run_pipeline.py` seeds 6,000 synthetic events over 14 days, runs the DAG, prints DAU and the funnel for the latest day, and writes `CATALOG.md`. The seed includes deliberately broken rows (missing user, duplicate id, unknown type, missing payload key) so the contract and quarantine paths run on every execution. The `build_models` step also prints all 20 schema-test results and writes `MODELS.md` (7 models: 56 gaming-mart rows and 56 ads-mart rows over 7 days).
 
 ## Query optimization — what partitioning buys
 

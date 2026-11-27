@@ -1,0 +1,48 @@
+# dbt-style model registry: models run in file order (staging -> intermediate
+# -> marts), each `ref()` must point at a model listed earlier. Tests are
+# declared here and enforced by product_analytics.models on every build.
+models:
+  - name: stg_events
+    description: "Contract-valid product events, one row per event_id."
+    tests:
+      - {type: unique, column: event_id}
+      - {type: not_null, column: user_id}
+  - name: stg_game_catalog
+    description: "Third-party game catalog (SensorTower-style fields: publisher, genre, platform, store rank)."
+    tests:
+      - {type: unique, column: game_id}
+      - {type: not_null, column: title}
+      - {type: accepted_values, column: genre, values: [Action, Puzzle, RPG, Strategy, Sports]}
+      - {type: non_negative, column: store_rank}
+  - name: stg_ads
+    description: "Ad delivery events with spend and clicks; contract-breaking rows filtered at staging."
+    tests:
+      - {type: non_negative, column: spend_usd}
+      - {type: non_negative, column: impressions}
+  - name: int_user_game_sessions
+    description: "Play sessions joined to the game catalog: the user-to-game signal."
+    tests:
+      - {type: unique, column: session_id}
+      - {type: relationships, column: game_id, to: stg_game_catalog, field: game_id}
+      - {type: non_negative, column: duration_sec}
+  - name: int_ads_daily
+    description: "Daily ad delivery by campaign and channel."
+    tests:
+      - {type: unique, columns: [campaign_id, channel, event_date]}
+      - {type: non_negative, column: spend_usd}
+  - name: mart_gaming_daily
+    description: "Gaming squad mart: daily active gamers, sessions and play minutes by game."
+    tests:
+      - {type: unique, columns: [metric_date, game_id]}
+      - {type: not_null, column: game_id}
+      - {type: non_negative, column: daily_active_gamers}
+  - name: mart_ads_measurement_daily
+    description: "Ads squad mart: impressions, clicks, spend, CTR and CPC by campaign and channel."
+    tests:
+      - {type: unique, columns: [metric_date, campaign_id, channel]}
+      - {type: non_negative, column: spend_usd}
+      - {type: non_negative, column: ctr}
+freshness:
+  model: stg_events
+  column: event_date
+  warn_after_days: 1

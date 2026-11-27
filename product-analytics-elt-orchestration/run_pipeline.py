@@ -14,7 +14,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from product_analytics import catalog, db, experiments, ingest, metrics, quality, seed, transforms
+from product_analytics import catalog, db, experiments, ingest, metrics, models, quality, seed, transforms
 from product_analytics.orchestration import Task, run_dag
 
 LATEST_DATE = "2026-11-14"
@@ -46,6 +46,9 @@ def build_tasks(events: list[dict]) -> list[Task]:
             raise RuntimeError(f"quality checks failed: {failed}")
         return results
 
+    def build_models(conn):
+        return models.build_models(conn, LATEST_DATE)
+
     def publish(conn):
         catalog.generate(conn, os.path.join(os.path.dirname(__file__), "CATALOG.md"))
         return {"catalog": "CATALOG.md"}
@@ -57,7 +60,8 @@ def build_tasks(events: list[dict]) -> list[Task]:
         Task("compute_metrics", compute_metrics, ("build_sessions",)),
         Task("experiment_checks", experiment_checks, ("compute_metrics",)),
         Task("quality_checks", checks, ("experiment_checks",)),
-        Task("publish_catalog", publish, ("quality_checks",)),
+        Task("build_models", build_models, ("quality_checks",)),
+        Task("publish_catalog", publish, ("build_models",)),
     ]
 
 
@@ -84,6 +88,12 @@ def main() -> int:
     ):
         print(f"  {row[0]}: {row[1]} — {row[2]}")
     print("Catalog written to CATALOG.md")
+    print("Model tests:")
+    for row in conn.execute(
+        "SELECT model_name, test_name, status, detail FROM model_test_results ORDER BY model_name"
+    ):
+        print(f"  {row[0]}.{row[1]}: {row[2]} — {row[3]}")
+    print("Model docs written to MODELS.md")
     return 0 if all(s == "success" for s in results.values()) else 1
 
 

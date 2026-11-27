@@ -1,0 +1,30 @@
+# Shared metric definitions (semantic layer): one definition per metric.
+# Dashboards, ad-hoc queries and this pipeline all read the same definition,
+# so every team computes a metric the same way. Each metric names the mart
+# it is defined on; product_analytics.models validates that the model exists
+# and that every column the SQL references is a real column of that mart.
+metrics:
+  gaming_dau:
+    model: mart_gaming_daily
+    definition: "Distinct users with at least one play session for the game on the day."
+    sql: "SUM(daily_active_gamers)"
+  play_minutes:
+    model: mart_gaming_daily
+    definition: "Total minutes played for the game on the day."
+    sql: "SUM(play_minutes)"
+  avg_session_minutes:
+    model: mart_gaming_daily
+    definition: "Mean play-session length in minutes for the game on the day."
+    sql: "AVG(avg_session_minutes)"
+  ads_ctr:
+    model: mart_ads_measurement_daily
+    definition: "Clicks divided by impressions for the campaign and channel on the day."
+    sql: "SUM(clicks) / NULLIF(SUM(impressions), 0)"
+  ads_cpc:
+    model: mart_ads_measurement_daily
+    definition: "Spend divided by clicks for the campaign and channel on the day."
+    sql: "SUM(spend_usd) / NULLIF(SUM(clicks), 0)"
+  ads_spend:
+    model: mart_ads_measurement_daily
+    definition: "Total ad spend in USD for the campaign and channel on the day."
+    sql: "SUM(spend_usd)"

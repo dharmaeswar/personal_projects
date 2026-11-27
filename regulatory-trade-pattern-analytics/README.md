@@ -33,6 +33,11 @@ on large-scale trading data.
   PLAN review, wall-clock timing and index recommendations for the
   five recurring analytics queries. Run with `--tune`; it writes
   `tuning_report.md` and `tuning_summary.json` next to the report.
+- **Microstructure** (`trade_reg_analytics/microstructure.py`): per
+  instrument-day VWAP, trade-price deviation from VWAP (an
+  effective-spread proxy in basis points), buy/sell imbalance,
+  intraday price dispersion and large-trade share, with plain-language
+  flags for days the tape itself says are unusual.
 - **Reporting** (`trade_reg_analytics/report.py`): Markdown report,
   `findings.csv`, `daily_volume.csv`, `summary.json` and an SVG bar
   chart of findings by pattern.
@@ -45,6 +50,16 @@ on large-scale trading data.
   found on every day; no false concentration or close-marking flags
   on this seed. The planted patterns are the test signal, not real
   market abuse: all data is synthetic.
+
+## Market microstructure (seed 42, 20 days)
+
+120 instrument-days: median mean absolute deviation from VWAP 4.04
+bps, median absolute buy/sell imbalance 0.07, median large-trade
+share 0.36. 13 days flagged (max deviation >= 25 bps or |imbalance|
+>= 0.25) — ordinary days peak at 10-17 bps from VWAP, while flagged
+days run 31-90 bps; the largest, 90.3 bps on ES 2026-11-16, is a
+planted close-marking trade priced away from VWAP. Thresholds are
+parameters in `flag_microstructure_days`, not hard-coded facts.
 
 ## Query tuning (seed 42, 20 days, `--tune`)
 
@@ -79,6 +94,6 @@ python run_demo.py
 ## Files
 
 - `trade_reg_analytics/data.py`, `stats.py`, `patterns.py`,
-  `tuning.py`, `report.py`, `__main__.py`
-- `tests/` — 5 test modules, 31 tests
+  `tuning.py`, `microstructure.py`, `report.py`, `__main__.py`
+- `tests/` — 6 test modules, 36 tests
 - `README.md`, `requirements.txt`, `run_demo.py`

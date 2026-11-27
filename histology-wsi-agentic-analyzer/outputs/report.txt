@@ -1,0 +1,12 @@
+Findings — Does the treated arm differ from control on tile scores?
+Slides analysed: 12.
+Mean tile score: treated 0.731 vs control 0.662.
+Welch t=4.029, df=8.8, p=0.0001; Cohen's d=2.326.
+Claims kept after review: 4; rejected as ungrounded: 0.
+Release status: released.
+
+Kept claims:
+- Mean tile score: treated 0.731 vs control 0.662.
+- Difference is significant at p=0.0001 (Welch t=4.029, df=8.8).
+- Effect size Cohen's d=2.326.
+- Slides analysed: 12.

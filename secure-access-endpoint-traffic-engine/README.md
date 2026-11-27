@@ -23,7 +23,7 @@ built, tested, and reviewed on any machine.
   name and TLS SNI, with bounds-checked parsing. Malformed packets
   (bad address, oversized payload, impossible length) are quarantined,
   never passed to the policy engine.
-- **Policy engine** (`src/policy.cpp`) — ordered first-match rules over
+- **Policy engine** (`src/engine.cpp`) — ordered first-match rules over
   CIDR ranges, protocol, destination port, DNS name, and TLS SNI, with a
   default-deny. Every decision names the rule that fired, so a blocked
   connection is explainable in one line.
@@ -37,7 +37,7 @@ built, tested, and reviewed on any machine.
   trace log, per-packet capture records (sequence, 5-tuple, decision,
   rule), and a snapshot (counters, table size, recent traces) of the
   kind a crash dump or support bundle would carry.
-- **Safe rollout** (`src/policy.cpp`) — a canary policy runs in shadow
+- **Safe rollout** (`src/engine.cpp`) — a canary policy runs in shadow
   mode: the candidate policy is evaluated alongside the active one and
   divergences are counted, but the candidate never enforces a decision
   until it is promoted.

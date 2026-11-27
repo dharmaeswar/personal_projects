@@ -1,0 +1,31 @@
+{
+  "portfolio_totals": {
+    "tpv": "26830000.00",
+    "transactions": "561500",
+    "interchange": "379765.00",
+    "network_fees": "31578.00",
+    "bank_cost": "65221.00",
+    "processing_cost": "20315.00",
+    "fixed_cost": "53000.00",
+    "gross_profit": "209651.00",
+    "gross_margin_pct": "55.21"
+  },
+  "deal_helios": {
+    "current_gross_profit": "26110.00",
+    "deal_gross_profit": "24070.00",
+    "incremental_gross_profit": "-2040.00",
+    "break_even_tpv": "3592291.67",
+    "sensitivity": {
+      "-20": "-1632.00",
+      "-10": "-1836.00",
+      "10": "-2244.00",
+      "20": "-2448.00"
+    }
+  },
+  "scenarios_northwind_6mo": {
+    "base": "244220.05",
+    "upside": "276103.83",
+    "downside": "212336.29"
+  },
+  "reconciled": true
+}

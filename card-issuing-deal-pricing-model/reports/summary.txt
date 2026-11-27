@@ -1,0 +1,7 @@
+MONTHLY CUSTOMER PERFORMANCE SUMMARY
+
+Portfolio: TPV $26,830,000.00 | interchange $379,765.00 | gross profit $209,651.00 (55.21% margin) | 561,500 transactions.
+
+Northwind Retail 2026-10: gross profit $33,500.00, $5,000.00 below forecast ($38,500.00). Drivers: volume added $2,350.00; take rate cost $7,350.00.
+Helios Travel 2026-10: gross profit $19,270.00, $11,730.00 below forecast ($31,000.00). Drivers: volume cost $1,482.76; take rate cost $10,247.24.
+Bluepeak Groceries 2026-10: gross profit $48,610.00, $6,610.00 above forecast ($42,000.00). Drivers: volume cost $774.19; take rate added $7,384.19.

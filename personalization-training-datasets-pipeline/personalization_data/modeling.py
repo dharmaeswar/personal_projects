@@ -14,7 +14,9 @@ from __future__ import annotations
 
 import pandas as pd
 
-FAR_FUTURE = pd.Timestamp("9999-12-31")
+# Max date pandas can hold at nanosecond resolution; 9999-12-31 overflows ns
+# and breaks pd.to_datetime on the SCD2 valid_to column (pandas 2.x).
+FAR_FUTURE = pd.Timestamp("2262-04-11")
 
 
 def build_dim_user(clean: pd.DataFrame) -> pd.DataFrame:

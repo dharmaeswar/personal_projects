@@ -6,6 +6,10 @@ Engineer I – Java). It covers the JD's core stack: Java 17, Spring Boot, REST 
 JUnit 5, JSON, Git, and CI/CD (GitHub Actions), plus the secure-coding and AI-assisted
 engineering practices the posting asks for.
 
+The API-routing and observability layer below was added for the Oracle OCI SPLAT
+Core Infrastructure Engineer 2 role (Job 342848): request-path services, traffic
+management, and operational controls for high-throughput Java services.
+
 All data is synthetic demo data. There is no Bank of America affiliation, no real
 account data, and no production system behind this service.
 
@@ -41,6 +45,25 @@ account data, and no production system behind this service.
 
 Error responses share one shape: `{"status","error","details","timestamp"}`.
 
+## API routing & observability layer
+
+Every request passes through two filters, registered in `gateway/GatewayConfig.java`:
+
+- `RequestContextFilter` — echoes an incoming `X-Request-Id` or generates one, returns
+  it on the response, records per-route counts and latency in `RequestMetrics`, and logs
+  one structured line per request (`method path status latency_ms request_id`) so a defect
+  can be traced from a log line back to one request.
+- `RateLimitFilter` — a per-client token-bucket limiter (`X-Client-Id` header, or remote
+  address when absent). Over the limit it returns HTTP 429 with the same JSON error shape.
+  Default 100 requests per client per minute (`app.rate-limit.per-minute`).
+
+Operations endpoints (`ops/OpsController.java`):
+
+| Method | Endpoint | Result |
+|---|---|---|
+| GET | `/ops/health` | `{"status":"UP"}` — used for deployment validation |
+| GET | `/ops/metrics` | total requests, average latency, counts by route and status |
+
 ## Run it
 
 ```bash
@@ -60,7 +83,7 @@ curl -X POST localhost:8080/api/accounts \
 
 ## Tests
 
-`mvn test` — 17 tests, all passing:
+`mvn test` — 23 tests, all passing:
 
 - `AccountServiceTest` (10 tests): opening-balance rules, deposit/withdraw, overdraft
   rejection with unchanged balance, exact-balance withdrawal, transfer legs and
@@ -69,6 +92,9 @@ curl -X POST localhost:8080/api/accounts \
 - `AccountControllerTest` (7 tests, MockMvc): create/get flow, deposit/withdraw/history
   flow, transfer between accounts, 422 overdraft with error body, 404 unknown account,
   400 validation errors (3 field errors), and a rejected zero deposit.
+- `RateLimiterTest` (2 tests): capacity is enforced, and limits are per client.
+- `GatewayFiltersTest` (4 tests, MockMvc): request-id echo and generation, 429 after the
+  per-client limit, health `UP`, and metrics counting requests.
 
 ## CI / quality
 
@@ -98,6 +124,10 @@ src/main/java/com/dharma/banking/
   service/     AccountService + AccountNotFoundException + InsufficientFundsException
   controller/  AccountController
   exception/   GlobalExceptionHandler (one error shape for every failure)
+  gateway/     RequestContextFilter, RateLimitFilter, RateLimiter, RequestMetrics,
+               GatewayConfig (request ids, rate limiting, per-route metrics)
+  ops/         OpsController (GET /ops/health, GET /ops/metrics)
 src/test/java/com/dharma/banking/
   AccountServiceTest.java  AccountControllerTest.java
+  gateway/RateLimiterTest.java  gateway/GatewayFiltersTest.java
 ```

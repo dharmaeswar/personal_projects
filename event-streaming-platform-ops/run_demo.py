@@ -12,9 +12,11 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from messaging import (BrokerCluster, EventBus, Queue, Rule,
-                       capacity_report, dr_readiness, evaluate_alerts,
-                       health_snapshot, load_yaml_manifest, restore_az,
-                       simulate_az_failure, validate_platform_manifest)
+                       capacity_report, check_acls, check_tls_config,
+                       dr_readiness, evaluate_alerts, health_snapshot,
+                       load_yaml_manifest, patch_readiness_report,
+                       restore_az, simulate_az_failure, triage_findings,
+                       validate_patch_plan, validate_platform_manifest)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -90,6 +92,37 @@ def main():
           f"lost {len(result['lost_partitions'])}")
     restore_az(cluster, "us-east-1a")
     print("AZ restored; brokers down now:", sorted(cluster.down))
+    # Middleware security: triage a scan, validate a CVE patch plan,
+    # and check the broker TLS config and ACLs before rollout.
+    findings = [
+        {"cve": "CVE-2026-1001", "severity": "high",
+         "component": "kafka", "status": "open"},
+        {"cve": "CVE-2026-1002", "severity": "medium",
+         "component": "kafka", "status": "open"},
+        {"cve": "CVE-2026-1003", "severity": "low",
+         "component": "zookeeper", "status": "fixed"},
+    ]
+    print("Scan triage:", triage_findings(findings)["by_severity"])
+    plan = {"component": "kafka", "current_version": "3.7.0",
+            "target_version": "3.7.1", "cves": ["CVE-2026-1001"],
+            "pre_patch_checks": ["health_snapshot", "lag_zero"],
+            "post_patch_checks": ["health_snapshot", "regression_suite"],
+            "nonprod_validated": True, "rollback_plan": True}
+    print("Patch plan blockers:", validate_patch_plan(plan))
+    tls = {"tls_min_version": "1.2",
+           "cipher": "TLS_AES_256_GCM_SHA384", "cert_expires_in_days": 90,
+           "mutual_tls": True, "encryption_at_rest": True}
+    print("TLS findings:", check_tls_config(tls))
+    acls = [{"principal": "fulfillment-service", "resource": "orders",
+             "permission": "read"},
+            {"principal": "billing-service", "resource": "*",
+             "permission": "write"}]
+    print("ACL violations:",
+          check_acls(acls, {"fulfillment-service", "billing-service"}))
+    report = patch_readiness_report(
+        plan, [{**f, "status": "fixed"} for f in findings], tls,
+        [acls[0]], {"fulfillment-service"})
+    print("Patch readiness: ready =", report["ready"])
 
 
 if __name__ == "__main__":

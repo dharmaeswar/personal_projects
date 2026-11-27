@@ -1,11 +1,16 @@
 # Event Streaming Platform Ops
 
-A portfolio project for a **Best Buy Engineer II — Messaging, Middleware
-& Cloud Platforms** role. It builds and operates the kind of platform
-the role supports: a multi-broker event-streaming cluster with
-EventBridge-style routing, SNS/SQS-style queues, a dead-letter queue,
-Infrastructure as Code (Terraform, Ansible, Chef), health monitoring,
-and disaster-recovery failover — all simulated locally.
+A portfolio project for messaging / middleware platform roles. It
+builds and operates the kind of platform the role supports: a
+multi-broker event-streaming cluster with EventBridge-style routing,
+SNS/SQS-style queues, a dead-letter queue, Infrastructure as Code
+(Terraform, Ansible, Chef), health monitoring, disaster-recovery
+failover, and middleware security (CVE patch-plan validation,
+TLS/PKI hardening, least-privilege ACL checks) — all simulated
+locally. First built for a Best Buy Engineer II — Messaging,
+Middleware & Cloud Platforms role; extended Nov 27, 2026 with the
+security module for an OCC Associate Principal, Software
+Engineering: Middleware application.
 
 **Demo project. Synthetic data only. No real AWS, Kafka, MSK, RabbitMQ
 or IBM MQ service is called.** Nothing here is a claim about a real
@@ -52,6 +57,12 @@ This project models that platform end to end:
 - **DR** (`messaging/dr.py`) — AZ failure simulation with replica
   promotion, RTO estimate (5 min promotion, +30 min rebuild), and a
   readiness check (3 AZs, RF 3, no partition confined to one AZ).
+- **Security** (`messaging/security.py`) — scanner-finding triage by
+  severity, CVE patch-plan validation (CVEs listed, pre/post-patch
+  checks, non-production validation, rollback plan), TLS/PKI
+  hardening checks (TLS version, weak ciphers, certificate expiry,
+  mutual TLS, encryption at rest), least-privilege ACL checks, and a
+  combined patch-readiness verdict.
 - **Runbooks** (`runbooks/`) — AZ failover and DLQ drain procedures.
 
 ## What is inside
@@ -67,13 +78,14 @@ This project models that platform end to end:
 - `iac/chef/recipe.rb` — broker host configuration
 - `runbooks/az-failover.md`, `runbooks/dlq-drain.md`
 - `run_demo.py` — full walk-through (see below)
-- `tests/test_event_streaming_platform.py` — 27 tests
+- `messaging/security.py` — finding triage, patch plans, TLS/ACL checks
+- `tests/test_event_streaming_platform.py` — 37 tests
 
 ## Run it
 
 ```bash
 pip install -r requirements.txt
-python -m pytest tests/ -q        # 27 tests
+python -m pytest tests/ -q        # 37 tests
 python run_demo.py                # full walk-through
 ```
 
@@ -82,7 +94,11 @@ records produced to the `orders` topic; 12 high-value order events
 fanned out to the notifications queue; 1 poison message redriven to
 the DLQ after 3 failed receives; 120 records consumed with lag back
 to 0; an AZ failure promotes 5 partitions with 0 lost and a 5-minute
-RTO; the AZ is then restored.
+RTO; the AZ is then restored. The security section triages 1 high +
+1 medium open finding, finds no blockers on a complete patch plan,
+no TLS findings on a hardened config, 1 critical ACL violation
+(wildcard write) in the demo data, and a patch-readiness verdict of
+ready once findings are fixed and ACLs are scoped.
 
 ## Limits, stated plainly
 

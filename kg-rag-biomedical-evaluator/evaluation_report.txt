@@ -1,0 +1,18 @@
+KG-RAG vs text-only TF-IDF baseline (8 seeded questions)
+--------------------------------------------------------------
+metric              KG-RAG   text-only     delta
+recall@3             1.000       0.917     0.083
+precision@3          0.583       0.500     0.083
+groundedness         1.000       1.000     0.000
+completeness         0.958       0.844     0.114
+abstentions              0           0
+
+Per-question recall@3 (KG-RAG vs text-only):
+  Q1: 1.000 vs 1.000  retrieved=['D01', 'D11', 'D03'] relevant=['D01']
+  Q2: 1.000 vs 1.000  retrieved=['D02', 'D10', 'D03'] relevant=['D02']
+  Q3: 1.000 vs 0.333  retrieved=['D01', 'D03', 'D09'] relevant=['D01', 'D03', 'D09']
+  Q4: 1.000 vs 1.000  retrieved=['D04', 'D10', 'D05'] relevant=['D04']
+  Q5: 1.000 vs 1.000  retrieved=['D07', 'D12', 'D03'] relevant=['D07', 'D12']
+  Q6: 1.000 vs 1.000  retrieved=['D02', 'D05', 'D08'] relevant=['D02', 'D05']
+  Q7: 1.000 vs 1.000  retrieved=['D07', 'D12', 'D11'] relevant=['D07', 'D12']
+  Q8: 1.000 vs 1.000  retrieved=['D06', 'D08', 'D11'] relevant=['D06', 'D08']

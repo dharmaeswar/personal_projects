@@ -1,0 +1,90 @@
+[
+  {
+    "question_id": "Q1",
+    "question": "Which drug targets BRCA1-mutated breast cancer?",
+    "retrieved": [
+      "D01",
+      "D11",
+      "D03"
+    ],
+    "answer": "- Olaparib targets BRCA1. [D01]\n- BRCA1 is associated with breast cancer. [D01]\n- Olaparib treats breast cancer. [D01]\n- BRCA1 is part of the DNA repair pathway. [D01]",
+    "abstained": false
+  },
+  {
+    "question_id": "Q2",
+    "question": "Which drug treats non-small cell lung cancer by targeting EGFR?",
+    "retrieved": [
+      "D02",
+      "D10",
+      "D03"
+    ],
+    "answer": "- Osimertinib targets EGFR. [D02]\n- EGFR is associated with non-small cell lung cancer. [D02]\n- Osimertinib treats non-small cell lung cancer. [D02]\n- EGFR is part of the MAPK signaling pathway. [D02]",
+    "abstained": false
+  },
+  {
+    "question_id": "Q3",
+    "question": "Which drugs treat breast cancer, and which genes do they target?",
+    "retrieved": [
+      "D01",
+      "D03",
+      "D09"
+    ],
+    "answer": "- BRCA1 is associated with breast cancer. [D01]\n- Olaparib treats breast cancer. [D01]\n- HER2 is associated with breast cancer. [D03]\n- Trastuzumab treats breast cancer. [D03]",
+    "abstained": false
+  },
+  {
+    "question_id": "Q4",
+    "question": "Which drug targets PD-L1 and treats melanoma?",
+    "retrieved": [
+      "D04",
+      "D10",
+      "D05"
+    ],
+    "answer": "- Pembrolizumab targets PD-L1. [D04]\n- PD-L1 is associated with melanoma. [D04]\n- Pembrolizumab treats melanoma. [D04]\n- PD-L1 is part of the immune checkpoint pathway. [D04]",
+    "abstained": false
+  },
+  {
+    "question_id": "Q5",
+    "question": "Which gene is associated with Alzheimer's disease and interacts with amyloid-beta?",
+    "retrieved": [
+      "D07",
+      "D12",
+      "D03"
+    ],
+    "answer": "- APOE is associated with Alzheimer's disease. [D07]\n- APOE interacts with amyloid-beta. [D07]\n- Amyloid-beta is associated with Alzheimer's disease. [D07]\n- Donanemab targets amyloid-beta. [D07]",
+    "abstained": false
+  },
+  {
+    "question_id": "Q6",
+    "question": "Which pathway includes both EGFR and BRAF?",
+    "retrieved": [
+      "D02",
+      "D05",
+      "D08"
+    ],
+    "answer": "- Osimertinib targets EGFR. [D02]\n- EGFR is associated with non-small cell lung cancer. [D02]\n- EGFR is part of the MAPK signaling pathway. [D02]\n- EGFR mutations drive tumour growth in a subset of lung adenocarcinoma. [D02]",
+    "abstained": false
+  },
+  {
+    "question_id": "Q7",
+    "question": "Which drug treats Alzheimer's disease by targeting amyloid-beta?",
+    "retrieved": [
+      "D07",
+      "D12",
+      "D11"
+    ],
+    "answer": "- APOE is associated with Alzheimer's disease. [D07]\n- APOE interacts with amyloid-beta. [D07]\n- Amyloid-beta is associated with Alzheimer's disease. [D07]\n- Donanemab targets amyloid-beta. [D07]",
+    "abstained": false
+  },
+  {
+    "question_id": "Q8",
+    "question": "Which genes are associated with colorectal cancer?",
+    "retrieved": [
+      "D06",
+      "D08",
+      "D11"
+    ],
+    "answer": "- TP53 is associated with colorectal cancer. [D06]\n- KRAS is associated with colorectal cancer. [D08]\n- KRAS mutation status guides therapy selection in colorectal cancer. [D08]",
+    "abstained": false
+  }
+]

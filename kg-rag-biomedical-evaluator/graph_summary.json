@@ -1,0 +1,18 @@
+{
+  "nodes": 27,
+  "edges": 46,
+  "nodes_by_type": {
+    "Disease": 6,
+    "Drug": 6,
+    "Gene": 7,
+    "Pathway": 4,
+    "Protein": 4
+  },
+  "edges_by_relation": {
+    "ASSOCIATED_WITH": 14,
+    "INTERACTS_WITH": 7,
+    "PART_OF": 8,
+    "TARGETS": 8,
+    "TREATS": 9
+  }
+}

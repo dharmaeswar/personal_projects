@@ -9,6 +9,11 @@ and runs the release gates through the CI hook.
 from eval_platform import EvalMetricsPlatform
 from eval_platform.gates import Gate
 from eval_platform.provenance import EvalRun
+from eval_platform.workcell import (
+    publish_workcell_metrics,
+    simulate_workcell_cycles,
+    workcell_metrics,
+)
 
 
 def main():
@@ -62,6 +67,13 @@ def main():
                             total_jobs=40, metric_changed=True))
     print(platform.diagnose(coverage=1.0, missing_inputs=0, failed_jobs=0,
                             total_jobs=40, metric_changed=True))
+
+    print("\nworkcell simulation (500 pick-and-place cycles):")
+    cycles = simulate_workcell_cycles(seed=7, n_cycles=500)
+    published = publish_workcell_metrics(platform, "run-wc-001", cycles)
+    for name, result in published.items():
+        print(f"  {name}: {result.value} (coverage {result.coverage})")
+    print("  effectiveness summary:", workcell_metrics(cycles))
 
 
 if __name__ == "__main__":

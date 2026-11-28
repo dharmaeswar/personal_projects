@@ -26,9 +26,24 @@ eval_platform/
                   failure classification (model vs data vs infra)
   gates.py        Regression gates + release evidence report
   service.py      Service API + CI hook (ci_check)
-run_demo.py       End-to-end demo: two model versions, compare, gate, diagnose
+  workcell.py     Workcell / equipment simulation: pick-and-place cycles,
+                  cycle-time and fault metrics published via the platform
+run_demo.py       End-to-end demo: two model versions, compare, gate, diagnose,
+                  plus a 500-cycle workcell simulation with published metrics
 tests/            Pytest suite covering every module
 ```
+
+## Workcell simulation (added Nov 28, 2026)
+
+The same platform also simulates workcell / equipment performance and
+publishes effectiveness metrics a program can monitor — the Amazon
+Robotics SDE (2027) responsibility. `eval_platform/workcell.py` simulates
+seeded pick-and-place cycles (cycle time with jitter, random faults with
+downtime) and publishes three versioned metrics through the platform —
+mean cycle time, p95 cycle time, and fault rate — with provenance-pinned
+runs and idempotent computation, so retries cannot double-count. A
+standalone summary adds throughput (cycles/hour, downtime included) and
+availability. See `run_demo.py` for the end-to-end run.
 
 ## Run it
 

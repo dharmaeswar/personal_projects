@@ -44,7 +44,44 @@ python run_demo.py
 
 Full load: 12 source claims → 5 loaded, 7 quarantined (ineligible patient, expired eligibility window, duplicate claim, malformed NDC, zero quantity, amount mismatch, days-supply over the 90-day limit, missing TPA capture). Incremental load: 2 new claims dated after the watermark → 2 loaded; re-running the same batch loads 0.
 
+## Distributor ETL (added Nov 27, 2026 — Cencora, Engineer, Data Engineer III, Req R2620472)
+
+The distributor side of the same supply chain: shipment, inventory and customer-master
+feeds from disparate sources are integrated into an enterprise-style dimensional
+warehouse — the exact work the Cencora posting describes (ETL from disparate sources
+into centralised storage, dimensional modelling, data integrity, unit testing).
+
+- **Ingest** (`distributor_etl/ingest.py`) — one parser per source format (CSV shipments,
+  JSON inventory/pricing, CSV customer master), each normalising to typed records and
+  reporting malformed rows instead of crashing.
+- **Validate** (`distributor_etl/validate.py`) — six data-integrity rules: no duplicate
+  shipment IDs, positive quantity, product exists in the inventory master, amount equals
+  quantity x unit price, customer active and under contract on the ship date, ship date
+  inside the reporting window. Every failure is quarantined with the rule that caught it;
+  nothing invalid reaches the warehouse.
+- **Load** (`distributor_etl/warehouse.py`, `distributor_etl/loads.py`) — star schema
+  (`dim_product`, `dim_customer`, `fact_shipments`) with staging → fact load, a ship-date
+  watermark for incremental loads and a full-refresh mode; every load writes a load-log
+  row and a reconciliation report (source rows vs loaded vs quarantined vs skipped).
+- **Reporting** — `total_shipped_by_product` joins the fact table to `dim_product` for
+  units and revenue by product.
+
+```bash
+python run_distributor_demo.py
+```
+
+Full load: 12 source shipments → 6 loaded, 6 quarantined (duplicate shipment ID, zero
+quantity, unknown product, amount mismatch, inactive customer, ship date outside the
+reporting window). Incremental load: 2 new shipments dated after the watermark → 2
+loaded; re-running the same batch loads 0 and skips 2 as already loaded. Final warehouse:
+8 fact rows; Metformin 500mg 800 units / $3,360.00, Lisinopril 10mg 290 / $2,537.50,
+Amoxicillin 250mg 210 / $2,625.00, Atorvastatin 20mg 120 / $756.00.
+
 ## What it deliberately does not claim
 
 - SSIS is **not** implemented here: the pipeline is Python, and the README says so. Dharma's ETL, SQL, stored-procedure, and data-validation experience is in the resume; SSIS itself is flagged as a gap in the application notes.
+- Informatica PowerCenter and Perl are **not** implemented or claimed here: the posting
+  requires Informatica ETL experience and Perl, which are not in Dharma's record — both
+  are flagged as gaps in the application notes. The Python/SQL/Shell ETL in this project
+  is the transferable equivalent, not a claim of Informatica or Perl experience.
 - No real 340B, patient, or pharmacy data; no SQL Server instance is required or contacted.

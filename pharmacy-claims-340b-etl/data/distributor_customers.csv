@@ -1,0 +1,5 @@
+customer_id,name,active,contract_start,contract_end
+C-101,Mercy General Hospital,Y,2026-01-01,2026-12-31
+C-102,Riverside Pharmacy,Y,2026-01-01,2026-12-31
+C-103,Northside Clinic,Y,2026-03-01,2026-12-31
+C-104,Closed Corner Drugs,N,2026-01-01,2026-06-30

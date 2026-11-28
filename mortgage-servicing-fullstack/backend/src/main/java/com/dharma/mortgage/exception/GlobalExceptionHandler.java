@@ -1,6 +1,8 @@
 package com.dharma.mortgage.exception;
 
 import com.dharma.mortgage.dto.ErrorResponse;
+import com.dharma.mortgage.service.ApplicationNotFoundException;
+import com.dharma.mortgage.service.InvalidApplicationStateException;
 import com.dharma.mortgage.service.InvalidPaymentException;
 import com.dharma.mortgage.service.LoanNotFoundException;
 import java.util.List;
@@ -18,6 +20,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> notFound(LoanNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ErrorResponse(404, "Loan not found", List.of(ex.getMessage())));
+    }
+
+    @ExceptionHandler(ApplicationNotFoundException.class)
+    public ResponseEntity<ErrorResponse> applicationNotFound(ApplicationNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ErrorResponse(404, "Application not found", List.of(ex.getMessage())));
+    }
+
+    @ExceptionHandler(InvalidApplicationStateException.class)
+    public ResponseEntity<ErrorResponse> invalidApplicationState(InvalidApplicationStateException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ErrorResponse(409, "Invalid application state", List.of(ex.getMessage())));
     }
 
     @ExceptionHandler(InvalidPaymentException.class)

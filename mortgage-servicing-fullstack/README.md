@@ -8,6 +8,12 @@ Engineer I, Req R-083975) — whose stacks are React + Java/Spring Boot or
 .NET/C# + GraphQL microservices, PostgreSQL, REST/GraphQL APIs, AWS/EKS
 deployments through CI/CD, and AI-assisted development.
 
+**November 2026 update — Upstart Senior Software Engineer, Home Lending:**
+the app now also covers the borrower side of home lending — a borrower
+application funnel with lending decisioning and a closing workflow — the
+application, decisioning, and closing experience the Upstart Home Lending
+role builds. See "Borrower application funnel" below.
+
 All data is synthetic demo data. There is no ICE affiliation, no real borrower
 data, and no production system behind this service.
 
@@ -23,6 +29,47 @@ data, and no production system behind this service.
 - Delinquency check: a loan with no payment within 30 days is flagged.
 - Idempotent payments: replaying an idempotency key returns the original
   payment instead of charging twice.
+
+## Borrower application funnel (November 2026 update)
+
+The borrower side of home lending, added for the Upstart Senior Software
+Engineer, Home Lending role: an application moves STARTED → SUBMITTED →
+APPROVED / CONDITIONAL / DENIED, then APPROVED or CONDITIONAL → CLOSING →
+FUNDED. Out-of-order transitions are rejected with HTTP 409; funding is
+blocked until every closing-checklist item is complete.
+
+- **Decisioning** (`DecisioningService`, pure and deterministic): DENY when
+  credit score < 620, loan-to-value > 0.90, or debt-to-income > 0.50;
+  CONDITIONAL when score < 680, LTV > 0.80, or DTI > 0.43; APPROVE
+  otherwise. Every rule that fires is returned as a reason, so a denied or
+  conditional application always explains itself. These are demo
+  underwriting thresholds, not a real lender's policy.
+- **Closing checklist:** APPRAISAL, TITLE_SEARCH, HOMEOWNERS_INSURANCE,
+  FINAL_DISCLOSURE — all four must be complete before funding.
+- **Funnel metrics** (`GET /api/applications/funnel`): counts per stage plus
+  conversion rates between stages (submitted, decided, approved, funded), so
+  drop-off is visible. The frontend `FunnelPanel` renders this table.
+- **Validation:** credit score must be 300–850, amounts must be positive,
+  annual income must be greater than zero (DTI divides by it).
+
+| Method | Endpoint | Result |
+|---|---|---|
+| POST | `/api/applications` | 201 + application (STARTED, with computed LTV and DTI) |
+| GET | `/api/applications` | list of applications |
+| GET | `/api/applications/{id}` | application, or 404 |
+| GET | `/api/applications/funnel` | stage counts + conversion rates |
+| POST | `/api/applications/{id}/submit` | SUBMITTED, or 409 |
+| POST | `/api/applications/{id}/decide` | APPROVED / CONDITIONAL / DENIED with reasons, or 409 |
+| POST | `/api/applications/{id}/closing` | CLOSING, or 409 |
+| POST | `/api/applications/{id}/closing/{item}` | checklist item marked done, or 409 / 400 |
+| POST | `/api/applications/{id}/fund` | FUNDED, or 409 while the checklist is open |
+
+Tests: 10 `DecisioningServiceTest` cases (approval boundaries, each rule,
+multiple deny reasons, LTV/DTI math), 9 `ApplicationServiceTest` cases (full
+lifecycle, blocked funding, invalid transitions, funnel math), 6
+`ApplicationControllerTest` cases (full funnel through the API, deny reasons,
+409/404/400 shapes, funnel endpoint), 3 `FunnelPanel.test.jsx` cases
+(counts and rates, empty state, failed request).
 
 ## Money rules (secure coding)
 
@@ -64,9 +111,9 @@ the service.
 ## Run it
 
 ```bash
-cd backend && ./run_tests.sh   # builds and runs the 20 backend tests
+cd backend && ./run_tests.sh   # builds and runs the 45 backend tests
 mvn spring-boot:run            # starts the API on http://localhost:8080
-cd ../frontend && npm install && npm test   # 9 frontend tests
+cd ../frontend && npm install && npm test   # 12 frontend tests
 npm run dev                    # Vite dev server on :5173, proxies /api to :8080
 ```
 

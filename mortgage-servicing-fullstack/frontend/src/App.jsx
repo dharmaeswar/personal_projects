@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FunnelPanel from './components/FunnelPanel';
 import LoanDetail from './components/LoanDetail';
 import LoanList from './components/LoanList';
 
@@ -26,6 +27,7 @@ export default function App() {
     <main>
       <h1>Mortgage Servicing</h1>
       {loadError && <p role="alert">Could not load loans: {loadError}</p>}
+      <FunnelPanel />
       <LoanList loans={loans} selectedId={selectedId} onSelect={setSelectedId} />
       {selected && <LoanDetail loan={selected} />}
     </main>

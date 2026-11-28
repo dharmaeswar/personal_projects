@@ -85,6 +85,16 @@ claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
   verification freshness, on-call roster) and reports overall readiness.
 - `ops/nosql_health.py` — checks a synthetic multi-node NoSQL cluster (nodes up, replication lag, p99 read latency, throughput headroom) and reports overall health. Demo data only; no production NoSQL experience is claimed.
 - `ops/multicloud_iac.py` — validates a Terraform-style multi-cloud plan summary (resource tags, no open ingress, secrets via Vault, two-cloud redundancy), audits secret rotation freshness (90-day limit), and estimates cross-cloud transfer cost to pick the cheapest resilient path. Demo data only; no real cloud account is touched.
+- `ops/cluster_lifecycle.py` — Kubernetes cluster lifecycle management
+  (added Nov 28, 2026, for a Millennium Platform Engineer — Container
+  Platform Engineering application): upgrade readiness (control-plane vs
+  kubelet version skew per the Kubernetes support policy, node Ready
+  checks, removed-API blockers, PodDisruptionBudget drain safety),
+  Kyverno/OPA-style policy checks (default-deny NetworkPolicy, no root
+  user, CPU/memory limits required, no `latest` image tags), and
+  per-namespace CPU/memory capacity headroom with a scale-out hint.
+  Synthetic cluster state only; no real cluster is contacted and no
+  production Kubernetes operations experience is claimed.
 - `ops/gitops_drift.py` — GitOps drift detection: compares the desired
   state declared in the `k8s/` manifests with a live-state snapshot and
   reports drift in image tags, replica counts, environment variables and

@@ -88,6 +88,21 @@ def main() -> None:
     print("Metrics globex-slow:", svc.runner.metrics["globex-slow"])
     print("Audit entries:", len(svc.audit.entries),
           "| chain valid:", svc.audit.verify_chain())
+
+    # Authorization modeling (OpenFGA-style): u123 is a viewer of the
+    # Acme report, so the union rewrite makes them an editor and admin
+    # too; a stranger gets nothing, and a check for an unknown tenant
+    # is refused outright.
+    svc.authz.write_tuple("user:u123", "viewer", "resource:report-7")
+    print("Authz u123 viewer report-7:",
+          svc.authorize("acme", "user:u123", "viewer", "resource:report-7")["allowed"])
+    print("Authz u123 admin report-7 (via editor rewrite):",
+          svc.authorize("acme", "user:u123", "admin", "resource:report-7")["allowed"])
+    print("Authz stranger viewer report-7:",
+          svc.authorize("acme", "user:other", "viewer", "resource:report-7")["allowed"])
+    print("Authz objects u123 can view:",
+          svc.authz.list_objects("user:u123", "viewer", "resource"))
+
     print("Health:", svc.health())
     manifests = render_manifests()
     print("K8s manifests:", sorted(manifests),

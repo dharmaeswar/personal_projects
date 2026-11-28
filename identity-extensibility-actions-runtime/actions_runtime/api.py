@@ -10,6 +10,7 @@ key returns the original response instead of creating a duplicate.
 """
 
 from .actions import Action
+from .authz import AuthorizationStore, ciam_model
 from .cache import TenantCache
 from .events import AuthEvent, Trigger
 from .observability import AuditLog
@@ -27,6 +28,10 @@ class ActionsService:
         self.audit = AuditLog()
         self.sandbox = Sandbox(self.secrets, self.cache, op_budget=op_budget)
         self.runner = PipelineRunner(self.sandbox, self.audit)
+        # Authorization model + tuple store for the CIAM platform: the
+        # self-hosted OpenFGA-style layer that decides whether a user may
+        # act on a tenancy-scoped resource before a token is issued.
+        self.authz = AuthorizationStore(ciam_model())
         self._actions: dict[str, Action] = {}
         self._idempotency: dict[str, dict] = {}
 
@@ -87,6 +92,23 @@ class ActionsService:
             out.append({"action_id": action.action_id, "trigger": action.trigger.value,
                         "version": action.version, "deployed": action.deployed})
         return out
+
+    # -- authorization ---------------------------------------------------
+    def authorize(self, tenant_id: str, user_id: str, relation: str,
+                  object: str) -> dict:
+        """Check ``user_id`` holds ``relation`` on ``object`` (audited).
+
+        The caller passes the tenant the object belongs to; a check for
+        a tenant that does not exist is refused, so one tenant's tuples
+        can never authorize access inside another tenant.
+        """
+        self.tenants.get(tenant_id)
+        allowed = self.authz.check(user_id, relation, object)
+        self.audit.append(tenant_id, user_id, "authorize",
+                          "allow" if allowed else "deny",
+                          f"{relation} on {object}")
+        return {"tenant_id": tenant_id, "user_id": user_id,
+                "relation": relation, "object": object, "allowed": allowed}
 
     # -- invocation ------------------------------------------------------
     def invoke(self, event: AuthEvent) -> PipelineResult:

@@ -40,7 +40,8 @@ platform team has to solve problems no single tenant sees:
 | `actions_runtime/cache.py` | Per-tenant TTL cache, namespaced so tenants cannot read or poison each other's entries |
 | `actions_runtime/pipeline.py` | Runs a tenant's deployed actions for a trigger in order; fail-closed triggers deny the flow on action error/timeout, fail-open triggers log and continue |
 | `actions_runtime/observability.py` | Per-action metrics (invocations, errors, denials, timeouts, p95) and a hash-chained, append-only audit log |
-| `actions_runtime/api.py` | REST-style service layer (create tenant, register/deploy action, store secret, invoke trigger, health) with idempotency keys on mutating calls |
+| `actions_runtime/authz.py` | OpenFGA-style authorization modeling: type definitions with direct and union (userset-rewrite) relations, a relationship-tuple store, group membership, `check` with cycle guard and depth cap (fails closed), `list_objects`; `ciam_model()` ships viewer < editor < admin |
+| `actions_runtime/api.py` | REST-style service layer (create tenant, register/deploy action, store secret, invoke trigger, health) with idempotency keys on mutating calls; `authorize()` checks a user against the tuple store, tenant-scoped, and audits the decision |
 | `actions_runtime/k8s.py` | Kubernetes Deployment / Service / HPA manifests as data (3 replicas, anti-affinity across zones, 500m/512Mi requests, 2000m/2Gi limits, HPA 3–30 pods at 70% CPU) |
 | `examples/post_login_action.ts` | Sample tenant Action in TypeScript, as Actions are authored — a fixture only, not executed by the local runtime |
 

@@ -1,0 +1,216 @@
+{
+  "corpus_docs": 1200,
+  "questions": 6,
+  "configs": [
+    {
+      "config": "single-agent-standard-no-verify",
+      "mean_precision": 0.755,
+      "mean_recall": 0.854,
+      "total_cost_usd": 72.0,
+      "total_latency_s": 288.3,
+      "mean_cost_per_useful_result_usd": 0.1178,
+      "per_question": [
+        {
+          "question": "Q1",
+          "precision": 0.737,
+          "recall": 0.725,
+          "sampled_precision_20": 0.85,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 48.05,
+          "true_positives": 87
+        },
+        {
+          "question": "Q2",
+          "precision": 0.79,
+          "recall": 0.942,
+          "sampled_precision_20": 0.85,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 48.05,
+          "true_positives": 113
+        },
+        {
+          "question": "Q3",
+          "precision": 0.761,
+          "recall": 0.85,
+          "sampled_precision_20": 0.9,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 48.05,
+          "true_positives": 102
+        },
+        {
+          "question": "Q4",
+          "precision": 0.75,
+          "recall": 0.875,
+          "sampled_precision_20": 0.8,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 48.05,
+          "true_positives": 105
+        },
+        {
+          "question": "Q5",
+          "precision": 0.73,
+          "recall": 0.858,
+          "sampled_precision_20": 0.9,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 48.05,
+          "true_positives": 103
+        },
+        {
+          "question": "Q6",
+          "precision": 0.761,
+          "recall": 0.875,
+          "sampled_precision_20": 0.75,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 48.05,
+          "true_positives": 105
+        }
+      ]
+    },
+    {
+      "config": "fanout-16-standard-no-verify",
+      "mean_precision": 0.755,
+      "mean_recall": 0.854,
+      "total_cost_usd": 72.0,
+      "total_latency_s": 73.2,
+      "mean_cost_per_useful_result_usd": 0.1178,
+      "per_question": [
+        {
+          "question": "Q1",
+          "precision": 0.737,
+          "recall": 0.725,
+          "sampled_precision_20": 0.85,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 12.2,
+          "true_positives": 87
+        },
+        {
+          "question": "Q2",
+          "precision": 0.79,
+          "recall": 0.942,
+          "sampled_precision_20": 0.85,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 12.2,
+          "true_positives": 113
+        },
+        {
+          "question": "Q3",
+          "precision": 0.761,
+          "recall": 0.85,
+          "sampled_precision_20": 0.9,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 12.2,
+          "true_positives": 102
+        },
+        {
+          "question": "Q4",
+          "precision": 0.75,
+          "recall": 0.875,
+          "sampled_precision_20": 0.8,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 12.2,
+          "true_positives": 105
+        },
+        {
+          "question": "Q5",
+          "precision": 0.73,
+          "recall": 0.858,
+          "sampled_precision_20": 0.9,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 12.2,
+          "true_positives": 103
+        },
+        {
+          "question": "Q6",
+          "precision": 0.761,
+          "recall": 0.875,
+          "sampled_precision_20": 0.75,
+          "sample_checked": 20,
+          "cost_usd": 12.0,
+          "latency_s": 12.2,
+          "true_positives": 105
+        }
+      ]
+    },
+    {
+      "config": "swarm-16-scout-map-reasoner-verify-cache-early-stop",
+      "mean_precision": 0.884,
+      "mean_recall": 0.603,
+      "total_cost_usd": 62.1,
+      "total_latency_s": 19.2,
+      "mean_cost_per_useful_result_usd": 0.1434,
+      "per_question": [
+        {
+          "question": "Q1",
+          "precision": 0.807,
+          "recall": 0.558,
+          "sampled_precision_20": 0.9,
+          "sample_checked": 20,
+          "cost_usd": 9.95,
+          "latency_s": 3.2,
+          "true_positives": 67
+        },
+        {
+          "question": "Q2",
+          "precision": 0.89,
+          "recall": 0.675,
+          "sampled_precision_20": 1.0,
+          "sample_checked": 20,
+          "cost_usd": 11.15,
+          "latency_s": 3.2,
+          "true_positives": 81
+        },
+        {
+          "question": "Q3",
+          "precision": 0.827,
+          "recall": 0.517,
+          "sampled_precision_20": 0.85,
+          "sample_checked": 20,
+          "cost_usd": 9.3,
+          "latency_s": 3.2,
+          "true_positives": 62
+        },
+        {
+          "question": "Q4",
+          "precision": 0.94,
+          "recall": 0.65,
+          "sampled_precision_20": 1.0,
+          "sample_checked": 20,
+          "cost_usd": 11.0,
+          "latency_s": 3.2,
+          "true_positives": 78
+        },
+        {
+          "question": "Q5",
+          "precision": 0.949,
+          "recall": 0.617,
+          "sampled_precision_20": 1.0,
+          "sample_checked": 20,
+          "cost_usd": 10.75,
+          "latency_s": 3.2,
+          "true_positives": 74
+        },
+        {
+          "question": "Q6",
+          "precision": 0.889,
+          "recall": 0.6,
+          "sampled_precision_20": 0.9,
+          "sample_checked": 20,
+          "cost_usd": 9.95,
+          "latency_s": 3.2,
+          "true_positives": 72
+        }
+      ]
+    }
+  ]
+}

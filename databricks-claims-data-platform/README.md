@@ -99,6 +99,34 @@ ML: test MAE=$230.87 R2=0.9771 flagged_for_review=0
 - ML scores: **296** rows in `gold/model_scores`; test MAE **$230.87**, test R² **0.9771**, **0** flagged for review
 - Quality checks: **8/8 PASS** (schema, dedup, completeness, non-negative paid, diag codes, arithmetic, reconciliation, ml_scoring)
 
+## Streaming: Autoloader + Delta Live Tables + watermark (added Nov 27, 2026)
+
+`claims_platform/streaming.py` adds the incremental side of the same lakehouse, for a
+Senior Databricks Data Engineer role: `split_into_batches` mirrors Autoloader
+(cloudFiles) incremental discovery in arrival order; `apply_expectations` mirrors DLT
+`expect_or_drop` on the five data-quality rules and `expect_or_fail` on
+`claim_id_present` (a failed batch lands zero rows and is recorded for reprocessing);
+`apply_watermark` mirrors Structured Streaming `withWatermark` on `service_date`
+(event time); `merge_upsert` mirrors Delta `MERGE INTO` silver keyed on `claim_id`,
+latest `ingested_at` wins. `pipelines/claims_streaming_job.json` is the Databricks
+Workflows job (Autoloader ingest → DLT pipeline → gold aggregates + ML scoring →
+quality gate), and `pipelines/claims_dlt.json` is the DLT pipeline definition with
+the same expectations. Unity Catalog target is catalog `claims`, schemas
+bronze/silver/gold; `member_id` is treated as governed data (access by grant, no
+raw member identifiers in published gold tables — gold carries plan-level aggregates
+only). As with the batch path, everything runs locally with pandas; no cluster,
+workspace, or cloud run is claimed.
+
+Seeded streaming run (`python run_streaming.py`, Nov 27, 2026): 324 raw rows in 13
+micro-batches (size 25) → **300 silver rows** (300 unique claim_ids, reconciliation
+PASS), 24 dropped (paid_amount_arithmetic 9, valid_member_id 5, non_negative_paid 4,
+service_date_in_range 3, known_diag_code 3), 0 failed batches, 0 late rows at the
+120-day watermark, total silver paid **$1,094,167.31**. One honest difference from
+the batch run (296 cleansed): the batch path dedups first and keeps the +$1.00
+duplicate copy, which then fails the arithmetic check and is quarantined — losing
+those 4 claims. The streaming path checks expectations first, so the bad copy is
+quarantined and the good original lands; silver keeps all 300 clean claims.
+
 ## The API layer
 
 `claims_platform/api.py` (stdlib-only, no framework) exposes the large
@@ -119,9 +147,10 @@ GET /gold/monthly?service_month=2026-10
 ```bash
 pip install -r requirements.txt
 python run_pipeline.py            # bronze -> silver -> gold + ML scores + validation report
+python run_streaming.py           # Autoloader-style micro-batches -> DLT expectations -> silver_streaming
 python run_orchestrated.py        # same load through the ADF-style DAG runner
 python run_api.py 8080            # serve the read API on port 8080
-python -m pytest -q               # 30 tests
+python -m pytest -q               # 45 tests
 ```
 
 Or use the automation scripts (PowerShell + Bash — same steps, tests first):

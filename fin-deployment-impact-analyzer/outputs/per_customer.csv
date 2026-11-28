@@ -1,0 +1,11 @@
+customer,period,conversations,resolution_rate,mean_handle_minutes,mean_csat,escalation_rate
+acme,before,190,0.0,16.09,3.43,0.3158
+acme,after,210,0.4857,10.02,4.21,0.0857
+globex,before,205,0.0,15.89,3.46,0.3024
+globex,after,195,0.4051,10.61,4.14,0.1026
+initech,before,201,0.0,16.27,3.68,0.2587
+initech,after,199,0.5729,9.4,4.04,0.0854
+umbrella,before,200,0.0,16.09,3.57,0.24
+umbrella,after,200,0.51,10.15,4.04,0.08
+hooli,before,200,0.0,15.91,3.48,0.31
+hooli,after,200,0.58,9.33,4.15,0.06

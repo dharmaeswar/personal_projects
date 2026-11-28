@@ -1,0 +1,9 @@
+Fin deployment impact — all customers
+Conversations measured: 996 before, 1004 after.
+Resolution rate: 0.0 before -> 0.511 after (uplift 0.511, 95% CI 0.48 to 0.5419).
+Mean handle time: 16.05 min before -> 9.9 min after (Welch t=30.194, p=0.0).
+Escalation rate: 0.2851 before -> 0.0827 after.
+Mean CSAT: 3.52 before -> 4.12 after.
+
+Product feedback:
+- Lowest-resolution channel after deployment: email (0.5 over 346 conversations) — prioritise knowledge-base coverage there.

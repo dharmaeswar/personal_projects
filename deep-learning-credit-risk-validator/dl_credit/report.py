@@ -3,7 +3,7 @@ import json
 
 
 def build_report(candidate, challenger, benchmark, backtest, drift, integrity,
-                 importance, n_train, n_test):
+                 importance, n_train, n_test, segments=None):
     """Assemble the report dict from the validation evidence."""
     findings = []
 
@@ -60,6 +60,7 @@ def build_report(candidate, challenger, benchmark, backtest, drift, integrity,
         "backtest": backtest,
         "drift": drift,
         "permutation_importance_top5": importance[:5],
+        "segments": list(segments or []),
         "findings": findings,
         "verdict": verdict,
     }
@@ -97,6 +98,15 @@ def render_text(report):
     for row in report["permutation_importance_top5"]:
         lines.append("  %-24s %.4f" % (row["feature"], row["auc_drop"]))
     lines.append("")
+    if report.get("segments"):
+        lines.append("Segment backtest (k-means clusters, gap flagged above 0.10):")
+        for s in report["segments"]:
+            lines.append(
+                "  segment %d  n=%d  mean score %d  predicted %.4f  observed %.4f  gap %.4f%s"
+                % (s["segment"], s["n"], s["mean_credit_score"],
+                   s["predicted_rate"], s["observed_rate"],
+                   s["calibration_gap"], "  FLAGGED" if s["flagged"] else ""))
+        lines.append("")
     lines.append("Findings (%d):" % len(report["findings"]))
     if not report["findings"]:
         lines.append("  None — no finding breached a gate.")

@@ -9,6 +9,7 @@ from dl_credit.metrics import outcomes_summary
 from dl_credit.validation import (data_integrity, drift_report,
                                   permutation_importance, vintage_backtest)
 from dl_credit.report import build_report, render_text, write_report
+from dl_credit.segments import segment_summary
 
 
 def main():
@@ -45,9 +46,15 @@ def main():
                          mlp.predict_proba(Xva_s), NUMERIC_FEATURES)
     integrity = data_integrity(df)
     importance, base_auc = permutation_importance(mlp, Xte_s, yte, names)
+    # Segment backtest: k-means clusters on the standardised numeric
+    # features of the test population, calibrated segment by segment.
+    segments, inertia = segment_summary(
+        Xte_s[:, :len(NUMERIC_FEATURES)], test, mlp.predict_proba(Xte_s))
+    print("Segment clustering: k=4, inertia %.1f" % inertia)
 
     report = build_report(cand, chal, bench, backtest, drift, integrity,
-                          importance, len(train), len(test))
+                          importance, len(train), len(test),
+                          segments=segments)
     report["epochs_run"] = mlp.n_epochs_run_
     report["reproduction_max_diff"] = max_diff
     write_report(report, "validation_report.txt", "validation_report.json")

@@ -4,7 +4,11 @@ Independent validation of a deep-learning credit-card default model — the
 kind of second-line validation a bank's model risk team runs before a
 neural-network model is approved for use and while it stays in production.
 Built for the Capital One Principal Associate, Data Scientist (Deep
-Learning) role (Req R1006228, Plano, TX).
+Learning) role (Req R1006228, Plano, TX), and reused — with the
+clustering segment analysis added — for the Capital One Principal
+Associate, Data Scientist – GPN role (Req R1006407, Riverwoods IL /
+McLean VA / Richmond VA), whose ideal candidate lists clustering
+alongside classification, time series and deep learning.
 
 **All data is synthetic and seeded.** No real borrower, bank, or customer
 data is used, and nothing here is a claim about any real institution.
@@ -50,6 +54,12 @@ of it, in the shape of interagency model risk management guidance
   credit scores outside 300–850, utilisation outside [0, 1].
 - **Sensitivity** (`validation.py`): permutation importance — the test
   AUC drop when one feature's values are shuffled.
+- **Segmentation** (`segments.py`): k-means clustering (from scratch in
+  NumPy, k-means++ seeding, empty-cluster re-seeding) groups the scored
+  population into 4 risk segments; each segment is backtested on its
+  own predicted vs realised default rate, flagged when the gap is
+  wider than 0.10. A model can look calibrated overall while mispricing
+  one segment, so the segment table is part of the report.
 - **Implementation reproduction**: the MLP is re-fit from scratch with
   the same seed and its test scores compared within tolerance.
 - **Findings and verdict** (`report.py`): severity-rated findings and a
@@ -77,6 +87,8 @@ PYTHONPATH=. python3 -m pytest -q        # test suite
 - Base-rate benchmark: ROC-AUC 0.500, as expected.
 - Backtest: both test quarters inside [0.80, 1.25] (ratios 0.98, 1.02)
   — no breach.
+- Segment backtest (k-means, k=4): all four segments calibrated, gaps
+  0.009–0.031 — no segment flagged above 0.10.
 - Monitoring: score PSI 0.018, worst feature PSI 0.038 — no drift flag.
 - Top features by permutation importance: credit score (AUC drop
   0.160), delinquencies (0.032), history length (0.022), full-time

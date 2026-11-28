@@ -141,6 +141,44 @@
       "auc_drop": 0.011089154901692044
     }
   ],
+  "segments": [
+    {
+      "segment": 0,
+      "n": 346,
+      "mean_credit_score": 697.5231213872833,
+      "predicted_rate": 0.37406876178180376,
+      "observed_rate": 0.4046242774566474,
+      "calibration_gap": 0.03055551567484366,
+      "flagged": false
+    },
+    {
+      "segment": 1,
+      "n": 515,
+      "mean_credit_score": 709.6058252427184,
+      "predicted_rate": 0.21284112276301403,
+      "observed_rate": 0.2,
+      "calibration_gap": 0.012841122763014023,
+      "flagged": false
+    },
+    {
+      "segment": 2,
+      "n": 312,
+      "mean_credit_score": 671.9679487179487,
+      "predicted_rate": 0.4271262743552497,
+      "observed_rate": 0.4358974358974359,
+      "calibration_gap": 0.008771161542186212,
+      "flagged": false
+    },
+    {
+      "segment": 3,
+      "n": 361,
+      "mean_credit_score": 672.5401662049861,
+      "predicted_rate": 0.3953199420087424,
+      "observed_rate": 0.37950138504155123,
+      "calibration_gap": 0.015818556967191144,
+      "flagged": false
+    }
+  ],
   "findings": [
     {
       "id": "F-01",

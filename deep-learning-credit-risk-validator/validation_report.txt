@@ -31,6 +31,12 @@ Top features by permutation importance (test AUC drop):
   txt_full_time            0.0122
   debt_to_income           0.0111
 
+Segment backtest (k-means clusters, gap flagged above 0.10):
+  segment 0  n=346  mean score 697  predicted 0.3741  observed 0.4046  gap 0.0306
+  segment 1  n=515  mean score 709  predicted 0.2128  observed 0.2000  gap 0.0128
+  segment 2  n=312  mean score 671  predicted 0.4271  observed 0.4359  gap 0.0088
+  segment 3  n=361  mean score 672  predicted 0.3953  observed 0.3795  gap 0.0158
+
 Findings (1):
   F-01 [High] Deep-learning candidate does not beat the logistic challenger on test ROC-AUC; a simpler model performs as well.
 

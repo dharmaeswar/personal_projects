@@ -48,6 +48,16 @@ from fraud_validation.reconciliation import (
     generate_ledger,
     reconcile,
 )
+from fraud_validation.rule_backtesting import (
+    RULES,
+    backtest_rules,
+    build_rule_backtesting_section,
+    combine_flags,
+    compute_kris,
+    shadow_test,
+    staged_rollout,
+    tune_score_threshold,
+)
 from fraud_validation.transaction_risk import (
     N_EVENT_DAYS,
     RISK_FEATURES,
@@ -178,6 +188,26 @@ def run_validation(output: str = "validation_report.txt") -> str:
         + credit_section + approval_section + recon_section
         + "\n" + "=" * 70 + "\n"
     )
+
+    # 12. Card-fraud rule backtesting (new module, Nov 2026): backtest the
+    # rule set on the test set, shadow-test a broader challenger set
+    # against the champion set, simulate a staged rollout, tune the
+    # champion score threshold on false positives vs fraud loss, and
+    # track KRIs for the executive view.
+    champion_rules = ["velocity_1h_burst", "cross_border_cnp_high_amount"]
+    challenger_flags = combine_flags(test, RULES)
+    rule_backtest = backtest_rules(test)
+    rule_shadow = shadow_test(test, champion_rules, RULES)
+    rule_rollout = staged_rollout(test, challenger_flags)
+    rule_tuned = tune_score_threshold(
+        y_true, scores["champion"], test["amount"].to_numpy()
+    )
+    rule_kris = compute_kris(test, challenger_flags)
+    rule_section = build_rule_backtesting_section(
+        rule_backtest, rule_shadow, rule_rollout, rule_tuned, rule_kris
+    )
+    report = report.rstrip("\n") + "\n" + rule_section + "\n" + "=" * 70 + "\n"
+
     write_report(report, output)
     return report
 

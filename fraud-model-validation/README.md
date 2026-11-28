@@ -49,6 +49,18 @@ institution.
   duplicate postings; per-product capital-flow totals (card purchases,
   refunds, payouts, fees) and aging of unresolved breaks; 75 breaks
   (1.50% of ledger), under the 2% control threshold.
+- **Card-fraud rule backtesting** (new, Nov 2026): five card-fraud rules
+  (1h velocity burst for card testing, cross-border card-not-present
+  high amount, new-device night activity, high amount, 24h velocity
+  surge) backtested on the synthetic test set with fraud capture,
+  precision, false positives, fraud loss avoided and review cost per
+  rule; a challenger rule set compared against the champion set in
+  shadow mode (decisions recorded, not enforced); a staged-rollout
+  simulation at 10/25/50/100% exposure; model-score threshold tuning
+  that minimises total cost (false positives x $25 review cost plus
+  missed fraud dollars); and KRIs — fraud rate in bps, flag rate,
+  false-positive rate, fraud loss per $1,000 processed, approval rate
+  and fraud capture — for an executive-ready view.
 
 ## How to run
 
@@ -83,6 +95,10 @@ PYTHONPATH=. python -m pytest -q
 - `fraud_validation/approval.py` — model approval workflow: inventory
   record, evidence gates with documented thresholds, approval decision,
   sign-off trail
+- `fraud_validation/rule_backtesting.py` — card-fraud rule backtesting:
+  rule definitions, per-rule backtest, shadow test, staged-rollout
+  simulation, score-threshold tuning on false positives vs fraud loss,
+  KRIs, report section builder
 - `fraud_validation/report.py` — plain-text validation report writer
 - `run_validation.py` — CLI entry point
 - `tests/` — pytest test suite

@@ -59,6 +59,16 @@ load_state (watermark: last batch, max usage date)
 6. **Run report** (`src/run.py`) — prints and saves
    `output/run_report.json` (rows loaded, quarantined, SLA status,
    per-check pass/fail) and `output/analytics.json`.
+7. **MCP tool server** (`src/mcp_server.py`, added Nov 28, 2026) — a
+   stdio JSON-RPC 2.0 server exposing the warehouse to AI-native clients
+   (Claude Code, Codex, or any MCP client) as five named tools:
+   `warehouse_health`, `service_adoption_trend`,
+   `revenue_driver_by_service_region`, `cost_per_account`,
+   `daily_cost_trend`. It opens the warehouse read-only and only runs the
+   fixed reporting queries, so a tool call can never write to the
+   warehouse or run arbitrary SQL. This is the self-serve layer: an
+   analyst or an AI assistant asks for a metric by name and gets the same
+   modelled, quality-checked numbers the reports use.
 
 ## How to run
 
@@ -67,6 +77,12 @@ load_state (watermark: last batch, max usage date)
 python -m pytest -q            # run the test suite
 python -m src.run --run-date 2026-11-13
 python -m src.run --run-date 2026-11-13   # re-run: inserts 0 new facts (idempotent)
+# MCP tool server (needs a warehouse first — run src.run above)
+printf '%s\n' \
+  '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"demo","version":"0.1"}}}' \
+  '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
+  '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"warehouse_health","arguments":{"run_date":"2026-11-13"}}}' \
+  | python -m src.mcp_server --db output/warehouse.db
 ```
 
 Sample data lives in `data/` (24 valid usage events across Oct–Nov 2026,
@@ -90,6 +106,10 @@ a missing `cost_usd`, and an unknown account).
   Python standard library + pytest only. It does **not** use Spark,
   Redshift, Glue, EMR, Kinesis, or any AWS service, and no claim is
   made that it ran in production.
+- The MCP server is a hand-rolled stdio JSON-RPC 2.0 implementation
+  (stdlib only), not the MCP Python SDK, and it exposes only the five
+  fixed reporting queries — no arbitrary SQL, no writes, no resources
+  or prompts surface.
 - Sample data is synthetic and illustrative, not real AWS billing data.
 - SCD2 applies to service tier/pricing only; accounts and regions are
   Type 1. Late-arriving events (usage date before an already-loaded
@@ -108,7 +128,8 @@ src/
   quality.py     data-quality + freshness/SLA checks
   analytics.py   reporting SQL
   run.py         end-to-end run + JSON report
-tests/           pytest suite (contracts, SCD2, idempotency, checks, analytics)
+  mcp_server.py  MCP tool server (stdio JSON-RPC): 5 tools over the warehouse
+tests/           pytest suite (contracts, SCD2, idempotency, checks, analytics, MCP server)
 data/            sample JSON feeds
 output/          warehouse.db, run_report.json, analytics.json (generated)
 ```

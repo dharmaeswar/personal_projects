@@ -128,3 +128,65 @@ pip install -r requirements.txt
 python run_risk_pipeline.py
 python -m pytest tests/test_risk.py -q
 ```
+
+## Added Nov 28, 2026 — Streaming CDC + orchestration (Visa Sr Data Engineer)
+
+Added for a Visa Senior Data Engineer role (Spark / Scala, Kafka, batch +
+streaming ETL/ELT, CDC, incremental processing, backfills, data contracts).
+The batch pipeline above already covers the batch half; this layer adds the
+streaming half in the same project and on the same event data:
+
+- **`spark_pipeline/streaming.py`** — a Kafka-style streaming job run
+  locally. A seeded CDC event stream (`generate_cdc_stream`, 50 events in
+  3 micro-batches) stands in for a Kafka topic, written as
+  `streaming_tables/events.jsonl`. Each micro-batch applies inserts,
+  updates and deletes keyed on `event_id` — the pandas upsert mirrors a
+  Delta Lake `MERGE INTO` — with a 5-minute watermark: events at or before
+  the watermark are late and dropped, not applied. A data-contract check
+  (`validate_contract`) runs on every record before any write; records
+  that fail go to the dead-letter queue (`dead_letter.parquet`), never
+  into the curated table. Replaying the topic from offset 0 (backfill)
+  rebuilds the same curated state; `orchestrate()` runs the whole job as
+  a small DAG — ingest -> batch pipeline -> batch checks -> streaming CDC
+  -> publish — with one retry per step.
+- **`run_streaming.py`** — runs the streaming job and writes
+  `streaming_report.txt` in the project root.
+
+Honest limits, as with the rest of this project: no real Kafka broker,
+Spark cluster, or Delta Lake runtime is involved. A local JSON-lines file
+stands in for the Kafka topic and pandas upserts stand in for Delta
+`MERGE`. The resume does NOT claim Scala, Kafka, Hadoop/Hive, Databricks,
+Delta Lake, Unity Catalog, or Iceberg experience — the project demonstrates
+the streaming / CDC / contract patterns those tools implement. Kafka event
+pipelines themselves are verified in Dharma's record: Spring Boot + Kafka
+streaming of usage events between billing and rating systems at AMDOCS.
+
+### Streaming results (real run, Nov 28, 2026)
+
+```
+events=50 micro_batches=3
+inserts=25 updates=15 deletes=5 late_dropped=1 dlq=4
+final_rows=20 final_revenue=$2,299.35
+watermark=2026-11-17T10:48:00
+```
+
+- Batch 1: 20 inserts. Batch 2: 5 inserts, 10 updates, 2 deletes.
+  Batch 3: 5 updates, 3 deletes, 1 late event dropped, 4 records to DLQ.
+- Dead-letter queue: unknown op `x` (1), missing `user_id` (1), negative
+  amount + arithmetic mismatch (1), event_date out of window (1).
+- Backfill check: replaying the topic from offset 0 rebuilds the same
+  20-row state and the same $2,299.35 revenue (tested).
+- Schema fix, Nov 28: `schema.py` now accepts pandas 3's `str` dtype as
+  equivalent to `object` for string columns — newer pandas infers `str`
+  where older versions inferred `object`, and the dtype check was failing
+  on valid string data. No check logic changed.
+
+### How to run the streaming job
+
+```bash
+pip install -r requirements.txt
+python run_streaming.py
+python -m pytest tests/test_streaming.py -q
+```
+
+Full suite: `python -m pytest -q` — **30 passed** (Nov 28, 2026).

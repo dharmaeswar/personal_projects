@@ -2,3 +2,4 @@ pipeline_tables/
 risk_tables/
 __pycache__/
 *.pyc
+streaming_tables/

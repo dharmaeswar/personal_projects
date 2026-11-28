@@ -30,7 +30,12 @@ def check_schema(df, allow_nulls=False):
         if col not in df.columns:
             problems.append(f"missing column: {col}")
             continue
-        if str(df[col].dtype) != dtype:
+        # pandas 3 infers the `str` dtype for string columns where older
+        # pandas used `object`; both mean "string column" here.
+        actual = str(df[col].dtype)
+        if dtype == "object" and actual in ("object", "str"):
+            pass
+        elif actual != dtype:
             problems.append(f"{col}: dtype {df[col].dtype}, expected {dtype}")
         if not nullable and not allow_nulls and df[col].isna().any():
             problems.append(f"{col}: {int(df[col].isna().sum())} null values")

@@ -1,0 +1,13 @@
+Streaming CDC report (Kafka-style micro-batches, local stand-in)
+events=50 micro_batches=3
+inserts=25 updates=15 deletes=5 late_dropped=1 dlq=4
+final_rows=20 final_revenue=$2,299.35
+watermark=2026-11-17T10:48:00
+batch 1: {'inserts': 20, 'updates': 0, 'deletes': 0, 'late_dropped': 0, 'dlq': 0}
+batch 2: {'inserts': 5, 'updates': 10, 'deletes': 2, 'late_dropped': 0, 'dlq': 0}
+batch 3: {'inserts': 0, 'updates': 5, 'deletes': 3, 'late_dropped': 1, 'dlq': 4}
+dead-letter queue:
+  EVT-100099 op=x: unknown op: x
+  EVT-100098 op=c: missing field: user_id
+  EVT-100097 op=c: amount is negative; amount != quantity * unit_price
+  EVT-100096 op=c: event_date out of window: 2027-01-15

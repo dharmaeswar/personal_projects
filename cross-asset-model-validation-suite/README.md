@@ -120,6 +120,35 @@ CLI pick the new check up automatically for every scenario of that asset
 class. New models follow the same pattern: add the pricer under
 `models/`, add its invariants under `invariants/`, and extend the YAML grid.
 
+## Clearing margin, stress testing and backtesting
+
+`model_validation_suite/margin/` covers the clearing-house side of the
+same validation discipline: how much margin a portfolio of cleared
+derivatives needs, how it behaves under stress, and whether the margin
+held would have covered realised losses.
+
+- **Historical VaR / expected shortfall** — order-statistic VaR (the
+  `ceil(c*n)`-th smallest loss, exactly reproducible from the sorted
+  sample) and the mean loss at or above it.
+- **Parametric and Cornish-Fisher VaR** — normal VaR plus a skew /
+  excess-kurtosis adjustment, so fat-tailed return distributions raise
+  the requirement instead of being assumed away.
+- **Stress scenarios** — first-order (delta) portfolio P&L under named
+  shocks per underlying; the worst scenario loss feeds the margin.
+- **Margin requirement** — `max(VaR, worst stress loss, floor)`.
+- **Backtesting** — breach counts and the Kupiec proportion-of-failures
+  likelihood-ratio test with its p-value (chi-squared, 1 dof).
+
+```bash
+python -m pytest tests/test_margin.py -q
+python run_margin_demo.py   # synthetic 3-asset portfolio, seeded
+```
+
+Limits, stated plainly: stress P&L is delta-only (no gamma or
+cross-gamma terms); the demo portfolio and returns are synthetic and
+seeded; nothing here is a real clearing member, portfolio, or OCC
+margin number.
+
 ## License
 
 MIT

@@ -10,6 +10,7 @@ from mmm_geo.attribution import compare_attribution
 from mmm_geo.data_gen import generate_geo, generate_journeys, generate_weekly
 from mmm_geo.geo_experiment import analyze_geo
 from mmm_geo.mmm import fit_mmm, recommend_reallocation
+from mmm_geo.monitoring import monitor_mmm, monitoring_summary_lines
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(BASE, "output")
@@ -24,6 +25,9 @@ def main():
     weekly.to_csv(os.path.join(DATA, "weekly_marketing_mix.csv"), index=False)
     mmm = fit_mmm(weekly)
     realloc = recommend_reallocation(mmm)
+    # Model monitoring: the 12 holdout weeks stand in for new production
+    # weeks, checked for distribution shift and prediction drift.
+    monitoring = monitor_mmm(mmm, weekly.iloc[:-12], weekly.iloc[-12:])
 
     geo = generate_geo()
     geo.to_csv(os.path.join(DATA, "geo_experiment.csv"), index=False)
@@ -81,6 +85,14 @@ def main():
                  f"{realloc['to_channel']} for an expected "
                  f"+{realloc['expected_incremental_gain']} incremental sales "
                  f"under the fitted model.")
+    lines.append("")
+    lines.append("## Model monitoring (holdout weeks as new production data)\n")
+    lines.append("The 12 holdout weeks stand in for new production weeks: "
+                 "spend, seasonality and sales are checked for distribution "
+                 "shift against the training window, and holdout prediction "
+                 "error is checked against the holdout baseline. In "
+                 "production this runs on genuinely new weeks.")
+    lines.extend(monitoring_summary_lines(monitoring))
     lines.append("")
     lines.append("## Attribution (share of converted journeys)\n")
     lines.append("| rule | " + " | ".join(attrib["last_touch"]) + " |")

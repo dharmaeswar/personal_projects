@@ -26,6 +26,12 @@ into the generator so every estimate can be checked against a known answer.
    paused in 10 treated DMAs for 8 weeks against 30 control DMAs.
    Difference-in-differences plus a CUPED-adjusted estimate, Welch's t-test,
    95% confidence intervals, and a keep-running / inconclusive call.
+4. **Model monitoring** (`mmm_geo/monitoring.py`, added Nov 27, 2026) — the
+   production half of the work: new weeks are checked for distribution
+   shift (standardised mean shift + Welch's t-test per spend channel,
+   seasonality and sales) and for prediction drift (new-week MAPE vs the
+   holdout baseline). Verdict is OK / WATCH / RETRAIN. Features are built
+   on the full series so adstock carryover is not silently reset.
 
 ## Results (seeded run — `python run_analysis.py`)
 
@@ -46,13 +52,20 @@ into the generator so every estimate can be checked against a known answer.
   p = 0.044). True lift in the simulation is 45.0 — both estimators recover
   it. Recommendation: KEEP RUNNING paid social; the pause cost real
   incremental signups.
+- Model monitoring (holdout weeks as new production weeks): verdict WATCH —
+  new-week MAPE 0.5%, identical to the holdout baseline (ratio 1.0x), so
+  prediction error has not drifted; but 5 of 7 series are flagged for
+  distribution shift, driven by seasonality (10.13 → −77.66) and the
+  spend mix moving with it (paid search 83.61 → 50.2, video 48.12 → 64.57).
+  That is the seasonal pattern in the generator, not a broken model — the
+  honest read is to watch the next weeks and retrain if the error follows.
 
 ## How to run
 
 ```bash
 pip install -r requirements.txt
 python run_analysis.py   # writes output/report.md and two charts
-python -m pytest -q      # 13 tests
+python -m pytest -q      # 22 tests
 ```
 
 ## Layout
@@ -61,10 +74,12 @@ python -m pytest -q      # 13 tests
 - `mmm_geo/mmm.py` — adstock, Hill saturation, Ridge MMM, reallocation
 - `mmm_geo/attribution.py` — last/first/position-based + exact Shapley
 - `mmm_geo/geo_experiment.py` — DiD + CUPED geo holdout analysis
+- `mmm_geo/monitoring.py` — distribution-shift + prediction-drift monitoring, OK / WATCH / RETRAIN
 - `mmm_geo/report.py` — runs everything, writes `output/report.md`
 - `data/` — generated CSVs (weekly mix, geo panel, journeys)
 - `output/` — `report.md`, `mmm_contributions.png`, `geo_holdout.png`
 - `tests/test_mmm_geo.py` — 13 tests, all passing
+- `tests/test_monitoring.py` — 9 tests, all passing
 
 ## Methods notes
 

@@ -68,6 +68,20 @@ from fraud_validation.transaction_risk import (
     pattern_shift_report,
     regression_check,
 )
+from fraud_validation.targeting import (
+    ApprovalModel,
+    ab_readout,
+    approval_certainty,
+    build_targeting_section,
+    evaluate_targeting,
+    fit_targeting_models,
+    generate_offer_ranking,
+    generate_partner_offers,
+    generate_targeting_experiment,
+    predict_targeting,
+    rank_offers,
+)
+from fraud_validation.metrics import calibration_by_decile
 
 
 def run_validation(output: str = "validation_report.txt") -> str:
@@ -207,6 +221,40 @@ def run_validation(output: str = "validation_report.txt") -> str:
         rule_backtest, rule_shadow, rule_rollout, rule_tuned, rule_kris
     )
     report = report.rstrip("\n") + "\n" + rule_section + "\n" + "=" * 70 + "\n"
+
+    # 13. Partner decision science (new module, Nov 2026): targeting and
+    # approval models for partner offers, next-best-offer ranking, and
+    # an A/B readout for model-ranked targeting vs a popularity control.
+    offers = generate_partner_offers()
+    offer_train, offer_test = train_test_split(offers)
+    targeting_models = fit_targeting_models(offer_train)
+    targeting_scores = predict_targeting(targeting_models, offer_test)
+    y_convert = offer_test["converted"].to_numpy()
+    champion_eval = evaluate_targeting(y_convert, targeting_scores["champion"])
+    challenger_eval = evaluate_targeting(y_convert, targeting_scores["challenger"])
+    approval_model = ApprovalModel().fit(offer_train)
+    # Calibration and certainty are evaluated on ALL converted offers
+    # (n ~ 2,300): the test split alone holds too few converters for
+    # stable decile calibration.
+    all_converted = offers[offers["converted"] == 1]
+    approval_prob = approval_model.predict(all_converted)
+    approval_cal = calibration_by_decile(
+        all_converted["approved"].to_numpy(), approval_prob
+    )
+    certainty = approval_certainty(approval_prob)
+    ranking_df = generate_offer_ranking()
+    popularity = (
+        offers.groupby("offer_type")["converted"].mean().to_dict()
+    )
+    ranking = rank_offers(
+        ranking_df, targeting_models["champion"], approval_model, popularity
+    )
+    experiment = ab_readout(generate_targeting_experiment())
+    targeting_section = build_targeting_section(
+        champion_eval, challenger_eval, approval_cal, certainty,
+        ranking, experiment,
+    )
+    report = report.rstrip("\n") + "\n" + targeting_section + "\n" + "=" * 70 + "\n"
 
     write_report(report, output)
     return report

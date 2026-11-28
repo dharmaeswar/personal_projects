@@ -61,6 +61,22 @@ institution.
   missed fraud dollars); and KRIs — fraud rate in bps, flag rate,
   false-positive rate, fraud loss per $1,000 processed, approval rate
   and fraud capture — for an executive-ready view.
+- **Partner decision science targeting & approval models** (new, Nov 2026):
+  seeded synthetic partner-offer impressions with bureau features and
+  per-product-type click affinity; a conversion-propensity targeting
+  model (logistic champion vs gradient-boosting challenger, ROC-AUC,
+  KS, decile conversion capture/lift); a Platt-calibrated approval
+  model with calibration by decile and an approval-certainty split;
+  next-best-offer ranking by predicted conversion x calibrated
+  approval probability, scored with NDCG@3 against a popularity
+  baseline; and a seeded A/B readout for model-ranked targeting vs
+  the popularity control (Welch t-test, bootstrap 95% CI on the
+  conversion lift, approval-rate guardrail, approvals per 1,000
+  members). Seeded run: champion ROC-AUC 0.700, top decile converts
+  at 52.9% vs a 25.2% base rate; ranking NDCG@3 0.486 vs 0.461
+  baseline; A/B lift +2.48pp (p=0.0118) with the approval guardrail
+  breached — conversion-only targeting pulled in more marginal
+  members, so offers are ranked by conversion x approval probability.
 
 ## How to run
 
@@ -99,6 +115,11 @@ PYTHONPATH=. python -m pytest -q
   rule definitions, per-rule backtest, shadow test, staged-rollout
   simulation, score-threshold tuning on false positives vs fraud loss,
   KRIs, report section builder
+- `fraud_validation/targeting.py` — partner decision science targeting
+  and approval models: conversion-propensity champion/challenger,
+  Platt-calibrated approval model with certainty split, next-best-offer
+  ranking (NDCG@3 vs popularity baseline), A/B readout with Welch
+  t-test, bootstrap CI and approval-rate guardrail
 - `fraud_validation/report.py` — plain-text validation report writer
 - `run_validation.py` — CLI entry point
 - `tests/` — pytest test suite

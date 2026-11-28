@@ -28,13 +28,13 @@ so the dataset is fully reproducible.
 Model         ROC-AUC      KS  Precision  Recall     F1
 -------------------------------------------------------
 champion       0.7103  0.3498     0.0979  0.1795 0.1267
-challenger     0.7380  0.3971     0.1111  0.2179 0.1472
+challenger     0.7375  0.3966     0.1090  0.2179 0.1453
 benchmark      0.5000  0.0000     0.0000  0.0000 0.0000
 
 Champion threshold (F1-tuned): 0.05.
 Champion confusion matrix at threshold: TP=14, FP=129, TN=3793, FN=64.
 Top decile (riskiest 10% by score) captures 28.2% of all fraud; top three deciles capture 57.7%.
-Champion ROC-AUC (0.7103) exceeds the benchmark (0.5000) by 0.2103; the challenger scores 0.7380.
+Champion ROC-AUC (0.7103) exceeds the benchmark (0.5000) by 0.2103; the challenger scores 0.7375.
 
 4. Calibration
 ------------------------------------------------------------------------
@@ -116,9 +116,9 @@ Adversarial pattern checks (fraud-rate shift, baseline vs recent):
 
 Model quality vs latency (measured single-transaction scoring):
   Model         ROC-AUC  Capture  Mean ms  p99 ms
-  benchmark      0.5000   0.0000    0.006   0.014
-  champion       0.7103   0.1795    0.795   1.218
-  challenger     0.7380   0.2179    0.843   1.833
+  benchmark      0.5000   0.0000    0.004   0.012
+  challenger     0.7375   0.2179    0.638   0.990
+  champion       0.7103   0.1795    0.702   1.234
 
 Model-regression monitoring (recent vs baseline period): PASS.
   roc_auc    0.6889 -> 0.7326 (+0.0437, tolerance 0.02) PASS
@@ -222,4 +222,24 @@ Staged rollout of the combined rule set (seeded slices):
 Score-threshold tuning (false positives vs fraud loss): cost-optimal threshold 0.10 — 24 false positives, $7,048 missed fraud loss, total cost $7,648.
 
 KRIs — fraud rate 195.0 bps, flag rate 3.00%, false-positive rate 2.83%, fraud loss $38.83 per $1,000 processed, approval rate 97.00%, fraud capture 11.5%.
+======================================================================
+
+======================================================================
+13. PARTNER DECISION SCIENCE - TARGETING & APPROVAL MODELS
+======================================================================
+Targeting model (conversion propensity, champion logistic vs gradient-boosting challenger):
+  champion ROC-AUC 0.700  KS 0.308
+  challenger ROC-AUC 0.690  KS 0.288
+  top decile converts at 52.9% (base rate 25.2%), capturing 21.0% of all conversions.
+
+Approval model (Platt-calibrated logistic, fit on converters):
+  worst decile calibration gap 0.046 (mean predicted vs observed approval per decile).
+  approval certainty: 0.0% high-certainty approve, 81.3% high-certainty decline, 18.7% uncertain middle (n=2,935).
+
+Next-best-offer ranking (conversion x calibrated approval prob):
+  model NDCG@3 0.486 vs popularity baseline 0.461; top-ranked offer converted for 36.5% of members vs 30.4% for the popularity top pick (n=2,000).
+
+A/B readout (model-ranked targeting vs popularity control):
+  conversion 25.1% control vs 27.6% treated: lift +2.48pp (+9.9%), Welch p=0.0118, bootstrap 95% CI (+0.53, +4.38)pp.
+  approval guardrail: treated approval 12.7% vs control 15.3% (-2.71pp) - BREACHED. Approvals per 1,000 members: 38.6 control vs 34.9 treated - conversion-only targeting pulled in more marginal members, so rank offers by conversion x approval probability instead.
 ======================================================================

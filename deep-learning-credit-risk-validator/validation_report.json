@@ -56,8 +56,8 @@
     "precision": 0.0,
     "recall": 0.0,
     "f1": 0.0,
-    "top_decile_capture": 0.09302325581395349,
-    "max_calibration_gap": 0.059723700444260897
+    "top_decile_capture": 0.09496124031007752,
+    "max_calibration_gap": 0.07933154358151578
   },
   "backtest": [
     {
@@ -92,7 +92,7 @@
     },
     {
       "feature": "debt_to_income",
-      "psi": 0.017048516231801064
+      "psi": 0.017048516231801068
     },
     {
       "feature": "revolving_utilization",
@@ -108,7 +108,7 @@
     },
     {
       "feature": "inquiries_6m",
-      "psi": 0.001103086963484053
+      "psi": 0.0011030869634840526
     },
     {
       "feature": "open_accounts",
@@ -116,7 +116,7 @@
     },
     {
       "feature": "requested_limit",
-      "psi": 0.01575371082783366
+      "psi": 0.015753710827833667
     }
   ],
   "permutation_importance_top5": [
@@ -155,9 +155,9 @@
       "segment": 1,
       "n": 515,
       "mean_credit_score": 709.6058252427184,
-      "predicted_rate": 0.21284112276301403,
+      "predicted_rate": 0.21284112276301406,
       "observed_rate": 0.2,
-      "calibration_gap": 0.012841122763014023,
+      "calibration_gap": 0.012841122763014051,
       "flagged": false
     },
     {
@@ -179,6 +179,38 @@
       "flagged": false
     }
   ],
+  "implementation": {
+    "batch_n": 25,
+    "batch_scored": 25,
+    "batch_rejected": 0,
+    "max_score_diff_vs_training_model": 0.0,
+    "bands": [
+      {
+        "band": "[0.00, 0.10)",
+        "batch_share": 0.08,
+        "reference_share": 0.07235984354628422,
+        "share_gap": 0.007640156453715782
+      },
+      {
+        "band": "[0.10, 0.25)",
+        "batch_share": 0.32,
+        "reference_share": 0.3539765319426336,
+        "share_gap": 0.033976531942633614
+      },
+      {
+        "band": "[0.25, 0.50)",
+        "batch_share": 0.4,
+        "reference_share": 0.36571056062581486,
+        "share_gap": 0.03428943937418516
+      },
+      {
+        "band": "[0.50, 1.00)",
+        "batch_share": 0.2,
+        "reference_share": 0.20795306388526727,
+        "share_gap": 0.007953063885267259
+      }
+    ]
+  },
   "findings": [
     {
       "id": "F-01",

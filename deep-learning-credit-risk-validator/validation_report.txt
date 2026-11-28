@@ -6,7 +6,7 @@ Train rows: 3703   Test rows: 1534
 Outcomes (test split, threshold 0.5):
   candidate   AUC 0.7363  KS 0.3366  Gini 0.4726  Brier 0.1888  precision 0.639  recall 0.395  F1 0.489  top-decile capture 21.5%
   challenger  AUC 0.7499  KS 0.3729  Gini 0.4999  Brier 0.1844  precision 0.653  recall 0.390  F1 0.488  top-decile capture 20.9%
-  benchmark   AUC 0.5000  KS 0.0000  Gini 0.0000  Brier 0.2232  precision 0.000  recall 0.000  F1 0.000  top-decile capture 9.3%
+  benchmark   AUC 0.5000  KS 0.0000  Gini 0.0000  Brier 0.2232  precision 0.000  recall 0.000  F1 0.000  top-decile capture 9.5%
 
 Vintage backtest (predicted vs observed default rate):
   2025Q3  n=765  predicted 0.3342  observed 0.3412  ratio 0.98
@@ -36,6 +36,15 @@ Segment backtest (k-means clusters, gap flagged above 0.10):
   segment 1  n=515  mean score 709  predicted 0.2128  observed 0.2000  gap 0.0128
   segment 2  n=312  mean score 671  predicted 0.4271  observed 0.4359  gap 0.0088
   segment 3  n=361  mean score 672  predicted 0.3953  observed 0.3795  gap 0.0158
+
+Implementation check (serialised artifact scoring path):
+  batch of 25 applications: 25 scored, 0 rejected by schema
+  max score diff vs training model: 0.000000
+  score bands (batch share vs reference book share):
+    [0.00, 0.10)  batch 0.080  reference 0.072  gap 0.008
+    [0.10, 0.25)  batch 0.320  reference 0.354  gap 0.034
+    [0.25, 0.50)  batch 0.400  reference 0.366  gap 0.034
+    [0.50, 1.00)  batch 0.200  reference 0.208  gap 0.008
 
 Findings (1):
   F-01 [High] Deep-learning candidate does not beat the logistic challenger on test ROC-AUC; a simpler model performs as well.

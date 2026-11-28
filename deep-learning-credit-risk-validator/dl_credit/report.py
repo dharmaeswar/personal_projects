@@ -3,7 +3,8 @@ import json
 
 
 def build_report(candidate, challenger, benchmark, backtest, drift, integrity,
-                 importance, n_train, n_test, segments=None):
+                 importance, n_train, n_test, segments=None,
+                 implementation=None):
     """Assemble the report dict from the validation evidence."""
     findings = []
 
@@ -48,6 +49,23 @@ def build_report(candidate, challenger, benchmark, backtest, drift, integrity,
                     "whether the model adds real signal.",
         })
 
+    impl = implementation or {}
+    if impl.get("max_score_diff_vs_training_model", 0.0) > 1e-9:
+        findings.append({
+            "id": "F-07", "severity": "High",
+            "text": "Implementation check failed: scores from the serialised "
+                    "model artifact differ from the training model by %.2e — "
+                    "the deployed artifact is not the validated model."
+                    % impl["max_score_diff_vs_training_model"],
+        })
+    if impl.get("batch_rejected", 0) > 0:
+        findings.append({
+            "id": "F-08", "severity": "Medium",
+            "text": "Implementation check: %d of %d batch records were "
+                    "rejected by the input schema and not scored."
+                    % (impl["batch_rejected"], impl.get("batch_n", 0)),
+        })
+
     verdict = "PASS" if not any(f["severity"] == "High" for f in findings) else "FAIL"
     return {
         "model": "MLP deep-learning classifier (NumPy, 2 hidden layers) vs "
@@ -61,6 +79,7 @@ def build_report(candidate, challenger, benchmark, backtest, drift, integrity,
         "drift": drift,
         "permutation_importance_top5": importance[:5],
         "segments": list(segments or []),
+        "implementation": impl,
         "findings": findings,
         "verdict": verdict,
     }
@@ -106,6 +125,22 @@ def render_text(report):
                 % (s["segment"], s["n"], s["mean_credit_score"],
                    s["predicted_rate"], s["observed_rate"],
                    s["calibration_gap"], "  FLAGGED" if s["flagged"] else ""))
+        lines.append("")
+    impl = report.get("implementation") or {}
+    if impl:
+        lines.append("Implementation check (serialised artifact scoring path):")
+        lines.append(
+            "  batch of %d applications: %d scored, %d rejected by schema"
+            % (impl["batch_n"], impl["batch_scored"], impl["batch_rejected"]))
+        lines.append(
+            "  max score diff vs training model: %.6f"
+            % impl["max_score_diff_vs_training_model"])
+        lines.append("  score bands (batch share vs reference book share):")
+        for b in impl["bands"]:
+            lines.append(
+                "    %s  batch %.3f  reference %.3f  gap %.3f"
+                % (b["band"], b["batch_share"], b["reference_share"],
+                   b["share_gap"]))
         lines.append("")
     lines.append("Findings (%d):" % len(report["findings"]))
     if not report["findings"]:

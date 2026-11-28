@@ -10,6 +10,7 @@ from dl_credit.validation import (data_integrity, drift_report,
                                   permutation_importance, vintage_backtest)
 from dl_credit.report import build_report, render_text, write_report
 from dl_credit.segments import segment_summary
+from dl_credit.scoring import band_distribution, export_artifact, score_batch
 
 
 def main():
@@ -52,9 +53,33 @@ def main():
         Xte_s[:, :len(NUMERIC_FEATURES)], test, mlp.predict_proba(Xte_s))
     print("Segment clustering: k=4, inertia %.1f" % inertia)
 
+    # Implementation phase: serialise the trained model to an artifact
+    # and score a fresh batch of applications through the artifact
+    # alone, the way a production service would serve it.
+    artifact = export_artifact(mlp, mean, std, names)
+    batch_records = [
+        {k: (v.item() if hasattr(v, "item") else v) for k, v in row.items()}
+        for row in test.head(25).to_dict("records")
+    ]
+    batch_scores, batch_rejections = score_batch(artifact, batch_records)
+    direct_scores = mlp.predict_proba(Xte_s[:len(batch_scores)])
+    impl = {
+        "batch_n": len(batch_records),
+        "batch_scored": int(len(batch_scores)),
+        "batch_rejected": len(batch_rejections),
+        "max_score_diff_vs_training_model": (
+            float(np.max(np.abs(batch_scores - direct_scores)))
+            if len(batch_scores) else 0.0),
+        "bands": band_distribution(batch_scores, mlp.predict_proba(Xte_s)),
+    }
+    print("Implementation check: %d of %d batch records scored, "
+          "max score diff %.6f"
+          % (impl["batch_scored"], impl["batch_n"],
+             impl["max_score_diff_vs_training_model"]))
+
     report = build_report(cand, chal, bench, backtest, drift, integrity,
                           importance, len(train), len(test),
-                          segments=segments)
+                          segments=segments, implementation=impl)
     report["epochs_run"] = mlp.n_epochs_run_
     report["reproduction_max_diff"] = max_diff
     write_report(report, "validation_report.txt", "validation_report.json")

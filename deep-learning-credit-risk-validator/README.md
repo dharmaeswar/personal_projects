@@ -8,7 +8,12 @@ Learning) role (Req R1006228, Plano, TX), and reused — with the
 clustering segment analysis added — for the Capital One Principal
 Associate, Data Scientist – GPN role (Req R1006407, Riverwoods IL /
 McLean VA / Richmond VA), whose ideal candidate lists clustering
-alongside classification, time series and deep learning.
+alongside classification, time series and deep learning. Reused again —
+with the production scoring path added — for the Capital One Senior
+Data Scientist, Card DS role (Req R1006102, McLean VA / New York NY),
+whose posting asks for machine learning models built through all
+phases of development, from design through training, evaluation,
+validation, and implementation.
 
 **All data is synthetic and seeded.** No real borrower, bank, or customer
 data is used, and nothing here is a claim about any real institution.
@@ -62,6 +67,15 @@ of it, in the shape of interagency model risk management guidance
   one segment, so the segment table is part of the report.
 - **Implementation reproduction**: the MLP is re-fit from scratch with
   the same seed and its test scores compared within tolerance.
+- **Production scoring path** (`scoring.py`): the trained model and
+  its training standardisation are serialised to a JSON artifact; a
+  fresh scorer loads the artifact alone and batch-scores new
+  applications, rejecting records that fail the input schema (missing
+  fields, non-numeric values, out-of-range values) with reasons
+  instead of silently scoring them. The report's implementation check
+  verifies the artifact reproduces the training model's scores
+  exactly and compares the batch's score-band mix with the reference
+  book, so a shifted applicant mix is visible before scores are used.
 - **Findings and verdict** (`report.py`): severity-rated findings and a
   PASS / FAIL verdict, written to `validation_report.txt` / `.json`.
 
@@ -72,8 +86,6 @@ pip install -r requirements.txt
 PYTHONPATH=. python3 run_validation.py   # prints the report, writes validation_report.txt/.json
 PYTHONPATH=. python3 -m pytest -q        # test suite
 ```
-
-## Results (seeded demo, 6,000 synthetic applications)
 
 ## Results (seeded demo, 6,000 synthetic applications)
 
@@ -94,6 +106,10 @@ PYTHONPATH=. python3 -m pytest -q        # test suite
   0.160), delinquencies (0.032), history length (0.022), full-time
   employment text flag (0.012), debt-to-income (0.011).
 - Implementation reproduces exactly on re-fit (max score diff 0.000000).
+- Production scoring path: a 25-application batch scored through the
+  serialised artifact alone — 25 scored, 0 rejected, max score diff
+  vs the training model 0.000000; score-band shares within 0.034 of
+  the reference book in every band.
 - Verdict: **FAIL — 1 High finding (F-01)**: the deep-learning
   candidate does not beat the simpler logistic challenger on test
   ROC-AUC. That is the finding a validator must surface before a

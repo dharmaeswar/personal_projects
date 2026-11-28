@@ -133,6 +133,17 @@ class KnowledgeGraph:
             self._adj[obj].append(len(self.edges))
             self.edges.append(edge)
 
+    def add_edge(self, subj, subj_type, relation, obj, obj_type, source,
+                 weight=1.0):
+        """Add one typed edge with provenance (used by the bioassay ETL)."""
+        self.node_types.setdefault(subj, subj_type)
+        self.node_types.setdefault(obj, obj_type)
+        edge = {"subj": subj, "relation": relation, "obj": obj,
+                "source": source, "weight": weight}
+        self._adj[subj].append(len(self.edges))
+        self._adj[obj].append(len(self.edges))
+        self.edges.append(edge)
+
     @classmethod
     def build(cls, documents):
         graph = cls()

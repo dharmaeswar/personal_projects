@@ -56,6 +56,21 @@ answer only from retrieved evidence, with a citation on every claim.
   answers and up-weights edges behind accepted ones, and re-ranks
   retrieval on the next run. Feedback is an audit trail, not a silent
   override: every change is recorded with the question and the reason.
+- **Bioassay knowledge graph** (`kg_rag/bioassay.py`, added Nov 28, 2026
+  for an AbbVie Associate Data Scientist II application) — seeded
+  synthetic bioassay results are validated (positive IC50, >= 2
+  replicates, Z-prime in range) and cleaned; 2 of 16 seeded rows are
+  rejected. Clean rows load into SQLite tables (`assays`,
+  `bioassay_results`) with a `v_potent_compounds` view (IC50 < 100 nM,
+  QC passed) and reporting queries (median IC50 per target, hit rate
+  per assay type, QC summary). Each assay becomes an Assay node in the
+  graph — compound -TESTED_IN-> assay -MEASURES-> target gene/protein —
+  so a scientist can walk from a compound to its target through the
+  assay. A static HTML dashboard (`dashboard.html`) and CSV report
+  (`bioassay_report.csv`) present the same queries. Run with
+  `python run_bioassay.py`. Results on the seeded data: 14 clean rows,
+  7 potent compounds, QC pass rate 0.857, median IC50 3.6 nM (BRAF),
+  10.2 nM (EGFR), 48.5 nM (BRCA1).
 - **Responsible AI** — synthetic data only, provenance on every edge and
   claim, an audit log of feedback and evaluations, and an explicit
   "not covered by the documents" abstention path.
@@ -65,7 +80,8 @@ answer only from retrieved evidence, with a citation on every claim.
 ```bash
 python run_pipeline.py      # build the graph, answer the 8 eval questions
 python run_evaluation.py    # benchmark KG-RAG vs text-only baseline
-python -m pytest -q         # 37 tests
+python run_bioassay.py      # bioassay ETL -> SQLite -> graph -> dashboard
+python -m pytest -q         # 42 tests
 ```
 
 `run_pipeline.py` writes `graph_summary.json` and `answers.json`.
@@ -96,5 +112,6 @@ because every claim must carry a citation to a retrieved passage. See
 - `kg_rag/qa.py` — grounded extractive answer composer
 - `kg_rag/evaluate.py` — benchmark harness (KG-RAG vs text-only)
 - `kg_rag/feedback.py` — human-in-the-loop feedback and edge reweighting
-- `run_pipeline.py`, `run_evaluation.py` — entry points
-- `tests/` — pytest suite (37 tests)
+- `kg_rag/bioassay.py` — bioassay ETL, SQLite warehouse, graph extension, dashboard
+- `run_pipeline.py`, `run_evaluation.py`, `run_bioassay.py` — entry points
+- `tests/` — pytest suite (42 tests)

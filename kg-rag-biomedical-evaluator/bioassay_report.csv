@@ -1,0 +1,8 @@
+result_id,compound,target,assay_type,ic50_nm
+BA-001,Olaparib,BRCA1,Biochemical binding,42.0
+BA-002,Olaparib,BRCA1,Biochemical binding,55.0
+BA-003,Osimertinib,EGFR,Enzymatic inhibition,8.5
+BA-004,Osimertinib,EGFR,Enzymatic inhibition,12.0
+BA-007,Pembrolizumab,PD-L1,Biochemical binding,96.0
+BA-009,Dabrafenib,BRAF,Enzymatic inhibition,3.2
+BA-010,Dabrafenib,BRAF,Enzymatic inhibition,4.1

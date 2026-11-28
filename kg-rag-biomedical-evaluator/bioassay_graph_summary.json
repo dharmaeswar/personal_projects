@@ -1,0 +1,21 @@
+{
+  "nodes": 34,
+  "edges": 60,
+  "nodes_by_type": {
+    "Assay": 7,
+    "Disease": 6,
+    "Drug": 6,
+    "Gene": 7,
+    "Pathway": 4,
+    "Protein": 4
+  },
+  "edges_by_relation": {
+    "ASSOCIATED_WITH": 14,
+    "INTERACTS_WITH": 7,
+    "MEASURES": 7,
+    "PART_OF": 8,
+    "TARGETS": 8,
+    "TESTED_IN": 7,
+    "TREATS": 9
+  }
+}

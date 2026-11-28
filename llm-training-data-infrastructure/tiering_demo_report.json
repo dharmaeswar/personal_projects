@@ -1,0 +1,160 @@
+{
+  "cleanup_by_team_gb": {
+    "team-rl": 940.0
+  },
+  "cleanup_freed_gb": 940.0,
+  "forecast_full_days_at_5pib_per_day": 1133.9,
+  "io_summary": {
+    "by_kind": {
+      "checkpoint_restore": 1,
+      "checkpoint_save": 1,
+      "read": 124
+    },
+    "events": 126,
+    "hot_cold": {
+      "cold": [
+        "image-pairs-v2",
+        "old-crawl-v1"
+      ],
+      "hot": [
+        "webtext-v3"
+      ],
+      "read_counts": {
+        "image-pairs-v2": 1,
+        "old-crawl-v1": 3,
+        "webtext-v3": 120
+      }
+    },
+    "metadata": {
+      "per_tier": {
+        "NVME": 0,
+        "OBJECT": 0,
+        "SHARED_FS": 1200
+      },
+      "pressured_tiers": [
+        "SHARED_FS"
+      ],
+      "threshold": 1000
+    },
+    "stalls": [
+      {
+        "expected_ms": 0.1,
+        "kind": "checkpoint_save",
+        "latency_ms": 800.0,
+        "metadata_ops": 0,
+        "name": "ckpt-step-100",
+        "size_bytes": 128849018880,
+        "slowdown": 8000.0,
+        "tier": "NVME"
+      },
+      {
+        "expected_ms": 25.0,
+        "kind": "checkpoint_restore",
+        "latency_ms": 9000.0,
+        "metadata_ops": 0,
+        "name": "ckpt-step-100",
+        "size_bytes": 128849018880,
+        "slowdown": 360.0,
+        "tier": "OBJECT"
+      },
+      {
+        "expected_ms": 2.0,
+        "kind": "read",
+        "latency_ms": 60.0,
+        "metadata_ops": 1200,
+        "name": "image-pairs-v2",
+        "size_bytes": 4194304,
+        "slowdown": 30.0,
+        "tier": "SHARED_FS"
+      }
+    ],
+    "suggestions": [
+      "Move webtext-v3 from OBJECT to a faster tier: 120 reads",
+      "Keep a local-first copy of ckpt-step-100: restore took 9000.0 ms"
+    ],
+    "total_bytes": 258218131456,
+    "total_latency_ms": 13467.5
+  },
+  "moves": [
+    {
+      "from": "OBJECT",
+      "name": "webtext-v3",
+      "reason": "reads_last_day=120 size_bytes=858993459200 -> NVME",
+      "to": "NVME"
+    },
+    {
+      "from": "OBJECT",
+      "name": "ckpt-step-100",
+      "reason": "reads_last_day=2 size_bytes=128849018880 -> NVME",
+      "to": "NVME"
+    },
+    {
+      "from": "NVME",
+      "name": "ckpt-step-99",
+      "reason": "reads_last_day=1 size_bytes=128849018880 -> SHARED_FS",
+      "to": "SHARED_FS"
+    },
+    {
+      "from": "SHARED_FS",
+      "name": "old-crawl-v1",
+      "reason": "reads_last_day=0 size_bytes=966367641600 -> OBJECT",
+      "to": "OBJECT"
+    },
+    {
+      "from": "SHARED_FS",
+      "name": "ckpt-step-80",
+      "reason": "reads_last_day=0 size_bytes=128849018880 -> OBJECT",
+      "to": "OBJECT"
+    },
+    {
+      "from": "NVME",
+      "name": "scratch-run-441",
+      "reason": "reads_last_day=3 size_bytes=64424509440 -> OBJECT",
+      "to": "OBJECT"
+    },
+    {
+      "from": "OBJECT",
+      "name": "rl-env-snapshots",
+      "reason": "reads_last_day=0 size_bytes=42949672960 -> ARCHIVE",
+      "to": "ARCHIVE"
+    }
+  ],
+  "moves_planned": 7,
+  "objects": 8,
+  "quota_checks": {
+    "team-agents": true,
+    "team-llm": false,
+    "team-rl": false
+  },
+  "team_usage_gb": {
+    "team-agents": 60.0,
+    "team-llm": 1340.0,
+    "team-rl": 1060.0
+  },
+  "tier_usage": {
+    "ARCHIVE": {
+      "bytes": 42949672960,
+      "capacity_bytes": 5629499534213120,
+      "objects": 1,
+      "pct_full": 0.0
+    },
+    "NVME": {
+      "bytes": 987842478080,
+      "capacity_bytes": 2199023255552,
+      "objects": 2,
+      "pct_full": 44.92
+    },
+    "OBJECT": {
+      "bytes": 1159641169920,
+      "capacity_bytes": 549755813888000,
+      "objects": 3,
+      "pct_full": 0.21
+    },
+    "SHARED_FS": {
+      "bytes": 450971566080,
+      "capacity_bytes": 54975581388800,
+      "objects": 2,
+      "pct_full": 0.82
+    }
+  }
+}

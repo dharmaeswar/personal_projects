@@ -43,6 +43,20 @@ third-party runtime dependencies.
   JSON checkpoint is written after every shard commits. If the process
   dies mid-run, the next run loads only the shards not yet checkpointed
   as done, so no shard is loaded twice and no record is inserted twice.
+- **Storage tiering** (`llm_data_infra/tiering.py`) — places datasets,
+  checkpoints, scratch data and snapshots across four tiers (node-local
+  NVMe, shared parallel file system, S3-compatible object storage,
+  archive) by access temperature and size; the latest checkpoint always
+  stays hot, older checkpoints tier down, and `plan_moves` lists the
+  moves that bring misplaced objects onto their ideal tier.
+- **Quotas, capacity and lifecycle** (`llm_data_infra/quotas.py`) —
+  per-team byte quotas with attribution and refusal of over-quota
+  writes, stale-data cleanup planning by retention window, and a
+  capacity forecast (days until the pool is full at current growth).
+- **I/O telemetry** (`llm_data_infra/telemetry.py`) — records reads,
+  writes and checkpoint save/restore events, splits data into hot and
+  cold, flags stalls (latency far above the tier expectation), measures
+  metadata pressure per tier, and suggests placement fixes.
 
 ## Run it
 
@@ -50,8 +64,15 @@ third-party runtime dependencies.
 python -m llm_data_infra     # serves http://127.0.0.1:8000
 python run_demo.py            # seeds synthetic data, prints the summary
 python run_training_loader.py # parallel sharded load, crash, resume; writes training_loader_report.json
-python -m pytest tests/ -q    # 13 tests
+python run_tiering_demo.py    # tiering, quotas, telemetry; writes tiering_demo_report.json
+python -m pytest tests/ -q    # 31 tests
 ```
+
+Tiering demo (`run_tiering_demo.py`): 8 synthetic objects across 3
+teams — 7 placement moves planned (hot dataset and latest checkpoint up
+to NVMe, cold data down to object storage, snapshots to archive),
+940 GiB of stale data flagged for cleanup, 3 I/O stalls found, and the
+shared file system flagged for metadata pressure.
 
 Example API flow:
 
@@ -81,3 +102,8 @@ stored twice. See `training_loader_report.json`.
   by design. It models sharding, parallelism and fault-tolerant resume
   for training-data loading; it is not a distributed system and claims
   no GPU, CUDA/Triton kernel, or multi-node training work.
+- Tiering, quotas and telemetry are the same kind of model: they
+  implement the placement, accounting and stall-detection logic on
+  synthetic objects in-process. They are not a real distributed file
+  system, object store, Kubernetes operator or Slurm integration, and
+  claim no production multi-cloud deployment.

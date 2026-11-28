@@ -1,10 +1,12 @@
 # Mortgage Servicing Full-Stack
 
 A full-stack mortgage loan servicing app: a Spring Boot 3 REST backend and a
-React (Vite) frontend. Built as a role project for ICE Mortgage Technology —
-Full Stack Developer (Mortgage Technology) and Associate Software Developer
-(Engineer I) — whose stack is React + Java/Spring Boot microservices,
-PostgreSQL, REST APIs, and AI-assisted development.
+React (Vite) frontend. Built as a role project for mortgage-servicing
+full-stack roles — ICE Mortgage Technology (Full Stack Developer, Associate
+Software Developer) and Rocket Companies Servicing Technology (Software
+Engineer I, Req R-083975) — whose stacks are React + Java/Spring Boot or
+.NET/C# + GraphQL microservices, PostgreSQL, REST/GraphQL APIs, AWS/EKS
+deployments through CI/CD, and AI-assisted development.
 
 All data is synthetic demo data. There is no ICE affiliation, no real borrower
 data, and no production system behind this service.
@@ -67,6 +69,16 @@ mvn spring-boot:run            # starts the API on http://localhost:8080
 cd ../frontend && npm install && npm test   # 9 frontend tests
 npm run dev                    # Vite dev server on :5173, proxies /api to :8080
 ```
+
+## Deployment on AWS EKS
+
+See `deploy/README.md` for the full flow. In short: multi-stage Dockerfiles
+(`deploy/docker/`) build the Spring Boot API and the React/nginx frontend;
+Kubernetes manifests (`deploy/k8s/`) run two replicas of each behind
+ClusterIP Services, with `GET /api/loans` as the backend health probe and
+nginx proxying `/api/` to the backend Service. No live cluster was used;
+manifests are YAML-validated and the Dockerfiles reuse the same build
+commands the project already runs locally.
 
 ## AI-assisted workflow
 

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mortgage-servicing-backend
+  labels:
+    app: mortgage-servicing-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mortgage-servicing-backend
+  template:
+    metadata:
+      labels:
+        app: mortgage-servicing-backend
+    spec:
+      containers:
+        - name: backend
+          # Replace <account>.dkr.ecr.<region>.amazonaws.com with your ECR repo.
+          image: mortgage-servicing-backend:1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          # The API has no actuator; /api/loans returns 200 with an empty list,
+          # so it doubles as a cheap health check.
+          readinessProbe:
+            httpGet:
+              path: /api/loans
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/loans
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mortgage-servicing-backend
+  labels:
+    app: mortgage-servicing-backend
+spec:
+  selector:
+    app: mortgage-servicing-backend
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: ClusterIP

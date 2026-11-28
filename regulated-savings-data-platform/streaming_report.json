@@ -1,0 +1,18 @@
+{
+  "micro_batches": [
+    {
+      "batch": 1,
+      "events_in": 152,
+      "silver_rows_after": 121,
+      "quarantined_rows_after": 4
+    },
+    {
+      "batch": 2,
+      "events_in": 153,
+      "silver_rows_after": 241,
+      "quarantined_rows_after": 6
+    }
+  ],
+  "total_events": 305,
+  "final_silver_rows": 241
+}

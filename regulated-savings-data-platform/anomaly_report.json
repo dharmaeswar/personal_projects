@@ -1,0 +1,14 @@
+{
+  "events_checked": 743,
+  "flagged_count": 1,
+  "flagged": [
+    {
+      "event_id": "EVT-000114",
+      "account_id": "ACC-00103",
+      "amount": 423.53,
+      "event_date": "2025-11-20 00:00:00",
+      "z_score": 1.8766293331582675,
+      "median": 111.48
+    }
+  ]
+}

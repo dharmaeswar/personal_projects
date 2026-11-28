@@ -1,0 +1,12 @@
+{
+  "raw_rows": 917,
+  "deduped_rows": 900,
+  "silver_rows": 805,
+  "quarantined_rows": 42,
+  "quarantine_rate": 0.0458,
+  "gold_accounts": 120,
+  "total_balance": 1769680.58,
+  "reconciliation_breaks": 0,
+  "alerts": [],
+  "status": "OK"
+}

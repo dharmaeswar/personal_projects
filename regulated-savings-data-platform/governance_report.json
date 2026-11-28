@@ -1,0 +1,29 @@
+{
+  "access_checks": {
+    "analyst_can_read_holder_id": false,
+    "auditor_can_read_holder_id": true,
+    "analyst_can_read_amount": true
+  },
+  "controls": [
+    {
+      "control": "encryption_at_rest",
+      "satisfied": true
+    },
+    {
+      "control": "access_logged",
+      "satisfied": true
+    },
+    {
+      "control": "retention_7y_enforced",
+      "satisfied": true
+    },
+    {
+      "control": "pii_masked_for_analysts",
+      "satisfied": true
+    },
+    {
+      "control": "audit_log_append_only",
+      "satisfied": true
+    }
+  ]
+}

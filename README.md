@@ -1,164 +1,129 @@
-# Platform Ops Automation
+# Systematic Futures & FX Signal Research
 
-A portfolio project for a Senior DevOps Engineer role: a containerized
-Python web service plus the ops automation around it — Docker, Kubernetes
-manifests, CI pipelines, log analysis, load testing, an incident
-runbook, and AWS platform configuration checks (EKS, Kafka, RDS Aurora,
-Cloud Foundation guardrails, storage and backup).
+Researches systematic trading signals the way a quantitative research
+team would: build signals, backtest them with realistic costs, combine
+them into a risk-managed portfolio, and then stress-test whether the
+edge survives out-of-sample data, higher costs, and delayed execution.
+The focus is futures and FX — the markets Graham Capital's systematic
+strategies trade — with trend, carry, and mean-reversion signals.
 
-**Demo project. Synthetic traffic only. Not a real production platform.**
-Nothing here is a claim about a real production system, and no real
-incident history is described.
+**All data is synthetic and seeded.** Prices are simulated with a
+geometric Brownian motion that has calm, normal, and stressed
+volatility regimes; FX carry is a mean-reverting rate differential.
+No real market data is used, and nothing here is a claim about any
+real fund, strategy, or live return.
 
-## Skills used
+## Signals
 
-Only skills Dharma has verified: Python, Docker, Kubernetes, Jenkins /
-GitLab CI, Linux, AWS concepts, SQL, Terraform (used in his roles and
-hackathons, confirmed Nov 18, 2026), EKS, Vault. This project does **not**
-claim Ansible, Cloudflare, or Prometheus/Grafana production experience.
+- **Time-series momentum** (`signals.py`): sign of the trailing
+  252-day return, scaled by its own history — the classic trend
+  signal for futures and FX.
+- **Moving-average crossover**: 50-day above 200-day average is long,
+  otherwise short.
+- **FX carry**: long the higher-yielding currency of the pair,
+  position proportional to the rate differential.
+- **Mean reversion**: fade short-term moves away from the 20-day
+  average (a small sleeve, so the book is not all trend).
 
-## What is inside
+## Backtest and portfolio construction
 
-- `service/app.py` — stdlib-only web service (`http.server`, no web
-  framework). Endpoints: `/` (demo page), `/health` (JSON `ok`),
-  `/metrics` (Prometheus text format: request count, latency histogram,
-  error count). Latency simulation via the `LATENCY_MS` env var;
-  error simulation via `ERROR_RATE`.
-- `run_service.py` — starts the service on `$PORT` (default 8080).
-- `docker/Dockerfile` — multi-stage build, non-root user, HEALTHCHECK
-  on `/health`.
-- `k8s/` — deployment (3 replicas, resource requests/limits, readiness
-  and liveness probes), service, CPU-based HPA, ConfigMap, ingress
-  (generic `platform-ops.example.com` placeholder host).
-- `ci/` — GitHub Actions workflow (test, docker build, manifest
-  validation) and a Jenkinsfile (Test / Build / Validate Manifests).
-  No real deploy target.
-- `ops/log_analysis.py` — parses synthetic access logs, computes the
-  per-minute 5xx rate, flags minutes above a threshold, and provides
-  p50/p95 latency helpers.
-- `ops/reliability_dashboard.py` — aggregates synthetic per-request health
-  signals into an operational health summary (availability, error rate,
-  p95 latency, error-budget burn, per-service breakdown) and evaluates
-  alert rules. The alert-rule shape mirrors Azure Monitor-style alert
-  rules as a study; no production Azure use is claimed.
-- `ops/alert_tuning.py` — alert-threshold tuning (added Nov 24, 2026,
-  for a Site Reliability Engineer application): replays a labelled
-  per-minute metric series against candidate thresholds, scores true
-  positives, false positives and missed incidents for each one, and
-  recommends the threshold that detects every incident with the fewest
-  false positives. Synthetic data only; no real monitoring tool is
-  contacted.
-- `ops/observability_platform.py` — observability platform (added Nov 26,
-  2026, for a Gusto Site Reliability Engineer application): correlates
-  distributed traces, logs and metrics by trace id; detects anomalies
-  with a rolling statistical baseline (z-score, not an AI model);
-  ranks likely root causes by error-rate and latency lift against
-  baseline; routes alerts by severity and blast radius (page / ticket /
-  log); and rolls up per-service health for dashboards. Synthetic data
-  only; no real observability tool (Datadog, Sentry, Splunk,
-  OpenTelemetry collector, Prometheus server) is contacted and no
-  production observability-platform experience is claimed.
-- `ops/slo_capacity.py` — SLI/SLO and capacity planning (added Nov 24,
-  2026, for an AppFolio Sr. Site Reliability & Infrastructure Engineer
-  application): defines SLOs with error budgets, reports budget
-  remaining/consumed, evaluates multi-window burn-rate alerts (fast burn
-  pages on-call, slow burn opens a ticket), and forecasts capacity
-  headroom with days-until-full and a scale-out recommendation.
-  Synthetic data only; no real service or monitoring tool is contacted.
-- `ops/datastore_adoption.py` — data-store adoption readiness (added
-  Nov 24, 2026, for a Senior Cloud Infrastructure Engineer
-  application): scores a candidate store (Vitess / ClickHouse / Redis
-  shape) on replication, durable writes, backups and restore-test
-  freshness, p99 read/write SLOs, observability hooks, failover-test
-  freshness, encryption at rest and data residency, with an
-  adopt / pilot / not-ready verdict. Synthetic data only; no real
-  datastore is contacted and no production adoption experience is
-  claimed.
-- `ops/batch_control_plane.py` — batch processing control plane (added
-  Nov 24, 2026, for the same role): checks queue depth, creation vs
-  fulfillment throughput, stalled jobs, retry exhaustion and
-  per-component fulfill p95, and reports headroom against a 10x
-  growth target. Synthetic data only; no real job system is contacted
-  and no production batch-platform experience is claimed.
-- `ops/dr_check.py` — validates a disaster-recovery / failover readiness
-  checklist (runbook review freshness, last failover test, backup
-  verification freshness, on-call roster) and reports overall readiness.
-- `ops/nosql_health.py` — checks a synthetic multi-node NoSQL cluster (nodes up, replication lag, p99 read latency, throughput headroom) and reports overall health. Demo data only; no production NoSQL experience is claimed.
-- `ops/multicloud_iac.py` — validates a Terraform-style multi-cloud plan summary (resource tags, no open ingress, secrets via Vault, two-cloud redundancy), audits secret rotation freshness (90-day limit), and estimates cross-cloud transfer cost to pick the cheapest resilient path. Demo data only; no real cloud account is touched.
-- `ops/gitops_drift.py` — GitOps drift detection: compares the desired
-  state declared in the `k8s/` manifests with a live-state snapshot and
-  reports drift in image tags, replica counts, environment variables and
-- `ops/incident_response.py` — incident response for enterprise platform
-  support: weekly on-call rotation, incident lifecycle (detected →
-  triaged → mitigating → resolved → closed), SLA timers by severity,
-  runbook steps per incident type, and ServiceNow-style ticket sync.
-  resource limits, plus missing/extra resources. A rollout gate blocks a
-  deploy while drift is unresolved or error-budget burn is over its limit.
-  Also includes W3C `traceparent` parse/format helpers (the propagation
-  format OpenTelemetry uses) for passing trace context between services.
-  All live state is synthetic input; no real cluster is contacted and no
-  production GitOps or observability deployment is claimed.
-- `ops/host_bottleneck.py` — diagnoses a synthetic Linux host from CPU, IO wait, memory, load and disk-latency signals, answering "is it CPU? IO?" with a verdict and a next check. Demo data only.
-- `ops/aws_platform_check.py` — validates a synthetic AWS platform
-  config: EKS cluster (version, multi-AZ node groups, control-plane
-  logging, secrets encryption, endpoint restriction), Kafka/MSK
-  (broker count, replication factor, min.insync.replicas, storage
-  encryption, TLS, pinned version), RDS Aurora (engine, backup
-  retention, multi-AZ instances, storage encryption, deletion
-  protection), Cloud Foundation guardrails (required tags, no public
-  0.0.0.0/0 ingress, SSO/federation, CloudTrail) and storage/backup
-  (backup plan, retention, vault encryption, recent successful backup,
-  cold-storage lifecycle). Demo data only; no real AWS account or
-  resource is contacted and no production AWS experience is claimed.
-- `ops/load_test.py` — stdlib-only load test (urllib + threads) that
-  reports totals, error rate, and p50/p95 latency. Exits non-zero with
-  a clear message if the service is not running.
-- `ops/fleet_systems.py` — Linux fleet systems automation for a
-  data-center fleet (added Nov 24, 2026, for an Amazon SDE III System
-  Development Engineering role): a host inventory (role, OS/kernel,
-  packages, services), config-drift checks against a desired state,
-  staged rollouts (canary 10%, then 50%, then 100%) with a CPU/memory
-  health gate after each stage and automatic rollback of the failed
-  stage, and a fleet summary by role and status. Demo data only; no
-  real fleet is managed and no production systems-development
-  experience is claimed.
-- `run_fleet_demo.py` — end-to-end demo of the fleet module on a
-  12-host synthetic fleet: drift report, staged rollout with a
-  failing host, rollback, and fleet summary.
-- `RUNBOOK.md` — incident runbook for "elevated 5xx from the web
-  platform": triage, checks, rollback, post-incident review template.
+- `backtest.py`: positions apply from the next day (no look-ahead),
+  costs are charged per unit of turnover in basis points, and
+  positions can be scaled to a 10% volatility target.
+- `portfolio.py`: strategies are combined with equal-risk-contribution
+  (risk-parity) weights from the covariance of strategy returns.
+- Metrics reported per book: CAGR, annualised volatility, Sharpe,
+  Sortino, maximum drawdown, and Calmar.
 
-## How to run
+## Equity factor risk (new, Nov 2026 — built for a JPMorgan Equity Portfolio Management / Model Risk Management role)
+
+- `equity_factor_risk.py`: Axioma-style factor-risk analytics for an equity book.
+  - `generate_equity_panel`: seeded synthetic panel of 40 stocks over 504 days, built from known
+    Market / Size / Value / Momentum / Quality factor betas plus idiosyncratic noise.
+  - `estimate_factor_betas`: OLS factor betas, alpha, R-squared and residual volatility per stock.
+  - `tracking_error`: annualised volatility of active returns vs a benchmark.
+  - `factor_risk_decomposition`: splits portfolio variance into factor risk and stock-specific risk,
+    with each factor's risk contribution.
+  - `portfolio_risk_summary`: one-page PM risk summary — total/factor/specific vol, tracking error,
+    top factor tilts, concentration (Herfindahl), largest positions, sector exposures.
+  - `governance_checks`: SR 11-7 style checks on the risk model itself — missing data, stale factors,
+    low explanatory power, residual autocorrelation (Durbin-Watson), beta stability across halves,
+    factor collinearity — each reported pass / warn / fail.
+- The research report (`python -m sys_signal_research`) now includes an `equity_factor_risk` section
+  with the equal-weighted book's vols, tracking error, top tilts and governance statuses.
+- `tests/test_equity_factor_risk.py` — 9 tests: seeded reproducibility, beta recovery vs ground truth,
+  tracking-error edge cases, variance additivity, summary completeness, governance pass on a clean
+  panel and fail on a constant factor / gappy data.
+
+## Cross-sectional equity alpha research (new, Nov 2026 — built for a Point72 Cubist Quantitative Researcher role)
+
+- `equity_alpha.py`: the workflow a systematic-equities researcher runs on a new alpha idea — build the signal from point-in-time data only, measure its information coefficient, check how fast the edge decays with execution delay, and backtest a cost-aware long-short book.
+  - `generate_equity_alpha_panel`: seeded synthetic panel of 40 stocks over 504 days. Returns are built from a known structure — a persistent drift tied to each stock's value and quality characteristics plus a stock-specific part, a market factor, and idiosyncratic noise — so the signals have a real (seeded) edge to discover. The drift is deliberately strong (about 22% annual cross-sectional dispersion) so a two-year, 40-stock panel can detect it; the point is to exercise the research tooling, not to claim a tradable edge.
+  - Signals: 12-1 cross-sectional momentum (trailing return skipping the most recent month, z-scored each day), value (book-to-price) and quality (profitability) characteristics, plus an equal-weighted composite.
+  - `information_coefficient`: daily rank IC vs forward returns, with mean IC, standard deviation, t-statistic and hit rate. On the seeded panel: momentum IC 0.042 (t = 4.3), value 0.049 (t = 6.6), quality 0.021 (t = 2.9), composite 0.052 (t = 7.7).
+  - `signal_decay`: composite IC at 1/5/10/20-day lags — 0.052, 0.051, 0.050, 0.049. The edge is a persistent drift, so it decays slowly; a fast-fading signal would show up here as a collapse by lag 5.
+  - `long_short_backtest`: daily long-short quintile book (top 20% long, bottom 20% short, equal-weighted, signal applied from the next day — no look-ahead), turnover charged at 5 bps. On the seeded panel: 46% CAGR, 7.3% annualised volatility, Sharpe 5.3, maximum drawdown −5.5%, mean daily turnover 4.5%. The high Sharpe is the seeded drift doing its job, not a market claim.
+  - `alpha_report`: one-call summary of ICs, decay and backtest metrics.
+- `tests/test_equity_alpha.py` — 11 tests: seeded reproducibility, cross-sectional standardisation, IC recovery vs the known drift, cost sensitivity (higher costs lower net returns; zero cost means net equals gross), dollar-neutral positions, and the full report.
+- No real market data is used anywhere in this module, and nothing here claims a live return or any affiliation with Point72 or Cubist.
+
+## Interest-rate swap curve research (new, Nov 2026 — built for an AQR Capital Quantitative Research Analyst role)
+
+- `swaps.py`: a synthetic 2y / 5y / 10y swap curve, seeded and mean-reverting around 3.50% / 3.80% / 4.05%, with a shared curve factor so tenors move together.
+  - `curve_slope`: 10y minus 2y in basis points (mean 44.5 bps on the seeded curve).
+  - `swap_carry_signal`: roll-down carry — receive fixed when the curve is steep, position proportional to the slope (100 bps is a full position).
+  - `swap_rate_momentum`: 10y rate trend — falling rates mean receive fixed, scaled by the move's strength vs its own history.
+  - `swap_strategy_returns`: daily P&L for a receive-fixed / pay-fixed position applied from the next day (no look-ahead): duration gain when the 10y rate falls (7.5y duration proxy) plus carry accrual from the slope.
+  - `swaps_report`: one-call summary — curve shape, mean position, Sharpe, CAGR, vol, max drawdown, mean daily carry. On the seeded curve: mean position 0.22, Sharpe −0.34, CAGR −0.65%, max drawdown −9.1%. The carry alone does not beat rate noise on this seeded curve, and the report says so — the point is the research tooling, not a tradable edge.
+- The research report (`python -m sys_signal_research`) now includes a `swaps` section with the same figures.
+- `tests/test_swaps.py` — 11 tests: seeded reproducibility, curve shape and sane rates, slope arithmetic, carry signal bounds and slope direction, momentum bounds and direction, P&L gains when rates fall for receive-fixed, carry accrual arithmetic, one-day position lag, and the full report.
+- No real market data is used anywhere in this module, and nothing here claims a live return or any affiliation with AQR.
+
+## Robust research procedures
+
+- **Walk-forward validation** (`robustness.py`): the best momentum
+  lookback is chosen in-sample for each fold and tested on the next
+  fold out-of-sample, so overfitting shows up as an in-sample /
+  out-of-sample Sharpe gap.
+- **Cost sensitivity**: Sharpe at 0, 1, 2, 5, and 10 bps per trade.
+- **Signal decay**: how fast the edge fades if execution is delayed
+  1–10 days.
+- **Simulated-vs-actual gap**: gross edge vs cost paid vs net return,
+  with average daily turnover, so a researcher can see whether the
+  idea survives realistic friction.
+
+## How it differs from the other projects in this repo
+
+- `cross-asset-model-validation-suite` and `model-validation-toolkit`
+  validate pricing and risk models after the fact; this project builds
+  and tests trading signals.
+- `investment-model-governance-validator` reviews alpha/signal models
+  from a second-line governance view (IC, VaR backtests, inventory);
+  it never constructs a signal or runs a trading backtest.
+- `vol-surface-consistency-checker` checks option volatility surfaces
+  for arbitrage; `monte-carlo-xva-benchmark` prices XVA; neither is a
+  systematic signal or portfolio research tool.
+- `performance-measurement-engine` measures realised performance; this
+  project researches signals before they trade.
+
+## Run it
 
 ```bash
 pip install -r requirements.txt
-python run_service.py
-# then: curl http://127.0.0.1:8080/health
-#       curl http://127.0.0.1:8080/metrics
+PYTHONPATH=. pytest -q
+PYTHONPATH=. python -m sys_signal_research --out research_report.json
+PYTHONPATH=. python run_demo.py
 ```
 
-Docker:
+## Files
 
-```bash
-docker build -f docker/Dockerfile -t platform-ops:latest .
-docker run -p 8080:8080 platform-ops:latest
-```
-
-Kubernetes (demo manifests only — no cluster is provisioned here):
-
-```bash
-kubectl apply -f k8s/
-```
-
-Log analysis and load test:
-
-```bash
-python -m ops.log_analysis
-python ops/load_test.py --url http://127.0.0.1:8080 --requests 100 --concurrency 10
-```
-
-## Tests
-
-```bash
-PYTHONPATH=. python -m pytest -q
-```
+- `sys_signal_research/data.py` — seeded synthetic futures/FX prices and carry
+- `sys_signal_research/equity_factor_risk.py` — equity factor exposures, tracking error, risk summary, governance checks
+- `sys_signal_research/equity_alpha.py` — cross-sectional equity alpha: IC, signal decay, long-short backtest
+- `sys_signal_research/swaps.py` — synthetic swap curve, roll-down carry, rate momentum, receive-fixed P&L
+- `sys_signal_research/signals.py` — momentum, crossover, carry, mean reversion
+- `sys_signal_research/backtest.py` — backtester, vol targeting, risk parity, metrics
+- `sys_signal_research/portfolio.py` — combine strategy backtests into one book
+- `sys_signal_research/robustness.py` — walk-forward, cost sensitivity, decay, gap
+- `tests/` — 7 test modules (61 tests)
+- `README.md`, `requirements.txt`, `.gitignore`, `run_demo.py`

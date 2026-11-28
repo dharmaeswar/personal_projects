@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-interaction-primitives"
+version = "1.0.0"
+description = "Typed Python library of model-interaction primitives: chat rendering, tokenization, tool-call parsing, sessions, rollout loop, graders, versioning"
+requires-python = ">=3.9"
+
+[project.scripts]
+interaction-lib-demo = "interaction_lib.cli:main"
+
+[tool.setuptools]
+packages = ["interaction_lib"]

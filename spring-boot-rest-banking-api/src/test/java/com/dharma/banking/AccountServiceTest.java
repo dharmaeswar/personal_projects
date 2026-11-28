@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.dharma.banking.dto.AccountResponse;
 import com.dharma.banking.dto.CreateAccountRequest;
+import com.dharma.banking.dto.PagedTransactionsResponse;
 import com.dharma.banking.dto.TransactionResponse;
 import com.dharma.banking.dto.TransferRequest;
 import com.dharma.banking.repository.InMemoryAccountRepository;
@@ -138,5 +139,51 @@ class AccountServiceTest {
             thread.join();
         }
         assertEquals(new BigDecimal("20.00"), service.getAccount(account.getId()).getBalance());
+    }
+
+    @Test
+    void pagedHistorySlicesAcrossPages() {
+        AccountResponse account = create("Ada Lovelace", "CHECKING", "100.00");
+        for (int i = 0; i < 5; i++) {
+            service.deposit(account.getId(), new BigDecimal("10.00"), "top-up " + i);
+        }
+        PagedTransactionsResponse first = service.transactionHistoryPage(account.getId(), 0, 2);
+        assertEquals(2, first.getContent().size());
+        assertEquals(6, first.getTotalElements());
+        assertEquals(3, first.getTotalPages());
+        PagedTransactionsResponse last = service.transactionHistoryPage(account.getId(), 2, 2);
+        assertEquals(2, last.getContent().size());
+        PagedTransactionsResponse partial = service.transactionHistoryPage(account.getId(), 1, 5);
+        assertEquals(1, partial.getContent().size());
+        assertEquals(6, partial.getTotalElements());
+    }
+
+    @Test
+    void pagedHistoryOnEmptyAccountReturnsEmptyPage() {
+        AccountResponse account = create("Grace Hopper", "SAVINGS", "0.00");
+        PagedTransactionsResponse page = service.transactionHistoryPage(account.getId(), 0, 20);
+        assertTrue(page.getContent().isEmpty());
+        assertEquals(0, page.getTotalElements());
+        assertEquals(0, page.getTotalPages());
+    }
+
+    @Test
+    void pagedHistoryPastLastPageReturnsEmptyPage() {
+        AccountResponse account = create("Ada Lovelace", "CHECKING", "50.00");
+        PagedTransactionsResponse page = service.transactionHistoryPage(account.getId(), 5, 2);
+        assertTrue(page.getContent().isEmpty());
+        assertEquals(1, page.getTotalElements());
+        assertEquals(1, page.getTotalPages());
+    }
+
+    @Test
+    void pagedHistoryRejectsInvalidPageAndSize() {
+        AccountResponse account = create("Ada Lovelace", "CHECKING", "50.00");
+        assertThrows(IllegalArgumentException.class,
+                () -> service.transactionHistoryPage(account.getId(), -1, 20));
+        assertThrows(IllegalArgumentException.class,
+                () -> service.transactionHistoryPage(account.getId(), 0, 0));
+        assertThrows(IllegalArgumentException.class,
+                () -> service.transactionHistoryPage(account.getId(), 0, 101));
     }
 }

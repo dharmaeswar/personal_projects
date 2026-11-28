@@ -10,6 +10,11 @@ The API-routing and observability layer below was added for the Oracle OCI SPLAT
 Core Infrastructure Engineer 2 role (Job 342848): request-path services, traffic
 management, and operational controls for high-throughput Java services.
 
+The Spring Actuator endpoints and the paginated transaction-history endpoint were
+added for the Aflac Software Engineer III role (Job 8854, Nov 28, 2026): the JD
+names Spring Actuator and paginated collections with `isEmpty()` vs. `size() > 0`
+as explicit practices, so both are implemented here with tests.
+
 All data is synthetic demo data. There is no Bank of America affiliation, no real
 account data, and no production system behind this service.
 
@@ -42,8 +47,14 @@ account data, and no production system behind this service.
 | POST | `/api/accounts/{id}/withdraw` | `{"amount","memo?"}` | updated account, or 422 |
 | POST | `/api/accounts/{id}/transfer` | `{"toAccountId","amount","idempotencyKey?"}` | source account |
 | GET | `/api/accounts/{id}/transactions` | — | transaction history |
+| GET | `/api/accounts/{id}/transactions/paged?page=0&size=20` | — | one page: `{content, page, size, totalElements, totalPages}`; size 1–100 |
 
 Error responses share one shape: `{"status","error","details","timestamp"}`.
+
+Paginated history (`service/AccountService.transactionHistoryPage`) uses an `isEmpty()`
+guard for empty accounts and out-of-range pages — an empty page is returned with
+`totalElements`/`totalPages`, never null — and validates `page >= 0`, `1 <= size <= 100`
+(bad values return 400 through the shared error handler).
 
 ## API routing & observability layer
 
@@ -64,6 +75,16 @@ Operations endpoints (`ops/OpsController.java`):
 | GET | `/ops/health` | `{"status":"UP"}` — used for deployment validation |
 | GET | `/ops/metrics` | total requests, average latency, counts by route and status |
 
+Spring Actuator (`spring-boot-starter-actuator`, exposed in `application.properties`):
+
+| Method | Endpoint | Result |
+|---|---|---|
+| GET | `/actuator/health` | `{"status":"UP"}` — standard Spring Boot health endpoint |
+| GET | `/actuator/info` | application info |
+
+Only `health` and `info` are exposed over HTTP; all other actuator endpoints stay off
+(`management.endpoints.web.exposure.include=health,info`).
+
 ## Run it
 
 ```bash
@@ -83,15 +104,18 @@ curl -X POST localhost:8080/api/accounts \
 
 ## Tests
 
-`mvn test` — 23 tests, all passing:
+`mvn test` — 30 tests, all passing:
 
-- `AccountServiceTest` (10 tests): opening-balance rules, deposit/withdraw, overdraft
+- `AccountServiceTest` (14 tests): opening-balance rules, deposit/withdraw, overdraft
   rejection with unchanged balance, exact-balance withdrawal, transfer legs and
   balances, overdraft/self-transfer rejection, idempotent replay (money moves once),
-  unknown-account handling, and a 20-thread concurrent-deposit race that loses no money.
-- `AccountControllerTest` (7 tests, MockMvc): create/get flow, deposit/withdraw/history
+  unknown-account handling, a 20-thread concurrent-deposit race that loses no money,
+  and paged history: slicing across pages, an empty page for a zero-balance account,
+  an empty page past the last page, and rejection of invalid page/size.
+- `AccountControllerTest` (10 tests, MockMvc): create/get flow, deposit/withdraw/history
   flow, transfer between accounts, 422 overdraft with error body, 404 unknown account,
-  400 validation errors (3 field errors), and a rejected zero deposit.
+  400 validation errors (3 field errors), a rejected zero deposit, the paged-history
+  endpoint shape, a 400 for an invalid page size, and Actuator health returning `UP`.
 - `RateLimiterTest` (2 tests): capacity is enforced, and limits are per client.
 - `GatewayFiltersTest` (4 tests, MockMvc): request-id echo and generation, 429 after the
   per-client limit, health `UP`, and metrics counting requests.

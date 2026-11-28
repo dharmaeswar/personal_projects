@@ -3,6 +3,7 @@ package com.dharma.banking.controller;
 import com.dharma.banking.dto.AccountResponse;
 import com.dharma.banking.dto.CreateAccountRequest;
 import com.dharma.banking.dto.MoneyRequest;
+import com.dharma.banking.dto.PagedTransactionsResponse;
 import com.dharma.banking.dto.TransactionResponse;
 import com.dharma.banking.dto.TransferRequest;
 import com.dharma.banking.service.AccountService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,5 +62,12 @@ public class AccountController {
     @GetMapping("/{id}/transactions")
     public List<TransactionResponse> transactions(@PathVariable String id) {
         return service.transactionHistory(id);
+    }
+
+    @GetMapping("/{id}/transactions/paged")
+    public PagedTransactionsResponse transactionsPaged(@PathVariable String id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return service.transactionHistoryPage(id, page, size);
     }
 }

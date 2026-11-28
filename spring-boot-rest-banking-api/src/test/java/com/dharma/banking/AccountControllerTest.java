@@ -110,4 +110,38 @@ class AccountControllerTest {
                         .content("{\"amount\":0}"))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void pagedTransactionsEndpointReturnsPageShape() throws Exception {
+        String id = createAccount("Ada Lovelace", "CHECKING", "100.00");
+        mockMvc.perform(post("/api/accounts/" + id + "/deposit")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"amount\":10}"))
+                .andExpect(status().isOk());
+        mockMvc.perform(post("/api/accounts/" + id + "/deposit")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"amount\":10}"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/api/accounts/" + id + "/transactions/paged?page=0&size=2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content", hasSize(2)))
+                .andExpect(jsonPath("$.totalElements", is(3)))
+                .andExpect(jsonPath("$.totalPages", is(2)))
+                .andExpect(jsonPath("$.page", is(0)));
+    }
+
+    @Test
+    void pagedTransactionsInvalidSizeReturns400() throws Exception {
+        String id = createAccount("Ada Lovelace", "CHECKING", "10.00");
+        mockMvc.perform(get("/api/accounts/" + id + "/transactions/paged?page=0&size=0"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error", is("Invalid request")));
+    }
+
+    @Test
+    void actuatorHealthReturnsUp() throws Exception {
+        mockMvc.perform(get("/actuator/health"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status", is("UP")));
+    }
 }

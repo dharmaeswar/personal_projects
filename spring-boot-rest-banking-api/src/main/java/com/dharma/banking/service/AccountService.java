@@ -2,6 +2,7 @@ package com.dharma.banking.service;
 
 import com.dharma.banking.dto.AccountResponse;
 import com.dharma.banking.dto.CreateAccountRequest;
+import com.dharma.banking.dto.PagedTransactionsResponse;
 import com.dharma.banking.dto.TransactionResponse;
 import com.dharma.banking.dto.TransferRequest;
 import com.dharma.banking.model.Account;
@@ -110,6 +111,33 @@ public class AccountService {
     public List<TransactionResponse> transactionHistory(String id) {
         return requireAccount(id).getTransactions().stream()
                 .map(TransactionResponse::new).toList();
+    }
+
+    /**
+     * One page of an account's transaction history. Pages are zero-based and {@code size}
+     * is capped at 100 so a caller cannot ask for an unbounded page. An account with no
+     * transactions — or a page past the last one — returns an empty page, never null: the
+     * empty check uses {@code isEmpty()}, not {@code size() > 0}, so no full scan is paid
+     * for just to learn the page is empty.
+     */
+    public PagedTransactionsResponse transactionHistoryPage(String id, int page, int size) {
+        if (page < 0) {
+            throw new IllegalArgumentException("page must be 0 or greater");
+        }
+        if (size < 1 || size > 100) {
+            throw new IllegalArgumentException("size must be between 1 and 100");
+        }
+        List<TransactionResponse> all = transactionHistory(id);
+        if (all.isEmpty()) {
+            return new PagedTransactionsResponse(List.of(), page, size, 0, 0);
+        }
+        int totalPages = (int) Math.ceil((double) all.size() / size);
+        int from = page * size;
+        if (from >= all.size()) {
+            return new PagedTransactionsResponse(List.of(), page, size, all.size(), totalPages);
+        }
+        int to = Math.min(from + size, all.size());
+        return new PagedTransactionsResponse(all.subList(from, to), page, size, all.size(), totalPages);
     }
 
     private Account requireAccount(String id) {

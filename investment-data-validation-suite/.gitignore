@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 .pytest_cache/
 validation_report.json
+onboarding_report.json

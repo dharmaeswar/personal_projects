@@ -211,3 +211,78 @@ def build_warehouse_snapshots(
         if r["security_id"] == "SEC-1010":
             r["market_value"] = round(r["market_value"] * 1.10, 2)
     return legacy, warehouse
+
+
+def build_novel_datasets(
+    securities: list[dict], rng: random.Random | None = None
+) -> dict[str, list[dict]]:
+    """Three novel vendor datasets, one per source, each shaped differently.
+
+    This is what a data-services team onboards: a new feed arrives with its
+    own columns, grain and quirks, and the team profiles it, validates it
+    and wires it into the platform. Each dataset has one planted defect so
+    the onboarding checks have something real to catch.
+    """
+    rng = rng or random.Random(42)
+    clean = securities[:36]
+
+    # ESG scores feed (vendor: "Sustainability Data Co."): one score per
+    # security, stamped as-of today. Planted: one missing governance score,
+    # one environmental score above 100.
+    esg = []
+    for s in clean:
+        esg.append(
+            {
+                "security_id": s["security_id"],
+                "esg_score": round(rng.uniform(35.0, 92.0), 1),
+                "environmental": round(rng.uniform(30.0, 95.0), 1),
+                "social": round(rng.uniform(30.0, 95.0), 1),
+                "governance": round(rng.uniform(30.0, 95.0), 1),
+                "as_of_date": AS_OF.isoformat(),
+                "source": "Sustainability Data Co.",
+            }
+        )
+    esg[5]["governance"] = None  # missing governance score
+    esg[11]["environmental"] = 104.5  # score above 100
+
+    # Corporate actions feed (vendor: "Actions Wire"): one row per action.
+    # Planted: one duplicate action_id, one action on an unknown security.
+    actions = []
+    for i, s in enumerate(clean[:12]):
+        actions.append(
+            {
+                "action_id": f"ACT-{7000 + i}",
+                "security_id": s["security_id"],
+                "action_type": rng.choice(["COUPON", "DIVIDEND", "SPLIT"]),
+                "ex_date": (AS_OF + timedelta(days=rng.randrange(1, 30))).isoformat(),
+                "amount": round(rng.uniform(0.5, 12.0), 2),
+                "source": "Actions Wire",
+            }
+        )
+    dup = dict(actions[2])
+    actions.append(dup)  # duplicate action_id
+    orphan = dict(actions[3])
+    orphan["action_id"] = "ACT-7999"
+    orphan["security_id"] = "SEC-9999"
+    actions.append(orphan)  # action on an unknown security
+
+    # FX spot rates feed (vendor: "FX Rates Ltd."): one row per pair.
+    # Planted: one stale row (stamped yesterday), one missing rate.
+    pairs = [
+        ("EURUSD", 1.0842), ("GBPUSD", 1.2715), ("USDJPY", 151.32),
+        ("USDCHF", 0.8841), ("AUDUSD", 0.6523), ("USDCAD", 1.3598),
+    ]
+    fx = []
+    for pair, rate in pairs:
+        fx.append(
+            {
+                "pair": pair,
+                "spot_rate": rate,
+                "as_of_date": AS_OF.isoformat(),
+                "source": "FX Rates Ltd.",
+            }
+        )
+    fx[3]["as_of_date"] = (AS_OF - timedelta(days=1)).isoformat()  # stale
+    fx[5]["spot_rate"] = None  # missing rate
+
+    return {"esg_scores": esg, "corporate_actions": actions, "fx_rates": fx}

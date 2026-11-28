@@ -27,6 +27,40 @@ yield data is used, and nothing here is a claim about any real institution.
   per-security market value and price, and total market value within
   0.01%.
 
+## Dataset onboarding — Cubist Data Services work
+
+A second half, added for the Point72 — Data Scientist, Cubist Data
+Services application: onboarding novel datasets the way a systematic
+data-services team does it.
+
+- **Novel datasets** (`data.py`, `build_novel_datasets`): three vendor
+  feeds with different shapes — ESG scores, corporate actions, FX spot
+  rates — each with one planted defect.
+- **Profiling** (`dataset_onboarding.py`, `profile_dataset`): infers each
+  column's type, completeness and distinct counts, and the earliest and
+  latest as-of dates in the feed.
+- **Registry** (`register_dataset`): a dataset moves PROPOSED →
+  PROFILED → VALIDATED → LIVE one step at a time; skipping a step
+  raises an error, so unvalidated data never reaches production.
+- **Features** (`build_security_features`): reshapes trade and
+  security-master rows into per-security features — trade count, total
+  quantity, VWAP, traded price range and total traded notional.
+  Securities with no trades keep null price features, not invented ones.
+- **Validation** (`validate_novel_dataset`): required columns, unique
+  keys, orphan references against the security master, score ranges,
+  positive rates, and freshness vs the as-of date.
+- **Alerts** (`evaluate_alerts`): automated qualitative data alerts —
+  stale rows, columns below 95% complete, row-count drift over 10% vs
+  the prior day, VWAP outside 50–150, and a traded price range over 30%
+  of VWAP.
+- **Investment-team summary** (`investment_team_summary`): datasets
+  onboarded, securities with trades, top three by traded notional, and
+  open alerts — the preliminary analysis shared with investment teams.
+
+```bash
+PYTHONPATH=. python run_onboarding.py
+```
+
 ## Run the tests
 
 ```bash
@@ -59,6 +93,15 @@ Prints a per-dataset summary with every finding and writes
   checks, 4 failures — SEC-1005 missing from the warehouse, SEC-8888
   orphaned in it, SEC-1010 market value 10% higher in the warehouse,
   and total market value off by 0.62% (over the 0.01% tolerance).
+- Dataset onboarding: ESG scores 36 rows, 184 checks, 0 failures, 2
+  warnings — a missing governance score and an environmental score of
+  104.5. Corporate actions 14 rows, 32 checks, 2 failures — a duplicate
+  action id and an action on an unknown security. FX rates 6 rows, 10
+  checks, 0 failures, 2 warnings — a missing spot rate and a stale row.
+  Features built for 40 securities (26 with trades); 3 alerts open —
+  stale FX rows, spot-rate completeness 83%, and SEC-1017's traded
+  price range of 215.6% of VWAP, which traces to the planted bad trade
+  priced at −99.5.
 
 ## How it differs from the other validation projects in this repo
 

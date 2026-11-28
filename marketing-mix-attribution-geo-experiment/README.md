@@ -32,6 +32,14 @@ into the generator so every estimate can be checked against a known answer.
    seasonality and sales) and for prediction drift (new-week MAPE vs the
    holdout baseline). Verdict is OK / WATCH / RETRAIN. Features are built
    on the full series so adstock carryover is not silently reset.
+5. **Lead scoring** (`mmm_geo/lead_scoring.py`, added Nov 28, 2026) — the
+   GTM production-model half: a logistic-regression scorer over 2,000
+   synthetic inbound leads (channel, engagement signals, trial/demo,
+   enrichment completeness, company size), a calibration check of
+   predicted vs observed MQL rate by score band, MQL tier bands (hot /
+   warm / cold) with routing rules — competitor domains excluded, leads
+   below the enrichment floor sent to nurture, demo requests fast-tracked
+   to hot — and expected lead value (score × deal size by size band).
 
 ## Results (seeded run — `python run_analysis.py`)
 
@@ -59,13 +67,19 @@ into the generator so every estimate can be checked against a known answer.
   spend mix moving with it (paid search 83.61 → 50.2, video 48.12 → 64.57).
   That is the seasonal pattern in the generator, not a broken model — the
   honest read is to watch the next weeks and retrain if the error follows.
+- Lead scoring: 2,000 synthetic inbound leads, observed MQL rate 38.6%;
+  logistic scorer ROC-AUC 0.755 (5-fold CV). Calibration is close in every
+  band (e.g. top band: predicted 0.87 vs observed 0.84, n=153). MQL tiers:
+  hot 425, warm 454, cold 942, nurture 112 (enrichment below the floor),
+  excluded 67 (competitor domains). Expected pipeline value of the scored
+  leads: $34,448,142 (mean $17,224 per lead).
 
 ## How to run
 
 ```bash
 pip install -r requirements.txt
 python run_analysis.py   # writes output/report.md and two charts
-python -m pytest -q      # 22 tests
+python -m pytest -q      # 31 tests
 ```
 
 ## Layout

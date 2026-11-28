@@ -1,0 +1,2001 @@
+lead_id,channel,size_band,website_visits,content_downloads,trial_started,demo_requested,enrichment,is_competitor,days_since_touch,mql,score,tier,route
+1,organic_search,small,6,5,0,0,0.741,0,16,1,0.872335838267938,hot,route to SDR immediately
+2,outbound,small,4,1,0,0,0.571,0,2,1,0.16007927688442133,cold,nurture — no SDR route
+3,referral,large,4,5,0,0,0.888,0,3,1,0.935540578398387,hot,route to SDR immediately
+4,paid_search,mid,3,0,0,0,0.919,0,3,0,0.17938890111319977,cold,nurture — no SDR route
+5,paid_social,mid,5,0,0,0,0.774,0,2,0,0.16612656993995858,cold,nurture — no SDR route
+6,outbound,small,6,0,0,0,0.676,0,26,0,0.06847117120011724,cold,nurture — no SDR route
+7,paid_search,mid,4,1,0,0,0.778,0,22,0,0.2664260368001414,cold,nurture — no SDR route
+8,referral,mid,4,0,0,0,0.692,0,12,0,0.20351174308770167,cold,nurture — no SDR route
+9,referral,small,6,0,1,0,0.694,0,12,1,0.474900352693439,warm,route to SDR queue
+10,paid_social,small,1,0,0,0,0.929,0,16,0,0.08418266529102168,cold,nurture — no SDR route
+11,paid_social,small,1,3,0,0,0.988,0,14,0,0.4484183056595856,warm,route to SDR queue
+12,paid_search,mid,4,0,1,0,0.735,0,0,0,0.43514598510288205,warm,route to SDR queue
+13,paid_search,mid,1,0,0,0,0.823,0,28,0,0.09295528234145085,cold,nurture — no SDR route
+14,paid_social,mid,4,1,0,0,0.803,0,5,1,0.2616315817905219,cold,nurture — no SDR route
+15,organic_search,small,1,2,0,0,0.523,0,22,0,0.28128282964112544,cold,nurture — no SDR route
+16,organic_search,large,6,0,1,0,0.84,0,29,1,0.3863887121165545,warm,route to SDR queue
+17,outbound,small,4,1,1,0,0.807,0,25,0,0.27997033788634124,cold,nurture — no SDR route
+18,referral,large,4,1,0,1,0.648,0,28,1,0.7628997283338368,hot,route to SDR immediately — demo requested
+19,organic_search,mid,3,3,1,0,0.784,0,6,1,0.8149757118041282,hot,route to SDR immediately
+20,outbound,small,3,0,0,0,0.518,0,4,1,0.07476256132236701,cold,nurture — no SDR route
+21,paid_search,mid,2,0,0,0,0.817,0,21,1,0.12323085186811894,cold,nurture — no SDR route
+22,paid_search,mid,3,4,0,0,0.837,0,25,1,0.7258959259054563,hot,route to SDR immediately
+23,organic_search,mid,5,1,0,0,0.855,0,10,0,0.28575767259941265,cold,nurture — no SDR route
+24,paid_search,small,2,0,0,0,0.387,0,13,0,0.13869958705534727,nurture,nurture — enrichment incomplete
+25,paid_search,mid,4,1,1,0,0.898,0,1,0,0.6075644846240634,hot,route to SDR immediately
+26,organic_search,small,2,5,1,0,0.93,0,8,1,0.9392624511726354,hot,route to SDR immediately
+27,paid_social,small,4,0,0,0,0.849,1,5,0,0.14763518770177805,excluded,exclude — competitor domain
+28,outbound,small,4,0,1,0,0.866,0,1,0,0.22117693944178204,cold,nurture — no SDR route
+29,organic_search,small,3,1,1,0,0.57,0,8,1,0.5048057823177177,warm,route to SDR queue
+30,organic_search,small,8,2,0,0,0.818,0,11,1,0.4954068072992649,warm,route to SDR queue
+31,paid_social,mid,2,2,0,0,0.55,0,19,0,0.3088871963150798,cold,nurture — no SDR route
+32,paid_search,small,3,3,0,0,0.842,0,21,0,0.5806100369510107,warm,route to SDR queue
+33,paid_search,small,5,2,0,0,0.842,1,3,1,0.5273925708131674,excluded,exclude — competitor domain
+34,paid_search,large,4,1,0,0,0.738,0,14,1,0.36205601463500064,warm,route to SDR queue
+35,organic_search,small,2,0,0,1,0.686,0,19,0,0.41380542237300505,hot,route to SDR immediately — demo requested
+36,paid_search,small,2,0,1,0,0.831,0,8,0,0.3439812404806367,cold,nurture — no SDR route
+37,paid_social,small,7,3,0,0,0.774,0,11,0,0.6280009775163276,hot,route to SDR immediately
+38,paid_search,small,3,0,0,0,0.916,0,13,0,0.15606286945964726,cold,nurture — no SDR route
+39,referral,small,2,1,1,0,0.688,0,0,0,0.5988377702790785,warm,route to SDR queue
+40,paid_search,mid,2,3,0,0,0.852,0,4,0,0.615079171525245,hot,route to SDR immediately
+41,paid_search,small,3,5,0,0,0.88,0,27,1,0.8396659186884723,hot,route to SDR immediately
+42,outbound,mid,4,3,1,0,0.573,0,22,1,0.6313103819739662,hot,route to SDR immediately
+43,organic_search,large,2,0,0,0,0.945,0,24,1,0.1308172289022169,cold,nurture — no SDR route
+44,referral,mid,1,0,0,0,0.754,0,6,0,0.15271349848067414,cold,nurture — no SDR route
+45,organic_search,small,4,0,0,0,0.856,0,10,0,0.15174609242471956,cold,nurture — no SDR route
+46,organic_search,small,3,5,0,0,0.854,0,10,1,0.85161622561011,hot,route to SDR immediately
+47,paid_search,small,3,1,0,0,0.611,0,3,0,0.3092984551769442,cold,nurture — no SDR route
+48,organic_search,small,5,3,0,0,0.632,0,17,0,0.5984416844019687,warm,route to SDR queue
+49,organic_search,mid,3,3,0,0,0.563,0,11,0,0.5746895748433295,warm,route to SDR queue
+50,outbound,small,2,0,0,0,0.852,0,13,0,0.056838365462695335,cold,nurture — no SDR route
+51,paid_social,mid,5,0,1,0,0.6,1,17,0,0.3177021223749887,excluded,exclude — competitor domain
+52,organic_search,mid,0,0,0,1,0.655,0,27,0,0.26494847586798104,hot,route to SDR immediately — demo requested
+53,paid_search,small,4,1,0,0,0.805,0,27,0,0.25037016179826316,cold,nurture — no SDR route
+54,paid_social,small,4,0,0,0,0.913,0,13,1,0.13153350431693553,cold,nurture — no SDR route
+55,paid_social,mid,3,2,0,0,0.85,0,1,1,0.40983707400403546,warm,route to SDR queue
+56,paid_search,mid,2,0,0,0,0.58,0,8,0,0.14887648529733505,cold,nurture — no SDR route
+57,referral,small,4,3,0,0,0.912,0,3,1,0.7173995467012887,hot,route to SDR immediately
+58,paid_social,mid,4,1,0,0,0.707,0,30,0,0.18917621346898195,cold,nurture — no SDR route
+59,outbound,small,3,1,0,0,0.696,0,18,0,0.11553793891471845,cold,nurture — no SDR route
+60,organic_search,small,3,0,1,0,0.959,0,15,0,0.3067372701789624,cold,nurture — no SDR route
+61,organic_search,small,5,3,0,0,0.807,0,28,0,0.5533003637916598,warm,route to SDR queue
+62,organic_search,mid,3,2,0,0,0.679,0,2,1,0.43425740312002586,warm,route to SDR queue
+63,organic_search,small,3,1,0,0,0.66,0,28,1,0.1954428624690683,cold,nurture — no SDR route
+64,paid_search,small,5,1,0,0,0.628,0,2,0,0.35708622168256154,warm,route to SDR queue
+65,paid_social,mid,2,1,1,0,0.867,0,22,0,0.38377462148278274,warm,route to SDR queue
+66,paid_search,small,3,2,0,1,0.725,0,20,1,0.8021667062118437,hot,route to SDR immediately — demo requested
+67,paid_social,mid,4,0,1,0,0.925,0,15,0,0.3053632900408277,cold,nurture — no SDR route
+68,paid_search,mid,4,2,0,0,0.676,0,26,0,0.41005942866256795,warm,route to SDR queue
+69,outbound,mid,4,1,0,0,0.833,0,2,0,0.15990089206146585,cold,nurture — no SDR route
+70,paid_search,small,7,2,0,0,0.571,1,3,0,0.5626802661876856,excluded,exclude — competitor domain
+71,organic_search,mid,4,1,0,0,0.755,0,27,1,0.21595308075272968,cold,nurture — no SDR route
+72,paid_social,small,2,1,1,0,0.733,0,20,1,0.39188150628064017,warm,route to SDR queue
+73,outbound,small,6,0,0,0,0.911,0,24,0,0.07055883018988977,cold,nurture — no SDR route
+74,organic_search,small,3,1,0,0,0.898,0,8,1,0.2532132635363474,cold,nurture — no SDR route
+75,paid_search,small,4,1,1,0,0.762,0,17,1,0.5424052424769823,warm,route to SDR queue
+76,referral,small,6,1,0,0,0.74,0,20,0,0.3501984973492856,warm,route to SDR queue
+77,outbound,mid,4,0,1,0,0.583,0,10,0,0.196550634799651,cold,nurture — no SDR route
+78,outbound,mid,1,2,0,0,0.846,0,9,1,0.18098093433255869,cold,nurture — no SDR route
+79,organic_search,small,1,3,1,0,0.753,0,14,0,0.7328717207311644,hot,route to SDR immediately
+80,paid_search,small,4,1,0,0,0.83,0,27,0,0.2503463914863591,cold,nurture — no SDR route
+81,paid_search,small,2,1,0,0,0.713,0,29,0,0.20100923725734973,cold,nurture — no SDR route
+82,outbound,small,4,0,1,0,0.854,0,13,1,0.18853320447809066,cold,nurture — no SDR route
+83,organic_search,mid,4,2,0,0,0.944,0,29,0,0.3524467017985791,warm,route to SDR queue
+84,paid_search,large,3,1,0,0,0.493,0,0,1,0.3916703752987715,nurture,nurture — enrichment incomplete
+85,outbound,small,4,0,0,0,0.804,0,13,0,0.07186248016522576,cold,nurture — no SDR route
+86,organic_search,large,6,3,0,0,0.421,0,17,0,0.687380192921659,nurture,nurture — enrichment incomplete
+87,organic_search,large,3,5,0,0,0.726,0,25,1,0.8592743059913402,hot,route to SDR immediately
+88,paid_social,small,5,1,0,0,0.664,0,15,1,0.2469797040209907,cold,nurture — no SDR route
+89,paid_social,mid,3,1,0,0,0.589,0,6,0,0.2382098865974753,cold,nurture — no SDR route
+90,paid_search,mid,2,2,0,1,0.907,0,11,0,0.8035422988065978,hot,route to SDR immediately — demo requested
+91,paid_search,mid,4,2,0,0,0.675,0,25,0,0.41411482377426123,warm,route to SDR queue
+92,outbound,small,3,0,0,0,0.612,0,1,0,0.07827583603190134,cold,nurture — no SDR route
+93,paid_social,mid,5,1,0,0,0.698,0,2,0,0.2895820228626483,cold,nurture — no SDR route
+94,organic_search,large,3,3,0,0,0.825,0,26,1,0.5892768083984854,warm,route to SDR queue
+95,paid_social,small,1,1,0,0,0.669,1,16,0,0.1584269809678285,excluded,exclude — competitor domain
+96,referral,small,2,2,0,0,0.357,0,24,0,0.405428930681108,nurture,nurture — enrichment incomplete
+97,paid_search,small,5,1,0,0,0.942,0,16,1,0.3049360899410922,cold,nurture — no SDR route
+98,paid_social,mid,4,1,0,0,0.613,0,9,1,0.24908852388859268,cold,nurture — no SDR route
+99,paid_search,mid,4,2,0,0,0.808,0,12,0,0.4675180644646221,warm,route to SDR queue
+100,paid_search,small,5,0,0,0,0.815,0,23,0,0.16030928742469652,cold,nurture — no SDR route
+101,outbound,mid,3,2,0,0,0.869,0,8,0,0.23987145978920388,cold,nurture — no SDR route
+102,organic_search,mid,5,2,0,1,0.82,0,7,1,0.8351604995556194,hot,route to SDR immediately — demo requested
+103,paid_social,small,2,0,0,1,0.815,0,20,1,0.38186292290404567,hot,route to SDR immediately — demo requested
+104,organic_search,small,5,1,1,1,0.907,0,21,0,0.8546455168047009,hot,route to SDR immediately — demo requested
+105,outbound,mid,2,2,0,0,0.63,0,6,1,0.2210256650455643,cold,nurture — no SDR route
+106,paid_social,small,2,1,0,0,0.506,0,28,0,0.1582585714445215,cold,nurture — no SDR route
+107,organic_search,small,3,0,1,1,0.878,0,4,1,0.7580258316953068,hot,route to SDR immediately — demo requested
+108,organic_search,large,3,2,0,1,0.719,0,1,1,0.8626116367228849,hot,route to SDR immediately — demo requested
+109,paid_social,mid,2,2,1,0,0.934,0,10,1,0.608841285234087,hot,route to SDR immediately
+110,organic_search,small,6,1,0,0,0.638,0,16,0,0.2809339451559681,cold,nurture — no SDR route
+111,referral,small,0,1,0,0,0.712,0,16,0,0.18171285849138824,cold,nurture — no SDR route
+112,outbound,small,2,0,1,0,0.824,0,8,0,0.16436475207794052,cold,nurture — no SDR route
+113,paid_search,mid,8,0,0,0,0.831,0,1,0,0.2517803315441453,cold,nurture — no SDR route
+114,outbound,mid,2,0,0,0,0.575,0,23,0,0.04856982529938986,cold,nurture — no SDR route
+115,paid_search,mid,3,1,1,0,0.855,0,15,1,0.5233986660519828,warm,route to SDR queue
+116,referral,mid,3,1,0,0,0.813,0,19,0,0.2939923994339539,cold,nurture — no SDR route
+117,referral,mid,4,1,0,1,0.559,0,19,0,0.7325103423543997,hot,route to SDR immediately — demo requested
+118,paid_search,small,6,0,0,0,0.827,0,24,0,0.16837699064695197,cold,nurture — no SDR route
+119,paid_social,mid,6,2,0,0,0.957,0,1,1,0.47728777371515735,warm,route to SDR queue
+120,referral,small,6,0,0,0,0.914,0,8,0,0.2434658867381218,cold,nurture — no SDR route
+121,paid_search,small,2,0,0,0,0.576,0,1,0,0.1643404282322018,cold,nurture — no SDR route
+122,organic_search,small,4,1,0,0,0.823,0,3,1,0.29149511624291735,cold,nurture — no SDR route
+123,referral,mid,6,2,0,0,0.615,0,22,1,0.5161268976804447,warm,route to SDR queue
+124,organic_search,small,4,1,0,0,0.692,0,17,0,0.2456872859593935,cold,nurture — no SDR route
+125,organic_search,small,9,0,1,0,0.536,0,30,0,0.3508718934193625,warm,route to SDR queue
+126,paid_search,small,7,0,1,0,0.857,0,27,0,0.3815500370703834,warm,route to SDR queue
+127,paid_search,small,3,0,0,0,0.886,0,18,1,0.14537606392752042,cold,nurture — no SDR route
+128,paid_social,mid,0,4,1,0,0.527,0,21,1,0.7600695605520342,hot,route to SDR immediately
+129,paid_search,mid,5,2,0,0,0.876,0,14,0,0.4813668101499944,warm,route to SDR queue
+130,paid_social,mid,6,1,0,0,0.728,1,19,0,0.24852454979466673,excluded,exclude — competitor domain
+131,outbound,small,9,2,0,0,0.88,0,27,0,0.26457750382884887,cold,nurture — no SDR route
+132,organic_search,small,4,0,0,0,0.988,0,20,1,0.13136068684162025,cold,nurture — no SDR route
+133,paid_social,small,5,2,1,0,0.827,0,6,1,0.7004908742404641,hot,route to SDR immediately
+134,paid_search,mid,2,0,0,1,0.682,0,12,1,0.49048240621995287,hot,route to SDR immediately — demo requested
+135,outbound,small,4,2,0,0,0.682,0,0,0,0.28716341540963003,cold,nurture — no SDR route
+136,paid_social,mid,7,0,0,0,0.792,0,0,1,0.1917063409678579,cold,nurture — no SDR route
+137,outbound,small,4,0,0,0,0.613,0,25,0,0.05962144272242221,cold,nurture — no SDR route
+138,organic_search,small,2,1,0,0,0.847,0,0,0,0.25191774547494816,cold,nurture — no SDR route
+139,organic_search,mid,1,1,0,0,0.898,0,4,0,0.20516420348755535,cold,nurture — no SDR route
+140,outbound,small,2,1,0,0,0.908,0,30,0,0.08484573801838267,cold,nurture — no SDR route
+141,organic_search,small,2,2,1,0,0.901,0,13,0,0.6244346243592315,hot,route to SDR immediately
+142,organic_search,small,5,0,0,0,0.781,0,9,0,0.1659646651707643,cold,nurture — no SDR route
+143,paid_social,mid,6,1,0,0,0.626,0,30,0,0.21584345009973893,cold,nurture — no SDR route
+144,outbound,small,2,1,0,0,0.879,1,21,1,0.09730766419644762,excluded,exclude — competitor domain
+145,paid_social,mid,3,1,0,0,0.972,0,1,0,0.2533567849835132,cold,nurture — no SDR route
+146,outbound,small,2,1,0,0,0.848,0,5,0,0.12351020135101609,cold,nurture — no SDR route
+147,paid_search,mid,5,0,0,0,0.631,0,11,0,0.18935798725758451,cold,nurture — no SDR route
+148,paid_social,small,3,1,0,0,0.985,1,11,1,0.22301263923507472,excluded,exclude — competitor domain
+149,organic_search,small,5,1,0,1,0.969,0,17,0,0.6767824011822969,hot,route to SDR immediately — demo requested
+150,outbound,large,3,0,0,0,0.753,0,11,0,0.0893369572445098,cold,nurture — no SDR route
+151,paid_search,mid,3,1,0,0,0.942,0,20,0,0.25170155726697907,cold,nurture — no SDR route
+152,referral,mid,3,3,0,0,0.761,0,12,1,0.6620389004530302,hot,route to SDR immediately
+153,organic_search,small,5,5,0,0,0.966,0,13,1,0.869356843925112,hot,route to SDR immediately
+154,organic_search,mid,5,2,0,0,0.771,0,3,1,0.4792663610558924,warm,route to SDR queue
+155,organic_search,small,2,1,1,0,0.901,0,3,0,0.49005716159008433,warm,route to SDR queue
+156,outbound,large,4,0,0,0,0.963,0,10,0,0.10004505286387172,cold,nurture — no SDR route
+157,paid_social,large,4,2,1,1,0.807,0,22,1,0.9294163900452569,hot,route to SDR immediately — demo requested
+158,paid_social,mid,1,2,0,0,0.729,0,14,0,0.28469654099263025,cold,nurture — no SDR route
+159,paid_search,mid,4,1,0,0,0.46,0,24,0,0.2602462760340553,nurture,nurture — enrichment incomplete
+160,paid_search,small,2,0,0,0,0.514,0,13,1,0.13862274273875777,cold,nurture — no SDR route
+161,paid_search,mid,3,1,0,1,0.733,0,14,1,0.6866973715828393,hot,route to SDR immediately — demo requested
+162,outbound,small,5,1,0,0,0.538,0,14,1,0.14567619079882257,cold,nurture — no SDR route
+163,referral,large,5,2,0,0,0.738,1,9,1,0.6267279776419519,excluded,exclude — competitor domain
+164,paid_search,mid,2,2,1,1,0.693,0,14,1,0.921186203334774,hot,route to SDR immediately — demo requested
+165,organic_search,small,5,0,0,0,0.775,0,2,0,0.182823822803723,cold,nurture — no SDR route
+166,paid_social,small,8,1,0,1,0.973,0,8,0,0.7255827779752724,hot,route to SDR immediately — demo requested
+167,organic_search,mid,5,1,0,0,0.773,0,14,0,0.27237636265053417,cold,nurture — no SDR route
+168,organic_search,mid,6,1,1,0,0.293,0,25,0,0.5026041851940782,nurture,nurture — enrichment incomplete
+169,paid_social,small,4,2,0,0,0.568,0,9,0,0.4042663511607459,warm,route to SDR queue
+170,outbound,large,5,3,0,0,0.507,0,15,0,0.48946833677543056,warm,route to SDR queue
+171,paid_social,small,3,1,0,0,0.814,0,28,0,0.1777291483740527,cold,nurture — no SDR route
+172,organic_search,large,6,1,0,0,0.849,0,4,1,0.39465450963864945,warm,route to SDR queue
+173,organic_search,mid,6,1,0,0,0.428,0,17,1,0.2777792989301305,nurture,nurture — enrichment incomplete
+174,paid_search,small,11,3,0,0,0.828,0,22,0,0.6999476327372454,hot,route to SDR immediately
+175,paid_search,small,1,1,0,0,0.726,0,4,0,0.23858887454372604,cold,nurture — no SDR route
+176,paid_social,small,4,2,0,0,0.67,0,26,0,0.33788889596958716,cold,nurture — no SDR route
+177,referral,small,3,4,0,0,0.78,0,21,1,0.7750801003571032,hot,route to SDR immediately
+178,referral,mid,7,0,0,0,0.806,0,20,1,0.219498936871653,cold,nurture — no SDR route
+179,organic_search,mid,7,3,0,1,0.767,0,2,1,0.9284497546599707,hot,route to SDR immediately — demo requested
+180,paid_search,large,0,4,0,0,0.861,0,5,1,0.7193695538181288,hot,route to SDR immediately
+181,outbound,small,7,0,0,0,0.739,0,24,0,0.07503361929655288,cold,nurture — no SDR route
+182,referral,large,5,2,1,1,0.89,0,0,1,0.9718038923610139,hot,route to SDR immediately — demo requested
+183,outbound,small,4,1,0,0,0.706,0,3,0,0.1577511968085331,cold,nurture — no SDR route
+184,organic_search,large,3,3,0,0,0.871,0,7,1,0.6634465873551123,hot,route to SDR immediately
+185,outbound,large,1,2,0,0,0.853,0,1,0,0.25662713352344435,cold,nurture — no SDR route
+186,paid_search,small,5,3,1,0,0.585,1,8,1,0.8631795101641563,excluded,exclude — competitor domain
+187,paid_search,mid,3,2,0,0,0.958,0,25,1,0.38751315750473553,warm,route to SDR queue
+188,paid_search,mid,6,2,0,0,0.662,0,8,0,0.5255954201483918,warm,route to SDR queue
+189,paid_search,mid,3,0,0,0,0.78,0,15,0,0.15179411791665254,cold,nurture — no SDR route
+190,paid_search,mid,5,2,0,0,0.409,0,8,1,0.5070503404671381,nurture,nurture — enrichment incomplete
+191,paid_search,small,2,3,1,0,0.671,0,22,1,0.780318949418353,hot,route to SDR immediately
+192,organic_search,small,1,1,0,1,0.677,0,21,1,0.5337320339917969,hot,route to SDR immediately — demo requested
+193,paid_search,small,3,0,0,0,0.728,0,30,0,0.12224434401908456,cold,nurture — no SDR route
+194,organic_search,mid,4,1,0,0,0.835,0,7,0,0.27785412599651466,cold,nurture — no SDR route
+195,paid_search,large,4,3,0,0,0.909,0,11,0,0.7138073432089337,hot,route to SDR immediately
+196,organic_search,small,8,0,0,0,0.694,0,14,0,0.1825731009807823,cold,nurture — no SDR route
+197,paid_search,mid,2,0,0,0,0.783,1,9,0,0.1466397629072626,excluded,exclude — competitor domain
+198,paid_social,small,5,1,0,0,0.834,0,26,0,0.21421173857211032,cold,nurture — no SDR route
+199,outbound,small,7,1,0,0,0.506,0,16,1,0.15959612772720394,cold,nurture — no SDR route
+200,organic_search,small,4,4,1,0,0.806,0,9,1,0.9052742921393937,hot,route to SDR immediately
+201,referral,mid,2,2,1,0,0.513,0,12,0,0.7142741090302489,hot,route to SDR immediately
+202,organic_search,small,5,0,0,0,0.61,0,0,0,0.18800469632898814,cold,nurture — no SDR route
+203,organic_search,small,3,1,0,0,0.898,0,22,0,0.2115137373791541,cold,nurture — no SDR route
+204,paid_search,small,3,2,0,0,0.9,0,15,0,0.4279689127031946,warm,route to SDR queue
+205,organic_search,small,6,0,1,0,0.873,0,5,0,0.4077266783253154,warm,route to SDR queue
+206,paid_search,mid,6,2,0,0,0.578,0,19,0,0.47971655383656275,warm,route to SDR queue
+207,referral,small,2,0,1,0,0.836,0,2,1,0.41359464664684026,warm,route to SDR queue
+208,outbound,small,2,0,0,0,0.657,0,13,0,0.056891347862636533,cold,nurture — no SDR route
+209,outbound,mid,4,1,0,0,0.85,1,24,0,0.11637633091897673,excluded,exclude — competitor domain
+210,paid_search,small,6,1,0,0,0.868,0,2,0,0.37432668425164467,warm,route to SDR queue
+211,paid_social,small,3,2,0,0,0.865,0,12,0,0.3661451648402546,warm,route to SDR queue
+212,paid_social,large,5,4,0,0,0.406,0,29,1,0.7523422308262084,nurture,nurture — enrichment incomplete
+213,paid_search,large,4,2,0,0,0.466,0,2,1,0.5869248906672397,nurture,nurture — enrichment incomplete
+214,organic_search,mid,7,1,0,0,0.568,0,4,1,0.33777495311357625,cold,nurture — no SDR route
+215,referral,small,4,1,0,0,0.577,0,8,1,0.35860179232138656,warm,route to SDR queue
+216,paid_social,mid,5,0,0,0,0.732,0,14,0,0.14016404540414742,cold,nurture — no SDR route
+217,outbound,small,0,1,0,0,0.718,0,2,1,0.07964546014921686,cold,nurture — no SDR route
+218,referral,small,4,2,1,0,0.554,0,6,1,0.7801924300599435,hot,route to SDR immediately
+219,paid_search,small,5,1,0,0,0.622,0,5,1,0.3456523536752839,cold,nurture — no SDR route
+220,referral,large,4,2,1,0,0.611,0,17,0,0.8013461169771795,hot,route to SDR immediately
+221,outbound,large,4,0,0,0,0.814,1,13,1,0.09568021162060789,excluded,exclude — competitor domain
+222,paid_search,small,6,3,0,0,0.685,0,9,1,0.6902209248159801,hot,route to SDR immediately
+223,organic_search,small,3,3,0,0,0.863,0,12,0,0.5702219498450344,warm,route to SDR queue
+224,organic_search,large,3,2,1,1,0.898,0,28,1,0.9229794595936821,hot,route to SDR immediately — demo requested
+225,organic_search,large,5,0,0,1,0.747,0,12,1,0.603624961899458,hot,route to SDR immediately — demo requested
+226,paid_search,small,6,2,0,1,0.899,0,9,1,0.8649883435252984,hot,route to SDR immediately — demo requested
+227,organic_search,small,0,2,0,0,0.821,0,30,0,0.1957292680773505,cold,nurture — no SDR route
+228,organic_search,small,4,3,0,0,0.885,0,10,0,0.6047930796580121,hot,route to SDR immediately
+229,referral,mid,7,0,0,0,0.974,0,27,0,0.1999545325499748,cold,nurture — no SDR route
+230,referral,small,2,0,0,0,0.859,0,15,0,0.15897233346427433,cold,nurture — no SDR route
+231,paid_social,small,3,3,0,0,0.569,0,27,1,0.4793192205197883,warm,route to SDR queue
+232,organic_search,small,2,2,0,0,0.881,0,8,0,0.37591496452713896,warm,route to SDR queue
+233,outbound,small,4,2,0,0,0.425,0,2,0,0.2806243059781492,nurture,nurture — enrichment incomplete
+234,outbound,small,3,0,0,0,0.907,0,5,0,0.07347893643688437,cold,nurture — no SDR route
+235,paid_search,small,1,0,0,1,0.755,0,0,1,0.4909121631794272,hot,route to SDR immediately — demo requested
+236,paid_search,large,2,0,1,0,0.669,0,10,0,0.40952121015639975,warm,route to SDR queue
+237,organic_search,small,2,1,0,0,0.809,0,8,1,0.2275687479966158,cold,nurture — no SDR route
+238,paid_search,mid,2,1,0,0,0.956,0,18,0,0.23198181006830115,cold,nurture — no SDR route
+239,organic_search,mid,10,3,1,0,0.804,0,6,1,0.8785061057985901,hot,route to SDR immediately
+240,outbound,small,4,2,0,0,0.733,0,30,0,0.19600037169227394,cold,nurture — no SDR route
+241,paid_social,mid,3,1,1,0,0.665,0,12,0,0.45904223927304333,warm,route to SDR queue
+242,paid_search,small,2,0,0,0,0.699,0,23,0,0.11972312654084365,cold,nurture — no SDR route
+243,paid_social,mid,2,1,0,0,0.915,0,15,0,0.18911493695363163,cold,nurture — no SDR route
+244,organic_search,mid,2,0,0,0,0.456,0,27,0,0.09502373888206568,nurture,nurture — enrichment incomplete
+245,paid_search,mid,4,0,0,0,0.688,0,13,0,0.17117812469174257,cold,nurture — no SDR route
+246,paid_social,small,3,1,0,0,0.679,0,30,0,0.17298851649188446,cold,nurture — no SDR route
+247,paid_search,large,2,2,0,1,0.884,0,25,0,0.8155864264570766,hot,route to SDR immediately — demo requested
+248,organic_search,mid,4,0,0,0,0.318,0,1,0,0.1725532602691515,nurture,nurture — enrichment incomplete
+249,referral,mid,2,0,0,0,0.868,0,26,1,0.13587112255336534,cold,nurture — no SDR route
+250,paid_social,mid,1,1,0,0,0.843,0,18,0,0.1539007567426947,cold,nurture — no SDR route
+251,paid_social,small,5,2,0,0,0.83,0,17,0,0.39327572476857375,warm,route to SDR queue
+252,organic_search,large,4,2,0,0,0.572,0,17,1,0.4766911325277734,warm,route to SDR queue
+253,paid_search,mid,6,1,0,0,0.538,0,26,0,0.28625430494836784,cold,nurture — no SDR route
+254,paid_search,large,3,1,0,0,0.6,0,21,0,0.31168478122942,cold,nurture — no SDR route
+255,paid_social,small,7,2,0,1,0.567,0,20,1,0.8071160862261756,hot,route to SDR immediately — demo requested
+256,paid_social,large,3,2,0,0,0.742,0,28,0,0.3766931801667605,warm,route to SDR queue
+257,paid_search,small,2,0,1,0,0.917,0,10,0,0.33637153122236957,cold,nurture — no SDR route
+258,referral,small,3,1,1,0,0.812,0,11,0,0.5882935369299973,warm,route to SDR queue
+259,organic_search,small,3,3,0,0,0.905,0,30,1,0.49533266194611997,warm,route to SDR queue
+260,paid_search,small,1,0,0,0,0.766,0,28,0,0.09297963283929965,cold,nurture — no SDR route
+261,paid_search,mid,6,0,0,0,0.609,0,11,0,0.20124583647628452,cold,nurture — no SDR route
+262,referral,small,6,1,1,0,0.99,0,4,1,0.6786166882733591,hot,route to SDR immediately
+263,paid_search,small,4,0,0,0,0.805,0,8,0,0.18328875306143347,cold,nurture — no SDR route
+264,paid_search,small,3,1,0,0,0.878,0,21,0,0.2486234042027089,cold,nurture — no SDR route
+265,paid_search,mid,7,2,0,0,0.838,0,11,1,0.5291721993130898,warm,route to SDR queue
+266,paid_search,small,4,2,1,0,0.968,1,0,1,0.7629637209168804,excluded,exclude — competitor domain
+267,outbound,small,3,1,0,0,0.821,1,10,0,0.1298663353017489,excluded,exclude — competitor domain
+268,paid_search,mid,6,2,0,0,0.871,0,23,0,0.4626698102185084,warm,route to SDR queue
+269,paid_social,mid,5,0,1,0,0.67,0,21,1,0.303297744936966,cold,nurture — no SDR route
+270,referral,mid,6,2,1,0,0.831,0,25,0,0.7525656551529786,hot,route to SDR immediately
+271,organic_search,large,3,1,0,1,0.994,0,18,1,0.6975689845346187,hot,route to SDR immediately — demo requested
+272,paid_search,small,3,1,0,1,0.874,0,20,1,0.6645428533343826,hot,route to SDR immediately — demo requested
+273,paid_social,mid,6,1,0,1,0.928,0,30,1,0.6180390250348706,hot,route to SDR immediately — demo requested
+274,outbound,mid,3,1,0,0,0.743,0,26,0,0.1025238022762279,cold,nurture — no SDR route
+275,paid_social,mid,10,0,0,0,0.584,0,27,0,0.1501209781674894,cold,nurture — no SDR route
+276,organic_search,mid,6,1,0,0,0.784,0,2,0,0.3304178367049768,cold,nurture — no SDR route
+277,paid_search,small,4,0,1,0,0.777,0,14,0,0.3786279443424581,warm,route to SDR queue
+278,organic_search,small,9,2,1,0,0.601,0,29,1,0.6968324418997096,hot,route to SDR immediately
+279,referral,mid,4,1,1,0,0.712,0,27,1,0.5495963094465115,warm,route to SDR queue
+280,referral,mid,2,0,0,0,0.519,0,10,0,0.17072448935445755,cold,nurture — no SDR route
+281,organic_search,small,6,1,0,0,0.75,0,18,1,0.2741099465230567,cold,nurture — no SDR route
+282,paid_social,small,1,2,0,0,0.563,0,9,0,0.3022151739661235,cold,nurture — no SDR route
+283,paid_search,small,3,0,0,0,0.452,0,3,0,0.17973744570941294,nurture,nurture — enrichment incomplete
+284,organic_search,small,7,2,0,1,0.85,0,0,1,0.867683740082185,hot,route to SDR immediately — demo requested
+285,referral,mid,4,3,0,0,0.736,0,17,1,0.6677914625898073,hot,route to SDR immediately
+286,paid_search,small,3,4,0,0,0.733,0,26,0,0.7226593793963059,hot,route to SDR immediately
+287,paid_search,mid,0,2,0,0,0.885,0,3,0,0.3167636342020352,cold,nurture — no SDR route
+288,organic_search,small,3,4,0,0,0.728,0,4,1,0.7563635959076561,hot,route to SDR immediately
+289,organic_search,small,4,2,0,1,0.838,0,12,0,0.8099266340035918,hot,route to SDR immediately — demo requested
+290,outbound,small,3,2,0,0,0.92,0,11,0,0.23079191129998633,cold,nurture — no SDR route
+291,paid_search,mid,2,0,1,0,0.768,0,5,1,0.355469937923125,warm,route to SDR queue
+292,paid_search,mid,4,0,0,0,0.676,0,12,0,0.1735740960776816,cold,nurture — no SDR route
+293,referral,small,3,0,0,0,0.468,0,4,0,0.20770015760597538,nurture,nurture — enrichment incomplete
+294,organic_search,large,3,0,0,0,0.802,0,5,0,0.19246285202409033,cold,nurture — no SDR route
+295,organic_search,mid,4,0,0,0,0.863,0,0,0,0.17455744997085312,cold,nurture — no SDR route
+296,outbound,small,5,0,0,0,0.893,0,23,0,0.06680344825501548,cold,nurture — no SDR route
+297,outbound,mid,4,0,0,0,0.773,0,25,0,0.0595760120331978,cold,nurture — no SDR route
+298,referral,small,4,2,1,1,0.769,0,18,1,0.9446798089867741,hot,route to SDR immediately — demo requested
+299,referral,large,3,1,0,0,0.76,0,25,1,0.3398632965324443,cold,nurture — no SDR route
+300,paid_social,small,2,1,0,0,0.862,0,20,0,0.17665547414368463,cold,nurture — no SDR route
+301,organic_search,large,3,1,0,1,0.754,0,18,1,0.6978254326625388,hot,route to SDR immediately — demo requested
+302,paid_search,small,5,3,0,0,0.806,0,11,1,0.666305277718641,hot,route to SDR immediately
+303,referral,mid,7,0,0,0,0.986,0,9,1,0.2524806691782275,cold,nurture — no SDR route
+304,referral,small,7,2,0,1,0.931,0,16,1,0.8809645789304866,hot,route to SDR immediately — demo requested
+305,organic_search,small,3,1,0,0,0.807,0,29,0,0.19270902734345688,cold,nurture — no SDR route
+306,paid_social,mid,5,1,1,0,0.85,0,7,0,0.5292799880182187,warm,route to SDR queue
+307,paid_social,small,6,2,1,0,0.703,0,4,0,0.722978151417061,hot,route to SDR immediately
+308,paid_social,small,3,2,0,0,0.86,0,21,1,0.33195154752872097,cold,nurture — no SDR route
+309,paid_search,small,1,1,0,0,0.85,0,14,0,0.20942401134055932,cold,nurture — no SDR route
+310,referral,mid,1,4,0,0,0.924,0,13,0,0.7370422049976025,hot,route to SDR immediately
+311,organic_search,small,6,1,0,0,0.739,0,8,0,0.3086426929452535,cold,nurture — no SDR route
+312,paid_social,small,7,2,0,0,0.746,0,15,1,0.4356892572290093,warm,route to SDR queue
+313,organic_search,small,4,1,0,0,0.894,0,6,0,0.2811638783092488,cold,nurture — no SDR route
+314,organic_search,small,3,3,0,0,0.849,0,17,1,0.5496253725926455,warm,route to SDR queue
+315,paid_social,large,2,5,0,0,0.825,0,4,1,0.8702522970201326,hot,route to SDR immediately
+316,referral,small,2,0,0,1,0.98,0,9,0,0.5514956797198742,hot,route to SDR immediately — demo requested
+317,outbound,mid,1,2,0,1,0.927,0,21,1,0.5154658558884293,hot,route to SDR immediately — demo requested
+318,paid_social,mid,5,0,0,0,0.86,0,27,0,0.11587156583823799,cold,nurture — no SDR route
+319,paid_search,mid,1,1,1,0,0.601,0,29,0,0.38247853181821057,warm,route to SDR queue
+320,referral,small,9,1,0,0,0.895,0,13,1,0.41896934594242113,warm,route to SDR queue
+321,outbound,small,5,1,0,1,0.591,0,9,1,0.5218102651344336,hot,route to SDR immediately — demo requested
+322,paid_search,small,2,2,0,0,0.71,0,15,1,0.39408474759231193,warm,route to SDR queue
+323,organic_search,small,4,2,0,0,0.649,0,12,0,0.42010864604586645,warm,route to SDR queue
+324,referral,small,5,0,0,0,0.636,0,26,0,0.18106835177970346,cold,nurture — no SDR route
+325,outbound,large,3,0,0,0,0.673,0,18,0,0.08028425456060378,cold,nurture — no SDR route
+326,paid_search,mid,3,2,0,0,0.634,0,6,1,0.46550781028969795,warm,route to SDR queue
+327,paid_search,small,2,1,0,0,0.92,0,20,1,0.22610437568102876,cold,nurture — no SDR route
+328,outbound,small,6,1,0,1,0.729,0,30,1,0.45282347398560036,hot,route to SDR immediately — demo requested
+329,paid_search,mid,4,1,0,0,0.82,0,23,0,0.26312702132293214,cold,nurture — no SDR route
+330,paid_search,small,4,1,1,0,0.412,0,25,1,0.5094812990380627,nurture,nurture — enrichment incomplete
+331,organic_search,small,4,1,0,0,0.619,0,3,1,0.2917086059905944,cold,nurture — no SDR route
+332,paid_social,large,3,2,1,0,0.717,0,2,1,0.7370545061883228,hot,route to SDR immediately
+333,referral,large,1,0,1,0,0.65,0,14,0,0.3928359545376929,warm,route to SDR queue
+334,paid_search,large,2,0,0,0,0.7,0,14,0,0.1776796127655106,cold,nurture — no SDR route
+335,outbound,mid,3,3,1,0,0.674,0,17,1,0.6251903641336845,hot,route to SDR immediately
+336,paid_search,small,5,2,0,0,0.608,0,27,1,0.4278195515631558,warm,route to SDR queue
+337,referral,small,4,1,0,0,0.459,0,27,0,0.28929960606787214,nurture,nurture — enrichment incomplete
+338,paid_search,mid,4,1,1,0,0.772,0,17,1,0.5423926681421747,warm,route to SDR queue
+339,paid_social,small,2,3,0,1,0.652,0,30,1,0.8173404028764238,hot,route to SDR immediately — demo requested
+340,paid_search,mid,3,1,0,0,0.784,0,21,0,0.24871237729363044,cold,nurture — no SDR route
+341,paid_social,small,5,0,0,0,0.751,0,12,0,0.14423447071470497,cold,nurture — no SDR route
+342,paid_social,small,4,1,0,0,0.822,0,19,0,0.21893571869329284,cold,nurture — no SDR route
+343,organic_search,mid,1,0,0,0,0.67,0,1,0,0.11727426413963807,cold,nurture — no SDR route
+344,paid_social,small,2,0,0,0,0.739,0,17,0,0.09940263665662485,cold,nurture — no SDR route
+345,paid_search,mid,4,0,0,0,0.679,0,8,0,0.18338432752321226,cold,nurture — no SDR route
+346,outbound,mid,2,0,1,0,0.692,0,16,0,0.14687699721705635,cold,nurture — no SDR route
+347,outbound,mid,1,0,0,0,0.631,0,10,1,0.04943377266275582,cold,nurture — no SDR route
+348,outbound,mid,4,1,1,0,0.709,0,11,0,0.3296353430441993,cold,nurture — no SDR route
+349,paid_search,mid,10,0,0,0,0.324,0,12,0,0.23644007274859097,nurture,nurture — enrichment incomplete
+350,paid_social,mid,1,0,0,1,0.583,0,12,0,0.3669508499336506,hot,route to SDR immediately — demo requested
+351,paid_search,large,7,2,1,0,0.751,0,8,1,0.8290456806551659,hot,route to SDR immediately
+352,paid_search,large,4,0,0,0,0.92,0,1,1,0.25628611264714957,cold,nurture — no SDR route
+353,paid_search,small,7,1,1,0,0.752,0,5,1,0.6459398715432244,hot,route to SDR immediately
+354,organic_search,small,11,1,0,0,0.852,0,21,0,0.3185541407097839,cold,nurture — no SDR route
+355,paid_search,small,1,3,1,1,0.587,0,7,1,0.9566056416993707,hot,route to SDR immediately — demo requested
+356,paid_search,small,3,1,0,0,0.83,0,12,0,0.2778568060403679,cold,nurture — no SDR route
+357,outbound,small,3,0,0,0,0.71,0,16,0,0.06194770691717507,cold,nurture — no SDR route
+358,paid_social,large,4,5,0,1,0.89,0,27,1,0.9718362992545021,hot,route to SDR immediately — demo requested
+359,paid_search,small,7,1,1,0,0.815,0,1,1,0.6610231209378109,hot,route to SDR immediately
+360,organic_search,small,1,3,1,0,0.6,0,28,0,0.6847611221631505,hot,route to SDR immediately
+361,paid_search,mid,1,3,0,0,0.915,0,27,0,0.47122930735287444,warm,route to SDR queue
+362,organic_search,small,4,3,0,0,0.795,0,13,1,0.592842951762729,warm,route to SDR queue
+363,paid_search,small,4,2,0,0,0.885,0,25,0,0.4138567213832133,warm,route to SDR queue
+364,organic_search,large,5,0,0,1,0.906,0,9,0,0.6153811633417658,hot,route to SDR immediately — demo requested
+365,organic_search,mid,4,1,0,0,0.593,0,1,0,0.29869911088165635,cold,nurture — no SDR route
+366,organic_search,small,2,4,0,0,0.972,0,5,0,0.7258923979140539,hot,route to SDR immediately
+367,paid_social,small,5,0,0,0,0.916,0,27,0,0.1158425047348404,cold,nurture — no SDR route
+368,referral,small,3,3,0,0,0.561,0,23,0,0.6199489629827585,hot,route to SDR immediately
+369,outbound,large,2,1,0,0,0.31,0,17,1,0.1364162239077957,nurture,nurture — enrichment incomplete
+370,paid_search,mid,4,0,0,0,0.915,0,14,0,0.16865569458783386,cold,nurture — no SDR route
+371,paid_search,small,5,1,0,0,0.825,0,15,0,0.30862087781775477,cold,nurture — no SDR route
+372,paid_search,mid,4,0,0,1,0.722,0,13,0,0.5486816933418431,hot,route to SDR immediately — demo requested
+373,outbound,small,5,0,0,0,0.55,0,30,0,0.05995901782078062,cold,nurture — no SDR route
+374,outbound,mid,2,0,0,1,0.714,0,22,0,0.23395439743181742,hot,route to SDR immediately — demo requested
+375,paid_search,small,4,3,0,0,0.902,0,5,1,0.6686494920234622,hot,route to SDR immediately
+376,outbound,small,7,4,0,0,0.66,0,1,0,0.6760308406071088,hot,route to SDR immediately
+377,paid_search,small,7,1,1,0,0.708,0,6,1,0.6421547011594084,hot,route to SDR immediately
+378,organic_search,small,4,1,0,0,0.759,0,30,0,0.2075708660997435,cold,nurture — no SDR route
+379,paid_social,mid,6,2,0,0,0.809,0,19,0,0.40338620915075146,warm,route to SDR queue
+380,outbound,large,6,0,0,0,0.846,0,27,0,0.0898306084659368,cold,nurture — no SDR route
+381,paid_search,mid,2,1,0,1,0.778,0,19,1,0.6364135896780312,hot,route to SDR immediately — demo requested
+382,paid_social,mid,3,1,0,0,0.795,0,27,0,0.1802021174199822,cold,nurture — no SDR route
+383,organic_search,small,3,0,0,0,0.667,0,25,0,0.11101759091756888,cold,nurture — no SDR route
+384,paid_search,small,5,3,0,0,0.871,0,28,1,0.6002992888536675,hot,route to SDR immediately
+385,paid_search,large,2,2,0,0,0.729,0,10,1,0.4914270527377889,warm,route to SDR queue
+386,paid_social,large,1,1,0,0,0.547,0,20,1,0.19403643382276456,cold,nurture — no SDR route
+387,outbound,small,5,4,0,0,0.876,0,16,1,0.5847953878592349,warm,route to SDR queue
+388,referral,mid,5,0,0,1,0.632,0,5,1,0.6491098762696708,hot,route to SDR immediately — demo requested
+389,referral,large,6,0,1,0,0.866,0,0,0,0.6015097112703953,hot,route to SDR immediately
+390,referral,large,1,0,0,0,0.896,0,23,0,0.15625385467003786,cold,nurture — no SDR route
+391,organic_search,small,2,2,0,0,0.784,0,28,1,0.30130014346103917,cold,nurture — no SDR route
+392,referral,mid,6,2,0,0,0.668,0,15,1,0.5452260993000501,warm,route to SDR queue
+393,organic_search,small,4,0,0,0,0.911,0,23,0,0.12578048254446475,cold,nurture — no SDR route
+394,organic_search,small,5,1,0,0,0.531,0,29,0,0.2257643223850112,cold,nurture — no SDR route
+395,paid_social,small,5,0,0,0,0.639,0,16,0,0.1362343197562373,cold,nurture — no SDR route
+396,paid_search,small,4,2,0,0,0.729,0,25,0,0.4140484500773171,warm,route to SDR queue
+397,referral,small,3,0,0,1,0.656,0,30,1,0.4994837204234325,hot,route to SDR immediately — demo requested
+398,paid_search,mid,0,0,0,0,0.775,0,22,0,0.07466536264851481,cold,nurture — no SDR route
+399,outbound,mid,1,1,0,0,0.602,0,24,0,0.07762782944753038,cold,nurture — no SDR route
+400,organic_search,mid,2,0,0,0,0.806,0,7,0,0.12776424211872972,cold,nurture — no SDR route
+401,paid_social,small,5,1,0,1,0.963,0,18,0,0.6470998220971559,hot,route to SDR immediately — demo requested
+402,outbound,small,3,0,0,0,0.883,0,10,0,0.0679897454075796,cold,nurture — no SDR route
+403,paid_search,mid,4,1,0,0,0.648,0,0,0,0.3443377315985684,cold,nurture — no SDR route
+404,organic_search,large,2,2,0,0,0.892,0,2,0,0.4764499269746836,warm,route to SDR queue
+405,paid_search,small,5,1,0,0,0.901,0,24,1,0.27736564553843335,cold,nurture — no SDR route
+406,outbound,small,3,0,0,0,0.57,0,25,0,0.05378817675462428,cold,nurture — no SDR route
+407,organic_search,mid,2,2,1,1,0.795,0,17,1,0.90157364455141,hot,route to SDR immediately — demo requested
+408,referral,large,8,1,0,0,0.855,0,26,1,0.42955198570325465,warm,route to SDR queue
+409,paid_search,mid,5,0,1,0,0.762,0,12,1,0.40794301835456664,warm,route to SDR queue
+410,referral,large,1,3,0,0,0.774,0,18,1,0.632861870420137,hot,route to SDR immediately
+411,organic_search,small,1,1,1,1,0.742,0,14,1,0.7943016338702577,hot,route to SDR immediately — demo requested
+412,organic_search,small,6,1,1,0,0.852,0,30,0,0.48098775333807464,warm,route to SDR queue
+413,outbound,large,6,1,0,0,0.699,0,7,0,0.22015790258320297,cold,nurture — no SDR route
+414,paid_social,mid,7,1,0,0,0.855,0,22,0,0.2512609575344219,cold,nurture — no SDR route
+415,paid_social,mid,3,1,1,1,0.644,0,0,1,0.8593056792257335,hot,route to SDR immediately — demo requested
+416,organic_search,small,3,2,0,0,0.963,0,1,0,0.4380188328389461,warm,route to SDR queue
+417,referral,small,3,3,0,0,0.761,0,15,0,0.6507167398101725,hot,route to SDR immediately
+418,paid_social,small,7,1,0,0,0.602,0,27,1,0.23608092256303415,cold,nurture — no SDR route
+419,organic_search,large,7,1,0,1,0.459,0,5,1,0.8015031534621185,nurture,nurture — enrichment incomplete
+420,paid_search,large,4,2,1,0,0.976,0,3,1,0.8070662928962723,hot,route to SDR immediately
+421,organic_search,small,4,1,0,0,0.878,0,16,0,0.24862564109363525,cold,nurture — no SDR route
+422,referral,large,7,3,0,0,0.92,0,13,1,0.7869893182513209,hot,route to SDR immediately
+423,paid_search,small,12,0,0,0,0.671,0,14,0,0.2449649129421532,cold,nurture — no SDR route
+424,organic_search,small,10,2,0,0,0.912,0,11,1,0.5198645055435439,warm,route to SDR queue
+425,paid_search,mid,0,1,0,0,0.971,0,2,0,0.18725922654853538,cold,nurture — no SDR route
+426,outbound,small,8,2,0,1,0.8,0,12,1,0.7211728582636819,hot,route to SDR immediately — demo requested
+427,paid_social,small,4,1,0,0,0.821,0,20,0,0.2160884592331516,cold,nurture — no SDR route
+428,paid_social,small,3,4,1,0,0.804,0,6,1,0.8891508476090776,hot,route to SDR immediately
+429,organic_search,small,4,0,0,0,0.703,0,8,1,0.15620662480786263,cold,nurture — no SDR route
+430,organic_search,small,5,0,0,0,0.648,0,12,0,0.15922184233141154,cold,nurture — no SDR route
+431,organic_search,small,3,0,0,0,0.72,0,28,0,0.10613341443918875,cold,nurture — no SDR route
+432,paid_search,mid,6,1,0,0,0.848,0,4,0,0.3665453041521476,warm,route to SDR queue
+433,organic_search,small,4,1,0,0,0.735,0,8,0,0.27460982739667283,cold,nurture — no SDR route
+434,organic_search,small,3,2,0,1,0.701,0,12,1,0.7926320233388904,hot,route to SDR immediately — demo requested
+435,outbound,mid,4,2,1,0,0.595,0,17,1,0.4764848180610999,warm,route to SDR queue
+436,paid_search,small,2,1,0,0,0.748,0,14,0,0.24431536383378918,cold,nurture — no SDR route
+437,paid_social,small,6,2,0,0,0.816,0,12,0,0.4318585577482262,warm,route to SDR queue
+438,organic_search,mid,1,3,0,0,0.749,0,22,0,0.444301998676072,warm,route to SDR queue
+439,organic_search,mid,5,2,0,1,0.8,0,7,1,0.8351744479959965,hot,route to SDR immediately — demo requested
+440,paid_search,large,5,3,1,1,0.529,0,26,1,0.9740715998624553,hot,route to SDR immediately — demo requested
+441,organic_search,mid,4,1,0,0,0.738,0,0,0,0.30206141285357463,cold,nurture — no SDR route
+442,paid_search,small,2,1,1,0,0.766,0,7,0,0.521734509966893,warm,route to SDR queue
+443,paid_search,mid,4,1,0,0,0.765,0,7,0,0.3182655017722781,cold,nurture — no SDR route
+444,outbound,small,2,0,1,0,0.855,0,22,0,0.1346402786925538,cold,nurture — no SDR route
+445,paid_search,mid,6,1,0,0,0.895,0,21,0,0.3032679351951026,cold,nurture — no SDR route
+446,paid_social,small,4,0,1,0,0.729,0,27,0,0.2646957924802871,cold,nurture — no SDR route
+447,referral,small,4,1,0,0,0.623,0,6,1,0.3662814807620188,warm,route to SDR queue
+448,organic_search,mid,7,3,1,0,0.831,0,26,1,0.8156974405927657,hot,route to SDR immediately
+449,organic_search,mid,6,1,0,0,0.781,0,0,0,0.3378673727570753,cold,nurture — no SDR route
+450,referral,mid,3,3,0,0,0.643,0,5,1,0.6878592548547107,hot,route to SDR immediately
+451,paid_social,small,5,3,0,0,0.858,0,14,0,0.5822529057610533,warm,route to SDR queue
+452,organic_search,mid,2,2,0,0,0.822,0,0,1,0.4078762240674097,warm,route to SDR queue
+453,referral,mid,4,0,0,0,0.845,0,11,1,0.20611085247419708,cold,nurture — no SDR route
+454,organic_search,mid,7,2,0,0,0.858,0,7,0,0.4976586734291982,warm,route to SDR queue
+455,organic_search,mid,5,1,1,0,0.567,0,17,0,0.5168315824907801,warm,route to SDR queue
+456,paid_social,small,7,2,0,0,0.774,1,10,1,0.45632481369752975,excluded,exclude — competitor domain
+457,organic_search,large,3,0,0,1,0.967,0,19,1,0.5258816396579395,hot,route to SDR immediately — demo requested
+458,paid_social,large,5,4,0,0,0.941,0,0,0,0.8311391329807168,hot,route to SDR immediately
+459,organic_search,mid,2,1,0,0,0.892,0,2,0,0.24562075926135654,cold,nurture — no SDR route
+460,paid_social,small,3,2,1,0,0.376,0,23,0,0.5911500661939099,nurture,nurture — enrichment incomplete
+461,paid_social,small,6,2,0,1,0.69,0,20,1,0.7966216263792817,hot,route to SDR immediately — demo requested
+462,referral,small,4,1,0,0,0.777,0,10,0,0.35071009397239844,warm,route to SDR queue
+463,organic_search,mid,3,2,0,0,0.739,0,21,0,0.35829921534954884,warm,route to SDR queue
+464,paid_social,large,3,1,0,1,0.54,0,10,0,0.7018067029270773,hot,route to SDR immediately — demo requested
+465,referral,small,4,2,0,0,0.85,0,21,0,0.4788045520151342,warm,route to SDR queue
+466,paid_social,mid,1,2,0,0,0.721,0,29,0,0.2364477943632809,cold,nurture — no SDR route
+467,referral,mid,2,0,0,0,0.551,0,25,0,0.1380388496817571,cold,nurture — no SDR route
+468,referral,small,2,2,0,0,0.613,0,5,1,0.48344514861324095,warm,route to SDR queue
+469,paid_social,large,4,2,0,0,0.669,0,21,1,0.43125418950373784,warm,route to SDR queue
+470,organic_search,small,5,2,0,0,0.538,0,4,0,0.4753859549149143,warm,route to SDR queue
+471,paid_search,small,6,1,1,0,0.746,0,11,0,0.6071674699321215,hot,route to SDR immediately
+472,paid_social,small,7,2,0,1,0.558,0,20,1,0.8071231844159921,hot,route to SDR immediately — demo requested
+473,outbound,mid,3,0,0,0,0.831,0,7,0,0.0712581796796715,cold,nurture — no SDR route
+474,organic_search,small,2,0,0,0,0.939,0,5,0,0.13146369735565286,cold,nurture — no SDR route
+475,organic_search,small,5,2,0,0,0.579,0,30,1,0.3696239874402691,warm,route to SDR queue
+476,organic_search,small,4,3,0,0,0.847,0,20,1,0.5642253260659758,warm,route to SDR queue
+477,organic_search,mid,6,0,0,0,0.757,0,15,0,0.16256930013759294,cold,nurture — no SDR route
+478,organic_search,small,5,2,0,0,0.563,0,6,0,0.46701530183927076,warm,route to SDR queue
+479,paid_social,mid,4,1,0,0,0.835,0,13,0,0.2365766402559422,cold,nurture — no SDR route
+480,paid_search,mid,4,3,0,0,0.607,0,11,1,0.6463819339075346,hot,route to SDR immediately
+481,paid_search,mid,6,2,0,0,0.93,0,29,0,0.4377490042491904,warm,route to SDR queue
+482,paid_search,small,5,0,0,0,0.543,0,26,0,0.15384552214282537,cold,nurture — no SDR route
+483,paid_social,small,4,1,0,0,0.777,0,11,0,0.24272846853579017,cold,nurture — no SDR route
+484,outbound,large,5,0,0,0,0.723,0,2,0,0.12214431271915281,cold,nurture — no SDR route
+485,paid_social,large,8,0,0,0,0.766,0,17,0,0.2053349489828162,cold,nurture — no SDR route
+486,paid_social,mid,0,0,0,1,0.858,0,10,0,0.2988125352654716,hot,route to SDR immediately — demo requested
+487,paid_social,large,4,2,1,1,0.555,0,15,1,0.9368005197154273,hot,route to SDR immediately — demo requested
+488,organic_search,mid,2,1,0,0,0.49,0,7,0,0.23081048521949377,nurture,nurture — enrichment incomplete
+489,outbound,mid,4,4,0,0,0.7,0,6,0,0.6038102827716443,hot,route to SDR immediately
+490,outbound,small,3,0,0,0,0.919,0,14,0,0.06385797498046826,cold,nurture — no SDR route
+491,paid_social,small,5,0,0,0,0.96,0,7,0,0.15473391751837615,cold,nurture — no SDR route
+492,paid_search,small,5,1,1,0,0.722,0,29,0,0.5146905746739052,warm,route to SDR queue
+493,outbound,small,3,0,0,1,0.915,0,8,1,0.30749377362174246,hot,route to SDR immediately — demo requested
+494,paid_social,small,1,2,0,0,0.877,0,5,1,0.3161707401542047,cold,nurture — no SDR route
+495,organic_search,small,4,1,0,0,0.886,0,0,1,0.30190336490159037,cold,nurture — no SDR route
+496,paid_search,small,5,2,0,0,0.756,0,18,0,0.46483421352541915,warm,route to SDR queue
+497,outbound,small,6,0,0,0,0.922,0,19,0,0.07624310947610928,cold,nurture — no SDR route
+498,paid_social,small,3,0,0,0,0.504,0,27,0,0.09717316332654877,cold,nurture — no SDR route
+499,paid_social,mid,4,2,0,0,0.784,0,11,0,0.39597076343288656,warm,route to SDR queue
+500,paid_search,mid,6,2,0,0,0.888,0,10,1,0.5169580159864824,warm,route to SDR queue
+501,paid_social,mid,1,1,0,0,0.723,0,19,0,0.15181258305038714,cold,nurture — no SDR route
+502,referral,mid,6,0,0,0,0.634,0,17,0,0.21704692337555234,cold,nurture — no SDR route
+503,referral,mid,5,0,0,0,0.858,0,9,0,0.22692246583559642,cold,nurture — no SDR route
+504,paid_social,small,2,2,0,1,0.862,0,30,1,0.6860756250727387,hot,route to SDR immediately — demo requested
+505,referral,small,6,1,0,0,0.786,0,25,1,0.3313533599652547,cold,nurture — no SDR route
+506,paid_social,mid,1,3,0,0,0.913,0,24,0,0.4075689141294249,warm,route to SDR queue
+507,paid_social,large,4,0,0,0,0.698,0,13,0,0.1716364652227693,cold,nurture — no SDR route
+508,organic_search,small,5,1,0,0,0.641,0,13,1,0.275839016385624,cold,nurture — no SDR route
+509,paid_search,small,4,4,1,0,0.448,0,25,1,0.898834625643841,nurture,nurture — enrichment incomplete
+510,paid_social,large,4,1,0,0,0.668,0,16,0,0.28728803316422424,cold,nurture — no SDR route
+511,organic_search,mid,4,1,0,0,0.917,0,20,0,0.2362969625853137,cold,nurture — no SDR route
+512,referral,mid,7,1,0,0,0.767,0,17,1,0.37691644345261954,warm,route to SDR queue
+513,paid_search,mid,4,1,0,0,0.818,0,5,0,0.32551198268206477,cold,nurture — no SDR route
+514,organic_search,mid,2,3,0,0,0.942,0,19,1,0.5060556697254984,warm,route to SDR queue
+515,referral,large,5,1,0,0,0.454,0,11,0,0.4429110471976285,nurture,nurture — enrichment incomplete
+516,paid_social,small,6,0,0,1,0.814,0,26,0,0.45840023730874296,hot,route to SDR immediately — demo requested
+517,paid_search,small,8,0,0,0,0.866,0,17,1,0.20471812427322675,cold,nurture — no SDR route
+518,organic_search,mid,3,2,0,0,0.674,0,23,0,0.35071619069950855,warm,route to SDR queue
+519,paid_search,small,6,0,1,0,0.817,0,10,0,0.4344455271330333,warm,route to SDR queue
+520,organic_search,mid,6,2,0,0,0.636,0,18,1,0.4359144267912888,warm,route to SDR queue
+521,paid_social,small,3,1,0,1,0.773,0,22,0,0.5845843972596932,hot,route to SDR immediately — demo requested
+522,organic_search,mid,4,0,0,0,0.7,0,10,0,0.15184784998310427,cold,nurture — no SDR route
+523,paid_search,mid,1,1,0,0,0.394,0,18,0,0.1989249426781164,nurture,nurture — enrichment incomplete
+524,paid_social,small,6,1,0,1,0.756,0,29,0,0.6221863692742576,hot,route to SDR immediately — demo requested
+525,organic_search,large,2,0,0,0,0.773,0,0,0,0.18373232384992458,cold,nurture — no SDR route
+526,organic_search,mid,7,1,0,1,0.894,0,27,0,0.6710762682170522,hot,route to SDR immediately — demo requested
+527,paid_search,mid,7,0,1,1,0.88,0,23,1,0.7952169838889932,hot,route to SDR immediately — demo requested
+528,outbound,small,8,2,0,1,0.822,0,14,0,0.7143706933806634,hot,route to SDR immediately — demo requested
+529,paid_search,small,5,1,0,0,0.735,0,5,1,0.3455228842291301,cold,nurture — no SDR route
+530,paid_social,mid,2,3,0,0,0.808,0,3,1,0.544046379780812,warm,route to SDR queue
+531,paid_search,large,8,1,0,0,0.697,0,14,1,0.43090306139580764,warm,route to SDR queue
+532,paid_search,mid,3,0,0,0,0.761,0,30,0,0.1222264062639483,cold,nurture — no SDR route
+533,paid_social,large,5,1,0,0,0.89,0,18,0,0.2986303492452462,cold,nurture — no SDR route
+534,referral,small,4,1,1,0,0.56,0,23,0,0.5662939350342713,warm,route to SDR queue
+535,organic_search,large,5,1,0,0,0.774,0,10,0,0.3535746577480305,warm,route to SDR queue
+536,paid_search,large,6,0,1,0,0.891,0,28,0,0.4370802932301706,warm,route to SDR queue
+537,paid_search,mid,3,2,0,0,0.707,0,11,0,0.4446703714314284,warm,route to SDR queue
+538,paid_social,small,7,1,0,1,0.609,0,16,1,0.68623393732162,hot,route to SDR immediately — demo requested
+539,referral,mid,5,0,0,0,0.888,1,4,0,0.24190705548943497,excluded,exclude — competitor domain
+540,paid_social,small,6,2,0,0,0.95,0,19,1,0.40321430647943857,warm,route to SDR queue
+541,outbound,mid,5,3,0,0,0.572,0,0,0,0.4740844051759012,warm,route to SDR queue
+542,organic_search,mid,3,2,0,0,0.781,0,13,1,0.3895762830067936,warm,route to SDR queue
+543,organic_search,small,8,2,0,0,0.885,0,0,0,0.5412466589727681,warm,route to SDR queue
+544,referral,small,7,1,0,1,0.721,0,3,0,0.8182702315593732,hot,route to SDR immediately — demo requested
+545,referral,small,5,2,0,0,0.943,0,15,1,0.5260905909934904,warm,route to SDR queue
+546,paid_social,small,3,0,1,0,0.914,0,1,0,0.33249611885464164,cold,nurture — no SDR route
+547,paid_search,mid,2,0,0,0,0.356,0,6,0,0.1533145937779014,nurture,nurture — enrichment incomplete
+548,paid_social,small,7,1,0,0,0.73,0,1,0,0.3230371667266408,cold,nurture — no SDR route
+549,paid_social,small,2,0,0,0,0.945,0,27,0,0.08531227994147209,cold,nurture — no SDR route
+550,paid_search,small,6,1,1,0,0.911,0,16,0,0.5868394038946492,warm,route to SDR queue
+551,paid_social,small,2,1,1,0,0.498,0,3,0,0.46164054494489726,nurture,nurture — enrichment incomplete
+552,organic_search,mid,4,0,0,0,0.756,0,22,0,0.12771957019737687,cold,nurture — no SDR route
+553,paid_search,large,7,1,0,0,0.921,0,6,1,0.449385092101637,warm,route to SDR queue
+554,paid_search,mid,3,2,0,0,0.819,0,28,0,0.37583236473657755,warm,route to SDR queue
+555,paid_search,large,7,1,0,0,0.786,0,23,0,0.38061202149562673,warm,route to SDR queue
+556,paid_search,large,5,1,0,1,0.705,0,20,0,0.7677207695813532,hot,route to SDR immediately — demo requested
+557,outbound,small,4,0,0,0,0.719,0,13,0,0.07189120732533472,cold,nurture — no SDR route
+558,paid_search,small,7,3,0,0,0.667,0,10,1,0.7005574110818561,hot,route to SDR immediately
+559,paid_search,large,2,2,0,1,0.655,1,29,1,0.8054873366977678,excluded,exclude — competitor domain
+560,paid_search,small,2,3,0,0,0.594,0,4,0,0.615388582650158,hot,route to SDR immediately
+561,paid_social,mid,7,2,0,0,0.838,0,21,1,0.4110693506291162,warm,route to SDR queue
+562,paid_search,small,5,1,0,0,0.857,0,6,0,0.34160950637811593,cold,nurture — no SDR route
+563,paid_social,mid,12,3,0,0,0.865,0,4,1,0.7064650867772713,hot,route to SDR immediately
+564,paid_search,small,4,0,0,0,0.752,0,0,0,0.20422706202585722,cold,nurture — no SDR route
+565,paid_search,small,3,2,0,0,0.612,0,12,1,0.44066061672890827,warm,route to SDR queue
+566,referral,small,9,2,1,0,0.788,0,22,1,0.7920901601272771,hot,route to SDR immediately
+567,paid_search,mid,5,0,0,0,0.489,0,7,1,0.19996207733861684,nurture,nurture — enrichment incomplete
+568,organic_search,mid,0,0,0,0,0.487,0,14,0,0.0707760441464919,nurture,nurture — enrichment incomplete
+569,paid_social,mid,3,3,0,1,0.934,0,12,1,0.8742653848224062,hot,route to SDR immediately — demo requested
+570,paid_social,small,3,0,0,0,0.65,0,6,0,0.13257739899402715,cold,nurture — no SDR route
+571,referral,small,7,0,0,0,0.619,0,10,0,0.24968363151455747,cold,nurture — no SDR route
+572,paid_search,mid,3,3,0,0,0.744,0,30,1,0.5436802924385901,warm,route to SDR queue
+573,outbound,mid,2,0,0,0,0.781,0,24,0,0.04775486391006322,cold,nurture — no SDR route
+574,outbound,mid,6,0,1,0,0.911,0,8,0,0.2294743975567177,cold,nurture — no SDR route
+575,organic_search,large,7,4,0,0,0.902,0,2,1,0.8602599145474592,hot,route to SDR immediately
+576,paid_search,mid,1,2,1,0,0.783,0,18,0,0.6033979425363225,hot,route to SDR immediately
+577,organic_search,small,3,1,0,1,0.94,0,8,1,0.6662022622670631,hot,route to SDR immediately — demo requested
+578,organic_search,mid,1,1,1,1,0.48,0,5,0,0.8180195092200522,nurture,nurture — enrichment incomplete
+579,referral,small,1,0,0,0,0.749,0,24,1,0.11767189082593642,cold,nurture — no SDR route
+580,paid_search,small,5,2,0,0,0.481,0,27,0,0.42797705741202874,nurture,nurture — enrichment incomplete
+581,outbound,small,1,2,0,0,0.92,0,19,0,0.15743586578096963,cold,nurture — no SDR route
+582,outbound,mid,6,3,0,0,0.856,0,27,1,0.38190619973513307,warm,route to SDR queue
+583,paid_search,large,5,0,0,0,0.726,0,4,0,0.2640108785313605,cold,nurture — no SDR route
+584,paid_social,mid,2,2,0,0,0.798,0,20,1,0.3050599177711605,cold,nurture — no SDR route
+585,paid_search,small,4,1,0,0,0.939,0,6,0,0.3217149448468555,cold,nurture — no SDR route
+586,referral,mid,2,3,1,0,0.337,0,9,1,0.8432828104494657,nurture,nurture — enrichment incomplete
+587,outbound,mid,4,1,0,0,0.466,0,20,0,0.12364894860257068,nurture,nurture — enrichment incomplete
+588,outbound,mid,2,0,0,0,0.926,0,13,0,0.05681827146066024,cold,nurture — no SDR route
+589,organic_search,mid,2,0,0,1,0.592,0,3,1,0.4800021673060605,hot,route to SDR immediately — demo requested
+590,organic_search,large,4,0,1,0,0.951,0,22,0,0.37499486502590007,warm,route to SDR queue
+591,organic_search,small,6,3,0,0,0.45,0,17,0,0.6166724396992433,nurture,nurture — enrichment incomplete
+592,organic_search,small,3,3,0,1,0.939,0,7,1,0.8946232536107966,hot,route to SDR immediately — demo requested
+593,outbound,small,6,0,0,0,0.776,0,28,0,0.06633567358079279,cold,nurture — no SDR route
+594,organic_search,mid,10,1,1,0,0.872,0,26,1,0.5528688430676687,warm,route to SDR queue
+595,paid_social,small,6,1,0,0,0.585,0,30,1,0.2158786085971471,cold,nurture — no SDR route
+596,organic_search,small,1,2,0,0,0.791,0,30,0,0.25476884433846103,cold,nurture — no SDR route
+597,paid_search,small,4,2,1,0,0.786,0,25,0,0.6795199829277205,hot,route to SDR immediately
+598,organic_search,small,2,3,0,0,0.506,0,11,1,0.5399907826139185,warm,route to SDR queue
+599,organic_search,small,5,1,0,0,0.594,0,20,0,0.25310939954278944,cold,nurture — no SDR route
+600,paid_social,small,0,0,0,0,0.715,0,16,0,0.06148777660226583,cold,nurture — no SDR route
+601,outbound,mid,4,1,0,0,0.833,1,3,0,0.1576657294431299,excluded,exclude — competitor domain
+602,referral,small,4,1,0,1,0.657,0,23,1,0.7190923162762459,hot,route to SDR immediately — demo requested
+603,paid_social,small,2,2,0,1,0.84,0,5,1,0.7685781132162932,hot,route to SDR immediately — demo requested
+604,paid_search,large,9,0,1,0,0.538,0,6,0,0.5724186664926022,warm,route to SDR queue
+605,paid_search,mid,2,1,0,0,0.675,0,25,0,0.2120070539455651,cold,nurture — no SDR route
+606,paid_search,mid,5,1,0,0,0.8,0,20,0,0.29108535194028434,cold,nurture — no SDR route
+607,paid_social,mid,7,0,1,0,0.878,0,29,0,0.30458135269583253,cold,nurture — no SDR route
+608,paid_social,large,5,1,0,0,0.766,0,26,0,0.2714905674134881,cold,nurture — no SDR route
+609,outbound,small,5,0,0,1,0.847,0,17,0,0.3179074537823709,hot,route to SDR immediately — demo requested
+610,paid_search,small,2,0,0,0,0.724,0,27,1,0.11283366377478574,cold,nurture — no SDR route
+611,outbound,large,2,2,1,0,0.894,1,29,0,0.44164050388891424,excluded,exclude — competitor domain
+612,organic_search,small,3,1,0,0,0.726,0,28,1,0.19539029033790253,cold,nurture — no SDR route
+613,outbound,large,4,1,0,0,0.864,0,19,1,0.1636526588980209,cold,nurture — no SDR route
+614,paid_social,small,4,0,0,0,0.557,0,27,0,0.10717368665005407,cold,nurture — no SDR route
+615,paid_search,small,5,1,0,0,0.651,0,12,0,0.31962603690222285,cold,nurture — no SDR route
+616,referral,large,3,1,1,0,0.811,1,0,1,0.7012590083453197,excluded,exclude — competitor domain
+617,paid_search,small,0,0,0,0,0.474,0,0,0,0.10456844635146867,nurture,nurture — enrichment incomplete
+618,paid_search,small,7,2,0,0,0.597,0,26,0,0.46680660723530143,warm,route to SDR queue
+619,referral,large,4,1,0,0,0.776,0,26,0,0.36092416924114273,warm,route to SDR queue
+620,organic_search,small,6,1,0,0,0.41,0,25,1,0.2517528464565739,nurture,nurture — enrichment incomplete
+621,paid_search,large,3,5,0,0,0.754,0,28,1,0.8756594858445549,hot,route to SDR immediately
+622,paid_search,small,3,1,0,0,0.856,0,6,0,0.2984175701888988,cold,nurture — no SDR route
+623,outbound,small,6,2,0,0,0.947,0,4,1,0.3073423604238395,cold,nurture — no SDR route
+624,paid_search,small,4,1,1,0,0.479,0,22,1,0.5219340691959589,nurture,nurture — enrichment incomplete
+625,organic_search,small,1,0,0,0,0.693,0,16,0,0.09366984804542121,cold,nurture — no SDR route
+626,paid_search,small,4,2,0,1,0.876,0,5,1,0.8531472393856068,hot,route to SDR immediately — demo requested
+627,referral,large,4,2,0,0,0.631,0,3,1,0.6294354064583647,hot,route to SDR immediately
+628,paid_search,small,7,0,0,0,0.574,0,19,0,0.19049803384776173,cold,nurture — no SDR route
+629,organic_search,small,4,1,0,1,0.776,0,15,0,0.6646561922042241,hot,route to SDR immediately — demo requested
+630,paid_search,small,1,1,0,0,0.944,0,5,0,0.23536337890292824,cold,nurture — no SDR route
+631,organic_search,mid,7,4,0,0,0.8,0,1,1,0.8208911098808396,hot,route to SDR immediately
+632,referral,mid,6,1,0,0,0.538,0,12,0,0.38148011650224406,warm,route to SDR queue
+633,paid_search,small,7,0,0,0,0.752,0,13,1,0.2063163180163859,cold,nurture — no SDR route
+634,paid_search,mid,2,2,0,0,0.45,0,27,1,0.3475862312220672,nurture,nurture — enrichment incomplete
+635,referral,mid,5,0,0,0,0.827,0,19,0,0.19893643693267798,cold,nurture — no SDR route
+636,organic_search,small,6,2,1,0,0.599,0,24,0,0.6772434338149291,hot,route to SDR immediately
+637,paid_social,small,2,0,0,0,0.551,0,0,0,0.12803479773289428,cold,nurture — no SDR route
+638,organic_search,large,1,2,1,1,0.534,0,18,1,0.9099484958441844,hot,route to SDR immediately — demo requested
+639,paid_social,small,5,3,0,0,0.807,0,21,1,0.5535805609445138,warm,route to SDR queue
+640,outbound,large,2,3,0,0,0.629,0,17,1,0.39749038003015125,warm,route to SDR queue
+641,paid_search,small,2,1,0,0,0.294,0,13,1,0.24784662843141986,nurture,nurture — enrichment incomplete
+642,referral,small,5,1,0,0,0.934,0,30,0,0.29691321496433837,cold,nurture — no SDR route
+643,organic_search,small,3,0,0,0,0.603,0,9,1,0.140358101246273,cold,nurture — no SDR route
+644,organic_search,small,4,0,0,0,0.582,0,0,0,0.17476266629767886,cold,nurture — no SDR route
+645,paid_social,small,3,2,0,0,0.791,0,4,1,0.39782345190147533,warm,route to SDR queue
+646,organic_search,small,6,1,0,0,0.668,0,14,0,0.28771300717061943,cold,nurture — no SDR route
+647,organic_search,small,9,1,0,0,0.628,0,2,0,0.3703541147047314,warm,route to SDR queue
+648,paid_social,small,5,3,0,1,0.887,0,25,1,0.872208120780869,hot,route to SDR immediately — demo requested
+649,paid_search,small,5,2,0,0,0.828,0,15,1,0.477251161589956,warm,route to SDR queue
+650,outbound,small,2,1,0,0,0.881,0,1,1,0.13092189482211544,cold,nurture — no SDR route
+651,organic_search,small,6,2,0,0,0.838,0,26,1,0.403078036606792,warm,route to SDR queue
+652,paid_search,large,2,0,0,0,0.818,0,1,0,0.21161757336316653,cold,nurture — no SDR route
+653,organic_search,small,6,2,0,0,0.759,0,8,1,0.47725518128637884,warm,route to SDR queue
+654,paid_search,mid,3,2,0,0,0.602,0,29,1,0.372171909077699,warm,route to SDR queue
+655,paid_social,small,5,1,0,0,0.781,0,24,0,0.21994520923111674,cold,nurture — no SDR route
+656,outbound,mid,5,1,0,0,0.658,0,30,0,0.11534423409548138,cold,nurture — no SDR route
+657,paid_social,small,6,0,1,0,0.662,0,15,0,0.34171784928240295,cold,nurture — no SDR route
+658,paid_search,small,3,3,0,1,0.822,1,29,1,0.87700026436747,excluded,exclude — competitor domain
+659,paid_social,small,4,1,0,0,0.793,0,10,0,0.24580258702608165,cold,nurture — no SDR route
+660,paid_search,large,6,1,1,0,0.931,0,3,1,0.7069592996554087,hot,route to SDR immediately
+661,paid_search,small,5,2,0,0,0.764,0,11,1,0.49405088851834855,warm,route to SDR queue
+662,paid_search,small,4,3,0,0,0.849,0,10,1,0.6499185553786403,hot,route to SDR immediately
+663,paid_search,small,2,1,0,0,0.87,0,12,0,0.2504311504967074,cold,nurture — no SDR route
+664,paid_search,large,3,1,1,1,0.899,0,10,1,0.9057005918939064,hot,route to SDR immediately — demo requested
+665,paid_social,small,2,1,0,0,0.871,0,25,1,0.16480675976195777,cold,nurture — no SDR route
+666,paid_search,small,2,0,0,0,0.739,0,15,0,0.1345417584887473,cold,nurture — no SDR route
+667,organic_search,mid,3,2,0,0,0.787,0,24,0,0.34678548751080457,cold,nurture — no SDR route
+668,outbound,mid,1,1,0,1,0.908,0,30,0,0.3091365222374479,hot,route to SDR immediately — demo requested
+669,paid_search,mid,6,0,0,0,0.799,0,2,1,0.22637722749511,cold,nurture — no SDR route
+670,organic_search,small,7,1,0,0,0.73,0,7,0,0.3264580939035463,cold,nurture — no SDR route
+671,organic_search,small,6,3,0,0,0.91,0,19,1,0.608175504572754,hot,route to SDR immediately
+672,paid_search,small,6,0,0,0,0.948,0,10,0,0.20367053848895833,cold,nurture — no SDR route
+673,paid_search,small,3,0,0,0,0.667,0,8,0,0.16757849349892617,cold,nurture — no SDR route
+674,outbound,large,4,1,0,0,0.651,0,19,0,0.16380040843602345,cold,nurture — no SDR route
+675,paid_social,small,4,1,1,0,0.672,0,10,0,0.4946494970760195,warm,route to SDR queue
+676,referral,small,4,2,0,0,0.769,0,25,1,0.4622324034432232,warm,route to SDR queue
+677,paid_search,large,3,4,0,0,0.8,0,13,0,0.8156576683765902,hot,route to SDR immediately
+678,organic_search,large,2,0,0,0,0.419,0,6,1,0.16940168103790604,nurture,nurture — enrichment incomplete
+679,outbound,mid,5,1,0,0,0.848,0,15,0,0.1434128393577076,cold,nurture — no SDR route
+680,outbound,small,1,1,0,0,0.698,0,29,0,0.07181220165952272,cold,nurture — no SDR route
+681,paid_search,small,1,0,0,0,0.569,0,13,0,0.11652317887007382,cold,nurture — no SDR route
+682,organic_search,small,1,1,0,0,0.868,0,28,0,0.1473182199081829,cold,nurture — no SDR route
+683,paid_social,mid,3,1,0,0,0.845,0,5,0,0.24102251726313106,cold,nurture — no SDR route
+684,referral,large,6,1,0,0,0.819,0,19,0,0.4281193765109074,warm,route to SDR queue
+685,paid_search,large,5,0,0,0,0.581,1,19,0,0.21831685594280043,excluded,exclude — competitor domain
+686,paid_search,large,4,0,0,1,0.538,0,7,0,0.6477097208458488,hot,route to SDR immediately — demo requested
+687,referral,small,2,1,0,0,0.718,0,10,0,0.2960919257678232,cold,nurture — no SDR route
+688,paid_social,mid,3,2,0,0,0.543,0,20,0,0.33603109691003175,cold,nurture — no SDR route
+689,paid_social,small,3,1,0,0,0.801,0,14,1,0.21459183203707335,cold,nurture — no SDR route
+690,outbound,small,2,3,1,0,0.689,0,25,0,0.5588990640264787,warm,route to SDR queue
+691,paid_social,small,6,1,0,0,0.476,0,21,0,0.24256124574228802,nurture,nurture — enrichment incomplete
+692,paid_search,small,5,1,0,0,0.8,0,10,0,0.3267816376361661,cold,nurture — no SDR route
+693,paid_social,small,4,0,0,1,0.639,0,24,0,0.4262088552673954,hot,route to SDR immediately — demo requested
+694,paid_search,small,5,1,0,0,0.721,0,4,1,0.34933292153003276,cold,nurture — no SDR route
+695,paid_search,small,6,2,0,1,0.914,1,30,1,0.81844725470033,excluded,exclude — competitor domain
+696,organic_search,mid,3,2,1,0,0.916,0,4,1,0.689961424685562,hot,route to SDR immediately
+697,outbound,small,1,1,1,0,0.802,0,22,0,0.20694192843479367,cold,nurture — no SDR route
+698,organic_search,small,7,1,0,0,0.921,0,18,0,0.2871448593256569,cold,nurture — no SDR route
+699,organic_search,mid,5,0,0,1,0.659,0,9,0,0.5396504822618915,hot,route to SDR immediately — demo requested
+700,paid_social,mid,5,2,0,0,0.967,0,22,0,0.3733368464984587,warm,route to SDR queue
+701,organic_search,mid,6,2,0,0,0.824,0,4,0,0.49389155596041995,warm,route to SDR queue
+702,referral,mid,5,1,0,1,0.804,0,1,1,0.801663779939105,hot,route to SDR immediately — demo requested
+703,organic_search,mid,4,2,1,0,0.752,0,16,1,0.6702517626538637,hot,route to SDR immediately
+704,referral,mid,5,1,0,0,0.546,0,6,1,0.3873521024021328,warm,route to SDR queue
+705,organic_search,mid,1,0,0,0,0.636,0,29,0,0.07678294086592705,cold,nurture — no SDR route
+706,paid_search,small,6,1,0,1,0.944,0,5,1,0.7700390352657586,hot,route to SDR immediately — demo requested
+707,organic_search,small,5,2,1,0,0.854,0,14,1,0.6966998591298345,hot,route to SDR immediately
+708,paid_social,mid,4,1,0,0,0.862,0,6,1,0.2583545214178336,cold,nurture — no SDR route
+709,paid_search,small,4,1,1,1,0.838,0,12,1,0.8835137233327143,hot,route to SDR immediately — demo requested
+710,organic_search,small,4,2,0,0,0.642,0,19,0,0.39187663714076426,warm,route to SDR queue
+711,referral,small,7,1,0,1,0.794,0,24,1,0.7600376304063368,hot,route to SDR immediately — demo requested
+712,paid_search,small,6,3,0,0,0.592,0,11,0,0.6831217107903788,hot,route to SDR immediately
+713,organic_search,mid,0,0,0,1,0.789,0,10,1,0.32374713180920817,hot,route to SDR immediately — demo requested
+714,organic_search,mid,6,0,0,0,0.795,0,1,0,0.19700028276489395,cold,nurture — no SDR route
+715,paid_social,small,6,1,0,0,0.516,0,19,1,0.24872518927549728,cold,nurture — no SDR route
+716,paid_search,small,1,0,0,0,0.666,0,1,0,0.13878036233724086,cold,nurture — no SDR route
+717,paid_social,mid,4,1,0,0,0.705,0,1,0,0.27486601705428004,cold,nurture — no SDR route
+718,organic_search,mid,3,0,0,0,0.641,0,17,1,0.1249481566512632,cold,nurture — no SDR route
+719,organic_search,small,3,2,0,0,0.759,0,21,0,0.358275919349662,warm,route to SDR queue
+720,organic_search,mid,4,1,0,1,0.845,0,20,1,0.6456777017552717,hot,route to SDR immediately — demo requested
+721,paid_search,mid,3,1,0,0,0.75,0,28,0,0.2275041904947123,cold,nurture — no SDR route
+722,referral,large,4,0,1,0,0.822,0,25,0,0.45728529588013783,warm,route to SDR queue
+723,outbound,mid,2,2,1,0,0.678,0,21,0,0.39846994838884303,warm,route to SDR queue
+724,paid_search,large,4,2,1,0,0.918,0,4,1,0.804493443743911,hot,route to SDR immediately
+725,paid_search,mid,6,1,0,1,0.784,0,11,1,0.7519309931412547,hot,route to SDR immediately — demo requested
+726,paid_search,mid,3,0,0,0,0.804,0,27,0,0.12769114733441517,cold,nurture — no SDR route
+727,referral,mid,5,3,0,0,0.751,0,14,1,0.6979796960277131,hot,route to SDR immediately
+728,outbound,small,5,1,0,0,0.888,0,30,0,0.11522538864897727,cold,nurture — no SDR route
+729,paid_search,small,4,0,0,0,0.764,0,25,0,0.14448908750762424,cold,nurture — no SDR route
+730,paid_social,mid,1,2,0,0,0.924,0,13,0,0.28791400864780825,cold,nurture — no SDR route
+731,paid_search,small,4,2,0,0,0.647,0,13,1,0.46355737824523235,warm,route to SDR queue
+732,paid_social,mid,3,1,1,0,0.783,0,8,0,0.4755544157720884,warm,route to SDR queue
+733,outbound,mid,6,0,0,0,0.603,0,2,0,0.09899637814784003,cold,nurture — no SDR route
+734,paid_search,large,5,1,0,0,0.45,0,13,1,0.3872463355038275,nurture,nurture — enrichment incomplete
+735,paid_search,small,6,1,0,1,0.78,0,17,1,0.7327369194799773,hot,route to SDR immediately — demo requested
+736,paid_social,small,4,0,0,0,0.944,0,2,0,0.15400227322348034,cold,nurture — no SDR route
+737,organic_search,large,8,1,1,0,0.844,0,15,0,0.648041436805067,hot,route to SDR immediately
+738,organic_search,small,4,0,0,0,0.879,0,25,0,0.12216356782909034,cold,nurture — no SDR route
+739,paid_social,mid,2,0,0,0,0.721,0,13,1,0.10556625799240374,cold,nurture — no SDR route
+740,paid_search,small,1,0,0,0,0.683,0,2,0,0.13678218990505966,cold,nurture — no SDR route
+741,paid_social,small,2,2,0,0,0.569,0,8,1,0.3494749274552235,cold,nurture — no SDR route
+742,outbound,small,5,2,1,0,0.915,0,21,0,0.4816753715611509,warm,route to SDR queue
+743,referral,small,4,1,0,0,0.558,0,25,1,0.2961245154491625,cold,nurture — no SDR route
+744,paid_search,small,2,0,0,0,0.797,0,17,0,0.13065877612784574,cold,nurture — no SDR route
+745,referral,small,4,1,0,0,0.821,0,12,0,0.34307731704695194,cold,nurture — no SDR route
+746,paid_social,mid,3,2,1,0,0.798,0,27,1,0.5743563157229513,warm,route to SDR queue
+747,referral,large,5,2,0,1,0.666,0,26,1,0.8815205307670051,hot,route to SDR immediately — demo requested
+748,paid_search,small,4,2,1,0,0.679,0,15,1,0.7149299928292622,hot,route to SDR immediately
+749,outbound,small,3,4,0,1,0.761,0,9,1,0.8843526637217225,hot,route to SDR immediately — demo requested
+750,paid_search,small,3,0,0,0,0.97,0,13,0,0.15602684132755465,cold,nurture — no SDR route
+751,paid_social,large,0,1,0,0,0.653,0,3,0,0.18546313295405745,cold,nurture — no SDR route
+752,organic_search,small,5,1,1,0,0.793,0,30,1,0.462237912042085,warm,route to SDR queue
+753,organic_search,mid,3,1,0,0,0.872,0,27,0,0.19791708051447207,cold,nurture — no SDR route
+754,paid_search,small,6,1,0,0,0.695,0,15,0,0.32511433335218437,cold,nurture — no SDR route
+755,paid_search,small,2,1,1,0,0.763,0,6,1,0.5259123048786828,warm,route to SDR queue
+756,paid_search,small,2,1,1,0,0.869,0,7,1,0.5216043012925576,warm,route to SDR queue
+757,paid_search,mid,2,3,0,0,0.558,0,15,0,0.571047848959497,warm,route to SDR queue
+758,paid_search,small,2,0,0,0,0.467,0,26,0,0.1146517648379129,nurture,nurture — enrichment incomplete
+759,paid_search,mid,4,1,0,0,0.881,0,13,0,0.2967658140836572,cold,nurture — no SDR route
+760,paid_social,mid,3,1,0,0,0.941,0,11,0,0.22305126722328364,cold,nurture — no SDR route
+761,paid_social,small,2,1,0,0,0.854,0,27,0,0.16026312913305818,cold,nurture — no SDR route
+762,organic_search,small,5,1,0,0,0.629,0,12,0,0.27920642673771195,cold,nurture — no SDR route
+763,paid_search,mid,5,3,0,0,0.956,0,3,1,0.6952191823977251,hot,route to SDR immediately
+764,paid_search,mid,3,2,0,0,0.718,0,16,0,0.4241024219728924,warm,route to SDR queue
+765,paid_social,small,3,1,0,1,0.741,0,16,1,0.6087803667781001,hot,route to SDR immediately — demo requested
+766,referral,small,4,2,0,0,0.899,0,8,1,0.5330672834748861,warm,route to SDR queue
+767,paid_search,small,5,0,0,0,0.676,0,15,1,0.17926257569895873,cold,nurture — no SDR route
+768,paid_social,large,1,0,0,0,0.667,0,21,0,0.10369132912518794,cold,nurture — no SDR route
+769,referral,small,7,0,0,0,0.792,0,30,0,0.19218745213270222,cold,nurture — no SDR route
+770,paid_social,mid,2,1,0,0,0.615,0,22,0,0.17201829249004508,cold,nurture — no SDR route
+771,outbound,mid,3,0,0,0,0.836,0,8,0,0.0701569711881103,cold,nurture — no SDR route
+772,outbound,mid,8,1,0,0,0.45,0,10,0,0.18200501445532807,nurture,nurture — enrichment incomplete
+773,paid_social,small,1,1,0,0,0.892,0,16,0,0.1582764113404486,cold,nurture — no SDR route
+774,organic_search,mid,2,1,1,0,0.916,0,14,0,0.44425082739362154,warm,route to SDR queue
+775,paid_search,small,3,1,0,1,0.814,0,26,1,0.6418733907335504,hot,route to SDR immediately — demo requested
+776,paid_search,mid,2,0,0,0,0.924,1,24,0,0.11785216247457264,excluded,exclude — competitor domain
+777,paid_social,small,8,2,0,0,0.632,0,16,0,0.4459355723826611,warm,route to SDR queue
+778,organic_search,small,8,3,0,0,0.862,0,2,0,0.7000513626221275,hot,route to SDR immediately
+779,outbound,large,3,2,1,0,0.736,0,0,0,0.5969028113380078,warm,route to SDR queue
+780,paid_search,small,2,2,0,0,0.795,0,27,1,0.34718998224161274,cold,nurture — no SDR route
+781,organic_search,mid,4,0,0,0,0.656,0,14,0,0.14345388726265382,cold,nurture — no SDR route
+782,paid_social,large,2,0,1,0,0.63,0,2,0,0.3679778869222426,warm,route to SDR queue
+783,paid_search,mid,2,4,1,0,0.836,0,29,1,0.8658883246916034,hot,route to SDR immediately
+784,outbound,small,7,1,0,1,0.639,0,29,1,0.4733665171558793,hot,route to SDR immediately — demo requested
+785,organic_search,mid,2,1,0,0,0.922,0,13,0,0.21310100792914607,cold,nurture — no SDR route
+786,paid_search,mid,2,0,0,0,0.601,0,12,0,0.14057975369863884,cold,nurture — no SDR route
+787,outbound,small,9,0,1,0,0.745,0,27,0,0.20528556536585166,cold,nurture — no SDR route
+788,paid_search,mid,3,1,0,1,0.524,0,28,0,0.634484801354889,hot,route to SDR immediately — demo requested
+789,paid_search,small,7,0,0,0,0.739,0,20,0,0.1878033098006386,cold,nurture — no SDR route
+790,paid_social,small,6,5,0,1,0.816,0,26,1,0.9680423379912573,hot,route to SDR immediately — demo requested
+791,outbound,small,5,1,1,0,0.722,0,7,0,0.3650277661261825,warm,route to SDR queue
+792,paid_search,small,3,1,1,0,0.856,0,8,1,0.5525049064544946,warm,route to SDR queue
+793,outbound,mid,5,1,0,0,0.847,0,5,0,0.16522107413944512,cold,nurture — no SDR route
+794,organic_search,mid,3,3,0,0,0.768,0,8,0,0.5866598842604315,warm,route to SDR queue
+795,paid_search,small,4,2,0,0,0.572,0,3,1,0.5054226790272675,warm,route to SDR queue
+796,organic_search,small,3,2,1,0,0.554,0,26,0,0.6067383852069792,hot,route to SDR immediately
+797,paid_social,mid,5,0,0,0,0.564,0,2,0,0.16627400200463055,cold,nurture — no SDR route
+798,organic_search,small,5,1,0,0,0.809,0,11,1,0.28240174253813266,cold,nurture — no SDR route
+799,organic_search,small,1,2,1,0,0.631,0,5,1,0.6094343076972204,hot,route to SDR immediately
+800,organic_search,mid,4,2,1,0,0.891,0,13,0,0.6810979392039191,hot,route to SDR immediately
+801,outbound,large,5,2,1,1,0.862,0,26,1,0.8730710887885829,hot,route to SDR immediately — demo requested
+802,paid_search,large,8,1,0,0,0.713,0,8,1,0.45565579908304654,warm,route to SDR queue
+803,referral,mid,0,2,0,0,0.841,0,21,0,0.29451036117569535,cold,nurture — no SDR route
+804,paid_social,small,9,2,0,0,0.933,0,29,1,0.40503304259245115,warm,route to SDR queue
+805,referral,small,4,3,1,0,0.829,0,2,0,0.8857315139480506,hot,route to SDR immediately
+806,outbound,mid,3,1,0,0,0.539,0,19,0,0.11391913267810198,cold,nurture — no SDR route
+807,outbound,large,2,1,0,0,0.913,0,22,0,0.1265176999821785,cold,nurture — no SDR route
+808,paid_search,small,3,0,0,0,0.751,0,2,0,0.1819922056916055,cold,nurture — no SDR route
+809,paid_social,small,5,1,1,0,0.784,0,18,0,0.4833844524727497,warm,route to SDR queue
+810,outbound,small,2,1,0,0,0.826,0,3,0,0.12719157785865962,cold,nurture — no SDR route
+811,outbound,small,7,0,0,0,0.863,0,13,0,0.08880012796438568,cold,nurture — no SDR route
+812,paid_social,small,6,1,0,0,0.855,0,0,1,0.31234211735774514,cold,nurture — no SDR route
+813,outbound,small,5,2,0,0,0.726,0,30,1,0.2104707176680898,cold,nurture — no SDR route
+814,paid_social,small,2,1,1,0,0.747,0,7,1,0.44474217750393974,warm,route to SDR queue
+815,paid_social,small,4,0,0,0,0.645,0,14,1,0.12978695356547112,cold,nurture — no SDR route
+816,referral,mid,6,0,1,0,0.727,0,30,1,0.40086455053246706,warm,route to SDR queue
+817,paid_social,small,5,1,0,0,0.99,0,24,0,0.21976360069123266,cold,nurture — no SDR route
+818,paid_social,mid,3,0,0,0,0.829,0,9,0,0.12680938489380017,cold,nurture — no SDR route
+819,paid_social,mid,5,2,1,0,0.902,0,26,1,0.6258782085984995,hot,route to SDR immediately
+820,paid_social,large,3,1,0,0,0.729,0,11,1,0.2819936289876179,cold,nurture — no SDR route
+821,paid_search,small,3,2,0,0,0.723,0,4,1,0.47373147749607963,warm,route to SDR queue
+822,paid_search,large,5,1,0,0,0.54,0,4,0,0.42341963376389086,warm,route to SDR queue
+823,referral,small,3,2,0,0,0.77,0,28,0,0.42288788405226274,warm,route to SDR queue
+824,organic_search,mid,2,0,0,0,0.953,0,17,0,0.11017460706657722,cold,nurture — no SDR route
+825,organic_search,mid,5,0,1,0,0.79,0,9,1,0.37391986571069846,warm,route to SDR queue
+826,referral,small,9,0,0,1,0.849,0,15,1,0.667532463499593,hot,route to SDR immediately — demo requested
+827,paid_search,small,1,1,0,1,0.801,0,17,1,0.5973567458209786,hot,route to SDR immediately — demo requested
+828,paid_search,mid,5,0,1,0,0.64,0,14,1,0.40003350268620025,warm,route to SDR queue
+829,paid_search,small,3,1,0,1,0.716,0,5,1,0.7181730166988981,hot,route to SDR immediately — demo requested
+830,paid_social,small,4,1,0,0,0.787,0,21,0,0.21329616997475348,cold,nurture — no SDR route
+831,referral,small,4,1,0,0,0.569,0,1,0,0.38597603512513906,warm,route to SDR queue
+832,paid_social,small,1,2,0,0,0.374,1,4,1,0.3203544229160354,excluded,exclude — competitor domain
+833,paid_social,mid,3,0,1,0,0.792,0,8,0,0.30715843240318746,cold,nurture — no SDR route
+834,organic_search,large,8,1,1,0,0.864,0,27,0,0.6009753243527459,hot,route to SDR immediately
+835,paid_search,large,3,1,0,0,0.617,0,21,1,0.31166630454611355,cold,nurture — no SDR route
+836,paid_search,small,5,0,0,0,0.894,0,14,0,0.18157367011546546,cold,nurture — no SDR route
+837,organic_search,small,2,2,1,1,0.981,0,1,1,0.9228444002616847,hot,route to SDR immediately — demo requested
+838,referral,small,3,2,0,1,0.722,0,26,0,0.8169173695315611,hot,route to SDR immediately — demo requested
+839,paid_search,small,2,0,0,1,0.638,0,11,0,0.49472070645189253,hot,route to SDR immediately — demo requested
+840,organic_search,small,8,1,0,0,0.844,0,28,1,0.2653164699171064,cold,nurture — no SDR route
+841,paid_search,mid,4,0,0,0,0.759,0,9,0,0.18083154085142492,cold,nurture — no SDR route
+842,paid_social,mid,8,4,0,0,0.483,0,23,0,0.7498050970619894,nurture,nurture — enrichment incomplete
+843,organic_search,mid,9,0,0,0,0.747,0,30,0,0.15246624167978778,cold,nurture — no SDR route
+844,paid_search,mid,3,0,1,0,0.695,0,0,0,0.40852978721176153,warm,route to SDR queue
+845,paid_social,mid,5,1,0,0,0.877,0,19,0,0.2345488482267422,cold,nurture — no SDR route
+846,organic_search,mid,6,0,0,0,0.665,0,27,0,0.13710129193157305,cold,nurture — no SDR route
+847,organic_search,large,7,1,0,1,0.64,0,16,0,0.770426951837666,hot,route to SDR immediately — demo requested
+848,paid_search,large,6,2,1,0,0.785,0,25,1,0.7736054432051703,hot,route to SDR immediately
+849,organic_search,large,3,0,0,0,0.943,0,28,0,0.13947172013765502,cold,nurture — no SDR route
+850,paid_search,mid,4,1,0,0,0.832,0,25,0,0.2566778672226302,cold,nurture — no SDR route
+851,outbound,small,4,2,0,0,0.963,0,18,1,0.22937596074932942,cold,nurture — no SDR route
+852,paid_search,small,7,0,0,1,0.644,0,6,1,0.632563440007165,hot,route to SDR immediately — demo requested
+853,paid_search,mid,3,2,1,0,0.76,0,28,1,0.6438543429595902,hot,route to SDR immediately
+854,paid_search,small,2,2,0,0,0.821,0,27,0,0.3471601285687161,cold,nurture — no SDR route
+855,outbound,mid,6,0,0,0,0.642,0,18,0,0.07753147609021563,cold,nurture — no SDR route
+856,paid_search,small,5,1,0,0,0.588,0,12,0,0.31969544890128415,cold,nurture — no SDR route
+857,organic_search,small,3,1,0,0,0.759,0,28,0,0.19536400828783893,cold,nurture — no SDR route
+858,outbound,small,5,0,1,1,0.719,0,3,0,0.6389086451274515,hot,route to SDR immediately — demo requested
+859,outbound,small,6,4,0,0,0.679,0,29,1,0.550204012606266,warm,route to SDR queue
+860,paid_search,small,2,1,0,0,0.683,0,8,0,0.2633885265754505,cold,nurture — no SDR route
+861,organic_search,small,6,2,0,0,0.605,0,18,1,0.43595304494147435,warm,route to SDR queue
+862,organic_search,mid,4,1,1,0,0.653,0,11,1,0.5194812112925984,warm,route to SDR queue
+863,organic_search,small,9,0,0,1,0.719,0,22,1,0.5477157673996599,hot,route to SDR immediately — demo requested
+864,paid_social,small,3,5,0,0,0.818,0,25,0,0.7990712631900242,hot,route to SDR immediately
+865,paid_social,mid,4,1,0,0,0.454,0,0,1,0.2784693291452907,nurture,nurture — enrichment incomplete
+866,paid_search,mid,7,2,0,1,0.681,0,0,1,0.8884009328821307,hot,route to SDR immediately — demo requested
+867,paid_search,small,4,0,0,0,0.726,0,20,1,0.15516768033039602,cold,nurture — no SDR route
+868,organic_search,small,3,0,0,0,0.833,0,8,0,0.14224714639267969,cold,nurture — no SDR route
+869,paid_search,mid,2,0,1,0,0.8,0,16,0,0.31446688168854986,cold,nurture — no SDR route
+870,paid_search,small,3,0,0,0,0.807,0,7,0,0.16982581722957862,cold,nurture — no SDR route
+871,paid_social,small,4,1,0,1,0.918,1,5,1,0.6758424365476358,excluded,exclude — competitor domain
+872,paid_search,mid,4,0,0,0,0.802,0,29,0,0.13638753299477285,cold,nurture — no SDR route
+873,paid_search,small,2,1,0,0,0.541,0,4,0,0.2767231460279691,cold,nurture — no SDR route
+874,outbound,small,2,0,0,0,0.771,0,7,1,0.0624905704822372,cold,nurture — no SDR route
+875,paid_social,mid,6,1,0,0,0.868,0,20,0,0.2452811346164745,cold,nurture — no SDR route
+876,paid_search,mid,1,1,0,0,0.798,0,18,1,0.1985989894438557,cold,nurture — no SDR route
+877,organic_search,small,8,3,0,0,0.764,0,27,1,0.6057987664349299,hot,route to SDR immediately
+878,paid_search,small,1,1,0,0,0.762,0,19,0,0.19597779606588828,cold,nurture — no SDR route
+879,paid_search,small,3,0,0,0,0.693,0,6,0,0.17228046903176594,cold,nurture — no SDR route
+880,outbound,large,7,1,0,0,0.794,0,13,0,0.21413335111655443,cold,nurture — no SDR route
+881,outbound,small,2,2,0,0,0.845,0,1,0,0.2355707871512496,cold,nurture — no SDR route
+882,organic_search,small,5,0,0,0,0.886,0,30,0,0.12277081125245168,cold,nurture — no SDR route
+883,paid_search,small,3,2,1,0,0.854,0,7,1,0.7197199094525609,hot,route to SDR immediately
+884,paid_social,mid,3,0,0,0,0.528,1,21,0,0.10633341670318817,excluded,exclude — competitor domain
+885,paid_search,mid,3,1,0,0,0.854,0,9,1,0.2880165281204676,cold,nurture — no SDR route
+886,paid_search,small,6,2,0,0,0.899,0,3,1,0.5461039392161211,warm,route to SDR queue
+887,paid_search,mid,3,0,1,0,0.605,0,16,1,0.3458489421427593,cold,nurture — no SDR route
+888,paid_search,mid,9,4,1,0,0.648,0,23,1,0.9280097286517256,hot,route to SDR immediately
+889,organic_search,small,3,0,0,0,0.638,0,2,0,0.15507257931486979,cold,nurture — no SDR route
+890,paid_search,large,2,1,0,0,0.522,0,22,0,0.27896780239655977,cold,nurture — no SDR route
+891,paid_search,small,4,1,0,0,0.862,0,10,0,0.30736907280673975,cold,nurture — no SDR route
+892,outbound,mid,3,2,1,0,0.932,0,6,0,0.4947187671500235,warm,route to SDR queue
+893,paid_social,small,5,2,0,0,0.809,0,22,0,0.37352413679661073,warm,route to SDR queue
+894,paid_social,small,3,1,0,0,0.962,0,10,1,0.22594610428465264,cold,nurture — no SDR route
+895,paid_search,small,4,2,0,0,0.91,0,18,1,0.44249745441937904,warm,route to SDR queue
+896,referral,large,4,1,0,1,0.971,0,30,1,0.7564913967682643,hot,route to SDR immediately — demo requested
+897,organic_search,mid,3,0,0,0,0.936,0,19,0,0.12117532483433457,cold,nurture — no SDR route
+898,organic_search,small,3,1,0,0,0.812,0,3,1,0.2694447762454983,cold,nurture — no SDR route
+899,organic_search,small,4,3,0,0,0.886,0,28,1,0.5310245834078023,warm,route to SDR queue
+900,paid_search,small,1,0,0,0,0.729,0,15,0,0.11304045219978315,cold,nurture — no SDR route
+901,paid_search,small,5,0,0,0,0.882,1,18,0,0.17184640687329533,excluded,exclude — competitor domain
+902,organic_search,large,7,2,0,1,0.719,0,8,1,0.8869268842194753,hot,route to SDR immediately — demo requested
+903,outbound,mid,5,3,0,0,0.908,0,27,1,0.3641774192811836,warm,route to SDR queue
+904,referral,small,5,2,0,0,0.821,0,30,0,0.4635805515860327,warm,route to SDR queue
+905,organic_search,small,3,2,0,0,0.573,0,10,0,0.40183199877602227,warm,route to SDR queue
+906,organic_search,mid,9,2,0,0,0.871,0,23,1,0.45814480274780833,warm,route to SDR queue
+907,paid_search,small,5,1,0,0,0.539,0,5,0,0.34574746527903283,cold,nurture — no SDR route
+908,outbound,mid,9,0,0,0,0.928,0,5,0,0.11051737223152346,cold,nurture — no SDR route
+909,paid_search,mid,1,1,0,0,0.875,0,6,0,0.2324274906284354,cold,nurture — no SDR route
+910,paid_search,small,1,1,1,0,0.688,0,16,1,0.4348871897937281,warm,route to SDR queue
+911,organic_search,mid,5,2,1,0,0.688,0,4,1,0.7310219766692505,hot,route to SDR immediately
+912,referral,small,3,2,0,1,0.818,0,28,1,0.8117842676981717,hot,route to SDR immediately — demo requested
+913,referral,small,2,1,0,0,0.874,0,19,0,0.26553902165825866,cold,nurture — no SDR route
+914,paid_social,small,2,0,1,0,0.603,0,14,0,0.2584809735879071,cold,nurture — no SDR route
+915,paid_search,small,4,1,0,0,0.729,0,13,1,0.29692654689966563,cold,nurture — no SDR route
+916,paid_search,small,4,1,0,0,0.799,0,5,0,0.32553311666157736,cold,nurture — no SDR route
+917,outbound,small,2,0,0,0,0.893,0,6,0,0.06344142005109257,cold,nurture — no SDR route
+918,outbound,mid,5,1,0,1,0.889,0,25,0,0.4546353646415339,hot,route to SDR immediately — demo requested
+919,paid_search,small,8,0,0,0,0.645,0,26,1,0.1814506610793397,cold,nurture — no SDR route
+920,outbound,small,4,2,0,1,0.733,0,20,1,0.6291745451066103,hot,route to SDR immediately — demo requested
+921,paid_social,large,3,0,0,0,0.801,0,7,0,0.17029273349861293,cold,nurture — no SDR route
+922,paid_social,mid,2,2,0,0,0.54,0,4,0,0.3648755366770394,warm,route to SDR queue
+923,organic_search,large,5,2,0,0,0.703,0,7,0,0.540593128575805,warm,route to SDR queue
+924,paid_search,mid,4,1,1,1,0.806,0,13,1,0.8817973109265097,hot,route to SDR immediately — demo requested
+925,paid_social,mid,2,1,0,0,0.844,0,1,0,0.22773691321535988,cold,nurture — no SDR route
+926,paid_search,mid,5,0,0,0,0.527,0,25,1,0.15604723438366178,cold,nurture — no SDR route
+927,organic_search,mid,2,3,0,0,0.87,0,13,0,0.5312076928403726,warm,route to SDR queue
+928,organic_search,small,7,1,0,1,0.736,0,16,0,0.7105244428416295,hot,route to SDR immediately — demo requested
+929,outbound,small,4,0,0,0,0.846,0,11,0,0.07411238615355178,cold,nurture — no SDR route
+930,outbound,small,1,1,0,0,0.812,0,29,0,0.07177371495568048,cold,nurture — no SDR route
+931,paid_social,small,3,2,0,0,0.772,0,25,0,0.3173748568032925,cold,nurture — no SDR route
+932,paid_search,small,3,1,0,0,0.827,0,26,1,0.23336987414431734,cold,nurture — no SDR route
+933,outbound,mid,3,0,1,0,0.576,0,25,0,0.14574968730115495,cold,nurture — no SDR route
+934,organic_search,mid,5,1,0,0,0.451,0,9,1,0.28960621711556755,nurture,nurture — enrichment incomplete
+935,paid_search,small,2,1,1,0,0.831,0,4,0,0.5341631551349871,warm,route to SDR queue
+936,paid_search,mid,5,1,0,0,0.749,0,20,1,0.291138671565289,cold,nurture — no SDR route
+937,outbound,small,2,1,0,0,0.619,0,8,0,0.11829839573013862,cold,nurture — no SDR route
+938,organic_search,large,4,3,0,0,0.691,0,5,1,0.6947529774906748,hot,route to SDR immediately
+939,paid_search,mid,6,0,0,0,0.678,1,6,0,0.21497310765503583,excluded,exclude — competitor domain
+940,organic_search,mid,3,2,0,0,0.67,0,9,0,0.4057422893159363,warm,route to SDR queue
+941,organic_search,small,3,3,0,0,0.763,0,12,1,0.5703461013164017,warm,route to SDR queue
+942,paid_social,mid,6,0,0,0,0.852,1,10,0,0.15815106605195225,excluded,exclude — competitor domain
+943,outbound,small,4,0,0,0,0.975,0,15,1,0.06960582148214003,cold,nurture — no SDR route
+944,outbound,small,6,1,0,0,0.519,0,28,0,0.1270214026570817,cold,nurture — no SDR route
+945,paid_search,small,1,3,0,0,0.914,0,7,0,0.5546500781648802,warm,route to SDR queue
+946,paid_search,small,3,0,0,0,0.82,0,2,0,0.1819401713325477,cold,nurture — no SDR route
+947,paid_social,small,6,4,1,0,0.794,0,30,1,0.8759689093538893,hot,route to SDR immediately
+948,referral,small,3,1,1,0,0.699,0,22,1,0.5432448677756031,warm,route to SDR queue
+949,organic_search,small,5,1,0,0,0.522,0,23,1,0.24380427867109966,cold,nurture — no SDR route
+950,organic_search,large,2,0,0,0,0.609,0,14,0,0.15126560788022833,cold,nurture — no SDR route
+951,organic_search,mid,3,3,0,0,0.652,0,14,0,0.5622644943232155,warm,route to SDR queue
+952,paid_search,small,3,1,1,0,0.971,0,1,1,0.5811151478692893,warm,route to SDR queue
+953,referral,mid,3,1,0,0,0.725,0,16,0,0.3046135195751881,cold,nurture — no SDR route
+954,paid_search,small,6,1,0,0,0.675,0,21,0,0.30350348857168247,cold,nurture — no SDR route
+955,organic_search,mid,3,1,0,0,0.844,0,29,1,0.19267986730909714,cold,nurture — no SDR route
+956,paid_search,mid,2,0,0,0,0.725,0,2,1,0.1619527002787827,cold,nurture — no SDR route
+957,paid_social,large,4,6,1,0,0.785,0,18,1,0.9766633102711033,hot,route to SDR immediately
+958,outbound,small,2,1,0,0,0.925,0,25,0,0.0915650623201742,cold,nurture — no SDR route
+959,organic_search,large,7,1,0,0,0.711,0,0,1,0.42685144205077225,warm,route to SDR queue
+960,paid_search,small,5,1,1,0,0.561,1,14,1,0.5770332768520391,excluded,exclude — competitor domain
+961,paid_social,small,3,2,0,0,0.585,0,9,0,0.37820613728336056,warm,route to SDR queue
+962,organic_search,small,10,1,0,0,0.795,0,7,1,0.36158239216736354,warm,route to SDR queue
+963,paid_search,small,6,1,0,0,0.546,0,10,1,0.34390480581675553,cold,nurture — no SDR route
+964,paid_search,large,1,1,0,0,0.704,0,23,1,0.23758540022853328,cold,nurture — no SDR route
+965,paid_search,small,7,3,0,0,0.631,0,7,1,0.711019019318695,hot,route to SDR immediately
+966,organic_search,small,6,1,0,0,0.851,1,11,0,0.29791584567951684,excluded,exclude — competitor domain
+967,paid_social,mid,3,0,0,0,0.781,0,24,0,0.10153928544203335,cold,nurture — no SDR route
+968,organic_search,small,9,2,0,0,0.788,0,11,1,0.5083532816620009,warm,route to SDR queue
+969,paid_search,mid,6,2,0,0,0.618,0,3,0,0.5464567880077278,warm,route to SDR queue
+970,organic_search,small,7,0,0,1,0.475,1,16,0,0.545801997745589,excluded,exclude — competitor domain
+971,paid_search,mid,1,0,0,0,0.781,1,9,0,0.1234765224781184,excluded,exclude — competitor domain
+972,outbound,large,3,0,0,0,0.849,0,7,0,0.09489262182952707,cold,nurture — no SDR route
+973,outbound,small,3,2,0,0,0.912,0,8,0,0.23983174167415178,cold,nurture — no SDR route
+974,paid_social,small,1,0,0,0,0.913,0,10,0,0.09226042670109245,cold,nurture — no SDR route
+975,paid_social,small,4,1,0,0,0.72,0,22,0,0.21055806075347402,cold,nurture — no SDR route
+976,outbound,small,7,0,1,0,0.81,0,29,0,0.1829119845061426,cold,nurture — no SDR route
+977,paid_search,small,5,0,0,0,0.792,0,21,0,0.16488187147223085,cold,nurture — no SDR route
+978,referral,large,5,2,1,0,0.589,0,7,1,0.8390987838897347,hot,route to SDR immediately
+979,paid_search,small,6,1,0,0,0.9,0,6,0,0.3587489933725458,warm,route to SDR queue
+980,organic_search,mid,4,1,0,1,0.787,0,16,0,0.6609036485358172,hot,route to SDR immediately — demo requested
+981,paid_social,mid,6,0,0,0,0.621,0,15,0,0.1474742121210262,cold,nurture — no SDR route
+982,organic_search,small,4,2,0,0,0.771,0,21,0,0.38377578001969787,warm,route to SDR queue
+983,outbound,small,4,1,0,1,0.968,0,4,1,0.5199146175724484,hot,route to SDR immediately — demo requested
+984,paid_search,large,3,2,1,0,0.731,0,4,1,0.7868770665144755,hot,route to SDR immediately
+985,referral,small,3,0,0,0,0.972,0,26,0,0.15322234426360104,cold,nurture — no SDR route
+986,organic_search,small,1,1,0,0,0.807,0,10,0,0.18934550874845432,cold,nurture — no SDR route
+987,paid_social,small,4,4,0,0,0.734,0,18,1,0.7092812428225951,hot,route to SDR immediately
+988,paid_social,mid,3,3,0,0,0.606,0,11,1,0.5460659609865234,warm,route to SDR queue
+989,paid_search,small,2,1,0,0,0.763,0,8,0,0.2633099011812931,cold,nurture — no SDR route
+990,paid_search,small,4,0,1,0,0.882,0,13,0,0.38244723379745693,warm,route to SDR queue
+991,organic_search,mid,7,1,0,0,0.691,0,0,0,0.35276386185395886,warm,route to SDR queue
+992,paid_search,mid,7,2,0,0,0.784,0,12,0,0.5250691971127317,warm,route to SDR queue
+993,organic_search,mid,1,4,0,0,0.803,0,17,0,0.6399640673901202,hot,route to SDR immediately
+994,outbound,small,3,0,0,0,0.855,0,15,0,0.06288398352075585,cold,nurture — no SDR route
+995,outbound,small,7,2,0,0,0.617,0,26,0,0.2471988912583615,cold,nurture — no SDR route
+996,outbound,small,0,1,0,0,0.834,0,1,0,0.08083708864308913,cold,nurture — no SDR route
+997,referral,small,4,1,0,1,0.861,0,8,1,0.7667306409228757,hot,route to SDR immediately — demo requested
+998,paid_search,mid,7,2,0,0,0.788,0,28,1,0.4582462181691425,warm,route to SDR queue
+999,outbound,small,9,1,0,0,0.662,0,11,1,0.18709578819833136,cold,nurture — no SDR route
+1000,paid_search,large,11,3,0,0,0.617,0,6,1,0.80661568730051,hot,route to SDR immediately
+1001,outbound,small,3,1,0,0,0.739,0,27,0,0.10099610186472106,cold,nurture — no SDR route
+1002,outbound,mid,3,0,1,0,0.952,0,6,0,0.18964930963218699,cold,nurture — no SDR route
+1003,organic_search,mid,2,1,0,0,0.962,1,16,0,0.20477087908156577,excluded,exclude — competitor domain
+1004,organic_search,large,3,0,0,0,0.834,0,28,0,0.13953800943734632,cold,nurture — no SDR route
+1005,paid_search,large,8,1,0,0,0.874,0,15,0,0.42658490637644386,warm,route to SDR queue
+1006,organic_search,small,3,2,1,0,0.479,1,19,0,0.6344003444085976,excluded,exclude — competitor domain
+1007,paid_search,large,7,1,0,0,0.957,0,22,1,0.3843598189408464,warm,route to SDR queue
+1008,paid_search,small,2,0,1,0,0.918,0,1,1,0.3707724810874644,warm,route to SDR queue
+1009,paid_search,mid,5,1,1,0,0.93,0,29,0,0.5144273575573665,warm,route to SDR queue
+1010,referral,large,4,0,0,0,0.92,0,8,0,0.27162321441788834,cold,nurture — no SDR route
+1011,outbound,mid,6,2,0,1,0.893,0,2,1,0.729874647165819,hot,route to SDR immediately — demo requested
+1012,paid_search,mid,3,1,0,0,0.902,0,30,0,0.2215431487684477,cold,nurture — no SDR route
+1013,paid_search,small,8,3,0,0,0.77,0,16,1,0.6914171629704225,hot,route to SDR immediately
+1014,paid_search,mid,2,1,0,1,0.646,0,15,1,0.6519080405704542,hot,route to SDR immediately — demo requested
+1015,paid_search,small,2,0,0,0,0.557,0,1,0,0.1643536479019936,cold,nurture — no SDR route
+1016,paid_search,small,7,1,0,0,0.778,0,18,1,0.3283747569142418,cold,nurture — no SDR route
+1017,organic_search,small,4,1,0,0,0.672,1,14,0,0.2551285999276489,excluded,exclude — competitor domain
+1018,paid_social,large,0,2,0,0,0.913,0,6,0,0.3066662699363394,cold,nurture — no SDR route
+1019,paid_social,mid,5,1,0,0,0.457,0,16,0,0.24407411141034788,nurture,nurture — enrichment incomplete
+1020,paid_search,mid,1,0,0,0,0.811,0,22,0,0.10177941629549854,cold,nurture — no SDR route
+1021,organic_search,small,4,1,0,0,0.828,0,10,0,0.26790109446616184,cold,nurture — no SDR route
+1022,paid_search,small,6,0,1,0,0.707,0,25,0,0.3742117284907788,warm,route to SDR queue
+1023,paid_social,large,3,1,0,0,0.8,0,19,1,0.25562631660730445,cold,nurture — no SDR route
+1024,paid_social,small,6,2,0,0,0.72,0,26,0,0.37564762193111206,warm,route to SDR queue
+1025,outbound,large,6,2,0,1,0.698,0,23,0,0.7222927712430844,hot,route to SDR immediately — demo requested
+1026,paid_search,small,3,2,1,0,0.928,0,12,0,0.7024573849240061,hot,route to SDR immediately
+1027,organic_search,small,2,0,0,0,0.722,0,9,0,0.12412701881229458,cold,nurture — no SDR route
+1028,paid_social,small,5,0,0,0,0.718,0,16,0,0.13618723010197764,cold,nurture — no SDR route
+1029,outbound,small,5,1,1,0,0.458,0,13,1,0.34238698407230017,nurture,nurture — enrichment incomplete
+1030,paid_social,small,1,1,1,0,0.564,0,19,1,0.34965870368785384,cold,nurture — no SDR route
+1031,organic_search,small,6,7,0,0,0.813,0,2,1,0.9730577444840068,hot,route to SDR immediately
+1032,outbound,mid,4,0,0,0,0.784,0,25,0,0.05957288986481784,cold,nurture — no SDR route
+1033,organic_search,small,3,2,0,1,0.769,0,30,1,0.7387160433562868,hot,route to SDR immediately — demo requested
+1034,paid_search,small,5,2,0,0,0.977,0,10,0,0.4979643718411337,warm,route to SDR queue
+1035,paid_search,small,8,0,0,0,0.638,0,21,0,0.1942161346772522,cold,nurture — no SDR route
+1036,outbound,small,4,2,0,1,0.944,0,30,0,0.5891051221654545,hot,route to SDR immediately — demo requested
+1037,paid_search,small,4,2,0,0,0.792,0,11,1,0.47170630274440545,warm,route to SDR queue
+1038,paid_social,small,5,1,1,0,0.913,0,29,0,0.4375243824318294,warm,route to SDR queue
+1039,outbound,mid,6,3,0,0,0.665,0,28,0,0.37819145795911374,warm,route to SDR queue
+1040,paid_search,small,4,1,0,1,0.651,0,9,1,0.7267456369671651,hot,route to SDR immediately — demo requested
+1041,paid_search,small,1,3,0,1,0.752,0,20,1,0.8551493500875423,hot,route to SDR immediately — demo requested
+1042,paid_search,mid,5,1,1,0,0.758,0,3,0,0.6209737956286776,hot,route to SDR immediately
+1043,paid_search,small,2,1,0,0,0.836,0,25,1,0.21187082303597374,cold,nurture — no SDR route
+1044,paid_social,mid,3,1,0,0,0.81,0,0,0,0.2566919350864053,cold,nurture — no SDR route
+1045,organic_search,mid,7,1,0,1,0.494,0,14,0,0.7176078833396838,nurture,nurture — enrichment incomplete
+1046,paid_social,small,2,0,0,1,0.939,0,9,0,0.425997176692043,hot,route to SDR immediately — demo requested
+1047,paid_search,small,5,0,0,0,0.429,0,28,0,0.1496124871905194,nurture,nurture — enrichment incomplete
+1048,referral,mid,4,1,0,0,0.875,0,26,1,0.2923161518169305,cold,nurture — no SDR route
+1049,referral,small,2,0,0,0,0.904,0,13,0,0.16346709470158335,cold,nurture — no SDR route
+1050,organic_search,mid,5,2,1,0,0.444,0,8,1,0.7179090943465751,nurture,nurture — enrichment incomplete
+1051,paid_search,large,7,1,0,0,0.737,0,2,1,0.4662297681931747,warm,route to SDR queue
+1052,organic_search,mid,6,1,0,0,0.916,0,3,0,0.32657902604720457,cold,nurture — no SDR route
+1053,organic_search,small,2,2,0,0,0.724,0,3,1,0.3959287780978646,warm,route to SDR queue
+1054,paid_social,mid,4,1,0,0,0.824,0,0,1,0.2780928571939586,cold,nurture — no SDR route
+1055,outbound,small,4,0,0,0,0.544,0,1,0,0.08656638190639909,cold,nurture — no SDR route
+1056,paid_social,small,4,3,0,0,0.849,0,11,1,0.5727108942214074,warm,route to SDR queue
+1057,organic_search,small,4,2,0,0,0.901,0,1,0,0.46517424794421236,warm,route to SDR queue
+1058,paid_search,mid,6,0,1,0,0.439,0,10,0,0.434916108937464,nurture,nurture — enrichment incomplete
+1059,organic_search,large,6,1,0,1,0.736,0,15,1,0.7616100944935849,hot,route to SDR immediately — demo requested
+1060,referral,mid,2,1,0,0,0.325,0,3,1,0.3215084771353071,nurture,nurture — enrichment incomplete
+1061,organic_search,small,6,3,0,0,0.534,0,1,0,0.6776008942290699,hot,route to SDR immediately
+1062,paid_search,large,5,0,1,0,0.981,0,20,1,0.4513660110124262,warm,route to SDR queue
+1063,outbound,small,7,2,0,0,0.821,0,8,0,0.30716060933157385,cold,nurture — no SDR route
+1064,organic_search,small,6,0,0,0,0.715,0,13,0,0.1672069154050307,cold,nurture — no SDR route
+1065,paid_social,mid,4,2,0,0,0.705,0,5,1,0.4203157433467995,warm,route to SDR queue
+1066,paid_social,small,4,2,0,0,0.908,0,17,1,0.37207739106801124,warm,route to SDR queue
+1067,referral,small,4,3,0,1,0.63,0,26,1,0.9105982519540419,hot,route to SDR immediately — demo requested
+1068,paid_search,mid,5,2,0,0,0.824,0,30,1,0.4153117111384733,warm,route to SDR queue
+1069,organic_search,mid,2,1,0,0,0.536,0,28,0,0.17430919822919239,cold,nurture — no SDR route
+1070,organic_search,large,4,0,0,1,0.724,0,23,1,0.5367528985140022,hot,route to SDR immediately — demo requested
+1071,organic_search,small,4,2,0,0,0.73,0,0,0,0.4695555784938777,warm,route to SDR queue
+1072,outbound,large,6,0,0,0,0.898,0,10,1,0.11593625770642282,cold,nurture — no SDR route
+1073,paid_social,mid,1,2,0,0,0.738,0,18,0,0.27125490128960417,cold,nurture — no SDR route
+1074,paid_social,small,3,2,0,0,0.689,0,18,0,0.34337204039747654,cold,nurture — no SDR route
+1075,paid_search,small,6,4,0,0,0.837,0,12,0,0.8124047094242949,hot,route to SDR immediately
+1076,outbound,mid,3,0,0,0,0.632,0,5,0,0.07357384121900551,cold,nurture — no SDR route
+1077,paid_social,small,4,3,0,1,0.772,0,11,0,0.8875672207087351,hot,route to SDR immediately — demo requested
+1078,organic_search,small,4,0,0,0,0.83,0,25,0,0.12219019170567952,cold,nurture — no SDR route
+1079,paid_social,mid,4,2,1,1,0.623,0,22,0,0.9060546443551893,hot,route to SDR immediately — demo requested
+1080,outbound,small,3,1,1,0,0.562,0,0,1,0.34651842859045756,cold,nurture — no SDR route
+1081,outbound,small,4,1,0,1,0.755,0,24,0,0.4368632305578109,hot,route to SDR immediately — demo requested
+1082,paid_search,small,3,2,0,0,0.942,0,1,0,0.48598414758428915,warm,route to SDR queue
+1083,outbound,large,5,2,0,0,0.784,0,29,0,0.270251807670291,cold,nurture — no SDR route
+1084,organic_search,mid,4,1,1,0,0.767,0,6,0,0.5401775116530483,warm,route to SDR queue
+1085,paid_search,small,2,1,0,0,0.823,0,16,0,0.23812033899452545,cold,nurture — no SDR route
+1086,paid_social,large,3,1,0,0,0.554,0,28,0,0.22825563502624,cold,nurture — no SDR route
+1087,paid_search,small,2,1,1,0,0.918,0,4,0,0.5340534788535434,warm,route to SDR queue
+1088,organic_search,mid,2,3,1,0,0.862,0,29,1,0.722399988053198,hot,route to SDR immediately
+1089,paid_search,small,7,0,0,0,0.929,0,28,0,0.16809586739329394,cold,nurture — no SDR route
+1090,paid_social,mid,7,0,0,0,0.526,0,13,1,0.16041325674122772,cold,nurture — no SDR route
+1091,paid_social,mid,4,2,1,0,0.92,0,3,1,0.6921118930403899,hot,route to SDR immediately
+1092,organic_search,mid,4,2,0,0,0.664,0,13,1,0.416019003132935,warm,route to SDR queue
+1093,referral,small,4,0,0,0,0.475,0,10,0,0.2091724145915872,nurture,nurture — enrichment incomplete
+1094,outbound,small,3,1,0,1,0.516,0,19,1,0.43084990196263356,hot,route to SDR immediately — demo requested
+1095,paid_social,mid,4,1,0,0,0.663,0,24,0,0.20509582097638965,cold,nurture — no SDR route
+1096,organic_search,large,6,0,0,0,0.955,0,14,0,0.21228637704395364,cold,nurture — no SDR route
+1097,paid_search,small,2,3,0,0,0.736,0,8,1,0.5992556429417926,warm,route to SDR queue
+1098,paid_social,small,2,2,0,0,0.615,0,17,1,0.316005988064305,cold,nurture — no SDR route
+1099,outbound,small,3,1,0,1,0.569,0,24,1,0.4103972420338673,hot,route to SDR immediately — demo requested
+1100,paid_search,large,2,2,0,0,0.813,0,18,1,0.4579511666684733,warm,route to SDR queue
+1101,outbound,small,5,0,0,0,0.818,0,20,0,0.07002672652893793,cold,nurture — no SDR route
+1102,organic_search,small,1,0,0,0,0.787,0,14,0,0.09650852640045054,cold,nurture — no SDR route
+1103,paid_search,small,5,0,0,1,0.896,0,0,0,0.6227797875652092,hot,route to SDR immediately — demo requested
+1104,referral,large,5,1,0,0,0.913,0,5,1,0.4672278720891767,warm,route to SDR queue
+1105,paid_search,small,3,3,0,1,0.331,0,15,1,0.9003473533204723,nurture,nurture — enrichment incomplete
+1106,outbound,mid,4,1,0,0,0.537,0,30,0,0.10659332368035601,cold,nurture — no SDR route
+1107,paid_search,mid,3,0,0,0,0.693,0,28,0,0.1259006571312105,cold,nurture — no SDR route
+1108,paid_search,small,5,2,0,0,0.858,0,12,0,0.4897494633501449,warm,route to SDR queue
+1109,referral,mid,6,0,0,0,0.841,0,28,0,0.18723415728367884,cold,nurture — no SDR route
+1110,paid_social,small,3,0,1,0,0.91,0,7,1,0.3106030762222116,cold,nurture — no SDR route
+1111,paid_search,small,6,1,1,0,0.904,0,5,1,0.6306544496566092,hot,route to SDR immediately
+1112,organic_search,small,5,1,0,0,0.877,0,7,1,0.2960899490900751,cold,nurture — no SDR route
+1113,paid_search,small,3,3,0,0,0.965,0,28,0,0.551693697215831,warm,route to SDR queue
+1114,organic_search,mid,2,1,0,0,0.811,0,8,1,0.22756696692893955,cold,nurture — no SDR route
+1115,organic_search,small,5,4,0,0,0.426,0,26,0,0.7241107290067276,nurture,nurture — enrichment incomplete
+1116,outbound,small,4,2,1,1,0.87,0,29,1,0.8140411994734743,hot,route to SDR immediately — demo requested
+1117,paid_search,large,5,0,0,0,0.901,0,2,0,0.27039027304023633,cold,nurture — no SDR route
+1118,organic_search,small,2,2,0,0,0.873,0,4,0,0.3917536628279959,warm,route to SDR queue
+1119,outbound,small,2,3,1,0,0.947,0,24,0,0.5626987766840829,warm,route to SDR queue
+1120,paid_social,mid,3,1,0,0,0.764,0,14,0,0.21462342662729297,cold,nurture — no SDR route
+1121,referral,small,1,0,0,1,0.734,0,3,0,0.5273842689573265,hot,route to SDR immediately — demo requested
+1122,paid_search,small,7,1,1,0,0.547,0,17,1,0.5990405477821193,warm,route to SDR queue
+1123,outbound,small,4,0,0,0,0.686,0,16,0,0.06862340006356374,cold,nurture — no SDR route
+1124,organic_search,mid,3,0,1,0,0.802,0,19,0,0.2928549252395999,cold,nurture — no SDR route
+1125,outbound,small,7,2,0,0,0.495,0,15,1,0.2831449697025637,nurture,nurture — enrichment incomplete
+1126,referral,large,4,1,0,1,0.945,0,1,0,0.8346515995085171,hot,route to SDR immediately — demo requested
+1127,outbound,mid,4,1,0,0,0.573,0,4,1,0.15562904260308433,cold,nurture — no SDR route
+1128,paid_search,small,5,2,0,0,0.617,0,14,1,0.48169439660545404,warm,route to SDR queue
+1129,organic_search,large,5,2,0,0,0.849,0,12,1,0.5195701210897985,warm,route to SDR queue
+1130,paid_search,small,2,2,0,0,0.802,0,16,1,0.3899852216966671,warm,route to SDR queue
+1131,paid_search,small,5,2,1,0,0.627,0,16,1,0.7295489948897277,hot,route to SDR immediately
+1132,paid_social,large,4,2,1,0,0.901,0,0,0,0.7636172760647345,hot,route to SDR immediately
+1133,organic_search,small,5,0,1,0,0.635,0,22,0,0.3247132437033932,cold,nurture — no SDR route
+1134,organic_search,small,3,2,0,0,0.89,0,21,1,0.35812334709762683,warm,route to SDR queue
+1135,outbound,mid,4,0,1,0,0.86,0,23,0,0.16424987699525442,cold,nurture — no SDR route
+1136,paid_search,mid,6,0,0,1,0.799,0,16,0,0.5768021133615606,hot,route to SDR immediately — demo requested
+1137,paid_search,mid,2,0,1,0,0.692,0,22,1,0.29334865985018144,cold,nurture — no SDR route
+1138,paid_social,small,2,1,0,0,0.572,0,16,0,0.18682594484340678,cold,nurture — no SDR route
+1139,referral,small,2,1,0,0,0.622,0,29,0,0.23443434104493588,cold,nurture — no SDR route
+1140,organic_search,small,4,1,0,0,0.639,0,1,0,0.2986502956961344,cold,nurture — no SDR route
+1141,organic_search,small,1,2,0,0,0.691,0,1,0,0.3571989930185828,warm,route to SDR queue
+1142,referral,small,2,0,0,0,0.819,0,29,0,0.13011196222659066,cold,nurture — no SDR route
+1143,organic_search,mid,2,0,0,0,0.75,0,26,0,0.09634280899807812,cold,nurture — no SDR route
+1144,paid_search,small,3,2,0,0,0.758,0,26,1,0.38378852370233363,warm,route to SDR queue
+1145,paid_search,small,5,1,0,0,0.927,0,5,1,0.3453029532577799,cold,nurture — no SDR route
+1146,paid_social,large,6,2,0,0,0.971,0,9,1,0.5218484548575283,warm,route to SDR queue
+1147,outbound,small,3,0,0,0,0.922,0,11,0,0.06692464925341236,cold,nurture — no SDR route
+1148,organic_search,large,10,1,1,0,0.485,0,15,1,0.6705357824419008,nurture,nurture — enrichment incomplete
+1149,paid_search,mid,6,2,0,0,0.934,0,4,1,0.5419088598791184,warm,route to SDR queue
+1150,paid_social,mid,2,2,0,0,0.662,1,20,0,0.3052060038745092,excluded,exclude — competitor domain
+1151,paid_social,small,8,2,0,0,0.759,0,21,1,0.4252102881023746,warm,route to SDR queue
+1152,organic_search,mid,1,1,1,0,0.916,0,20,0,0.3721388152186866,warm,route to SDR queue
+1153,organic_search,small,8,0,0,0,0.834,0,23,0,0.1610647551664198,cold,nurture — no SDR route
+1154,outbound,small,5,1,0,0,0.779,0,1,1,0.17471083464844755,cold,nurture — no SDR route
+1155,paid_social,large,4,2,0,0,0.884,0,2,1,0.5100293624131932,warm,route to SDR queue
+1156,paid_social,small,4,4,0,1,0.484,0,27,1,0.92521258029907,nurture,nurture — enrichment incomplete
+1157,organic_search,small,3,1,0,0,0.966,0,7,0,0.25632499378275087,cold,nurture — no SDR route
+1158,outbound,mid,4,1,0,0,0.83,0,15,0,0.1327921192047885,cold,nurture — no SDR route
+1159,organic_search,small,5,1,0,1,0.879,0,19,1,0.6695193096394421,hot,route to SDR immediately — demo requested
+1160,paid_social,small,6,0,0,0,0.891,0,22,0,0.13318843017038617,cold,nurture — no SDR route
+1161,referral,large,4,2,0,0,0.779,0,8,1,0.6095390743344187,hot,route to SDR immediately
+1162,paid_social,small,4,1,0,0,0.51,0,29,0,0.19191112284264375,cold,nurture — no SDR route
+1163,outbound,small,4,1,0,0,0.857,0,27,0,0.11130896185041271,cold,nurture — no SDR route
+1164,paid_search,large,8,0,0,0,0.792,0,15,1,0.2668008718625369,cold,nurture — no SDR route
+1165,paid_search,small,4,3,0,0,0.619,1,14,1,0.6348104764182336,excluded,exclude — competitor domain
+1166,referral,small,2,0,0,0,0.696,1,23,0,0.14197997389246153,excluded,exclude — competitor domain
+1167,paid_search,large,3,0,0,0,0.707,0,3,0,0.23021201151413578,cold,nurture — no SDR route
+1168,referral,small,3,2,1,0,0.832,0,30,0,0.68013620746103,hot,route to SDR immediately
+1169,organic_search,large,3,0,0,0,0.781,0,21,0,0.15424008161383987,cold,nurture — no SDR route
+1170,organic_search,mid,2,1,0,0,0.524,0,2,1,0.24596637035396637,cold,nurture — no SDR route
+1171,paid_search,mid,8,2,0,0,0.93,1,10,0,0.5475596186769104,excluded,exclude — competitor domain
+1172,referral,small,6,0,0,0,0.735,0,18,0,0.21413052014628722,cold,nurture — no SDR route
+1173,paid_search,small,4,1,0,1,0.661,0,7,1,0.7333313927660278,hot,route to SDR immediately — demo requested
+1174,outbound,mid,4,1,0,0,0.866,0,28,0,0.10965992004370748,cold,nurture — no SDR route
+1175,outbound,mid,2,0,0,0,0.988,0,14,0,0.05591153164155386,cold,nurture — no SDR route
+1176,paid_social,small,1,1,0,0,0.771,0,12,0,0.16748473916102813,cold,nurture — no SDR route
+1177,paid_search,small,5,2,0,0,0.605,0,3,1,0.5276918301646493,warm,route to SDR queue
+1178,outbound,small,8,2,0,0,0.78,0,10,0,0.31239157371376697,cold,nurture — no SDR route
+1179,paid_social,small,2,0,0,0,0.742,0,28,0,0.08409465731178266,cold,nurture — no SDR route
+1180,paid_search,small,2,1,0,0,0.666,0,6,0,0.269950049377149,cold,nurture — no SDR route
+1181,paid_social,small,3,0,0,0,0.833,0,18,0,0.11104648717075276,cold,nurture — no SDR route
+1182,paid_search,mid,8,4,0,0,0.779,0,30,1,0.7838019848821784,hot,route to SDR immediately
+1183,paid_social,small,5,1,0,0,0.751,0,15,0,0.24689774100486364,cold,nurture — no SDR route
+1184,organic_search,small,4,0,0,0,0.83,1,10,0,0.15176304812860375,excluded,exclude — competitor domain
+1185,outbound,small,1,2,0,0,0.769,0,18,0,0.15977105629331187,cold,nurture — no SDR route
+1186,referral,small,2,2,0,0,0.476,0,1,0,0.5003467153069163,nurture,nurture — enrichment incomplete
+1187,paid_search,small,6,2,0,0,0.762,0,29,1,0.4379584959557105,warm,route to SDR queue
+1188,paid_social,large,4,1,1,0,0.62,0,9,1,0.5763724580172663,warm,route to SDR queue
+1189,paid_social,small,7,2,0,1,0.879,0,7,1,0.838531448791641,hot,route to SDR immediately — demo requested
+1190,outbound,small,2,1,0,0,0.401,0,30,0,0.08504539043919014,nurture,nurture — enrichment incomplete
+1191,paid_search,mid,6,2,0,0,0.944,0,0,1,0.558460258218977,warm,route to SDR queue
+1192,organic_search,large,2,0,0,1,0.843,0,10,1,0.5284343810501082,hot,route to SDR immediately — demo requested
+1193,outbound,mid,0,1,0,0,0.646,0,5,0,0.07606795237053719,cold,nurture — no SDR route
+1194,paid_social,mid,7,0,0,0,0.579,0,24,0,0.13711042441963517,cold,nurture — no SDR route
+1195,paid_search,small,6,3,1,0,0.737,0,5,1,0.8772815120257077,hot,route to SDR immediately
+1196,organic_search,small,6,1,0,0,0.452,0,20,0,0.2677971577063439,nurture,nurture — enrichment incomplete
+1197,paid_social,small,2,1,0,0,0.619,0,10,1,0.20252272206626612,cold,nurture — no SDR route
+1198,outbound,mid,9,0,1,0,0.939,0,9,0,0.2585823664478313,cold,nurture — no SDR route
+1199,paid_search,mid,6,3,0,0,0.704,0,21,0,0.6457127769531973,hot,route to SDR immediately
+1200,paid_search,small,5,0,0,0,0.822,0,13,1,0.18412848982378255,cold,nurture — no SDR route
+1201,paid_search,mid,6,3,0,0,0.816,0,16,0,0.6644859606409691,hot,route to SDR immediately
+1202,organic_search,mid,6,3,1,0,0.858,0,12,0,0.8397220222707549,hot,route to SDR immediately
+1203,paid_search,mid,4,3,0,0,0.53,0,1,1,0.6837164734617298,hot,route to SDR immediately
+1204,outbound,small,3,1,0,0,0.444,0,21,0,0.11063154864358657,nurture,nurture — enrichment incomplete
+1205,outbound,small,1,1,0,0,0.749,0,17,0,0.0863823484145937,cold,nurture — no SDR route
+1206,outbound,small,4,1,0,0,0.65,0,23,1,0.11821380249967557,cold,nurture — no SDR route
+1207,paid_search,large,5,1,0,0,0.842,0,7,0,0.41084257818593733,warm,route to SDR queue
+1208,paid_search,mid,8,1,0,0,0.949,0,17,1,0.34480556596337075,cold,nurture — no SDR route
+1209,paid_social,large,4,1,0,0,0.829,0,4,1,0.3299086040687853,cold,nurture — no SDR route
+1210,outbound,mid,1,1,0,1,0.754,0,11,0,0.380970480644438,hot,route to SDR immediately — demo requested
+1211,referral,mid,3,0,0,0,0.884,0,5,0,0.20461663761525378,cold,nurture — no SDR route
+1212,paid_search,small,2,2,0,0,0.82,0,22,0,0.3663586906385215,warm,route to SDR queue
+1213,organic_search,mid,4,0,0,0,0.86,0,12,1,0.14748556894978906,cold,nurture — no SDR route
+1214,outbound,small,6,0,0,0,0.5,0,19,0,0.07639381992931327,cold,nurture — no SDR route
+1215,outbound,mid,2,1,1,0,0.316,0,16,0,0.260789017586259,nurture,nurture — enrichment incomplete
+1216,organic_search,small,5,0,0,0,0.926,0,0,1,0.18776042555518668,cold,nurture — no SDR route
+1217,outbound,large,2,1,0,0,0.607,0,29,0,0.11428558409545615,cold,nurture — no SDR route
+1218,referral,large,0,0,0,0,0.655,0,6,0,0.14926432652208987,cold,nurture — no SDR route
+1219,paid_social,small,2,0,0,0,0.953,0,23,0,0.0906793252769537,cold,nurture — no SDR route
+1220,paid_search,mid,9,1,1,0,0.619,0,14,0,0.6366075342120404,hot,route to SDR immediately
+1221,organic_search,mid,2,2,0,0,0.579,0,4,1,0.3921086306716177,warm,route to SDR queue
+1222,paid_search,small,4,1,1,0,0.594,0,30,0,0.4883364114941822,warm,route to SDR queue
+1223,paid_social,mid,3,3,0,0,0.92,1,22,1,0.4997804892853207,excluded,exclude — competitor domain
+1224,outbound,small,3,0,1,1,0.936,1,18,1,0.529914175616109,excluded,exclude — competitor domain
+1225,organic_search,mid,4,1,0,0,0.975,0,2,0,0.2948030429505142,cold,nurture — no SDR route
+1226,organic_search,large,7,2,0,0,0.813,0,11,1,0.5587846108007645,warm,route to SDR queue
+1227,outbound,mid,6,2,0,1,0.346,0,2,0,0.7304206605307374,nurture,nurture — enrichment incomplete
+1228,paid_search,small,2,2,0,0,0.926,0,10,1,0.4139650406405405,warm,route to SDR queue
+1229,outbound,mid,7,1,0,0,0.729,0,22,0,0.14644368954964518,cold,nurture — no SDR route
+1230,outbound,mid,4,2,0,0,0.235,0,1,1,0.2842106392977385,nurture,nurture — enrichment incomplete
+1231,paid_social,small,4,2,0,0,0.615,0,30,0,0.3231410437878153,cold,nurture — no SDR route
+1232,paid_social,small,2,0,1,0,0.584,0,15,0,0.25530485745223536,cold,nurture — no SDR route
+1233,paid_search,small,4,0,0,0,0.681,0,30,0,0.13449980018398872,cold,nurture — no SDR route
+1234,outbound,small,4,1,0,0,0.812,0,17,0,0.1289953628959943,cold,nurture — no SDR route
+1235,paid_search,small,5,1,0,1,0.716,0,17,1,0.7177499175491463,hot,route to SDR immediately — demo requested
+1236,paid_search,mid,5,0,0,0,0.704,0,20,0,0.16726111538525967,cold,nurture — no SDR route
+1237,outbound,large,2,1,0,0,0.841,0,28,0,0.11586894790583606,cold,nurture — no SDR route
+1238,organic_search,small,3,3,0,1,0.659,0,1,1,0.9038439077257914,hot,route to SDR immediately — demo requested
+1239,organic_search,mid,2,0,1,0,0.757,0,29,0,0.2333187672062662,cold,nurture — no SDR route
+1240,organic_search,mid,3,2,0,1,0.783,0,9,0,0.8006961655508004,hot,route to SDR immediately — demo requested
+1241,paid_search,mid,1,1,0,0,0.853,0,0,0,0.2508397616446954,cold,nurture — no SDR route
+1242,paid_search,mid,7,0,0,0,0.378,0,7,0,0.22357118294808462,nurture,nurture — enrichment incomplete
+1243,paid_social,small,6,1,0,0,0.862,0,20,0,0.24528676169704544,cold,nurture — no SDR route
+1244,paid_search,mid,6,2,0,0,0.603,0,8,0,0.5256699496641164,warm,route to SDR queue
+1245,organic_search,small,8,0,0,0,0.906,0,26,0,0.15434852551782363,cold,nurture — no SDR route
+1246,organic_search,small,1,0,0,0,0.39,0,8,0,0.10581509289668521,nurture,nurture — enrichment incomplete
+1247,organic_search,small,4,0,0,0,0.625,0,12,0,0.14763532368089666,cold,nurture — no SDR route
+1248,organic_search,mid,2,1,0,1,0.748,0,17,0,0.5987909475059718,hot,route to SDR immediately — demo requested
+1249,paid_search,mid,5,1,0,0,0.955,0,22,0,0.28406789320845716,cold,nurture — no SDR route
+1250,paid_search,small,4,0,0,0,0.721,0,2,0,0.1988666959748542,cold,nurture — no SDR route
+1251,outbound,large,7,1,0,0,0.764,0,19,0,0.1977461720302456,cold,nurture — no SDR route
+1252,paid_search,mid,7,1,0,0,0.624,0,1,0,0.3940582675508449,warm,route to SDR queue
+1253,organic_search,mid,3,2,0,0,0.781,0,14,1,0.3856042349743975,warm,route to SDR queue
+1254,paid_search,small,1,4,0,0,0.827,0,7,1,0.7181795791350489,hot,route to SDR immediately
+1255,outbound,small,7,1,0,0,0.704,0,30,0,0.13050322205342652,cold,nurture — no SDR route
+1256,paid_search,small,7,1,0,0,0.89,0,0,0,0.39773812681001874,warm,route to SDR queue
+1257,paid_social,mid,8,3,0,0,0.813,0,10,0,0.6451786603582204,hot,route to SDR immediately
+1258,organic_search,small,3,1,0,0,0.931,0,13,0,0.2376901288661499,cold,nurture — no SDR route
+1259,organic_search,small,1,1,0,0,0.906,0,1,0,0.2134652054510003,cold,nurture — no SDR route
+1260,outbound,small,3,0,0,0,0.432,0,6,0,0.07250945248791806,nurture,nurture — enrichment incomplete
+1261,organic_search,small,6,0,0,0,0.748,0,30,0,0.13122165513220183,cold,nurture — no SDR route
+1262,paid_social,small,4,1,0,0,0.721,0,25,0,0.2023336669006874,cold,nurture — no SDR route
+1263,paid_search,small,2,3,0,0,0.73,0,22,1,0.5419306673895852,warm,route to SDR queue
+1264,organic_search,large,7,1,0,0,0.459,0,1,0,0.4230741387257564,nurture,nurture — enrichment incomplete
+1265,outbound,small,4,2,0,0,0.814,0,15,0,0.2385072307665109,cold,nurture — no SDR route
+1266,paid_search,large,6,0,0,0,0.788,0,13,0,0.24962818093532843,cold,nurture — no SDR route
+1267,referral,mid,1,2,1,0,0.931,0,20,1,0.6414179071829897,hot,route to SDR immediately
+1268,paid_search,small,6,0,0,0,0.976,0,9,0,0.20637485113371543,cold,nurture — no SDR route
+1269,paid_social,mid,2,1,0,0,0.667,0,15,0,0.1893076830506568,cold,nurture — no SDR route
+1270,organic_search,mid,6,0,0,0,0.851,0,18,0,0.15578732492948455,cold,nurture — no SDR route
+1271,organic_search,small,4,1,0,0,0.865,0,7,1,0.2778236310733265,cold,nurture — no SDR route
+1272,outbound,mid,3,0,0,0,0.75,0,23,0,0.05546940458029331,cold,nurture — no SDR route
+1273,organic_search,mid,3,2,0,0,0.907,0,15,0,0.3814967336481581,warm,route to SDR queue
+1274,paid_social,small,1,0,0,0,0.985,0,5,0,0.0994781448390645,cold,nurture — no SDR route
+1275,organic_search,large,2,0,0,0,0.769,0,27,0,0.12531174565415354,cold,nurture — no SDR route
+1276,paid_social,small,6,0,1,0,0.676,0,20,0,0.32313761570836524,cold,nurture — no SDR route
+1277,paid_social,small,10,0,0,0,0.639,0,12,0,0.1849868359547393,cold,nurture — no SDR route
+1278,paid_social,small,2,1,0,0,0.908,0,29,0,0.1557740840500604,cold,nurture — no SDR route
+1279,paid_social,small,5,1,1,0,0.807,0,22,1,0.4666646216407773,warm,route to SDR queue
+1280,paid_search,small,1,3,1,0,0.706,0,30,1,0.7180391934559608,hot,route to SDR immediately
+1281,paid_search,small,6,2,0,1,0.788,0,1,1,0.8799323915545003,hot,route to SDR immediately — demo requested
+1282,paid_search,small,5,2,0,0,0.698,0,21,0,0.45244313242723694,warm,route to SDR queue
+1283,paid_social,large,2,1,0,0,0.954,0,2,0,0.28371237165004554,cold,nurture — no SDR route
+1284,paid_search,large,7,0,1,0,0.815,0,30,0,0.4450579769187534,warm,route to SDR queue
+1285,referral,small,1,1,0,0,0.754,0,26,0,0.20872538390065964,cold,nurture — no SDR route
+1286,referral,small,1,0,0,0,0.609,0,30,0,0.10770899782247623,cold,nurture — no SDR route
+1287,paid_social,mid,2,0,0,0,0.875,0,13,0,0.10549261362387767,cold,nurture — no SDR route
+1288,organic_search,small,2,2,1,0,0.79,0,21,1,0.5926916081226421,warm,route to SDR queue
+1289,outbound,small,6,2,0,0,0.815,0,11,0,0.28311880003669043,cold,nurture — no SDR route
+1290,paid_social,mid,3,0,0,0,0.664,0,21,1,0.10626796129028075,cold,nurture — no SDR route
+1291,organic_search,small,2,1,1,0,0.377,0,24,0,0.40406926961339645,nurture,nurture — enrichment incomplete
+1292,paid_social,mid,3,0,0,0,0.795,0,29,0,0.09415049619678062,cold,nurture — no SDR route
+1293,organic_search,mid,2,2,0,0,0.465,0,3,0,0.3962426434637884,nurture,nurture — enrichment incomplete
+1294,outbound,small,2,1,0,0,0.859,1,19,0,0.10029649727634139,excluded,exclude — competitor domain
+1295,paid_search,small,6,1,1,0,0.869,0,24,1,0.5541010640317204,warm,route to SDR queue
+1296,outbound,small,6,3,0,1,0.681,0,12,1,0.8239368841289268,hot,route to SDR immediately — demo requested
+1297,organic_search,small,7,1,0,0,0.827,0,16,0,0.29414292628963745,cold,nurture — no SDR route
+1298,referral,mid,5,1,0,0,0.872,0,14,1,0.35572202458110724,warm,route to SDR queue
+1299,organic_search,mid,4,0,0,0,0.74,0,22,1,0.12772860098925184,cold,nurture — no SDR route
+1300,outbound,small,8,1,0,0,0.537,0,2,0,0.20271843654362515,cold,nurture — no SDR route
+1301,paid_social,mid,6,1,1,1,0.87,0,11,1,0.8697312432759133,hot,route to SDR immediately — demo requested
+1302,organic_search,mid,1,0,0,0,0.738,0,19,0,0.08947536736184149,cold,nurture — no SDR route
+1303,paid_search,small,1,0,0,1,0.659,0,6,1,0.4659842185976464,hot,route to SDR immediately — demo requested
+1304,organic_search,small,6,0,0,0,0.525,0,5,0,0.18683354401869598,cold,nurture — no SDR route
+1305,organic_search,small,5,3,0,1,0.857,0,9,1,0.9092513282257269,hot,route to SDR immediately — demo requested
+1306,paid_search,large,3,2,1,1,0.68,0,3,1,0.9567280185345431,hot,route to SDR immediately — demo requested
+1307,paid_search,small,6,3,0,0,0.801,0,14,0,0.6719227212546525,hot,route to SDR immediately
+1308,referral,small,5,0,0,0,0.921,0,24,0,0.18586559305188702,cold,nurture — no SDR route
+1309,referral,large,5,1,1,0,0.874,0,3,1,0.7313531327549119,hot,route to SDR immediately
+1310,organic_search,small,3,2,0,1,0.667,1,11,1,0.7953971157788672,excluded,exclude — competitor domain
+1311,paid_social,mid,5,0,0,0,0.875,0,25,0,0.11933656618175419,cold,nurture — no SDR route
+1312,organic_search,small,3,5,0,0,0.912,0,17,1,0.8361561355244537,hot,route to SDR immediately
+1313,paid_search,small,5,0,0,1,0.795,0,17,1,0.5541358993151873,hot,route to SDR immediately — demo requested
+1314,organic_search,small,7,2,0,1,0.798,0,23,1,0.816978833193015,hot,route to SDR immediately — demo requested
+1315,organic_search,large,6,1,1,0,0.959,0,29,1,0.5627698625583355,warm,route to SDR queue
+1316,organic_search,mid,4,0,0,0,0.956,1,21,0,0.12948126390820805,excluded,exclude — competitor domain
+1317,paid_social,small,1,2,0,0,0.64,0,8,1,0.3056729182175525,cold,nurture — no SDR route
+1318,paid_search,small,4,2,0,0,0.804,0,22,1,0.4261854303416572,warm,route to SDR queue
+1319,organic_search,small,7,2,0,1,0.8,0,0,1,0.8677128193454078,hot,route to SDR immediately — demo requested
+1320,paid_social,small,5,2,1,0,0.49,0,7,1,0.6973287316733856,nurture,nurture — enrichment incomplete
+1321,organic_search,small,4,0,0,0,0.91,0,19,0,0.13332759456075596,cold,nurture — no SDR route
+1322,paid_social,mid,5,0,0,0,0.622,0,16,0,0.1362444547659107,cold,nurture — no SDR route
+1323,paid_search,small,5,1,0,0,0.767,0,26,1,0.27084175743680894,cold,nurture — no SDR route
+1324,organic_search,small,6,1,0,0,0.611,0,17,0,0.2775933427692179,cold,nurture — no SDR route
+1325,organic_search,small,1,1,1,0,0.545,0,30,1,0.3343638009335245,cold,nurture — no SDR route
+1326,outbound,small,5,0,0,0,0.889,0,1,0,0.09374940106125175,cold,nurture — no SDR route
+1327,outbound,mid,1,2,0,0,0.813,0,9,0,0.18100571671805585,cold,nurture — no SDR route
+1328,paid_search,small,2,0,1,1,0.79,0,21,0,0.7129757172669863,hot,route to SDR immediately — demo requested
+1329,referral,mid,1,1,0,1,0.736,0,14,0,0.6550005464532601,hot,route to SDR immediately — demo requested
+1330,paid_search,small,6,2,0,0,0.682,0,15,1,0.49630786714454106,warm,route to SDR queue
+1331,organic_search,mid,4,1,0,0,0.77,0,30,1,0.20756169985165562,cold,nurture — no SDR route
+1332,paid_social,mid,4,2,0,0,0.745,0,1,0,0.43665628350090957,warm,route to SDR queue
+1333,paid_social,small,8,1,0,0,0.789,0,2,0,0.3319993491767831,cold,nurture — no SDR route
+1334,paid_social,mid,4,1,0,0,0.731,0,15,0,0.23067887985120145,cold,nurture — no SDR route
+1335,organic_search,large,2,2,0,0,0.89,0,8,1,0.4514869665881258,warm,route to SDR queue
+1336,organic_search,mid,5,2,0,0,0.388,0,9,0,0.45476243794692867,nurture,nurture — enrichment incomplete
+1337,organic_search,mid,0,1,0,0,0.794,0,0,0,0.16430004635141343,cold,nurture — no SDR route
+1338,organic_search,small,2,1,0,0,0.763,0,21,1,0.19163813382406805,cold,nurture — no SDR route
+1339,paid_social,small,5,1,0,0,0.672,0,10,1,0.26286004569697174,cold,nurture — no SDR route
+1340,organic_search,mid,1,3,0,0,0.93,0,26,0,0.42761860210025776,warm,route to SDR queue
+1341,paid_social,mid,6,1,0,1,0.958,0,0,1,0.7277237421877151,hot,route to SDR immediately — demo requested
+1342,organic_search,small,3,0,0,0,0.873,0,17,0,0.12481970510449661,cold,nurture — no SDR route
+1343,paid_social,small,6,0,0,0,0.756,0,0,0,0.18179659693429054,cold,nurture — no SDR route
+1344,organic_search,small,2,2,0,0,0.937,0,14,1,0.3526041243815501,warm,route to SDR queue
+1345,paid_search,mid,1,2,0,0,0.819,0,11,0,0.36296695376820415,warm,route to SDR queue
+1346,paid_social,small,3,0,0,0,0.482,0,27,0,0.09718294182448595,nurture,nurture — enrichment incomplete
+1347,paid_search,large,4,3,0,0,0.994,0,30,1,0.6446419761934261,hot,route to SDR immediately
+1348,paid_social,mid,6,4,0,0,0.864,0,18,1,0.7419528454536994,hot,route to SDR immediately
+1349,paid_search,large,4,1,0,0,0.516,0,25,0,0.32095161545057943,cold,nurture — no SDR route
+1350,organic_search,mid,6,2,0,0,0.805,0,10,0,0.46885453735610494,warm,route to SDR queue
+1351,outbound,mid,6,1,0,1,0.935,0,17,0,0.5068072353113344,hot,route to SDR immediately — demo requested
+1352,paid_social,large,4,0,1,0,0.899,0,18,1,0.36362783018060424,warm,route to SDR queue
+1353,paid_search,small,10,2,0,0,0.798,1,26,0,0.5055217230877704,excluded,exclude — competitor domain
+1354,organic_search,mid,2,1,1,0,0.598,0,22,0,0.4118822858761242,warm,route to SDR queue
+1355,paid_search,small,4,0,0,0,0.871,0,13,0,0.17104663027286687,cold,nurture — no SDR route
+1356,outbound,mid,3,1,0,0,0.718,0,12,0,0.12618853939924315,cold,nurture — no SDR route
+1357,paid_search,small,3,0,0,0,0.907,0,15,0,0.15171129666113511,cold,nurture — no SDR route
+1358,paid_social,mid,3,2,0,0,0.938,0,26,0,0.31357952769985703,cold,nurture — no SDR route
+1359,paid_social,small,4,0,1,0,0.889,0,20,1,0.2879471980979651,cold,nurture — no SDR route
+1360,paid_search,mid,5,1,0,0,0.684,0,10,0,0.3269109365732023,cold,nurture — no SDR route
+1361,paid_social,mid,5,0,0,1,0.876,0,23,0,0.4520364008824679,hot,route to SDR immediately — demo requested
+1362,paid_search,large,1,0,0,0,0.832,0,22,0,0.13407378195265263,cold,nurture — no SDR route
+1363,organic_search,large,4,0,0,0,0.451,0,15,0,0.1838789061311678,nurture,nurture — enrichment incomplete
+1364,outbound,small,3,0,0,0,0.649,0,29,0,0.05046226598050313,cold,nurture — no SDR route
+1365,paid_social,mid,5,2,0,0,0.931,0,4,0,0.44607756463791054,warm,route to SDR queue
+1366,referral,small,3,1,1,0,0.86,0,5,1,0.6123204967679938,hot,route to SDR immediately
+1367,paid_search,small,4,1,0,0,0.756,0,25,0,0.25675133534329675,cold,nurture — no SDR route
+1368,organic_search,mid,3,2,0,0,0.685,0,24,1,0.34690255342357024,cold,nurture — no SDR route
+1369,paid_social,large,5,1,0,0,0.894,0,6,0,0.3423049056601233,cold,nurture — no SDR route
+1370,paid_search,mid,3,3,0,0,0.885,0,13,0,0.612761056740288,hot,route to SDR immediately
+1371,referral,small,5,2,0,0,0.771,0,7,0,0.5595168506891246,warm,route to SDR queue
+1372,organic_search,mid,5,2,0,0,0.884,0,7,0,0.4624480863590003,warm,route to SDR queue
+1373,paid_search,mid,6,1,0,0,0.899,0,30,0,0.27241356401767197,cold,nurture — no SDR route
+1374,paid_search,mid,4,1,0,0,0.817,0,28,1,0.24723124601391117,cold,nurture — no SDR route
+1375,referral,small,5,1,0,1,0.955,0,23,1,0.7364911645855269,hot,route to SDR immediately — demo requested
+1376,outbound,mid,3,0,0,1,0.86,0,6,1,0.3147261716459482,hot,route to SDR immediately — demo requested
+1377,organic_search,small,6,1,0,0,0.721,0,4,0,0.3231255417621338,cold,nurture — no SDR route
+1378,outbound,large,4,2,0,0,0.758,0,23,0,0.2724623238244407,cold,nurture — no SDR route
+1379,outbound,mid,7,2,1,0,0.973,0,17,1,0.5335259104961482,warm,route to SDR queue
+1380,organic_search,mid,5,1,1,0,0.841,0,2,0,0.5785869116144876,warm,route to SDR queue
+1381,organic_search,mid,4,2,0,0,0.71,0,5,0,0.4488056035615525,warm,route to SDR queue
+1382,paid_search,large,6,2,0,0,0.867,1,21,1,0.548891788844994,excluded,exclude — competitor domain
+1383,paid_social,large,0,1,0,0,0.925,0,26,0,0.1340022218131246,cold,nurture — no SDR route
+1384,organic_search,small,4,0,0,0,0.919,0,22,0,0.12762760006037943,cold,nurture — no SDR route
+1385,outbound,small,5,0,0,0,0.81,0,28,0,0.061797020280771706,cold,nurture — no SDR route
+1386,paid_social,mid,6,2,0,0,0.321,0,27,1,0.3722033194885539,nurture,nurture — enrichment incomplete
+1387,paid_social,large,4,0,0,0,0.868,0,29,0,0.1367345997751366,cold,nurture — no SDR route
+1388,paid_search,mid,6,3,0,0,0.618,0,30,0,0.6106572064344353,hot,route to SDR immediately
+1389,organic_search,small,3,1,0,0,0.923,0,12,1,0.2407429451987085,cold,nurture — no SDR route
+1390,paid_social,small,4,1,1,0,0.664,0,5,1,0.5155720176230872,warm,route to SDR queue
+1391,referral,small,1,1,0,0,0.818,0,2,1,0.2826546835132425,cold,nurture — no SDR route
+1392,paid_search,mid,5,0,0,0,0.782,0,22,0,0.16259745583220908,cold,nurture — no SDR route
+1393,organic_search,large,1,2,0,0,0.9,0,24,1,0.34047444288761286,cold,nurture — no SDR route
+1394,organic_search,small,3,0,1,0,0.776,0,7,1,0.33612349187294027,cold,nurture — no SDR route
+1395,paid_social,small,4,0,0,0,0.658,0,30,1,0.10241677754981147,cold,nurture — no SDR route
+1396,paid_search,small,5,3,0,0,0.63,1,2,1,0.6991008713311964,excluded,exclude — competitor domain
+1397,paid_social,small,2,1,0,0,0.743,0,25,0,0.16489603798212513,cold,nurture — no SDR route
+1398,organic_search,small,2,1,0,0,0.714,0,23,1,0.1865445762030687,cold,nurture — no SDR route
+1399,paid_search,small,6,1,0,0,0.912,0,6,1,0.3587350079550439,warm,route to SDR queue
+1400,paid_search,small,4,1,0,0,0.764,0,15,0,0.2899509865166493,cold,nurture — no SDR route
+1401,paid_social,mid,8,0,0,0,0.839,0,2,0,0.19545587441080478,cold,nurture — no SDR route
+1402,paid_search,small,3,0,0,0,0.72,0,24,0,0.13343747560061306,cold,nurture — no SDR route
+1403,referral,mid,3,0,0,0,0.488,0,16,0,0.17657089462230652,nurture,nurture — enrichment incomplete
+1404,referral,small,5,0,0,0,0.646,0,27,0,0.17859277338566248,cold,nurture — no SDR route
+1405,outbound,small,0,3,0,1,0.817,0,5,0,0.6695176096464398,hot,route to SDR immediately — demo requested
+1406,referral,mid,5,2,0,0,0.872,0,2,1,0.5798993653350419,warm,route to SDR queue
+1407,organic_search,small,3,3,0,0,0.911,0,8,1,0.5864841985649412,warm,route to SDR queue
+1408,paid_search,large,5,3,0,0,0.902,0,18,1,0.7081055756508299,hot,route to SDR immediately
+1409,referral,large,3,0,0,1,0.945,0,1,0,0.6887033931406751,hot,route to SDR immediately — demo requested
+1410,organic_search,large,7,1,0,0,0.763,0,15,0,0.36679667436491764,warm,route to SDR queue
+1411,organic_search,small,1,2,0,0,0.511,0,12,0,0.3163265325380595,cold,nurture — no SDR route
+1412,organic_search,mid,5,0,0,0,0.605,0,11,0,0.16150433491453903,cold,nurture — no SDR route
+1413,referral,mid,6,1,0,0,0.983,0,2,1,0.4211183819369004,warm,route to SDR queue
+1414,paid_search,large,4,1,0,0,0.66,0,10,0,0.37774750167106697,warm,route to SDR queue
+1415,organic_search,small,3,3,0,0,0.677,0,18,0,0.5456957453843636,warm,route to SDR queue
+1416,organic_search,small,2,3,0,0,0.498,0,2,0,0.5771178627814858,nurture,nurture — enrichment incomplete
+1417,paid_social,mid,3,1,0,0,0.646,0,4,0,0.2442830185626205,cold,nurture — no SDR route
+1418,paid_social,small,6,3,0,0,0.839,0,3,1,0.6437665416448984,hot,route to SDR immediately
+1419,paid_search,small,8,1,1,0,0.765,0,16,0,0.6165250180834144,hot,route to SDR immediately
+1420,paid_social,small,4,0,0,0,0.686,0,6,0,0.1456445009052756,cold,nurture — no SDR route
+1421,paid_social,mid,2,2,0,0,0.685,0,20,0,0.3051812953804964,cold,nurture — no SDR route
+1422,paid_social,small,3,3,0,0,0.623,0,7,1,0.5625796688763798,warm,route to SDR queue
+1423,outbound,mid,3,0,0,0,0.616,0,21,0,0.05728585298719367,cold,nurture — no SDR route
+1424,organic_search,mid,4,1,0,0,0.874,0,10,1,0.2678553900933768,cold,nurture — no SDR route
+1425,organic_search,small,3,2,0,0,0.748,0,5,1,0.42188168845098367,warm,route to SDR queue
+1426,outbound,large,1,0,0,0,0.827,0,5,0,0.07166157208779611,cold,nurture — no SDR route
+1427,paid_search,large,2,1,0,1,0.911,0,5,1,0.7513340733428143,hot,route to SDR immediately — demo requested
+1428,organic_search,large,7,1,0,0,0.56,0,7,0,0.3986525521865279,warm,route to SDR queue
+1429,paid_search,mid,7,0,0,0,0.921,0,12,0,0.20892845188807369,cold,nurture — no SDR route
+1430,paid_social,small,3,1,0,0,0.74,0,26,0,0.18272908565842919,cold,nurture — no SDR route
+1431,outbound,small,5,0,0,0,0.837,0,18,0,0.07223143847278006,cold,nurture — no SDR route
+1432,paid_search,large,5,1,0,1,0.945,0,19,1,0.770476561808078,hot,route to SDR immediately — demo requested
+1433,referral,small,5,2,0,1,0.898,0,15,1,0.8673241288545351,hot,route to SDR immediately — demo requested
+1434,outbound,small,3,0,0,0,0.957,0,15,1,0.06285353861394165,cold,nurture — no SDR route
+1435,organic_search,mid,6,0,0,0,0.685,0,28,1,0.13512172567622968,cold,nurture — no SDR route
+1436,referral,mid,3,2,0,0,0.494,0,17,1,0.46867705850981756,nurture,nurture — enrichment incomplete
+1437,paid_social,mid,6,3,1,0,0.808,0,20,0,0.8032191202492683,hot,route to SDR immediately
+1438,paid_social,mid,5,2,0,0,0.943,0,13,0,0.4092178817972324,warm,route to SDR queue
+1439,organic_search,small,6,1,0,0,0.936,0,24,1,0.2544123730335607,cold,nurture — no SDR route
+1440,paid_search,mid,0,0,1,0,0.884,0,22,1,0.19488401560048418,cold,nurture — no SDR route
+1441,paid_social,small,2,0,0,0,0.621,0,2,0,0.12430601898544841,cold,nurture — no SDR route
+1442,paid_social,small,4,1,0,0,0.635,0,27,0,0.19705477732566723,cold,nurture — no SDR route
+1443,outbound,large,5,0,0,0,0.444,0,12,1,0.10543842928106158,nurture,nurture — enrichment incomplete
+1444,paid_social,mid,7,2,0,0,0.865,0,5,1,0.4770317714402882,warm,route to SDR queue
+1445,paid_search,mid,5,1,0,0,0.485,0,26,1,0.27112399045603996,nurture,nurture — enrichment incomplete
+1446,outbound,small,1,2,0,0,0.462,0,23,0,0.14905302243465715,nurture,nurture — enrichment incomplete
+1447,paid_search,small,4,0,1,0,0.573,0,6,0,0.4108458815892637,warm,route to SDR queue
+1448,outbound,large,7,0,0,0,0.733,0,19,0,0.10756911784513244,cold,nurture — no SDR route
+1449,outbound,large,3,1,0,0,0.827,0,11,0,0.16706107262699194,cold,nurture — no SDR route
+1450,organic_search,small,3,1,0,0,0.768,0,17,0,0.2259197130472995,cold,nurture — no SDR route
+1451,paid_social,mid,5,1,0,0,0.703,0,3,0,0.28614639637755945,cold,nurture — no SDR route
+1452,paid_search,small,5,2,0,0,0.926,0,0,1,0.539779961333251,warm,route to SDR queue
+1453,paid_search,small,3,0,0,0,0.822,0,10,0,0.16285452609660625,cold,nurture — no SDR route
+1454,paid_search,mid,5,0,0,0,0.825,0,6,0,0.20237768423220945,cold,nurture — no SDR route
+1455,paid_social,small,3,3,0,0,0.877,0,7,1,0.5622629814671263,warm,route to SDR queue
+1456,paid_social,mid,4,0,0,0,0.841,0,13,0,0.13157517777057734,cold,nurture — no SDR route
+1457,outbound,large,4,0,0,0,0.757,0,4,0,0.10955683355603267,cold,nurture — no SDR route
+1458,organic_search,small,5,0,0,0,0.735,0,28,0,0.12650552757301578,cold,nurture — no SDR route
+1459,outbound,mid,3,0,0,0,0.677,0,11,0,0.0670021992047376,cold,nurture — no SDR route
+1460,organic_search,small,6,2,0,0,0.698,0,18,1,0.4358371928234292,warm,route to SDR queue
+1461,paid_search,small,2,1,1,1,0.706,0,2,1,0.874767463645762,hot,route to SDR immediately — demo requested
+1462,organic_search,small,5,1,0,0,0.87,0,22,0,0.24657497837235673,cold,nurture — no SDR route
+1463,paid_search,small,4,1,0,0,0.927,0,10,1,0.3072989713537479,cold,nurture — no SDR route
+1464,paid_search,large,6,2,0,0,0.942,0,19,0,0.5570707782380261,warm,route to SDR queue
+1465,outbound,mid,10,0,1,0,0.516,0,29,1,0.20764542364216906,cold,nurture — no SDR route
+1466,paid_social,small,1,1,1,0,0.778,0,23,1,0.33435341257572326,cold,nurture — no SDR route
+1467,paid_search,small,5,2,0,0,0.81,0,8,0,0.5065425514989216,warm,route to SDR queue
+1468,paid_search,large,3,0,0,0,0.91,0,12,1,0.20444356253707024,cold,nurture — no SDR route
+1469,organic_search,mid,4,1,1,0,0.843,0,21,1,0.47743052268473235,warm,route to SDR queue
+1470,paid_social,mid,4,1,1,0,0.825,0,22,0,0.44448304990529947,warm,route to SDR queue
+1471,paid_search,small,5,0,0,0,0.92,0,5,0,0.20501392375503502,cold,nurture — no SDR route
+1472,organic_search,mid,4,1,0,0,0.951,0,5,0,0.284499586359443,cold,nurture — no SDR route
+1473,paid_search,mid,0,0,0,0,0.724,0,27,0,0.06910294869856211,cold,nurture — no SDR route
+1474,referral,mid,5,1,1,0,0.833,0,10,1,0.6392851677895709,hot,route to SDR immediately
+1475,paid_social,small,1,2,0,0,0.632,0,9,0,0.30214146233591593,cold,nurture — no SDR route
+1476,organic_search,mid,3,1,1,0,0.781,0,3,1,0.5254343480053073,warm,route to SDR queue
+1477,paid_social,small,5,1,0,0,0.938,0,23,0,0.22269200665212055,cold,nurture — no SDR route
+1478,organic_search,small,4,0,0,0,0.611,0,0,0,0.17474147859144248,cold,nurture — no SDR route
+1479,outbound,mid,5,0,1,0,0.635,0,27,1,0.16750961868105355,cold,nurture — no SDR route
+1480,referral,mid,3,1,1,0,0.685,0,30,0,0.5099014138859757,warm,route to SDR queue
+1481,paid_search,small,1,2,0,0,0.836,1,13,0,0.35524468757993793,excluded,exclude — competitor domain
+1482,paid_social,small,2,1,0,0,0.79,0,24,0,0.16718019916929894,cold,nurture — no SDR route
+1483,paid_search,small,4,0,0,1,0.594,1,3,1,0.5898475319399679,excluded,exclude — competitor domain
+1484,paid_search,mid,2,4,1,1,0.609,0,19,1,0.9782551291813019,hot,route to SDR immediately — demo requested
+1485,paid_search,mid,2,3,0,0,0.935,0,15,1,0.5705799407414597,warm,route to SDR queue
+1486,paid_search,small,9,2,0,0,0.823,0,4,1,0.585016086987906,warm,route to SDR queue
+1487,outbound,small,4,0,1,0,0.772,0,5,0,0.20994100316627726,cold,nurture — no SDR route
+1488,organic_search,small,5,3,0,1,0.485,0,12,1,0.905184853243855,nurture,nurture — enrichment incomplete
+1489,outbound,small,4,1,0,1,0.772,0,6,1,0.5118041544405525,hot,route to SDR immediately — demo requested
+1490,organic_search,small,6,1,0,0,0.526,0,15,0,0.28444223468439145,cold,nurture — no SDR route
+1491,paid_social,small,5,1,0,0,0.81,0,14,0,0.2499663856253321,cold,nurture — no SDR route
+1492,paid_social,small,3,1,0,0,0.98,0,9,1,0.22887012676386784,cold,nurture — no SDR route
+1493,paid_social,large,6,5,0,0,0.755,0,22,1,0.8826321601204254,hot,route to SDR immediately
+1494,paid_search,small,3,0,0,0,0.803,0,8,0,0.16748240306049839,cold,nurture — no SDR route
+1495,paid_social,small,4,0,0,0,0.873,0,0,0,0.158461326545576,cold,nurture — no SDR route
+1496,referral,mid,6,1,0,0,0.703,0,14,1,0.3734195165957944,warm,route to SDR queue
+1497,paid_search,small,4,2,1,0,0.956,0,26,1,0.6756761554490727,hot,route to SDR immediately
+1498,paid_search,small,2,1,0,0,0.884,0,29,0,0.2008701393651223,cold,nurture — no SDR route
+1499,paid_social,mid,5,1,0,0,0.668,0,21,0,0.22878033995139624,cold,nurture — no SDR route
+1500,organic_search,small,7,2,0,0,0.597,0,29,0,0.4070453307814982,warm,route to SDR queue
+1501,organic_search,small,7,1,0,0,0.988,0,20,0,0.28027477472236334,cold,nurture — no SDR route
+1502,organic_search,large,1,3,0,0,0.84,0,0,0,0.6121297818589181,hot,route to SDR immediately
+1503,paid_search,large,2,0,1,0,0.783,0,30,0,0.3315451971186483,cold,nurture — no SDR route
+1504,paid_search,large,5,4,1,0,0.8,0,0,1,0.9526902294340236,hot,route to SDR immediately
+1505,paid_social,small,1,4,0,0,0.65,0,17,1,0.6130090342558617,hot,route to SDR immediately
+1506,paid_search,mid,5,2,0,0,0.911,0,18,0,0.46463887618125777,warm,route to SDR queue
+1507,referral,mid,1,2,0,0,0.725,0,4,0,0.43811968916241006,warm,route to SDR queue
+1508,outbound,small,3,2,0,0,0.752,0,9,0,0.236940723641623,cold,nurture — no SDR route
+1509,organic_search,large,1,2,0,0,0.929,0,2,0,0.42722619302485815,warm,route to SDR queue
+1510,paid_search,small,6,2,0,0,0.688,0,17,0,0.4879354909273883,warm,route to SDR queue
+1511,paid_search,mid,6,1,0,0,0.87,0,11,0,0.3397706282094791,cold,nurture — no SDR route
+1512,referral,small,1,0,0,0,0.969,0,20,0,0.12467968480216257,cold,nurture — no SDR route
+1513,outbound,small,2,1,0,0,0.775,0,0,0,0.13289958331127893,cold,nurture — no SDR route
+1514,organic_search,small,4,0,1,0,0.801,0,29,1,0.2809950737866558,cold,nurture — no SDR route
+1515,paid_social,large,1,1,0,0,0.555,0,17,0,0.20200162637323152,cold,nurture — no SDR route
+1516,paid_social,small,3,0,0,0,0.61,0,26,0,0.09860344361273295,cold,nurture — no SDR route
+1517,organic_search,large,6,4,1,0,0.771,0,3,1,0.9445404919635901,hot,route to SDR immediately
+1518,outbound,small,2,1,0,0,0.695,0,11,0,0.11312297675847449,cold,nurture — no SDR route
+1519,paid_social,small,3,1,0,0,0.801,0,7,0,0.2349933977404639,cold,nurture — no SDR route
+1520,paid_search,small,6,1,0,0,0.784,0,10,0,0.34363279921632156,cold,nurture — no SDR route
+1521,paid_search,large,2,2,0,0,0.619,0,16,0,0.4665145727933652,warm,route to SDR queue
+1522,paid_search,small,2,0,0,0,0.742,0,23,0,0.11970016986573122,cold,nurture — no SDR route
+1523,outbound,mid,3,0,0,0,0.843,0,11,0,0.06694964605000708,cold,nurture — no SDR route
+1524,organic_search,small,5,0,0,0,0.883,0,17,0,0.14818719996012672,cold,nurture — no SDR route
+1525,outbound,large,4,0,0,0,0.709,0,1,0,0.11457578898920474,cold,nurture — no SDR route
+1526,paid_search,mid,4,2,0,0,0.835,0,0,0,0.5176330539572762,warm,route to SDR queue
+1527,paid_social,small,4,0,1,0,0.518,0,24,0,0.27479444068031145,cold,nurture — no SDR route
+1528,referral,small,3,2,0,1,0.771,0,2,1,0.8695482756184718,hot,route to SDR immediately — demo requested
+1529,organic_search,small,8,4,0,0,0.81,0,18,1,0.7850921807241038,hot,route to SDR immediately
+1530,paid_search,small,6,1,0,0,0.788,0,25,0,0.2894249450922549,cold,nurture — no SDR route
+1531,paid_social,small,8,0,0,0,0.678,0,5,0,0.1878062878313363,cold,nurture — no SDR route
+1532,organic_search,mid,3,0,0,1,0.825,0,11,0,0.48148513594106596,hot,route to SDR immediately — demo requested
+1533,organic_search,mid,3,1,0,0,0.719,0,22,0,0.21166501633254453,cold,nurture — no SDR route
+1534,paid_social,small,3,3,0,0,0.638,0,27,0,0.4792319793449113,warm,route to SDR queue
+1535,paid_search,small,5,0,0,0,0.556,0,20,0,0.16736557611603706,cold,nurture — no SDR route
+1536,outbound,large,5,1,0,0,0.916,0,13,0,0.19126673609466044,cold,nurture — no SDR route
+1537,paid_social,small,4,2,1,0,0.483,0,30,0,0.5891383033149685,nurture,nurture — enrichment incomplete
+1538,organic_search,small,4,2,0,1,0.758,1,14,1,0.8047845244380107,excluded,exclude — competitor domain
+1539,organic_search,small,2,1,0,0,0.753,0,19,0,0.19688437480310933,cold,nurture — no SDR route
+1540,paid_search,small,3,1,0,1,0.902,0,22,1,0.6570093554158455,hot,route to SDR immediately — demo requested
+1541,paid_search,small,5,0,0,0,0.638,0,0,0,0.2192319993936457,cold,nurture — no SDR route
+1542,paid_search,small,1,0,0,0,0.684,0,23,0,0.10031779556381015,cold,nurture — no SDR route
+1543,paid_search,small,1,0,0,0,0.84,0,26,0,0.09580838225567355,cold,nurture — no SDR route
+1544,paid_search,small,5,1,1,0,0.821,1,18,1,0.560293380846649,excluded,exclude — competitor domain
+1545,paid_social,mid,7,0,0,0,0.829,0,12,0,0.16247085901039,cold,nurture — no SDR route
+1546,paid_social,small,6,0,0,0,0.651,0,10,0,0.15828668884502467,cold,nurture — no SDR route
+1547,paid_social,small,6,1,0,0,0.866,0,12,0,0.2709007579381869,cold,nurture — no SDR route
+1548,referral,small,5,4,0,0,0.88,0,29,1,0.786097813115768,hot,route to SDR immediately
+1549,paid_search,small,6,2,1,0,0.802,0,17,1,0.7408257161342525,hot,route to SDR immediately
+1550,paid_search,mid,3,1,0,0,0.566,0,22,0,0.2458033850930253,cold,nurture — no SDR route
+1551,referral,small,3,1,1,0,0.353,0,26,1,0.5270309235388808,nurture,nurture — enrichment incomplete
+1552,organic_search,small,4,0,0,0,0.933,0,9,0,0.15386187617130936,cold,nurture — no SDR route
+1553,paid_social,small,4,1,0,0,0.707,0,22,0,0.2105690084529204,cold,nurture — no SDR route
+1554,paid_search,small,6,1,0,0,0.774,0,7,1,0.3550546707411188,warm,route to SDR queue
+1555,organic_search,mid,2,3,0,0,0.435,0,3,0,0.573106763635204,nurture,nurture — enrichment incomplete
+1556,paid_search,small,4,1,0,0,0.824,0,28,0,0.2472246461002098,cold,nurture — no SDR route
+1557,outbound,small,5,0,0,0,0.767,0,10,0,0.08175934025538688,cold,nurture — no SDR route
+1558,referral,small,6,1,0,0,0.66,0,20,0,0.3502907312353718,warm,route to SDR queue
+1559,paid_social,mid,2,1,0,0,0.684,0,29,0,0.15592338092242286,cold,nurture — no SDR route
+1560,paid_search,small,6,0,0,0,0.738,0,9,1,0.2065724034158062,cold,nurture — no SDR route
+1561,outbound,mid,9,1,0,0,0.87,0,20,0,0.16511479756252975,cold,nurture — no SDR route
+1562,paid_search,large,5,1,0,0,0.352,0,15,0,0.37945226876668947,nurture,nurture — enrichment incomplete
+1563,organic_search,small,3,0,0,0,0.754,0,3,0,0.15281652770039297,cold,nurture — no SDR route
+1564,outbound,small,6,0,0,0,0.793,0,12,0,0.08496447792582157,cold,nurture — no SDR route
+1565,referral,mid,5,1,1,0,0.788,0,26,1,0.5756021162228581,warm,route to SDR queue
+1566,outbound,small,3,2,1,0,0.77,0,27,1,0.4081251883342776,warm,route to SDR queue
+1567,paid_social,small,7,0,1,0,0.63,0,8,1,0.383929320778862,warm,route to SDR queue
+1568,referral,small,3,0,0,0,0.727,0,17,0,0.17397694294812652,cold,nurture — no SDR route
+1569,paid_social,mid,3,2,1,0,0.585,0,15,0,0.6228201655460481,hot,route to SDR immediately
+1570,paid_search,large,3,0,1,1,0.974,0,11,1,0.8219460375946125,hot,route to SDR immediately — demo requested
+1571,paid_social,large,4,2,0,0,0.696,0,21,0,0.4312206396689785,warm,route to SDR queue
+1572,paid_social,mid,7,1,1,0,0.887,0,15,1,0.5310071006888002,warm,route to SDR queue
+1573,referral,small,5,0,0,0,0.72,0,24,0,0.18601973088332735,cold,nurture — no SDR route
+1574,referral,large,2,0,0,0,0.844,0,30,1,0.16735010456591862,cold,nurture — no SDR route
+1575,paid_search,mid,4,0,0,0,0.897,0,15,1,0.16633502687250087,cold,nurture — no SDR route
+1576,paid_search,large,1,1,0,0,0.824,0,13,0,0.2690927879672649,cold,nurture — no SDR route
+1577,paid_social,mid,3,1,0,0,0.719,0,6,0,0.23809039351990033,cold,nurture — no SDR route
+1578,paid_social,mid,5,0,0,0,0.931,0,10,1,0.14829964909376456,cold,nurture — no SDR route
+1579,outbound,mid,4,0,0,1,0.861,0,5,0,0.34253377902631793,hot,route to SDR immediately — demo requested
+1580,outbound,small,1,4,0,0,0.442,0,13,1,0.4641760090644209,nurture,nurture — enrichment incomplete
+1581,outbound,small,5,7,0,0,0.783,0,14,1,0.9257402838691897,hot,route to SDR immediately
+1582,organic_search,small,4,0,0,0,0.888,0,30,0,0.11346607199954757,cold,nurture — no SDR route
+1583,organic_search,large,6,2,0,1,0.571,0,0,1,0.8936811390194027,hot,route to SDR immediately — demo requested
+1584,paid_search,large,2,2,0,0,0.56,0,4,0,0.51673516053883,warm,route to SDR queue
+1585,paid_social,mid,3,1,0,0,0.912,0,28,0,0.17765660306959993,cold,nurture — no SDR route
+1586,paid_search,small,10,2,0,0,0.437,0,8,1,0.5805740947523893,nurture,nurture — enrichment incomplete
+1587,referral,small,3,1,0,1,0.96,0,19,1,0.7101271439636945,hot,route to SDR immediately — demo requested
+1588,paid_search,small,4,2,1,0,0.881,0,23,1,0.6866606965835432,hot,route to SDR immediately
+1589,paid_search,small,1,3,0,0,0.814,0,3,1,0.5712419664034966,warm,route to SDR queue
+1590,paid_social,small,5,1,0,0,0.789,0,7,0,0.272585040896937,cold,nurture — no SDR route
+1591,paid_social,small,5,1,0,0,0.964,0,8,0,0.2691052034814236,cold,nurture — no SDR route
+1592,organic_search,mid,1,3,0,0,0.773,0,17,1,0.46501437887467667,warm,route to SDR queue
+1593,paid_search,mid,5,0,0,0,0.708,0,21,0,0.1649404773543625,cold,nurture — no SDR route
+1594,paid_search,small,2,1,0,0,0.881,0,29,0,0.20087257905788147,cold,nurture — no SDR route
+1595,outbound,small,3,2,1,0,0.975,0,30,0,0.39580817292684906,warm,route to SDR queue
+1596,outbound,small,3,2,1,0,0.742,0,11,0,0.4740648806745355,warm,route to SDR queue
+1597,organic_search,small,4,1,0,0,0.831,0,14,0,0.25497555072946615,cold,nurture — no SDR route
+1598,organic_search,mid,6,2,0,0,0.852,0,27,0,0.3990413131572307,warm,route to SDR queue
+1599,paid_search,small,7,0,0,0,0.929,0,11,0,0.21170092890253264,cold,nurture — no SDR route
+1600,outbound,mid,3,1,0,0,0.681,1,11,0,0.12806622665645157,excluded,exclude — competitor domain
+1601,referral,small,6,1,0,0,0.582,0,23,0,0.3390414709320834,cold,nurture — no SDR route
+1602,organic_search,small,4,1,0,0,0.419,0,16,0,0.2490602992966757,nurture,nurture — enrichment incomplete
+1603,paid_search,mid,3,0,0,0,0.716,0,29,0,0.12405791104335165,cold,nurture — no SDR route
+1604,paid_search,mid,8,3,0,0,0.605,0,18,1,0.6844116169620201,hot,route to SDR immediately
+1605,paid_social,large,4,0,0,0,0.959,0,9,0,0.18116723762862882,cold,nurture — no SDR route
+1606,paid_social,small,6,2,0,0,0.726,0,5,1,0.46091053077106175,warm,route to SDR queue
+1607,paid_search,small,5,1,0,0,0.567,0,9,0,0.3307349113998603,cold,nurture — no SDR route
+1608,paid_social,small,9,1,0,0,0.685,0,12,0,0.3069679800208286,cold,nurture — no SDR route
+1609,paid_social,large,2,3,0,0,0.812,0,17,0,0.5633207943315829,warm,route to SDR queue
+1610,paid_search,mid,6,2,1,0,0.913,0,14,1,0.7502422336015112,hot,route to SDR immediately
+1611,paid_social,mid,4,1,0,0,0.774,0,26,0,0.19960341856979955,cold,nurture — no SDR route
+1612,paid_social,small,3,1,0,0,0.815,0,28,0,0.17772840799859457,cold,nurture — no SDR route
+1613,paid_social,large,5,2,0,0,0.885,0,11,0,0.4947170038413088,warm,route to SDR queue
+1614,organic_search,small,5,1,1,0,0.798,0,0,1,0.5867779246436682,warm,route to SDR queue
+1615,paid_social,mid,3,1,0,0,0.838,0,30,0,0.1728733063533018,cold,nurture — no SDR route
+1616,paid_search,mid,5,4,0,0,0.47,1,22,1,0.7728861243962769,excluded,exclude — competitor domain
+1617,referral,mid,5,0,0,0,0.966,0,23,0,0.18837625425725923,cold,nurture — no SDR route
+1618,organic_search,mid,4,3,0,0,0.865,0,4,1,0.6285456899704203,hot,route to SDR immediately
+1619,paid_social,small,8,0,0,0,0.502,0,7,0,0.18288767714246726,cold,nurture — no SDR route
+1620,organic_search,small,4,1,0,0,0.728,0,7,0,0.2779629079919235,cold,nurture — no SDR route
+1621,referral,large,5,0,1,0,0.934,0,5,1,0.5627166352753854,warm,route to SDR queue
+1622,referral,mid,2,2,0,0,0.301,0,0,0,0.5047517429568006,nurture,nurture — enrichment incomplete
+1623,referral,small,4,2,0,0,0.894,0,24,0,0.4662369944151588,warm,route to SDR queue
+1624,organic_search,small,3,0,0,0,0.637,0,6,0,0.14650391292615927,cold,nurture — no SDR route
+1625,organic_search,mid,4,1,0,0,0.658,0,14,1,0.2551420788506307,cold,nurture — no SDR route
+1626,paid_search,mid,2,0,0,0,0.459,0,14,0,0.13666951281980338,nurture,nurture — enrichment incomplete
+1627,organic_search,mid,2,2,0,0,0.827,0,19,0,0.3338717580264253,cold,nurture — no SDR route
+1628,paid_search,small,4,1,0,0,0.916,0,3,1,0.3327922796102571,cold,nurture — no SDR route
+1629,paid_search,mid,3,2,0,0,0.677,0,9,1,0.45298718341888217,warm,route to SDR queue
+1630,paid_search,large,4,1,1,0,0.767,0,1,1,0.679190571432861,hot,route to SDR immediately
+1631,paid_social,mid,5,1,0,0,0.536,0,2,1,0.28975089371876267,cold,nurture — no SDR route
+1632,paid_search,mid,3,2,0,0,0.78,0,3,1,0.4778331422877715,warm,route to SDR queue
+1633,organic_search,large,8,2,1,0,0.7,0,20,1,0.7760913220019934,hot,route to SDR immediately
+1634,organic_search,mid,7,0,0,0,0.511,0,2,0,0.20505408087881424,cold,nurture — no SDR route
+1635,referral,small,5,0,1,1,0.777,0,23,1,0.8041268851675776,hot,route to SDR immediately — demo requested
+1636,paid_search,small,1,0,0,0,0.369,0,27,0,0.0945726202754952,nurture,nurture — enrichment incomplete
+1637,organic_search,mid,4,0,0,0,0.823,0,6,0,0.16058689959853809,cold,nurture — no SDR route
+1638,referral,mid,7,1,0,0,0.732,0,25,1,0.3460714996097972,cold,nurture — no SDR route
+1639,paid_search,large,3,0,0,0,0.446,0,11,0,0.2075651500090846,nurture,nurture — enrichment incomplete
+1640,paid_search,small,1,0,0,1,0.861,0,14,1,0.43261992815973205,hot,route to SDR immediately — demo requested
+1641,paid_search,small,3,0,0,0,0.729,0,29,0,0.12405075436290117,cold,nurture — no SDR route
+1642,paid_social,mid,2,3,0,0,0.759,0,17,1,0.48565748346439747,warm,route to SDR queue
+1643,paid_search,mid,1,2,1,0,0.83,0,12,1,0.6271033434102337,hot,route to SDR immediately
+1644,organic_search,small,7,0,0,0,0.758,0,3,0,0.20213787723000817,cold,nurture — no SDR route
+1645,paid_social,mid,3,1,0,0,0.868,0,26,0,0.18263226377997038,cold,nurture — no SDR route
+1646,organic_search,small,4,2,1,1,0.543,0,27,1,0.9088046361895498,hot,route to SDR immediately — demo requested
+1647,organic_search,large,12,1,0,0,0.7,0,11,0,0.44009430625319024,warm,route to SDR queue
+1648,organic_search,small,1,0,0,0,0.356,0,16,0,0.09381489098521206,nurture,nurture — enrichment incomplete
+1649,paid_search,small,3,2,0,0,0.889,0,20,0,0.4076333727301042,warm,route to SDR queue
+1650,organic_search,mid,6,2,0,0,0.916,0,20,0,0.42735602411866824,warm,route to SDR queue
+1651,organic_search,small,2,1,0,0,0.857,0,28,0,0.17407526501218687,cold,nurture — no SDR route
+1652,organic_search,small,1,1,0,0,0.899,0,29,1,0.1452090429056896,cold,nurture — no SDR route
+1653,paid_search,small,4,0,1,0,0.811,0,29,0,0.3215713667650147,cold,nurture — no SDR route
+1654,outbound,small,4,2,0,0,0.562,0,25,1,0.20966507794022096,cold,nurture — no SDR route
+1655,organic_search,small,8,1,0,1,0.863,0,3,0,0.7636071280800938,hot,route to SDR immediately — demo requested
+1656,paid_search,small,2,2,0,0,0.727,0,17,1,0.38610169830763824,warm,route to SDR queue
+1657,paid_social,mid,5,1,0,0,0.76,0,18,0,0.23767393067652567,cold,nurture — no SDR route
+1658,organic_search,small,4,1,0,0,0.824,0,25,0,0.22161337193016198,cold,nurture — no SDR route
+1659,organic_search,mid,1,2,0,0,0.712,0,13,0,0.31249990364290653,cold,nurture — no SDR route
+1660,paid_search,large,3,1,0,0,0.761,0,22,0,0.30793220067911437,cold,nurture — no SDR route
+1661,paid_search,mid,3,0,1,0,0.304,0,7,0,0.38102394869436046,nurture,nurture — enrichment incomplete
+1662,paid_social,small,3,2,0,0,0.646,0,27,0,0.3103053495104289,cold,nurture — no SDR route
+1663,referral,large,4,1,1,0,0.876,0,26,1,0.6288409631348354,hot,route to SDR immediately
+1664,paid_social,small,6,2,0,1,0.802,0,27,1,0.7768850911193311,hot,route to SDR immediately — demo requested
+1665,paid_search,small,2,1,0,0,0.942,0,3,0,0.27967546693644746,cold,nurture — no SDR route
+1666,paid_social,small,3,2,0,1,0.986,0,8,1,0.7842067246187581,hot,route to SDR immediately — demo requested
+1667,paid_search,mid,4,2,0,0,0.919,0,30,0,0.3936757752966312,warm,route to SDR queue
+1668,paid_search,small,5,2,0,0,0.687,1,25,0,0.4359328882352721,excluded,exclude — competitor domain
+1669,outbound,small,6,1,0,0,0.818,0,30,0,0.12319259335177753,cold,nurture — no SDR route
+1670,paid_search,mid,4,0,1,0,0.82,0,23,0,0.3438461969219335,cold,nurture — no SDR route
+1671,organic_search,small,2,6,0,0,0.835,0,0,1,0.9233889396974498,hot,route to SDR immediately
+1672,paid_social,small,3,3,1,0,0.796,0,2,0,0.8074525758383818,hot,route to SDR immediately
+1673,paid_search,small,3,2,0,0,0.818,0,20,0,0.4077202312164935,warm,route to SDR queue
+1674,outbound,small,5,1,0,0,0.885,0,12,0,0.14966718562185963,cold,nurture — no SDR route
+1675,outbound,small,3,1,0,0,0.89,0,20,0,0.11206378305036192,cold,nurture — no SDR route
+1676,paid_search,mid,3,2,1,0,0.743,1,26,0,0.6515108744623336,excluded,exclude — competitor domain
+1677,paid_social,small,1,2,1,0,0.585,0,3,1,0.5896772345404212,warm,route to SDR queue
+1678,paid_social,small,3,3,1,0,0.688,0,16,0,0.7684912539716887,hot,route to SDR immediately
+1679,paid_search,mid,4,1,0,1,0.93,0,18,1,0.6955408976598465,hot,route to SDR immediately — demo requested
+1680,organic_search,mid,6,1,0,0,0.91,0,13,1,0.29090157963539287,cold,nurture — no SDR route
+1681,referral,mid,3,0,0,0,0.615,0,5,0,0.20483852044018627,cold,nurture — no SDR route
+1682,referral,small,6,0,0,0,0.554,0,3,0,0.25955620715066724,cold,nurture — no SDR route
+1683,organic_search,large,9,2,1,0,0.882,0,3,0,0.8289532970556752,hot,route to SDR immediately
+1684,paid_search,small,6,4,0,0,0.584,0,26,1,0.7742935800613993,hot,route to SDR immediately
+1685,paid_search,mid,4,0,1,0,0.937,0,10,1,0.3943054030233075,warm,route to SDR queue
+1686,organic_search,small,2,0,0,0,0.397,0,23,0,0.10096512657739959,nurture,nurture — enrichment incomplete
+1687,organic_search,small,4,2,0,0,0.98,0,14,1,0.41157153631031823,warm,route to SDR queue
+1688,paid_social,mid,9,1,0,0,0.762,0,8,1,0.3213038159277626,cold,nurture — no SDR route
+1689,paid_social,mid,4,0,0,0,0.52,0,26,0,0.10880366339512491,cold,nurture — no SDR route
+1690,referral,large,3,0,0,0,0.817,0,24,0,0.20375480171256252,cold,nurture — no SDR route
+1691,paid_search,large,7,2,0,0,0.766,0,27,0,0.540348400203685,warm,route to SDR queue
+1692,paid_search,small,4,1,0,0,0.834,0,30,0,0.24103961283562458,cold,nurture — no SDR route
+1693,paid_search,small,6,2,0,0,0.409,0,6,0,0.5342515712528157,nurture,nurture — enrichment incomplete
+1694,outbound,mid,7,0,1,0,0.866,0,30,0,0.18038229620128304,cold,nurture — no SDR route
+1695,paid_search,small,2,2,0,1,0.903,0,10,1,0.806173734044058,hot,route to SDR immediately — demo requested
+1696,paid_search,small,1,3,1,0,0.631,0,15,1,0.7660513577640492,hot,route to SDR immediately
+1697,paid_social,large,6,1,0,0,0.577,0,29,1,0.27672440987905345,cold,nurture — no SDR route
+1698,organic_search,small,4,1,0,0,0.767,0,12,0,0.2614478396443424,cold,nurture — no SDR route
+1699,paid_search,small,3,1,0,0,0.912,0,23,1,0.2423923171244734,cold,nurture — no SDR route
+1700,referral,small,3,1,0,0,0.763,0,14,0,0.31170758260472187,cold,nurture — no SDR route
+1701,paid_search,small,4,1,0,0,0.676,0,10,0,0.30756971994321636,cold,nurture — no SDR route
+1702,organic_search,small,4,1,0,0,0.871,0,12,0,0.2613461154765819,cold,nurture — no SDR route
+1703,paid_search,small,2,1,0,1,0.517,0,24,1,0.6171534433671593,hot,route to SDR immediately — demo requested
+1704,outbound,mid,2,1,0,0,0.923,0,29,0,0.08614816646043455,cold,nurture — no SDR route
+1705,paid_search,small,8,0,1,0,0.548,0,7,0,0.47776444963106846,warm,route to SDR queue
+1706,organic_search,mid,6,1,0,0,0.784,0,14,1,0.28759258748819083,cold,nurture — no SDR route
+1707,referral,small,2,3,0,0,0.791,0,4,1,0.6604096814427841,hot,route to SDR immediately
+1708,paid_search,small,3,0,0,0,0.579,0,25,0,0.13159593170703823,cold,nurture — no SDR route
+1709,paid_search,large,3,1,1,0,0.606,0,30,1,0.5389752010437289,warm,route to SDR queue
+1710,organic_search,small,7,0,1,0,0.909,0,8,1,0.4113683191224018,warm,route to SDR queue
+1711,paid_social,large,4,0,1,0,0.786,0,18,0,0.3637603130724871,warm,route to SDR queue
+1712,paid_social,small,2,1,0,0,0.481,0,28,0,0.1582754441186199,nurture,nurture — enrichment incomplete
+1713,referral,mid,7,2,0,0,0.769,0,18,1,0.5488760186998477,warm,route to SDR queue
+1714,paid_social,mid,3,2,0,0,0.72,0,17,0,0.3471192737390635,cold,nurture — no SDR route
+1715,paid_social,small,6,0,0,0,0.647,0,20,0,0.13724627123125277,cold,nurture — no SDR route
+1716,paid_social,small,4,2,0,0,0.747,0,2,0,0.4325418694668929,warm,route to SDR queue
+1717,paid_social,small,1,2,0,0,0.899,0,3,1,0.32342651626482105,cold,nurture — no SDR route
+1718,paid_social,small,7,1,1,0,0.728,0,10,0,0.5519774938886449,warm,route to SDR queue
+1719,paid_search,small,3,1,0,0,0.809,0,23,0,0.24248815517849012,cold,nurture — no SDR route
+1720,paid_search,small,6,1,0,0,0.613,0,8,1,0.3514179587035317,warm,route to SDR queue
+1721,paid_search,small,1,2,0,0,0.784,0,1,1,0.40251630677505174,warm,route to SDR queue
+1722,paid_search,small,6,1,0,0,0.764,0,23,0,0.29638151121734985,cold,nurture — no SDR route
+1723,referral,small,1,0,0,0,0.811,0,13,0,0.1381307609442648,cold,nurture — no SDR route
+1724,paid_search,small,3,1,0,0,0.719,0,23,0,0.2425719182555246,cold,nurture — no SDR route
+1725,paid_search,small,10,0,1,0,0.738,0,20,1,0.4479004307869407,warm,route to SDR queue
+1726,organic_search,mid,3,0,0,0,0.714,0,14,0,0.13049924652780673,cold,nurture — no SDR route
+1727,paid_social,small,5,2,0,0,0.784,0,17,1,0.39333133264510106,warm,route to SDR queue
+1728,paid_search,large,6,1,0,0,0.897,0,16,0,0.3927376404681398,warm,route to SDR queue
+1729,paid_social,small,6,2,0,0,0.715,0,16,1,0.4156401731004416,warm,route to SDR queue
+1730,organic_search,large,6,0,0,0,0.895,0,24,0,0.18569408848395438,cold,nurture — no SDR route
+1731,organic_search,small,4,2,0,0,0.818,0,16,1,0.40368841246628734,warm,route to SDR queue
+1732,outbound,small,3,2,0,0,0.697,0,8,0,0.2400303772648777,cold,nurture — no SDR route
+1733,outbound,small,5,1,0,0,0.904,0,17,0,0.13931625870835437,cold,nurture — no SDR route
+1734,paid_social,large,4,0,0,0,0.917,0,29,0,0.13670530036733303,cold,nurture — no SDR route
+1735,paid_social,small,4,2,0,0,0.933,0,6,1,0.4159633552253166,warm,route to SDR queue
+1736,paid_social,mid,2,1,0,0,0.85,0,18,0,0.181585194434645,cold,nurture — no SDR route
+1737,paid_search,mid,6,1,0,0,0.663,0,11,1,0.3400059180251117,cold,nurture — no SDR route
+1738,outbound,small,5,1,0,0,0.757,0,21,0,0.1315672273855601,cold,nurture — no SDR route
+1739,paid_search,small,3,1,0,0,0.811,0,4,0,0.30551992719561627,cold,nurture — no SDR route
+1740,paid_search,small,4,3,0,0,0.771,0,29,0,0.5747183434399963,warm,route to SDR queue
+1741,organic_search,small,7,1,0,0,0.709,0,21,0,0.2771947104201956,cold,nurture — no SDR route
+1742,organic_search,mid,5,2,0,1,0.819,0,15,0,0.8158956693148013,hot,route to SDR immediately — demo requested
+1743,paid_search,small,6,2,0,0,0.523,0,3,1,0.5465760679859902,warm,route to SDR queue
+1744,outbound,large,8,1,0,1,0.827,0,25,1,0.5816084422089147,hot,route to SDR immediately — demo requested
+1745,paid_social,small,8,3,1,1,0.754,0,12,1,0.9688311641777212,hot,route to SDR immediately — demo requested
+1746,organic_search,small,3,1,0,0,0.865,0,13,0,0.23775071927484287,cold,nurture — no SDR route
+1747,paid_search,mid,4,2,0,0,0.714,0,1,0,0.5136067344791577,warm,route to SDR queue
+1748,outbound,small,4,1,0,0,0.714,1,19,0,0.12533590284868507,excluded,exclude — competitor domain
+1749,paid_search,mid,2,1,0,0,0.653,0,5,0,0.2732737034503546,cold,nurture — no SDR route
+1750,paid_social,small,3,1,0,0,0.859,0,18,0,0.20347813475023854,cold,nurture — no SDR route
+1751,outbound,small,4,1,1,0,0.856,0,11,1,0.32947079744764474,cold,nurture — no SDR route
+1752,outbound,small,5,0,0,0,0.799,0,2,0,0.09237551798625683,cold,nurture — no SDR route
+1753,outbound,small,2,1,0,0,0.726,0,26,0,0.09026533958305945,cold,nurture — no SDR route
+1754,referral,mid,4,0,0,0,0.645,0,0,0,0.23804254211819972,cold,nurture — no SDR route
+1755,paid_search,mid,6,1,0,0,0.808,0,15,0,0.3249887360119033,cold,nurture — no SDR route
+1756,paid_search,small,2,1,1,0,0.832,0,4,1,0.5341618945068177,warm,route to SDR queue
+1757,paid_social,mid,2,1,0,0,0.815,0,18,0,0.18161154716662806,cold,nurture — no SDR route
+1758,paid_search,large,6,0,0,0,0.915,0,22,0,0.22238063903099972,cold,nurture — no SDR route
+1759,outbound,small,2,1,0,0,0.947,0,15,0,0.10645789504849329,cold,nurture — no SDR route
+1760,paid_search,large,6,2,0,0,0.643,0,21,1,0.5491727656764578,warm,route to SDR queue
+1761,paid_social,small,7,2,0,1,0.566,0,0,0,0.8539677734374558,hot,route to SDR immediately — demo requested
+1762,paid_search,mid,2,0,1,0,0.865,0,5,0,0.35535735666284823,warm,route to SDR queue
+1763,paid_search,small,6,1,0,0,0.717,0,7,1,0.35512079949380176,warm,route to SDR queue
+1764,paid_social,small,4,1,0,0,0.416,0,29,0,0.19198498636471006,nurture,nurture — enrichment incomplete
+1765,paid_search,small,4,1,0,0,0.511,0,11,0,0.30419427126661225,cold,nurture — no SDR route
+1766,outbound,mid,3,0,0,0,0.539,0,30,0,0.049692752752583565,cold,nurture — no SDR route
+1767,organic_search,small,2,0,0,1,0.564,0,30,0,0.37011745085540637,hot,route to SDR immediately — demo requested
+1768,paid_social,mid,3,1,0,1,0.888,0,29,0,0.555742412533023,hot,route to SDR immediately — demo requested
+1769,referral,large,8,0,1,0,0.88,0,20,1,0.5498777033926326,warm,route to SDR queue
+1770,referral,small,7,0,0,0,0.85,0,1,1,0.27871116882388214,cold,nurture — no SDR route
+1771,paid_social,small,5,0,0,0,0.699,0,24,0,0.1212014143008261,cold,nurture — no SDR route
+1772,referral,mid,4,0,0,0,0.913,1,23,0,0.1751319933927147,excluded,exclude — competitor domain
+1773,outbound,small,7,0,0,0,0.504,0,16,1,0.08496229203808289,cold,nurture — no SDR route
+1774,organic_search,small,6,2,1,0,0.881,0,1,1,0.7548387785632512,hot,route to SDR immediately
+1775,paid_social,small,2,2,0,0,0.682,0,13,0,0.3305737952187489,cold,nurture — no SDR route
+1776,outbound,mid,7,1,0,0,0.784,0,0,1,0.1986268297141595,cold,nurture — no SDR route
+1777,outbound,large,4,1,0,0,0.63,0,23,0,0.1548511160145016,cold,nurture — no SDR route
+1778,paid_social,large,4,2,0,0,0.808,0,16,0,0.45170860458242373,warm,route to SDR queue
+1779,paid_search,mid,3,2,0,0,0.747,0,1,1,0.4862309323653681,warm,route to SDR queue
+1780,outbound,small,3,0,0,0,0.712,0,22,0,0.05636293521807141,cold,nurture — no SDR route
+1781,organic_search,large,7,2,0,0,0.859,0,26,1,0.4962466493849499,warm,route to SDR queue
+1782,paid_search,mid,3,2,0,0,0.972,0,2,0,0.4817670407946614,warm,route to SDR queue
+1783,organic_search,small,1,0,0,0,0.79,0,9,0,0.10405308247072854,cold,nurture — no SDR route
+1784,paid_social,large,6,6,0,0,0.463,1,18,1,0.9427591509424537,excluded,exclude — competitor domain
+1785,outbound,small,3,1,0,1,0.539,0,2,0,0.5014947029657013,hot,route to SDR immediately — demo requested
+1786,paid_social,mid,4,0,1,0,0.593,0,3,0,0.3499189271443775,cold,nurture — no SDR route
+1787,paid_search,mid,6,1,0,0,0.68,0,9,1,0.3475364414960889,cold,nurture — no SDR route
+1788,paid_search,large,2,3,0,0,0.774,0,11,1,0.6602199379740462,hot,route to SDR immediately
+1789,paid_social,mid,2,1,1,0,0.912,0,22,1,0.3837207081716636,warm,route to SDR queue
+1790,outbound,large,3,1,0,0,0.818,0,19,0,0.14925856473991755,cold,nurture — no SDR route
+1791,paid_search,small,5,2,0,0,0.823,0,12,1,0.4897937737265938,warm,route to SDR queue
+1792,paid_social,small,5,1,0,0,0.872,0,30,0,0.20312903606694085,cold,nurture — no SDR route
+1793,outbound,small,4,0,0,0,0.621,0,7,0,0.07892133240431441,cold,nurture — no SDR route
+1794,paid_search,mid,4,0,1,1,0.714,0,19,1,0.7674719578463777,hot,route to SDR immediately — demo requested
+1795,paid_search,small,4,1,1,0,0.748,0,17,0,0.5424228464549438,warm,route to SDR queue
+1796,referral,small,2,1,0,0,0.68,0,7,1,0.30670207450099807,cold,nurture — no SDR route
+1797,paid_search,small,1,4,0,0,0.826,0,4,1,0.7282292383822903,hot,route to SDR immediately
+1798,outbound,mid,4,0,1,0,0.963,0,7,0,0.20428631509784004,cold,nurture — no SDR route
+1799,referral,small,4,3,0,0,0.664,0,0,0,0.7277144855075561,hot,route to SDR immediately
+1800,paid_search,mid,1,2,0,0,0.861,0,20,1,0.32886357039237013,cold,nurture — no SDR route
+1801,organic_search,small,6,2,0,0,0.567,0,5,0,0.4900345468707756,warm,route to SDR queue
+1802,organic_search,large,5,0,0,0,0.942,0,18,0,0.18944526628748118,cold,nurture — no SDR route
+1803,organic_search,mid,5,1,0,0,0.982,0,7,0,0.29597909232949415,cold,nurture — no SDR route
+1804,paid_social,small,7,0,1,0,0.829,1,0,0,0.4158001117177643,excluded,exclude — competitor domain
+1805,paid_social,small,3,1,0,0,0.795,0,25,0,0.18519937233889522,cold,nurture — no SDR route
+1806,paid_search,small,4,0,0,0,0.448,0,1,0,0.20176885387785587,nurture,nurture — enrichment incomplete
+1807,paid_search,small,2,1,0,0,0.744,0,5,1,0.2731821565007006,cold,nurture — no SDR route
+1808,paid_search,small,3,0,0,0,0.659,0,23,1,0.13542054752689134,cold,nurture — no SDR route
+1809,outbound,small,2,1,0,1,0.688,0,8,0,0.44122927663409856,hot,route to SDR immediately — demo requested
+1810,outbound,small,8,0,1,0,0.721,0,19,0,0.21904780319764233,cold,nurture — no SDR route
+1811,paid_social,small,4,1,0,0,0.662,0,1,1,0.2749094388950194,cold,nurture — no SDR route
+1812,organic_search,small,4,1,0,0,0.531,0,15,0,0.2520961942782267,cold,nurture — no SDR route
+1813,paid_social,mid,5,1,0,0,0.948,0,2,0,0.2893215341354205,cold,nurture — no SDR route
+1814,paid_search,mid,3,0,1,0,0.759,0,27,0,0.30529865538466777,cold,nurture — no SDR route
+1815,paid_social,small,6,2,1,0,0.912,0,20,1,0.6660732807572918,hot,route to SDR immediately
+1816,outbound,small,4,1,1,0,0.647,0,25,0,0.28013377060343175,cold,nurture — no SDR route
+1817,paid_social,small,4,3,1,0,0.92,1,25,1,0.760858620900441,excluded,exclude — competitor domain
+1818,organic_search,small,5,0,0,0,0.956,0,19,0,0.14396654854114682,cold,nurture — no SDR route
+1819,outbound,small,2,5,0,1,0.638,1,0,1,0.9404800240513675,excluded,exclude — competitor domain
+1820,paid_search,small,4,1,0,0,0.804,0,8,1,0.3146031474675258,cold,nurture — no SDR route
+1821,referral,small,3,2,0,0,0.839,0,19,1,0.4599181681509051,warm,route to SDR queue
+1822,paid_search,mid,5,2,0,0,0.805,0,2,0,0.5316082070615764,warm,route to SDR queue
+1823,organic_search,small,2,1,0,0,0.618,0,8,0,0.22773888526660843,cold,nurture — no SDR route
+1824,referral,mid,6,0,0,0,0.814,0,1,0,0.26578280391187287,cold,nurture — no SDR route
+1825,referral,small,1,0,0,0,0.843,0,11,1,0.14214386966753675,cold,nurture — no SDR route
+1826,outbound,small,4,1,0,0,0.771,0,3,0,0.15770744896574176,cold,nurture — no SDR route
+1827,organic_search,small,4,1,0,0,0.741,0,12,0,0.26147327468244946,cold,nurture — no SDR route
+1828,outbound,small,2,1,0,0,0.919,0,9,0,0.11640766380337789,cold,nurture — no SDR route
+1829,paid_search,small,2,1,1,0,0.888,0,12,1,0.5006760665475964,warm,route to SDR queue
+1830,organic_search,small,2,1,1,1,0.491,0,26,1,0.7941679766431103,nurture,nurture — enrichment incomplete
+1831,paid_search,mid,3,0,0,0,0.764,0,20,0,0.14134205845315848,cold,nurture — no SDR route
+1832,paid_search,small,2,3,0,0,0.862,0,13,0,0.5788503438992602,warm,route to SDR queue
+1833,paid_social,small,6,1,0,1,0.776,0,14,0,0.6791239791800177,hot,route to SDR immediately — demo requested
+1834,organic_search,small,5,1,0,0,0.803,0,18,1,0.2592851066210755,cold,nurture — no SDR route
+1835,referral,mid,5,2,0,0,0.937,0,9,0,0.5510446157654159,warm,route to SDR queue
+1836,paid_search,mid,5,1,0,0,0.835,0,7,0,0.3378807688925086,cold,nurture — no SDR route
+1837,outbound,mid,5,0,1,0,0.727,0,5,0,0.22518592717736594,cold,nurture — no SDR route
+1838,paid_search,small,4,0,0,0,0.884,0,29,0,0.13633860910326753,cold,nurture — no SDR route
+1839,paid_search,mid,6,2,0,1,0.824,0,28,1,0.8234337441737156,hot,route to SDR immediately — demo requested
+1840,referral,mid,6,1,1,1,0.927,0,8,1,0.9208259986660299,hot,route to SDR immediately — demo requested
+1841,outbound,small,4,0,0,0,0.86,0,13,0,0.07184355982354211,cold,nurture — no SDR route
+1842,organic_search,mid,6,4,1,0,0.765,1,8,1,0.9197607312017162,excluded,exclude — competitor domain
+1843,paid_social,mid,3,1,0,0,0.867,0,16,0,0.20894964287132584,cold,nurture — no SDR route
+1844,paid_social,small,3,0,0,0,0.636,0,18,0,0.1111450465261518,cold,nurture — no SDR route
+1845,referral,small,2,0,1,0,0.769,0,5,0,0.40155556108340695,warm,route to SDR queue
+1846,paid_social,mid,2,0,0,0,0.939,0,29,0,0.08273891332351252,cold,nurture — no SDR route
+1847,referral,small,5,1,0,0,0.416,0,14,0,0.3562516546527246,nurture,nurture — enrichment incomplete
+1848,referral,small,5,3,0,1,0.953,0,30,1,0.9122758501716998,hot,route to SDR immediately — demo requested
+1849,paid_social,small,5,0,0,0,0.626,0,7,0,0.15495535865119467,cold,nurture — no SDR route
+1850,outbound,large,1,0,0,0,0.802,0,24,0,0.053188237679289034,cold,nurture — no SDR route
+1851,paid_social,small,2,2,0,0,0.776,0,22,0,0.29803467429940156,cold,nurture — no SDR route
+1852,organic_search,small,4,0,0,0,0.8,0,0,1,0.17460344279395124,cold,nurture — no SDR route
+1853,organic_search,small,3,0,0,0,0.831,0,28,0,0.10608007716785507,cold,nurture — no SDR route
+1854,paid_social,large,6,2,0,1,0.844,0,10,1,0.8634419948897027,hot,route to SDR immediately — demo requested
+1855,organic_search,small,3,0,0,0,0.925,0,10,1,0.13815677476903993,cold,nurture — no SDR route
+1856,organic_search,mid,6,2,0,0,0.626,0,21,0,0.4236245604319458,warm,route to SDR queue
+1857,organic_search,small,5,0,0,1,0.861,0,13,1,0.522728293945743,hot,route to SDR immediately — demo requested
+1858,paid_search,mid,4,2,0,0,0.836,0,9,0,0.47999804881577635,warm,route to SDR queue
+1859,outbound,small,7,2,0,0,0.745,1,17,0,0.2761481288916254,excluded,exclude — competitor domain
+1860,outbound,mid,6,1,0,0,0.713,0,18,1,0.14664045771403103,cold,nurture — no SDR route
+1861,paid_search,small,7,1,0,0,0.816,0,15,1,0.3394973027927546,cold,nurture — no SDR route
+1862,outbound,mid,6,1,0,0,0.433,0,20,0,0.14267510282071172,nurture,nurture — enrichment incomplete
+1863,organic_search,small,4,1,0,0,0.808,0,30,0,0.20753003692970004,cold,nurture — no SDR route
+1864,paid_search,small,5,1,0,0,0.594,0,2,0,0.357125766957705,warm,route to SDR queue
+1865,referral,small,1,1,1,0,0.9,0,24,0,0.44997109068944613,warm,route to SDR queue
+1866,paid_social,small,3,3,0,0,0.703,0,29,0,0.47080389736323347,warm,route to SDR queue
+1867,organic_search,small,2,3,0,0,0.893,0,23,0,0.48938551723453816,warm,route to SDR queue
+1868,referral,small,1,0,0,1,0.732,0,18,1,0.46472006655095816,hot,route to SDR immediately — demo requested
+1869,organic_search,small,3,0,0,0,0.553,0,20,0,0.11960871756931994,cold,nurture — no SDR route
+1870,paid_search,small,3,1,0,0,0.705,0,10,0,0.28475090716326706,cold,nurture — no SDR route
+1871,referral,mid,3,0,1,0,0.924,0,16,0,0.3910610714482683,warm,route to SDR queue
+1872,organic_search,small,6,2,0,0,0.885,0,1,0,0.5063642273730621,warm,route to SDR queue
+1873,outbound,small,7,2,1,1,0.99,0,16,1,0.8725584243465867,hot,route to SDR immediately — demo requested
+1874,paid_search,mid,3,1,0,0,0.48,0,14,1,0.27154210733894807,nurture,nurture — enrichment incomplete
+1875,referral,mid,4,0,0,0,0.716,0,9,0,0.21175016893791582,cold,nurture — no SDR route
+1876,outbound,mid,5,1,1,0,0.933,0,4,0,0.3764897228480349,warm,route to SDR queue
+1877,paid_social,small,5,2,1,0,0.758,0,20,1,0.6492418992849487,hot,route to SDR immediately
+1878,paid_social,small,3,1,1,0,0.856,0,22,0,0.4176305993928286,warm,route to SDR queue
+1879,paid_social,small,5,1,0,0,0.691,0,12,0,0.25640839652270314,cold,nurture — no SDR route
+1880,paid_search,mid,8,3,0,0,0.678,0,17,1,0.6879354623219146,hot,route to SDR immediately
+1881,paid_search,small,5,2,0,0,0.701,0,30,0,0.41546303442250176,warm,route to SDR queue
+1882,paid_social,small,7,0,0,0,0.793,0,13,0,0.16023116227589598,cold,nurture — no SDR route
+1883,paid_search,small,2,3,0,0,0.929,0,15,1,0.5705873885467436,warm,route to SDR queue
+1884,referral,mid,6,1,0,0,0.742,0,7,0,0.40116012355706215,warm,route to SDR queue
+1885,paid_social,small,7,1,1,0,0.851,0,9,1,0.5559582893880087,warm,route to SDR queue
+1886,organic_search,mid,4,2,0,0,0.544,0,18,0,0.39599040948097963,warm,route to SDR queue
+1887,paid_search,mid,9,2,0,1,0.915,0,1,1,0.8971502587728662,hot,route to SDR immediately — demo requested
+1888,paid_social,small,2,1,0,0,0.801,0,28,0,0.15805958417497096,cold,nurture — no SDR route
+1889,referral,mid,0,0,0,0,0.442,0,6,1,0.11388996461442324,nurture,nurture — enrichment incomplete
+1890,paid_social,small,3,0,0,0,0.864,0,29,0,0.09412068734077826,cold,nurture — no SDR route
+1891,organic_search,small,1,1,0,0,0.599,0,27,1,0.1496060116916167,cold,nurture — no SDR route
+1892,paid_social,small,5,0,0,0,0.841,0,0,1,0.1707667503709639,cold,nurture — no SDR route
+1893,organic_search,small,3,1,0,1,0.674,0,9,1,0.6627719559168916,hot,route to SDR immediately — demo requested
+1894,outbound,mid,4,0,0,0,0.775,0,16,1,0.06859458747625338,cold,nurture — no SDR route
+1895,paid_search,small,3,2,0,0,0.591,0,19,0,0.4120459924379079,warm,route to SDR queue
+1896,organic_search,small,2,2,0,0,0.807,0,17,0,0.3413788298741148,cold,nurture — no SDR route
+1897,organic_search,small,1,1,0,1,0.574,0,13,0,0.5669770378232257,hot,route to SDR immediately — demo requested
+1898,paid_search,mid,5,4,1,1,0.857,0,28,1,0.9819118229640599,hot,route to SDR immediately — demo requested
+1899,outbound,small,4,0,1,0,0.74,0,26,0,0.15755481920403785,cold,nurture — no SDR route
+1900,paid_social,small,4,2,0,0,0.92,0,0,1,0.4405584133064067,warm,route to SDR queue
+1901,paid_search,mid,4,1,0,0,0.887,0,11,1,0.30379123515765866,cold,nurture — no SDR route
+1902,referral,mid,3,0,1,0,0.62,0,6,1,0.43193196941893636,warm,route to SDR queue
+1903,referral,mid,3,1,0,0,0.647,0,26,0,0.2704442453017419,cold,nurture — no SDR route
+1904,organic_search,small,5,0,0,0,0.753,0,5,0,0.17545883728403694,cold,nurture — no SDR route
+1905,outbound,small,6,2,0,0,0.859,0,6,0,0.3003575270838486,cold,nurture — no SDR route
+1906,paid_search,small,0,1,0,1,0.547,0,30,1,0.45971085660447636,hot,route to SDR immediately — demo requested
+1907,organic_search,large,5,2,0,0,0.996,0,17,0,0.4984763169500672,warm,route to SDR queue
+1908,organic_search,mid,3,0,0,0,0.762,0,25,0,0.11097010045125255,cold,nurture — no SDR route
+1909,outbound,small,6,3,0,0,0.595,0,26,1,0.3861774678671815,warm,route to SDR queue
+1910,organic_search,large,0,0,0,0,0.943,0,24,0,0.08075181737972625,cold,nurture — no SDR route
+1911,organic_search,small,2,3,0,1,0.458,0,0,1,0.8925869557472333,nurture,nurture — enrichment incomplete
+1912,paid_social,small,4,0,0,0,0.977,0,21,0,0.11694699078993322,cold,nurture — no SDR route
+1913,organic_search,mid,2,1,0,0,0.862,0,12,1,0.2159720698461971,cold,nurture — no SDR route
+1914,organic_search,large,7,0,0,1,0.873,0,14,0,0.6288950879001067,hot,route to SDR immediately — demo requested
+1915,outbound,small,2,0,0,0,0.724,0,10,0,0.05962659449185027,cold,nurture — no SDR route
+1916,referral,small,6,0,0,0,0.659,0,5,0,0.2530754321658489,cold,nurture — no SDR route
+1917,organic_search,small,6,2,0,0,0.81,0,24,1,0.41119048642091915,warm,route to SDR queue
+1918,outbound,mid,5,1,0,0,0.895,0,6,0,0.16289280451935487,cold,nurture — no SDR route
+1919,paid_search,small,6,5,0,0,0.791,0,4,1,0.910140307367548,hot,route to SDR immediately
+1920,referral,mid,5,1,0,0,0.912,0,7,0,0.3829502438018336,warm,route to SDR queue
+1921,paid_social,mid,8,2,0,0,0.958,0,27,0,0.40063182283929627,warm,route to SDR queue
+1922,referral,small,2,0,0,0,0.682,0,24,1,0.13996212258661103,cold,nurture — no SDR route
+1923,paid_search,large,4,0,0,0,0.67,0,26,0,0.18505794593853128,cold,nurture — no SDR route
+1924,paid_social,small,7,2,1,0,0.856,0,3,0,0.7389823068093176,hot,route to SDR immediately
+1925,referral,mid,2,0,0,0,0.846,0,1,0,0.19285712682290648,cold,nurture — no SDR route
+1926,paid_search,small,1,2,0,0,0.902,0,4,0,0.3903618389306183,warm,route to SDR queue
+1927,paid_search,small,3,1,0,0,0.657,0,12,1,0.2780327013136282,cold,nurture — no SDR route
+1928,paid_social,small,6,2,0,0,0.765,0,15,1,0.41964856738224743,warm,route to SDR queue
+1929,outbound,small,3,1,1,1,0.645,0,14,0,0.711717911343174,hot,route to SDR immediately — demo requested
+1930,paid_search,small,8,1,0,0,0.92,0,4,0,0.3954975610013421,warm,route to SDR queue
+1931,referral,small,6,3,0,0,0.854,0,27,1,0.6671183308839773,hot,route to SDR immediately
+1932,paid_search,small,3,2,0,0,0.701,0,14,0,0.4323178688265954,warm,route to SDR queue
+1933,paid_social,small,2,2,1,0,0.874,0,26,1,0.5436393137238064,warm,route to SDR queue
+1934,organic_search,small,5,2,0,0,0.883,0,10,0,0.4499956478353437,warm,route to SDR queue
+1935,organic_search,mid,3,2,0,0,0.692,0,28,0,0.3318888757642457,cold,nurture — no SDR route
+1936,outbound,large,3,1,1,0,0.913,0,17,0,0.35243987882300104,warm,route to SDR queue
+1937,outbound,small,1,2,0,0,0.566,0,29,0,0.1366993253675038,cold,nurture — no SDR route
+1938,paid_search,mid,3,1,0,0,0.445,0,23,0,0.2428270513557823,nurture,nurture — enrichment incomplete
+1939,organic_search,mid,3,1,0,1,0.835,0,27,1,0.5923387338616937,hot,route to SDR immediately — demo requested
+1940,organic_search,small,3,1,0,0,0.788,0,6,0,0.2597012109049914,cold,nurture — no SDR route
+1941,paid_social,small,6,2,0,0,0.684,0,23,1,0.3875366461681774,warm,route to SDR queue
+1942,referral,large,5,1,0,0,0.654,0,18,0,0.41398687059459316,warm,route to SDR queue
+1943,outbound,small,1,1,0,0,0.905,0,0,0,0.11155655041329028,cold,nurture — no SDR route
+1944,paid_social,small,5,0,0,1,0.683,0,11,0,0.5023352000567846,hot,route to SDR immediately — demo requested
+1945,outbound,mid,2,1,0,1,0.164,0,18,0,0.4011055017835069,nurture,nurture — enrichment incomplete
+1946,paid_search,mid,2,0,0,0,0.91,0,15,0,0.13444091659507793,cold,nurture — no SDR route
+1947,paid_search,large,4,1,0,0,0.872,0,28,0,0.3097244426656965,cold,nurture — no SDR route
+1948,referral,small,2,0,1,0,0.806,0,17,0,0.3543472453891316,warm,route to SDR queue
+1949,paid_social,small,6,0,0,0,0.7,0,29,1,0.12033857985802042,cold,nurture — no SDR route
+1950,organic_search,small,2,2,0,0,0.789,0,0,1,0.40791660168457383,warm,route to SDR queue
+1951,paid_social,small,5,1,0,0,0.607,0,9,0,0.2661796822794248,cold,nurture — no SDR route
+1952,paid_search,mid,7,1,0,0,0.704,0,2,0,0.38997330226239774,warm,route to SDR queue
+1953,referral,large,6,2,1,0,0.817,0,27,0,0.8007917906687128,hot,route to SDR immediately
+1954,organic_search,small,4,1,0,1,0.757,0,14,1,0.6683970284463951,hot,route to SDR immediately — demo requested
+1955,paid_search,small,1,0,0,0,0.698,0,29,0,0.09160661500072911,cold,nurture — no SDR route
+1956,paid_search,small,8,1,0,0,0.64,0,10,0,0.37209324766804885,warm,route to SDR queue
+1957,referral,small,0,2,1,0,0.602,0,27,1,0.5315425279291583,warm,route to SDR queue
+1958,outbound,mid,2,2,0,0,0.981,0,18,0,0.18811782264137483,cold,nurture — no SDR route
+1959,outbound,large,1,3,0,1,0.943,0,7,0,0.7898324916208447,hot,route to SDR immediately — demo requested
+1960,organic_search,small,7,1,0,0,0.578,0,15,1,0.2978930109494897,cold,nurture — no SDR route
+1961,paid_social,mid,0,2,0,1,0.732,0,21,1,0.5974058599318232,hot,route to SDR immediately — demo requested
+1962,paid_social,large,3,2,1,1,0.927,0,12,1,0.933088462069352,hot,route to SDR immediately — demo requested
+1963,paid_search,small,2,1,0,0,0.558,0,5,0,0.2733692948621517,cold,nurture — no SDR route
+1964,paid_social,large,1,1,0,0,0.793,0,3,0,0.24218101651064103,cold,nurture — no SDR route
+1965,paid_search,mid,7,3,0,0,0.742,0,27,0,0.6376303443266954,hot,route to SDR immediately
+1966,paid_search,mid,4,1,1,0,0.857,0,29,1,0.4921853573888169,warm,route to SDR queue
+1967,paid_social,small,2,1,0,0,0.735,0,30,0,0.15370003187215275,cold,nurture — no SDR route
+1968,paid_search,small,4,1,0,0,0.929,0,20,0,0.2728662789918818,cold,nurture — no SDR route
+1969,paid_social,small,5,1,0,0,0.814,0,24,0,0.2199165270358022,cold,nurture — no SDR route
+1970,organic_search,large,4,2,0,0,0.737,0,24,0,0.44737617170796423,warm,route to SDR queue
+1971,organic_search,mid,3,0,0,0,0.673,0,17,0,0.12493043246205102,cold,nurture — no SDR route
+1972,outbound,small,1,2,0,0,0.634,0,2,0,0.19916793307966205,cold,nurture — no SDR route
+1973,outbound,small,3,0,0,0,0.716,0,0,0,0.07945318799142063,cold,nurture — no SDR route
+1974,organic_search,small,3,2,0,0,0.881,0,23,0,0.3504774250327613,warm,route to SDR queue
+1975,outbound,mid,7,5,0,0,0.88,0,4,1,0.8021529786173324,hot,route to SDR immediately
+1976,paid_social,mid,1,1,0,0,0.648,0,25,0,0.1393763430734615,cold,nurture — no SDR route
+1977,referral,large,4,2,1,0,0.735,0,16,1,0.8038975849367194,hot,route to SDR immediately
+1978,paid_search,mid,6,3,0,0,0.889,0,29,0,0.6143031329345557,hot,route to SDR immediately
+1979,organic_search,small,4,1,0,0,0.962,0,24,1,0.22439176205248199,cold,nurture — no SDR route
+1980,outbound,small,2,2,0,0,0.67,0,1,0,0.23573047715226417,cold,nurture — no SDR route
+1981,organic_search,mid,3,1,0,0,0.645,0,11,0,0.24407471556196977,cold,nurture — no SDR route
+1982,organic_search,large,5,0,0,0,0.936,0,2,1,0.2340032976473635,cold,nurture — no SDR route
+1983,referral,small,3,1,0,0,0.776,0,5,0,0.34488332383782966,cold,nurture — no SDR route
+1984,paid_social,small,3,1,1,0,0.886,0,2,0,0.5005056122275509,warm,route to SDR queue
+1985,referral,small,3,2,0,1,0.807,0,2,1,0.8695275859056735,hot,route to SDR immediately — demo requested
+1986,paid_search,small,4,3,1,0,0.926,0,11,1,0.8456217804282393,hot,route to SDR immediately
+1987,paid_search,small,5,2,0,1,0.793,0,0,1,0.8735754817163784,hot,route to SDR immediately — demo requested
+1988,paid_search,small,3,2,0,0,0.881,0,0,1,0.49024249870028525,warm,route to SDR queue
+1989,paid_search,small,7,0,0,0,0.671,0,0,0,0.24428647239491438,cold,nurture — no SDR route
+1990,outbound,small,8,4,0,1,0.63,0,25,1,0.8970315276730345,hot,route to SDR immediately — demo requested
+1991,paid_search,large,3,2,0,0,0.857,0,26,0,0.45966400876245045,warm,route to SDR queue
+1992,paid_search,large,4,1,0,1,0.471,0,14,0,0.7698952035987583,nurture,nurture — enrichment incomplete
+1993,organic_search,small,6,2,1,1,0.712,0,25,1,0.9239062361691442,hot,route to SDR immediately — demo requested
+1994,organic_search,mid,6,1,0,0,0.583,0,24,0,0.2547517492957136,cold,nurture — no SDR route
+1995,referral,mid,7,0,0,0,0.839,0,4,0,0.26874284424464817,cold,nurture — no SDR route
+1996,paid_social,small,3,3,0,1,0.641,0,0,1,0.8948721990000423,hot,route to SDR immediately — demo requested
+1997,paid_search,small,4,0,0,0,0.742,0,8,0,0.18333653546251852,cold,nurture — no SDR route
+1998,outbound,small,3,1,0,0,0.72,0,10,0,0.1299241669204726,cold,nurture — no SDR route
+1999,paid_search,small,4,1,1,0,0.689,0,8,0,0.5795694475463167,warm,route to SDR queue
+2000,paid_search,small,3,2,0,0,0.855,0,25,0,0.3876370157982909,warm,route to SDR queue

@@ -9,6 +9,14 @@ import matplotlib.pyplot as plt
 from mmm_geo.attribution import compare_attribution
 from mmm_geo.data_gen import generate_geo, generate_journeys, generate_weekly
 from mmm_geo.geo_experiment import analyze_geo
+from mmm_geo.lead_scoring import (
+    assign_mql_tiers,
+    calibration_table,
+    fit_lead_scorer,
+    generate_leads,
+    lead_scoring_summary_lines,
+    lead_value,
+)
 from mmm_geo.mmm import fit_mmm, recommend_reallocation
 from mmm_geo.monitoring import monitor_mmm, monitoring_summary_lines
 
@@ -38,6 +46,15 @@ def main():
     # 20,000 journeys per coalition keeps the small-channel Shapley values
     # (notably display) out of simulation noise.
     attrib = compare_attribution(journeys, n_per_subset=20000)
+
+    # Lead scoring: logistic scorer, calibration check, MQL tiers with
+    # routing rules and exclusions, and expected lead value.
+    leads = generate_leads()
+    lead_fit = fit_lead_scorer(leads)
+    lead_cal = calibration_table(lead_fit["scored"])
+    lead_routed = assign_mql_tiers(lead_fit["scored"])
+    lead_val = lead_value(lead_routed)
+    lead_routed.to_csv(os.path.join(DATA, "leads.csv"), index=False)
 
     # Chart 1: MMM channel contributions.
     fig, ax = plt.subplots(figsize=(8, 4))
@@ -122,6 +139,9 @@ def main():
     lines.append(f"- Recommendation: {geo_res['recommendation']} paid social "
                  f"— the pause cost real incremental signups, so the channel "
                  f"is incremental and should stay on.")
+    lines.append("")
+    lines.extend(lead_scoring_summary_lines(
+        lead_fit, lead_cal, lead_routed, lead_val))
     with open(os.path.join(OUT, "report.md"), "w") as f:
         f.write("\n".join(lines) + "\n")
     print("\n".join(lines))

@@ -1,0 +1,13 @@
+encounter_id,patient_id,encounter_date,department,encounter_type,discharge_status
+E001,PAT-001,2026-10-01,Cardiology,Outpatient,Discharged
+E002,PAT-002,2026-10-05,Internal Medicine,Outpatient,Discharged
+E003,PAT-003,2026-10-07,Emergency,Emergency,Admitted
+E004,PAT-004,2026-10-09,Oncology,Inpatient,Discharged
+E005,PAT-005,2026-10-12,Cardiology,Inpatient,Discharged
+E006,PAT-006,2026-10-14,Orthopedics,Outpatient,Discharged
+E007,PAT-001,2026-10-28,Cardiology,Outpatient,Discharged
+E008,PAT-007,2026-11-02,Internal Medicine,Outpatient,Discharged
+E009,PAT-008,2026-11-05,Emergency,Emergency,Transferred
+E010,PAT-003,2026-11-09,Oncology,Outpatient,Discharged
+E011,PAT-002,2026-10-28,Internal Medicine,Outpatient,Discharged
+E012,PAT-004,2026-11-12,Orthopedics,Outpatient,Discharged

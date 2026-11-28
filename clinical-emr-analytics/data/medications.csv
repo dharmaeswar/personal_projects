@@ -1,0 +1,17 @@
+med_id,encounter_id,patient_id,drug_name,dose,dose_unit,route,start_date
+M001,E001,PAT-001,Metformin,500,mg,oral,2026-10-01
+M002,E001,PAT-001,Lisinopril,10,mg,oral,2026-10-01
+M003,E002,PAT-002,Atorvastatin,20,mg,oral,2026-10-05
+M004,E003,PAT-003,Amlodipine,5,mg,oral,2026-10-07
+M005,E004,PAT-004,Metformin,850,mg,oral,2026-10-09
+M006,E005,PAT-005,Furosemide,40,mg,oral,2026-10-12
+M007,E005,PAT-005,Prednisone,0,mg,oral,2026-10-12
+M008,E006,PAT-006,Levothyroxine,75,mcg,oral,2026-10-14
+M009,E006,PAT-006,Omeprazole,20,xyz,oral,2026-10-14
+M010,E007,PAT-001,Omeprazole,20,mg,oral,2026-10-28
+M011,E008,PAT-007,Metoprolol,25,mg,oral,2026-11-02
+M012,E009,PAT-008,Insulin glargine,10,units,subcutaneous,2026-11-05
+M013,E010,PAT-003,Amoxicillin,500,mg,oral,2026-11-09
+M014,E011,PAT-002,Losartan,50,mg,oral,2026-10-28
+M015,E012,PAT-004,Albuterol,90,mcg,inhaled,2026-11-12
+M016,E997,PAT-???,Aspirin,81,mg,oral,2026-11-13

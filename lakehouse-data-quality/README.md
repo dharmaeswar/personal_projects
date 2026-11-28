@@ -604,3 +604,63 @@ Tests: **141 passed** (`python -m pytest -q`) — 129 earlier tests plus
 cases and exactly-once, replay no-op, sink routing totals, health
 statuses and the empty-source case, catalog registration and search,
 and end-to-end determinism (`tests/test_datacraft.py`).
+
+## Added Nov 27, 2026 — Glue-style ETL, Iceberg snapshots, relational tuning, data modeling
+
+For a Northwestern Mutual Data Engineer role (Req JR-46298, Franklin WI),
+where the work is AWS Glue ETL pipelines, Apache Iceberg / S3 lakehouse
+tables, PostgreSQL and Amazon Aurora MySQL, erwin data modeling, and
+database / data-performance tuning. New modules `lakehouse/glue_etl.py`,
+`lakehouse/relational.py`, `lakehouse/modeling.py`, runner
+`run_glue_relational.py`, tests `tests/test_glue_etl.py`,
+`tests/test_relational.py`, `tests/test_modeling.py` — same pandas +
+Parquet approach as the rest of the project. No AWS Glue service, S3
+bucket, Iceberg runtime, PostgreSQL server or Aurora cluster is
+involved, and the code says so where it matters.
+
+- **Glue-style ETL job** (`lakehouse/glue_etl.py`) — reads raw orders
+  from an S3-style partitioned layout (`date=YYYY-MM-DD/orders.parquet`),
+  cleans them with the same `build_silver` the medallion pipeline uses
+  (dedupe, schema cast, quality checks, quarantine), and commits the
+  result as a new immutable Iceberg-style snapshot (see
+  `lakehouse/snapshots.py`). Job bookmarks make the job incremental: a
+  re-run reads only partitions newer than the bookmark, and a re-run
+  with no new partitions commits nothing.
+- **Relational layer** (`lakehouse/relational.py`) — loads gold
+  aggregates into relational tables with primary keys, foreign keys and
+  indexes. The local engine is SQLite (stdlib), standing in for
+  PostgreSQL/Aurora; the SQL is standard SQL that runs on both.
+  `postgres_ddl` / `aurora_mysql_ddl` forward-engineer a table as
+  PostgreSQL or Aurora MySQL DDL text for review. `tune_query` runs the
+  query plan before and after adding an index and reports whether a
+  full scan became an index search — the verdict rests on the plan
+  text, not on wall-clock time.
+- **Data modeling** (`lakehouse/modeling.py`) — an erwin-style logical
+  model (entities, attributes, keys, relationships) with validation
+  (missing primary key, foreign key to an unknown entity or column,
+  foreign key not pointing at a primary key, type mismatch, duplicate
+  attributes) and forward-engineering to PostgreSQL and Aurora MySQL
+  DDL. An invalid model is never forward-engineered.
+
+## Results of the Glue + relational run (real run, Nov 27, 2026)
+
+```
+Glue job: orders-lakehouse-load — 3 partitions (2026-11-15..17)
+Rows read: 600; loaded: 587; quarantined: 13 (planted violations)
+Snapshot id: 1; second run (bookmark): no_new_partitions
+Silver rows: 587; gold rows: 551; total revenue: $392,482.56
+Query tuned: revenue by region/day — SCAN via PK autoindex before,
+  SEARCH USING INDEX idx_fact_daily_revenue_region_order_date after
+Logical model issues: none; PostgreSQL DDL tables: 3; Aurora MySQL DDL tables: 3
+```
+
+Tests: **195 passed, 0 failed** (`python -m pytest -q`, re-run Nov 28,
+2026) — 171 earlier tests plus 23 new tests for Glue partitions,
+bookmarks, quarantine and dedupe, relational load, foreign-key
+rejection, DDL generation, plan-based query tuning, and model
+validation / forward-engineering (`tests/test_glue_etl.py`,
+`tests/test_relational.py`, `tests/test_modeling.py`). The
+`test_data_forge.py::test_contract_passes_on_clean_table` failure noted Nov 27 under pandas 3.x no longer reproduces — the suite
+is green as of Nov 28, 2026. A fresh clean-state re-run of
+`run_glue_relational.py` on Nov 28 reproduced the Nov 27 numbers
+exactly (600 rows read, 587 loaded, 13 quarantined, $392,482.56).

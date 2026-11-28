@@ -1,0 +1,32 @@
+Glue-style ETL + relational tuning demo
+
+Glue job: orders-lakehouse-load
+Status: loaded
+Partitions read: date=2026-11-15, date=2026-11-16, date=2026-11-17
+Rows read: 600
+Rows loaded: 587
+Rows quarantined: 13
+Snapshot id: 1
+Bookmark: date=2026-11-17
+Snapshots in table: 1
+
+Second run (bookmark): no_new_partitions; partitions read: 0
+Silver rows after both runs: 587
+Gold rows: 551; total revenue: $392,482.56
+
+Query: SELECT order_date, SUM(total_revenue) FROM fact_daily_revenue WHERE region = ? GROUP BY order_date ORDER BY order_date
+Index added: idx_fact_daily_revenue_region_order_date
+Plan before:
+  0 0 SCAN fact_daily_revenue USING INDEX sqlite_autoindex_fact_daily_revenue_1
+Plan after:
+  0 0 SEARCH fact_daily_revenue USING INDEX idx_fact_daily_revenue_region_order_date (region=?)
+Full scan before tuning: True
+Index search after tuning: True
+Rows returned: 113
+Seconds before: 0.0002; after: 0.0002 (informational)
+
+Logical model issues: (none)
+PostgreSQL DDL tables: 3; Aurora MySQL DDL tables: 3
+
+Honest limits: pandas + Parquet stand in for Glue/Iceberg/S3; SQLite stands in for
+PostgreSQL/Aurora. No AWS service, cluster or server is involved.

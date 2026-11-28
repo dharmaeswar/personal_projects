@@ -1,0 +1,36 @@
+{
+  "partitions_seeded": [
+    "date=2026-11-15",
+    "date=2026-11-16",
+    "date=2026-11-17"
+  ],
+  "first_run": {
+    "status": "loaded",
+    "partitions_read": [
+      "date=2026-11-15",
+      "date=2026-11-16",
+      "date=2026-11-17"
+    ],
+    "rows_read": 600,
+    "rows_loaded": 587,
+    "rows_quarantined": 13,
+    "snapshot_id": 1
+  },
+  "second_run": {
+    "status": "no_new_partitions",
+    "partitions_read": [],
+    "snapshot_id": null
+  },
+  "snapshots": 1,
+  "silver_rows": 587,
+  "gold_rows": 551,
+  "gold_revenue": 392482.56,
+  "tuning": {
+    "scanned_before": true,
+    "uses_index_after": true,
+    "rows": 113
+  },
+  "model_issues": [],
+  "postgres_ddl_tables": 3,
+  "mysql_ddl_tables": 3
+}

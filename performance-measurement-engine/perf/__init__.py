@@ -12,6 +12,11 @@ from .conformance import (
     ENGINE_VERSION, MEASURE_VERSIONS, run_conformance, pin_run,
     input_hash, data_snapshot_hash, GOLDEN_VECTORS,
 )
+from .multiples import (
+    paid_in_total, distributions_total, dpi, rvpi, tvpi,
+)
+from .pooled import pooled_irr, neutral_weights, neutrally_weighted_irr
+from .numerical_rules import check_source, check_module, lint_decimal_modules
 from .batch import FundData, compute_batch
 from .composite import (
     asset_weighted_return, equal_weighted_return, composite_dispersion,
@@ -31,5 +36,8 @@ __all__ = [
     "decimal_modified_dietz", "chained_index", "unitised_return",
     "ENGINE_VERSION", "MEASURE_VERSIONS", "GOLDEN_VECTORS",
     "input_hash", "data_snapshot_hash", "pin_run", "run_conformance",
+    "paid_in_total", "distributions_total", "dpi", "rvpi", "tvpi",
+    "pooled_irr", "neutral_weights", "neutrally_weighted_irr",
+    "check_source", "check_module", "lint_decimal_modules",
     "FundData", "compute_batch",
 ]

@@ -26,8 +26,10 @@ from decimal import Decimal
 from .decimal_solver import money, solve_irr_decimal, decimal_npv
 from .decimal_measures import decimal_modified_dietz, chained_index
 from .pme import ks_pme, direct_alpha, long_nickels_pme
+from .multiples import dpi, rvpi, tvpi
+from .pooled import pooled_irr, neutrally_weighted_irr
 
-ENGINE_VERSION = "0.2.0"
+ENGINE_VERSION = "0.3.0"
 
 MEASURE_VERSIONS = {
     "irr_decimal": "1.0.0",
@@ -36,6 +38,11 @@ MEASURE_VERSIONS = {
     "direct_alpha": "1.0.0",
     "long_nickels_pme": "1.0.0",
     "chained_index": "1.0.0",
+    "dpi": "1.0.0",
+    "rvpi": "1.0.0",
+    "tvpi": "1.0.0",
+    "pooled_irr": "1.0.0",
+    "neutrally_weighted_irr": "1.0.0",
 }
 
 
@@ -151,6 +158,48 @@ GOLDEN_VECTORS = [
         "expected": "121",
         "tolerance": "0",
     },
+    {
+        "name": "dpi: 120 returned on 150 paid in is 0.8",
+        "measure": "dpi",
+        "inputs": {"cash_flows": [["0", "100"], ["1", "50"],
+                                  ["2", "-30"], ["3", "-90"]]},
+        "expected": "0.8",
+        "tolerance": "0",
+    },
+    {
+        "name": "rvpi: 60 still held on 150 paid in is 0.4",
+        "measure": "rvpi",
+        "inputs": {"cash_flows": [["0", "100"], ["1", "50"],
+                                  ["2", "-30"], ["3", "-90"]],
+                   "residual_nav": "60"},
+        "expected": "0.4",
+        "tolerance": "0",
+    },
+    {
+        "name": "tvpi: (120 returned + 60 held) on 150 paid in is 1.2",
+        "measure": "tvpi",
+        "inputs": {"cash_flows": [["0", "100"], ["1", "50"],
+                                  ["2", "-30"], ["3", "-90"]],
+                   "residual_nav": "60"},
+        "expected": "1.2",
+        "tolerance": "0",
+    },
+    {
+        "name": "pooled_irr: -500 in, +594 back is 18.8%",
+        "measure": "pooled_irr",
+        "inputs": {"funds": [[["0", "-100"], ["1", "110"]],
+                             [["0", "-400"], ["1", "484"]]]},
+        "expected": "0.188",
+        "tolerance": "0",
+    },
+    {
+        "name": "neutrally_weighted_irr: 10% and 21% funds count equally, 15.5%",
+        "measure": "neutrally_weighted_irr",
+        "inputs": {"funds": [[["0", "-100"], ["1", "110"]],
+                             [["0", "-400"], ["1", "484"]]]},
+        "expected": "0.155",
+        "tolerance": "0",
+    },
 ]
 
 
@@ -190,6 +239,22 @@ def _run_vector(vector):
             actual = long_nickels_pme(flows, levels, inputs["end_day"])
         elif measure == "chained_index":
             actual = chained_index(inputs["sub_period_returns"])[-1]
+        elif measure in ("dpi", "rvpi", "tvpi"):
+            flows = [(Decimal(d), Decimal(a))
+                     for d, a in inputs["cash_flows"]]
+            if measure == "dpi":
+                actual = dpi(flows)
+            elif measure == "rvpi":
+                actual = rvpi(flows, inputs["residual_nav"])
+            else:
+                actual = tvpi(flows, inputs["residual_nav"])
+        elif measure in ("pooled_irr", "neutrally_weighted_irr"):
+            funds = [[(Decimal(d), Decimal(a)) for d, a in fund]
+                     for fund in inputs["funds"]]
+            if measure == "pooled_irr":
+                actual, _ = pooled_irr(funds)
+            else:
+                actual, _ = neutrally_weighted_irr(funds)
         else:
             return False, None, "unknown measure %r" % (measure,)
     except Exception as exc:  # noqa: BLE001 - harness reports, never raises
@@ -255,6 +320,16 @@ def check_invariants():
     checks.append(("netting: split same-day flow leaves Dietz unchanged",
                    dietz_split == dietz_net,
                    "split %s, netted %s" % (dietz_split, dietz_net)))
+
+    # Multiples identity: TVPI is exactly DPI + RVPI, by construction.
+    mult_flows = [(Decimal(0), Decimal(100)), (Decimal(1), Decimal(50)),
+                  (Decimal(2), Decimal(-30)), (Decimal(3), Decimal(-90))]
+    checks.append(("multiples identity: TVPI == DPI + RVPI",
+                   tvpi(mult_flows, "60")
+                   == dpi(mult_flows) + rvpi(mult_flows, "60"),
+                   "tvpi %s, dpi + rvpi %s" % (
+                       tvpi(mult_flows, "60"),
+                       dpi(mult_flows) + rvpi(mult_flows, "60"))))
     return checks
 
 

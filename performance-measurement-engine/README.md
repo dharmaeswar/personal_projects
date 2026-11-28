@@ -9,8 +9,11 @@ fills, and gross-to-net fee bridges.
 Built as a portfolio project for MSCI Quantitative Developer and
 Software Engineer (private-capital index calculation) applications
 (performance measurement systems, GIPS-adjacent methods, private
-markets). All fund data is synthetic and seeded; nothing here
-describes a real fund, real NAVs, or real GIPS verification work.
+markets). Extended for the MSCI Senior Associate Software Engineer
+application (Job 2026-6080) with fund multiples, pooled and neutrally
+weighted IRR, and a numerical-rules lint. All fund data is synthetic
+and seeded; nothing here describes a real fund, real NAVs, or real
+GIPS verification work.
 
 ## What it does
 
@@ -49,7 +52,22 @@ describes a real fund, real NAVs, or real GIPS verification work.
   data-snapshot hash, the engine version, the measure versions and an
   input hash. `run_conformance()` runs the golden vectors from the
   methodology documents plus invariant checks (date-shift, netting,
-  weight sums, monotonicity) on every build.
+  weight sums, monotonicity, the TVPI == DPI + RVPI identity) on
+  every build.
+- **Fund multiples** (`perf/multiples.py`) — DPI, RVPI and TVPI in
+  exact decimal arithmetic: pure ratios of money sums, no solver, so
+  the identity TVPI == DPI + RVPI holds exactly and is pinned as a
+  conformance invariant.
+- **Pooled and neutrally weighted IRR** (`perf/pooled.py`) — the two
+  standard composite money-weighted returns as separate, separately
+  versioned measures: pooled merges all flows (large funds dominate);
+  neutrally weighted scales each fund's flows by inverse paid-in so
+  every fund counts equally.
+- **Numerical-rules lint** (`perf/numerical_rules.py`) — an AST check
+  that enforces the no-float rule mechanically on every decimal
+  module: float literals, `float()` calls and `math` imports are
+  reported as violations, and the test suite proves the checker
+  catches planted violations.
 - **Batch engine** (`perf/batch.py`) — single-pass computation over
   many funds and measure definitions, with a cache keyed on
   (data snapshot, measure, measure version) so identical inputs are
@@ -84,7 +102,11 @@ including adversarial timing edge cases that an implementation must
 reproduce exactly. The PME and decimal-solver suites add hand-computed
 golden vectors (KS-PME 1.10, Direct Alpha 0.10, Long-Nickels 1.10,
 decimal IRR exactly 10% and 21%) and invariant tests for date-shift,
-netting, weight sums and monotonicity. The conformance suite adds
+netting, weight sums and monotonicity. The multiples and pooled
+suites add hand-computed golden values (DPI 0.8, RVPI 0.4, TVPI 1.2;
+pooled IRR 18.8%, neutrally weighted IRR 15.5%), and the
+numerical-rules suite checks the decimal modules are float-free and
+that the lint catches planted violations. The conformance suite adds
 run-pinning checks (same inputs reproduce the same snapshot and
 request hashes; changed inputs change the snapshot) and batch tests
 (values match direct calls, identical snapshots hit the cache, and a

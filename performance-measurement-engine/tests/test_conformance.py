@@ -12,7 +12,7 @@ def test_run_conformance_all_pass():
     report = run_conformance()
     assert report["failed"] == []
     assert report["engine_version"] == ENGINE_VERSION
-    assert len(report["passed"]) == len(GOLDEN_VECTORS) + 5  # 7 vectors + 5 invariants
+    assert len(report["passed"]) == len(GOLDEN_VECTORS) + 6  # 12 vectors + 6 invariants
     assert report["summary"] == "%d passed, 0 failed" % len(report["passed"])
 
 
